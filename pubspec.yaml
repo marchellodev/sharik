@@ -1,0 +1,30 @@
+name: sharik
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_svg: ^0.17.1
+  google_fonts: ^0.3.9
+  intro_slider: ^2.2.8
+  file_picker: ^1.4.3+2
+  shared_preferences: ^0.5.6
+  url_launcher: ^5.4.1
+  wifi_iot: ^0.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/
