@@ -10,33 +10,42 @@ class LanguagePage extends StatelessWidget {
 
   LanguagePage(this.back);
 
-  Widget button(String locale) => Container(
-      height: 100,
-      child: Material(
-        borderRadius: BorderRadius.circular(12),
-        color: Color(0xFF7E57C2),
-        child: InkWell(
+  Widget button(String locale) {
+    String text;
+    switch(locale){
+      case 'en': text = 'English'; break;
+      case 'ua': text = 'Українська'; break;
+      case 'ru': text = 'Русский'; break;
+    }
+
+    return Container(
+        height: 100,
+        child: Material(
           borderRadius: BorderRadius.circular(12),
-          child: Stack(
-            children: <Widget>[
-              Center(
-                  child: Text(locale == 'en' ? 'English' : 'Українська',
-                      style: GoogleFonts.andika(
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 24)))),
-              Container(
-                margin: EdgeInsets.all(6),
-                child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: SvgPicture.asset(
-                      'assets/flag_$locale.svg',
-                    )),
-              )
-            ],
+          color: Color(0xFF7E57C2),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            child: Stack(
+              children: <Widget>[
+                Center(
+                    child: Text(text,
+                        style: GoogleFonts.andika(
+                            textStyle:
+                            TextStyle(color: Colors.white, fontSize: 24)))),
+                Container(
+                  margin: EdgeInsets.all(6),
+                  child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: SvgPicture.asset(
+                        'assets/flag_$locale.svg',
+                      )),
+                )
+              ],
+            ),
+            onTap: () => back(locale),
           ),
-          onTap: () => back(locale),
-        ),
-      ));
+        ));
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -44,7 +53,7 @@ class LanguagePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 40, bottom: 28),
+              margin: EdgeInsets.only(top: 28, bottom: 28),
               child: Text(
                 "Select the language\nyou are familiar\nwith",
                 textAlign: TextAlign.center,
@@ -54,6 +63,8 @@ class LanguagePage extends StatelessWidget {
               ),
             ),
             button('en'),
+            SizedBox(height: 24),
+            button('ru'),
             SizedBox(height: 24),
             button('ua'),
           ],

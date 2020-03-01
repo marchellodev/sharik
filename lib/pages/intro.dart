@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../locale.dart';
 import '../main.dart';
@@ -67,6 +68,31 @@ class IntroPage extends StatelessWidget {
           description: L.get('open_link', locale),
           pathImage: 'assets/slide_3.png',
           backgroundColor: Color(0xFF5C6BC0),
+        ),
+        Slide(
+          styleTitle: GoogleFonts.comfortaa(
+              textStyle: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 30.0,
+          )),
+          title: L.get('EVERYWHERE', locale),
+          pathImage: 'assets/slide_4.png',
+          backgroundColor: Color(0xFF29B6F6),
+          widgetDescription: GestureDetector(
+            onTap: () async {
+              if (await canLaunch('https://github.com/marchellodev/sharik'))
+                await launch('https://github.com/marchellodev/sharik');
+            },
+            child: Text(
+              L.get('sharik_is_available', locale),
+              style: GoogleFonts.andika(
+                  textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
+              textAlign: TextAlign.center,
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ),
       ],
       onDonePress: tap,

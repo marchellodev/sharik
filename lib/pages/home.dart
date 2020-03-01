@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../locale.dart';
 import '../main.dart';
 
@@ -72,6 +74,8 @@ class _HomePageState extends State<HomePage> {
                   if (f != null) {
                     file = f.path;
 
+                    if (file.length == 0) return;
+
                     setState(() {
                       if (latest.contains(file)) latest.remove(file);
 
@@ -99,8 +103,9 @@ class _HomePageState extends State<HomePage> {
         ),
         Expanded(
           child: Container(
-              margin: EdgeInsets.only(left: 24, right: 24),
+              padding: EdgeInsets.only(left: 24, right: 24),
               child: ListView.builder(
+                  padding: EdgeInsets.only(top: 16),
                   itemCount: latest.length,
                   itemBuilder: (context, index) => card(latest[index]))),
         ),
@@ -122,19 +127,17 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
-                      'assets/icon_help.svg',
-                      semanticsLabel: 'help',
-                      height: 16,
+                      'assets/icon_locale.svg',
+                      semanticsLabel: 'locale',
+                      height: 18,
                     ),
                   ),
-                  onTap: () => widget.back('_help'),
+                  onTap: () => widget.back('_locale'),
                 ),
               ),
-
               SizedBox(
                 width: 2,
               ),
-
               Material(
                 color: Color(0xFFD1C4E9),
                 borderRadius: BorderRadius.circular(8),
@@ -144,16 +147,38 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
-                      'assets/icon_locale.svg',
-                      semanticsLabel: 'locale',
-                      height: 18,
+                      'assets/icon_help.svg',
+                      semanticsLabel: 'help',
+                      height: 16,
                     ),
                   ),
-                  onTap: () => widget.back('_locale'),
+                  onTap: () => widget.back('_help'),
                 ),
               ),
               Spacer(),
-
+              Material(
+                color: Color(0xFFD1C4E9),
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Color(0xFF7E57C2),
+                  child: Container(
+                    margin: EdgeInsets.all(12),
+                    child: SvgPicture.asset(
+                      'assets/icon_email.svg',
+                      semanticsLabel: 'instagram',
+                      height: 14,
+                    ),
+                  ),
+                  onTap: () async {
+                    if (await canLaunch('mailto:marchellodev@gmail.com'))
+                      await launch('mailto:marchellodev@gmail.com');
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 2,
+              ),
               Material(
                 color: Color(0xFFD1C4E9),
                 borderRadius: BorderRadius.circular(8),
@@ -177,7 +202,6 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: 2,
               ),
-
               Container(
                 color: Color(0xFF512DA8),
                 height: double.infinity,
@@ -187,9 +211,30 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 width: 2,
               ),
-
-              //
-
+              Material(
+                color: Color(0xFFD1C4E9),
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Color(0xFF7E57C2),
+                  child: Container(
+                    margin: EdgeInsets.all(12),
+                    child: SvgPicture.asset(
+                      'assets/icon_github.svg',
+                      semanticsLabel: 'play store',
+                      height: 18,
+                    ),
+                  ),
+                  onTap: () async {
+                    if (await canLaunch(
+                        'https://github.com/marchellodev/sharik'))
+                      await launch('https://github.com/marchellodev/sharik');
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 2,
+              ),
               Material(
                 color: Color(0xFFD1C4E9),
                 borderRadius: BorderRadius.circular(8),
@@ -205,8 +250,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () async {
-                    if (await canLaunch('https://play.google.com/store/apps/details?id=dev.marchello.sharik'))
-                      await launch('https://play.google.com/store/apps/details?id=dev.marchello.sharik');
+                    if (await canLaunch(
+                        'https://play.google.com/store/apps/details?id=dev.marchello.sharik'))
+                      await launch(
+                          'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
                   },
                 ),
               ),
@@ -217,56 +264,78 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget card(String f) => Container(
-        height: 58,
-        margin: EdgeInsets.only(bottom: 18),
-        child: Material(
+  Widget card(String f) {
+    //weird stuff goes here, but it works :D
+    ScrollController controller = ScrollController();
+
+    int n = 0;
+    void set() {
+      if (controller.positions.isNotEmpty) {
+        controller.jumpTo(controller.position.maxScrollExtent);
+        n++;
+        print(n);
+        if (n < 5) Timer(Duration(milliseconds: 100), () => set());
+      } else
+        Timer(Duration(milliseconds: 100), () => set());
+    }
+
+    set();
+
+    return Container(
+      height: 58,
+      margin: EdgeInsets.only(bottom: 18),
+      child: Material(
+        borderRadius: BorderRadius.circular(12),
+        color: Color(0xFF9575CD),
+        child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          color: Color(0xFF9575CD),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(12),
-            onTap: () async {
-              file = f;
+          onTap: () async {
+            file = f;
 
-              setState(() {
-                if (latest.contains(file)) latest.remove(file);
+            if (f.length == 0) {
+              latest.remove(file);
+              return;
+            }
 
-                latest.insert(0, file);
-              });
+            setState(() {
+              if (latest.contains(file)) latest.remove(file);
 
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setStringList('latest', latest);
+              latest.insert(0, file);
+            });
 
-              widget.back('file');
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: <Widget>[
-                  SvgPicture.asset(
-                    'assets/icon_folder2.svg',
-                    semanticsLabel: 'file ',
-                    width: 18,
-                  ),
-                  SizedBox(
-                    width: 12,
-                  ),
-                  Expanded(
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setStringList('latest', latest);
+
+            widget.back('file');
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: <Widget>[
+                SvgPicture.asset(
+                  'assets/icon_folder2.svg',
+                  semanticsLabel: 'file ',
+                  width: 18,
+                ),
+                SizedBox(
+                  width: 12,
+                ),
+                Expanded(
                     child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        f.split('/').last,
-                        style: GoogleFonts.andika(
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
+                  controller: controller,
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    Platform.isAndroid ? f.split('/').last : f,
+                    style: GoogleFonts.andika(
+                      textStyle: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ))
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 }

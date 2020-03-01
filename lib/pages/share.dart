@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'dart:io' show Platform;
 
 import '../locale.dart';
 import '../main.dart';
@@ -86,7 +87,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     await Future.delayed(const Duration(milliseconds: 500), () {});
     String _ip = await getIp();
 
-//    if (_ip != null)
     if (port == 0 && _ip != null) {
       server = await HttpServer.bind(InternetAddress(_ip), 0, shared: true);
       port = server.port;
@@ -107,14 +107,21 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     });
     conController.repeat();
 
-    bool w = await WiFiForIoTPlugin.isConnected();
-    bool t = await WiFiForIoTPlugin.isWiFiAPEnabled();
+    bool w = false;
+    bool t = false;
+
+    if (Platform.isAndroid) {
+      w = await WiFiForIoTPlugin.isConnected();
+      t = await WiFiForIoTPlugin.isWiFiAPEnabled();
+    }
 
     await Future.delayed(const Duration(milliseconds: 500), () {});
     setState(() {
       wifi = w;
       tether = t;
-      if (w)
+      if (!Platform.isAndroid)
+        network = L.get('undefined', locale);
+      else if (w)
         network = 'Wi-Fi';
       else if (t)
         network = L.get('Mobile Hotspot', locale);
@@ -240,21 +247,27 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                 ),
                                 children: [
                                   TextSpan(text: L.get('Connect to', locale)),
-                                  TextSpan(
-                                      text: " Wi-Fi ",
-                                      style: TextStyle(
-                                          color: wifi
-                                              ? Color(0xFFC8E6C9)
-                                              : Color(0xFFFFCDD2))),
+                                  Platform.isAndroid
+                                      ? TextSpan(
+                                          text: " Wi-Fi ",
+                                          style: TextStyle(
+                                              color: wifi
+                                                  ? Color(0xFFC8E6C9)
+                                                  : Color(0xFFFFCDD2)))
+                                      : TextSpan(text: " Wi-Fi "),
                                   TextSpan(
                                       text: L.get('or enable', locale) + " "),
-                                  TextSpan(
-                                      text: L.get(
-                                          'enable Mobile Hotspot', locale),
-                                      style: TextStyle(
-                                          color: tether
-                                              ? Color(0xFFC8E6C9)
-                                              : Color(0xFFFFCDD2))),
+                                  Platform.isAndroid
+                                      ? TextSpan(
+                                          text: L.get(
+                                              'enable Mobile Hotspot', locale),
+                                          style: TextStyle(
+                                              color: tether
+                                                  ? Color(0xFFC8E6C9)
+                                                  : Color(0xFFFFCDD2)))
+                                      : TextSpan(
+                                          text: L.get(
+                                              'enable Mobile Hotspot', locale)),
                                 ]),
                           ),
                           SizedBox(

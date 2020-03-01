@@ -8,6 +8,7 @@ import 'package:sharik/pages/home.dart';
 import 'package:sharik/pages/intro.dart';
 import 'package:sharik/pages/language.dart';
 import 'package:sharik/pages/share.dart';
+import 'dart:io' show Platform;
 
 typedef Callback = void Function(String data);
 
@@ -15,9 +16,11 @@ String locale = 'en';
 String file;
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: Color(0xFF673AB7), // navigation bar color
-  ));
+  if (Platform.isAndroid)
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFF673AB7), // navigation bar color
+    ));
+
   runApp(App());
 }
 
@@ -46,10 +49,11 @@ class AppState extends State<App> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    if (Platform.isAndroid)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -65,8 +69,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                 color: Color(0xFF673AB7),
                 child: Center(
                   child: SvgPicture.asset('assets/logo_inverse.svg',
-                      height: 64,
-                      semanticsLabel: 'app icon'),
+                      height: 64, semanticsLabel: 'app icon'),
                 ),
               ),
               Column(
@@ -74,7 +77,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   SafeArea(
                     child: Container(
                         margin:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                            EdgeInsets.symmetric(vertical: 24, horizontal: 12),
                         child: logo()),
                   ),
                   LanguagePage((lang) async {
@@ -101,7 +104,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                           logo(),
                           back
                               ? IconButton(
-                                  tooltip: "back",
+//                                  tooltip: "back",
                                   onPressed: () {
                                     setState(() {
                                       back = false;
@@ -163,7 +166,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
             ),
             Text(
               "Sharik",
-              style: GoogleFonts.poppins(fontSize: 36),
+              style: GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w500),
             )
           ],
         ),
