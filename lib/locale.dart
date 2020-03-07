@@ -82,6 +82,7 @@ class L {
         'ru':
             'Sharik доступный для Android, Windows и Linux!\nНажмите здесь чтобы узнать больше'
       },
+      'copied': {'en': 'Copied to Clipboard', 'ua': 'Скопійовано до Буферу обміну', 'ru': 'Скопировано в Буфер обмена'},
     };
     return dict[key][locale];
   }

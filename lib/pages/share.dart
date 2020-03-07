@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -330,22 +331,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             margin: EdgeInsets.symmetric(horizontal: 2, vertical: 18),
             child: Row(
               children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xC89575CD),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  width: 38,
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/icon_lock.svg',
-                      semanticsLabel: 'browser lock ',
-                      height: 16,
-                    ),
-                  ),
-                ),
                 SizedBox(
-                  width: 12,
+                  width: 14,
                 ),
                 Expanded(
                   child: SingleChildScrollView(
@@ -359,9 +346,38 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   ),
                 ),
                 SizedBox(
-                  width: 12,
+                  width: 6,
                 ),
 
+                Material(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Color(0xFF7E57C2),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () {
+                      ClipboardManager.copyToClipBoard(ip).then((result) {
+                        final snackBar = SnackBar(
+                          backgroundColor: Color(0xFF673AB7),
+                          duration: Duration(seconds: 1),
+                          content: Text(
+                            L.get('copied', locale),
+                            style: GoogleFonts.andika(color: Colors.white),
+                          ),
+                        );
+                        Scaffold.of(context).showSnackBar(snackBar);
+                      });
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                      child: SvgPicture.asset(
+                        'assets/icon_copy.svg',
+                        semanticsLabel: 'update ',
+                        height: 16,
+                      ),
+                    ),
+                  ),
+                ),
                 Material(
                   borderRadius: BorderRadius.circular(12),
                   color: Color(0xFF7E57C2),

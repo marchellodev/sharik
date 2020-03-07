@@ -17,6 +17,7 @@ dependencies:
   shared_preferences: ^0.5.6+2
   url_launcher: ^5.4.2
   wifi_iot: ^0.1.1
+  clipboard_manager: ^0.0.1
 
 dev_dependencies:
   flutter_test:
