@@ -61,7 +61,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
           'Content-disposition',
           'attachment; filename=' +
               Uri.encodeComponent(
-                  file[0] == 'file' ? file[1].split('/').last : file[1][0]),
+                  file[0] == 'file' ? file[1].split('/').last : file[1][0]+'.apk'),
         );
         request.response.headers.add(
           'Content-length',
