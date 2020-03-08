@@ -6,11 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:device_apps/device_apps.dart';
 
 import '../locale.dart';
 import '../main.dart';
+import 'app_selector.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
@@ -23,7 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> latest = [];
+  var latest = [];
 
   @override
   void initState() {
@@ -33,22 +34,22 @@ class _HomePageState extends State<HomePage> {
 
   void pref() async {
     setState(() {
-      latest = Hive.box('app').get('latest', defaultValue: []);
-      print(latest);
-      print('setted');
+      latest = latestBox.get('data', defaultValue: []);
+      // print(latest);
+      // print('setted');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(latest);
-    print('just was');
+    // print(latest);
+    // print('just was');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
             margin: EdgeInsets.only(left: 24, right: 24, top: 8),
-            height: 110,
+            height: 104,
             child: Material(
               borderRadius: BorderRadius.circular(12),
               color: Color(0xFF7E57C2),
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () async {
                   File f = await FilePicker.getFile();
                   if (f != null) {
-                    file = f.path;
+                    file = ['file', f.path];
 
                     if (file.length == 0) return;
 
@@ -84,62 +85,126 @@ class _HomePageState extends State<HomePage> {
                       latest.insert(0, file);
                     });
 
-                    Hive.box('app').put('latest', latest);
+                    latestBox.put('data', latest);
 
                     widget.back('file');
                   }
                 },
               ),
             )),
+        Row(
+          children: <Widget>[
+            Platform.isAndroid
+                ? Expanded(
+                    child: Container(
+                        margin: EdgeInsets.only(left: 24, top: 8),
+                        height: 48,
+                        child: Material(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Color(0xFF7E57C2),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Center(
+                                child: Text('App',
+                                    style: GoogleFonts.andika(
+                                        textStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24)))),
+                            onTap: () async {
+                              showDialog(
+                                  context: context,
+                                  child: AppSelector((String selected) async {
+                                    Application app =
+                                        await DeviceApps.getApp(selected);
 
-//        Container(
-//            margin: EdgeInsets.only(left: 24, right: 24, top: 8),
-//            height: 60,
-//            child: Material(
-//              borderRadius: BorderRadius.circular(12),
-//              color: Color(0xFF7E57C2),
-//              child: InkWell(
-//                borderRadius: BorderRadius.circular(12),
-//                child: Stack(
-//                  children: <Widget>[
-//                    Center(
-//                        child: Text(L.get('Select file', locale),
-//                            style: GoogleFonts.andika(
-//                                textStyle: TextStyle(
-//                                    color: Colors.white, fontSize: 24)))),
-//                    Container(
-//                      margin: EdgeInsets.all(16),
-//                      child: Align(
-//                          alignment: Alignment.bottomRight,
-//                          child: SvgPicture.asset(
-//                            'assets/icon_file.svg',
-//                          )),
-//                    )
-//                  ],
-//                ),
-//                onTap: () async {
-//                  File f = await FilePicker.getFile();
-//                  if (f != null) {
-//                    file = f.path;
-//
-//                    if (file.length == 0) return;
-//
-//                    setState(() {
-//                      if (latest.contains(file)) latest.remove(file);
-//
-//                      latest.insert(0, file);
-//                    });
-//
-//                    SharedPreferences prefs =
-//                    await SharedPreferences.getInstance();
-//                    await prefs.setStringList('latest', latest);
-//
-//                    widget.back('file');
-//                  }
-//                },
-//              ),
-//            )),
+                                    file = [
+                                      'app',
+                                      [
+                                        app.appName,
+                                        app.packageName,
+                                        app.apkFilePath
+                                      ]
+                                    ];
 
+                                    setState(() {
+                                      if (latest.contains(file))
+                                        latest.remove(file);
+
+                                      latest.insert(0, file);
+                                    });
+
+                                    widget.back('file');
+                                  }));
+                            },
+                          ),
+                        )),
+                  )
+                : Container(),
+            SizedBox(
+              width: Platform.isAndroid ? 8 : 24,
+            ),
+            Expanded(
+              child: Container(
+                  margin: EdgeInsets.only(right: 24, top: 8),
+                  height: 48,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Color(0xFF7E57C2),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Center(
+                          child: Text('Text',
+                              style: GoogleFonts.andika(
+                                  textStyle: TextStyle(
+                                      color: Colors.white, fontSize: 24)))),
+                      onTap: () {
+                        // flutter defined function
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            TextEditingController c = TextEditingController();
+                            return AlertDialog(
+                              title: Text("Type some text"),
+                              content: TextField(
+                                controller: c,
+                                maxLines: null,
+                                minLines: null,
+                              ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: new Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: new Text("Send"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    file = ['text', c.text];
+
+                                    if (file[1].length == 0) return;
+
+                                    setState(() {
+                                      if (latest.contains(file))
+                                        latest.remove(file);
+
+                                      latest.insert(0, file);
+                                    });
+
+                                    widget.back('file');
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  )),
+            ),
+          ],
+        ),
         SizedBox(
           height: 22,
         ),
@@ -313,28 +378,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget card(String f) {
+  Widget card(List f) {
     //weird stuff goes here, but it works :D
     ScrollController controller = ScrollController();
 
-    print('displaying card...');
+    // print('displaying card...');
     int n = 0;
     void set() {
       if (controller.positions.isNotEmpty) {
         controller.jumpTo(controller.position.maxScrollExtent);
         n++;
-        print(n);
+        // print(n);
         if (n < 5) Timer(Duration(milliseconds: 100), () => set());
       } else
         Timer(Duration(milliseconds: 100), () => set());
     }
 
-    print(latest);
+    // print(latest);
     if (!Platform.isAndroid) set();
 
+    List<String> s = getIconText(f);
+    String icon = s[0];
+    String text = s[1];
     return Container(
-      height: 58,
-      margin: EdgeInsets.only(bottom: 18),
+      height: 44,
+      margin: EdgeInsets.only(bottom: 12),
       child: Material(
         borderRadius: BorderRadius.circular(12),
         color: Color(0xFF9575CD),
@@ -354,7 +422,7 @@ class _HomePageState extends State<HomePage> {
               latest.insert(0, file);
             });
 
-            Hive.box('app').put('latest', latest);
+            latestBox.put('data', latest);
 
             widget.back('file');
           },
@@ -363,7 +431,7 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  'assets/icon_folder2.svg',
+                  icon,
                   semanticsLabel: 'file ',
                   width: 18,
                 ),
@@ -375,10 +443,11 @@ class _HomePageState extends State<HomePage> {
                   controller: controller,
                   scrollDirection: Axis.horizontal,
                   child: Text(
-                    Platform.isAndroid ? f.split('/').last : f,
+                    text,
                     style: GoogleFonts.andika(
                       textStyle: TextStyle(color: Colors.white, fontSize: 18),
                     ),
+                    maxLines: 1,
                   ),
                 ))
               ],
@@ -388,4 +457,25 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+List<String> getIconText(List f) {
+  String icon;
+  String text;
+
+  switch (f[0]) {
+    case 'file':
+      icon = 'assets/icon_folder2.svg';
+      text = (Platform.isAndroid ? f[1].split('/').last : f[1]);
+      break;
+    case 'text':
+      icon = 'assets/icon_file_word.svg';
+      text = f[1].replaceAll('\n', ' ');
+      break;
+    case 'app':
+      icon = 'assets/icon_file_app.svg';
+      text = f[1][0];
+      break;
+  }
+  return [icon, text];
 }

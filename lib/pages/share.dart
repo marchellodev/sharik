@@ -12,6 +12,7 @@ import 'dart:io' show Platform;
 
 import '../locale.dart';
 import '../main.dart';
+import 'home.dart';
 
 class SharePage extends StatefulWidget {
   @override
@@ -44,29 +45,38 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   void serve() async {
     await for (var request in server) {
-      var f = File(file);
-      var size = await f.length();
+      if (file[0] == 'file' || file[0] == 'app') {
+        var f = File(file[0] == 'file' ? file[1] : file[1][2]);
+        var size = await f.length();
 
-      request.response.headers.contentType =
-          ContentType('application', 'octet-stream', charset: 'utf-8');
+        request.response.headers.contentType =
+            ContentType('application', 'octet-stream', charset: 'utf-8');
 
-      request.response.headers.add(
-        'Content-Transfer-Encoding',
-        'Binary',
-      );
+        request.response.headers.add(
+          'Content-Transfer-Encoding',
+          'Binary',
+        );
 
-      request.response.headers.add(
-        'Content-disposition',
-        'attachment; filename=' + Uri.encodeComponent(file.split('/').last),
-      );
-      request.response.headers.add(
-        'Content-length',
-        size,
-      );
+        request.response.headers.add(
+          'Content-disposition',
+          'attachment; filename=' +
+              Uri.encodeComponent(
+                  file[0] == 'file' ? file[1].split('/').last : file[1][0]),
+        );
+        request.response.headers.add(
+          'Content-length',
+          size,
+        );
 
-      f.openRead().pipe(request.response).catchError((e) {}).then((a) {
+        f.openRead().pipe(request.response).catchError((e) {}).then((a) {
+          request.response.close();
+        });
+      } else {
+        request.response.headers.contentType =
+            ContentType('text', 'plain', charset: 'utf-8');
+        request.response.write(file[1]);
         request.response.close();
-      });
+      }
     }
   }
 
@@ -162,6 +172,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    List<String> s = getIconText(file);
+    String icon = s[0];
+    String text = s[1];
+
     return Container(
       margin: EdgeInsets.only(left: 24, right: 24, top: 16),
       child: Column(
@@ -177,7 +191,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             child: Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  'assets/icon_folder2.svg',
+                  icon,
                   semanticsLabel: 'file ',
                   width: 18,
                 ),
@@ -188,10 +202,11 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      file.split('/').last,
+                      text,
                       style: GoogleFonts.andika(
                         textStyle: TextStyle(color: Colors.white, fontSize: 18),
                       ),
+                      maxLines: 1,
                     ),
                   ),
                 )

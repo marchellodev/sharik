@@ -15,16 +15,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 typedef Callback = void Function(String data);
 
 String locale = 'en';
-String file;
+List<dynamic> file = [];
+
+Box latestBox;
 
 Future<void> main() async {
-  if (Platform.isAndroid)
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      systemNavigationBarColor: Color(0xFF673AB7), // navigation bar color
-    ));
-
   await Hive.initFlutter();
   await Hive.openBox('app');
+  latestBox = await Hive.openBox('latest');
 
   getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
 
@@ -115,7 +113,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
                                     });
                                     pager.animateTo(0);
 
-                                    getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
+                                    getTemporaryDirectory().then((value) =>
+                                        value.deleteSync(recursive: true));
                                   },
                                   icon: SvgPicture.asset(
                                     'assets/icon_back.svg',
