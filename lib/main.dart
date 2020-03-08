@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sharik/pages/home.dart';
-import 'package:sharik/pages/intro.dart';
-import 'package:sharik/pages/language.dart';
-import 'package:sharik/pages/share.dart';
+import 'pages/home.dart';
+import 'pages/intro.dart';
+import 'pages/language.dart';
+import 'pages/share.dart';
 import 'dart:io' show Platform;
 
 typedef Callback = void Function(String data);

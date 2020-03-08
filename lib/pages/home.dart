@@ -268,18 +268,20 @@ class _HomePageState extends State<HomePage> {
     //weird stuff goes here, but it works :D
     ScrollController controller = ScrollController();
 
-    int n = 0;
-    void set() {
-      if (controller.positions.isNotEmpty) {
-        controller.jumpTo(controller.position.maxScrollExtent);
-        n++;
-        print(n);
-        if (n < 5) Timer(Duration(milliseconds: 100), () => set());
-      } else
-        Timer(Duration(milliseconds: 100), () => set());
-    }
+    if (!Platform.isAndroid) {
+      int n = 0;
+      void set() {
+        if (controller.positions.isNotEmpty) {
+          controller.jumpTo(controller.position.maxScrollExtent);
+          n++;
+          print(n);
+          if (n < 5) Timer(Duration(milliseconds: 100), () => set());
+        } else
+          Timer(Duration(milliseconds: 100), () => set());
+      }
 
-    set();
+      set();
+    }
 
     return Container(
       height: 58,
