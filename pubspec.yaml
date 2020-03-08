@@ -4,7 +4,7 @@ homepage: https://github.com/marchellodev/sharik
 repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
-version: 1.1.0
+version: 2.0.0
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

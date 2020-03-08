@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Categories=
+Name=sharik
+Icon=/usr/lib/sharik/assets/icon.png
+Exec=/usr/lib/sharik/sharik
