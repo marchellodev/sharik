@@ -10,3 +10,28 @@ Built with [flutter](https://flutter.dev)
 
 ## License
 MIT
+
+# ![Flutter logo]
+![License badge]
+![Version badge]
+![Downloads badge]
+![Stars badge]
+
+
+
+Sharik is an app for sending files to almost any device. It works with Wi-Fi connection or Tethering (Mobile Hotspot). No internet connection needed.
+
+
+## Platforms
+- andoid
+- windows
+- linux
+- 
+
+
+
+[Flutter logo]: media/banner.png
+[Downloads badge]: https://img.shields.io/github/downloads/marchellodev/sharik/total
+[License badge]: https://img.shields.io/github/license/marchellodev/sharik
+[Stars badge]: https://img.shields.io/github/stars/marchellodev/sharik?style=social
+[Version badge]: https://img.shields.io/github/v/release/marchellodev/sharik

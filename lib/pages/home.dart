@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../locale.dart';
@@ -32,21 +32,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   void pref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
     setState(() {
-      latest = prefs.getStringList("latest") ?? [];
+      latest = Hive.box('app').get('latest', defaultValue: []);
+      print(latest);
+      print('setted');
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print(latest);
+    print('just was');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-            margin: EdgeInsets.only(left: 24, right: 24, top: 16),
-            height: 134,
+            margin: EdgeInsets.only(left: 24, right: 24, top: 8),
+            height: 110,
             child: Material(
               borderRadius: BorderRadius.circular(12),
               color: Color(0xFF7E57C2),
@@ -82,17 +84,64 @@ class _HomePageState extends State<HomePage> {
                       latest.insert(0, file);
                     });
 
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    await prefs.setStringList('latest', latest);
+                    Hive.box('app').put('latest', latest);
 
                     widget.back('file');
                   }
                 },
               ),
             )),
+
+//        Container(
+//            margin: EdgeInsets.only(left: 24, right: 24, top: 8),
+//            height: 60,
+//            child: Material(
+//              borderRadius: BorderRadius.circular(12),
+//              color: Color(0xFF7E57C2),
+//              child: InkWell(
+//                borderRadius: BorderRadius.circular(12),
+//                child: Stack(
+//                  children: <Widget>[
+//                    Center(
+//                        child: Text(L.get('Select file', locale),
+//                            style: GoogleFonts.andika(
+//                                textStyle: TextStyle(
+//                                    color: Colors.white, fontSize: 24)))),
+//                    Container(
+//                      margin: EdgeInsets.all(16),
+//                      child: Align(
+//                          alignment: Alignment.bottomRight,
+//                          child: SvgPicture.asset(
+//                            'assets/icon_file.svg',
+//                          )),
+//                    )
+//                  ],
+//                ),
+//                onTap: () async {
+//                  File f = await FilePicker.getFile();
+//                  if (f != null) {
+//                    file = f.path;
+//
+//                    if (file.length == 0) return;
+//
+//                    setState(() {
+//                      if (latest.contains(file)) latest.remove(file);
+//
+//                      latest.insert(0, file);
+//                    });
+//
+//                    SharedPreferences prefs =
+//                    await SharedPreferences.getInstance();
+//                    await prefs.setStringList('latest', latest);
+//
+//                    widget.back('file');
+//                  }
+//                },
+//              ),
+//            )),
+
         SizedBox(
-          height: 28,
+          height: 22,
         ),
         Container(
           margin: EdgeInsets.only(left: 24, right: 24),
@@ -268,20 +317,20 @@ class _HomePageState extends State<HomePage> {
     //weird stuff goes here, but it works :D
     ScrollController controller = ScrollController();
 
-    if (!Platform.isAndroid) {
-      int n = 0;
-      void set() {
-        if (controller.positions.isNotEmpty) {
-          controller.jumpTo(controller.position.maxScrollExtent);
-          n++;
-          print(n);
-          if (n < 5) Timer(Duration(milliseconds: 100), () => set());
-        } else
-          Timer(Duration(milliseconds: 100), () => set());
-      }
-
-      set();
+    print('displaying card...');
+    int n = 0;
+    void set() {
+      if (controller.positions.isNotEmpty) {
+        controller.jumpTo(controller.position.maxScrollExtent);
+        n++;
+        print(n);
+        if (n < 5) Timer(Duration(milliseconds: 100), () => set());
+      } else
+        Timer(Duration(milliseconds: 100), () => set());
     }
+
+    print(latest);
+    if (!Platform.isAndroid) set();
 
     return Container(
       height: 58,
@@ -305,8 +354,7 @@ class _HomePageState extends State<HomePage> {
               latest.insert(0, file);
             });
 
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setStringList('latest', latest);
+            Hive.box('app').put('latest', latest);
 
             widget.back('file');
           },

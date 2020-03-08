@@ -3,23 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'pages/home.dart';
 import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
 import 'dart:io' show Platform;
+import 'package:hive_flutter/hive_flutter.dart';
 
 typedef Callback = void Function(String data);
 
 String locale = 'en';
 String file;
 
-void main() {
+Future<void> main() async {
   if (Platform.isAndroid)
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: Color(0xFF673AB7), // navigation bar color
     ));
+
+  await Hive.initFlutter();
+  await Hive.openBox('app');
+
+  getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
 
   runApp(App());
 }
@@ -35,8 +42,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
   bool back = false;
 
   void lang() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String _locale = prefs.getString('locale') ?? null;
+    String _locale = Hive.box('app').get('locale', defaultValue: null);
 
     await Future.delayed(const Duration(seconds: 1), () {});
 
@@ -83,9 +89,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   LanguagePage((lang) async {
                     pagerGlobal.animateTo(2);
                     locale = lang;
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setString('locale', locale);
+                    Hive.box('app').put('locale', locale);
                   }),
                 ],
               ),
@@ -110,6 +114,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
                                       back = false;
                                     });
                                     pager.animateTo(0);
+
+                                    getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
                                   },
                                   icon: SvgPicture.asset(
                                     'assets/icon_back.svg',
@@ -153,6 +159,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
       back = false;
     });
     pager.animateTo(0);
+
+    getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
   }
 
   Widget logo() => Material(
@@ -166,7 +174,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
             ),
             Text(
               "Sharik",
-              style: GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w500),
+              style: GoogleFonts.poppins(
+                  fontSize: 36, fontWeight: FontWeight.w500),
             )
           ],
         ),

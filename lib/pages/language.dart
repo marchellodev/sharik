@@ -53,7 +53,7 @@ class LanguagePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 28, bottom: 28),
+              margin: EdgeInsets.only(top: 8, bottom: 28),
               child: Text(
                 "Select the language\nyou are familiar\nwith",
                 textAlign: TextAlign.center,
