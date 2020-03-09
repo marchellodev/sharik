@@ -5,6 +5,8 @@ repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
 version: 2.0.0
+authors:
+  - marchellodev
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

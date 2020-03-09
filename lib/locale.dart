@@ -76,11 +76,11 @@ class L {
       'EVERYWHERE': {'en': 'EVERYWHERE', 'ua': 'БУДЬ-ДЕ', 'ru': 'ВЕЗДЕ'},
       'sharik_is_available': {
         'en':
-            'Sharik is available for Android, Windows and Linux!\nClick here to learn more',
+            'Sharik is available for Android, Windows, MacOS and Linux!\nClick here to learn more',
         'ua':
-            'Sharik доступний для Android, Windows та Linux!\nНатисніть тут щоб дізнатися більше',
+            'Sharik доступний для Android, Windows, MacOS та Linux!\nНатисніть тут щоб дізнатися більше',
         'ru':
-            'Sharik доступный для Android, Windows и Linux!\nНажмите здесь чтобы узнать больше'
+            'Sharik доступный для Android, Windows, MacOS и Linux!\nНажмите здесь чтобы узнать больше'
       },
       'copied': {
         'en': 'Copied to Clipboard',

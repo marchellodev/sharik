@@ -1,0 +1,21 @@
+Name: Sharik
+Version: {{.version}}
+Release: {{.version}}
+Summary: Sharik is an app for sending files to almost any device. No internet connection needed.
+License: FIXME
+
+%description
+Sharik is an app for sending files to almost any device. No internet connection needed.
+
+%install
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mkdir -p $RPM_BUILD_ROOT/usr/lib/Sharik
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
+cp -r $RPM_BUILD_DIR $RPM_BUILD_ROOT
+chmod 0755 $RPM_BUILD_ROOT%{_bindir}/Sharik
+chmod 0755 $RPM_BUILD_ROOT%{_datadir}/applications/Sharik.desktop
+
+%files
+%{_bindir}/Sharik
+/usr/lib/Sharik/
+%{_datadir}/applications/Sharik.desktop
