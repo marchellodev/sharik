@@ -133,6 +133,8 @@ class _HomePageState extends State<HomePage> {
                                       latest.insert(0, file);
                                     });
 
+                                    latestBox.put('data', latest);
+
                                     widget.back('file');
                                   }));
                             },
@@ -191,6 +193,8 @@ class _HomePageState extends State<HomePage> {
 
                                       latest.insert(0, file);
                                     });
+
+                                    latestBox.put('data', latest);
 
                                     widget.back('file');
                                   },
