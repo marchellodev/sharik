@@ -54,7 +54,7 @@ I don't have the binaries, but you can build it for yourself! (not sure it will 
 ## Build it for yourself
 This app is developed using [Flutter](https://flutter.dev) (Android, iOS) and [Hover](https://hover.build)  (Desktop). Just clone the repo and build it for yourself!
 
-Feel free to leave an issue or create pull request :>
+Feel free to leave an issue or create a pull request :>
 ## License
 MIT
 
