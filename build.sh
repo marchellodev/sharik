@@ -14,8 +14,8 @@ hover build linux-deb
 hover build linux-rpm
 hover build linux-snap
 
-hover build linux-windows
-hover build linux-msi
+hover build windows
+hover build msi
 
 hover build darwin
 hover build darwin-bundle
