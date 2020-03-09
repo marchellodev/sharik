@@ -1,11 +1,14 @@
 start_time=$(date +%s)
 
-flutter channel dev
+flutter channel beta
 flutter upgrade
 flutter clean
 flutter build apk --split-per-abi
 flutter build appbundle
 
+flutter channel master
+flutter upgrade
+flutter clean
 hover bumpversion
 
 hover build linux
@@ -15,7 +18,7 @@ hover build linux-rpm
 hover build linux-snap
 
 hover build windows
-hover build msi
+hover build windows-msi
 
 hover build darwin
 hover build darwin-bundle
