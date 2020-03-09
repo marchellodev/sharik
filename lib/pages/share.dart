@@ -387,8 +387,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                           EdgeInsets.symmetric(vertical: 14, horizontal: 12),
                       child: SvgPicture.asset(
                         'assets/icon_copy.svg',
-                        semanticsLabel: 'update ',
-                        height: 16,
+                        semanticsLabel: 'update',
+                        width: 16,
                       ),
                     ),
                   ),

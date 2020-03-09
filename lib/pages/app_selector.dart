@@ -2,6 +2,9 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../locale.dart';
+import '../main.dart';
+
 class AppSelector extends StatefulWidget {
   Function(String package) callback;
 
@@ -55,7 +58,7 @@ class _AppSelectorState extends State<AppSelector> {
           scrollDirection: Axis.vertical,
           children: <Widget>[
             CheckboxListTile(
-              title: Text("Hide system apps"),
+              title: Text(L.get('Hide system apps', locale)),
               value: checkSystem,
               onChanged: (value) => setState(() {
                 checkSystem = value;
@@ -64,7 +67,7 @@ class _AppSelectorState extends State<AppSelector> {
               controlAffinity: ListTileControlAffinity.leading,
             ),
             CheckboxListTile(
-              title: Text("Hide non-launchable apps"),
+              title: Text(L.get('Hide non-launchable apps', locale)),
               value: checkLaunch,
               onChanged: (value) => setState(() {
                 checkLaunch = value;
@@ -74,7 +77,7 @@ class _AppSelectorState extends State<AppSelector> {
             ),
             TextField(
               onChanged: (value) => setState(() => search = value),
-              decoration: InputDecoration(hintText: 'Search'),
+              decoration: InputDecoration(hintText: L.get('Search', locale)),
             ),
             _apps != null
                 ? ListView.builder(
@@ -106,13 +109,13 @@ class _AppSelectorState extends State<AppSelector> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text("Close"),
+          child: Text(L.get('Close', locale)),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text("Send"),
+          child: Text(L.get('Send', locale)),
           onPressed: selected == null ? null : () {
             Navigator.of(context).pop();
             widget.callback(selected);
