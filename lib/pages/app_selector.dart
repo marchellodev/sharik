@@ -25,6 +25,8 @@ class _AppSelectorState extends State<AppSelector> {
   }
 
   void getApps() {
+    setState(() => apps = null);
+
     DeviceApps.getInstalledApplications(
             onlyAppsWithLaunchIntent: !checkLaunch,
             includeSystemApps: !checkSystem,
