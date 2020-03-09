@@ -1,6 +1,7 @@
 start_time=$(date +%s)
 
-
+flutter channel dev
+flutter upgrade
 flutter clean
 flutter build apk --split-per-abi
 flutter build appbundle
