@@ -29,6 +29,7 @@ dependencies:
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
   device_apps: ^1.0.9
+  wc_flutter_share: ^0.2.0
 
 dev_dependencies:
   flutter_test:

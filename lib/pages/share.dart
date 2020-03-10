@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'package:wc_flutter_share/wc_flutter_share.dart';
 import 'dart:io' show Platform;
 
 import '../locale.dart';
@@ -60,8 +61,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
         request.response.headers.add(
           'Content-disposition',
           'attachment; filename=' +
-              Uri.encodeComponent(
-                  file[0] == 'file' ? file[1].split('/').last : file[1][0]+'.apk'),
+              Uri.encodeComponent(file[0] == 'file'
+                  ? file[1].split('/').last
+                  : file[1][0] + '.apk'),
         );
         request.response.headers.add(
           'Content-length',
@@ -370,24 +372,34 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      ClipboardManager.copyToClipBoard(ip).then((result) {
-                        final snackBar = SnackBar(
-                          backgroundColor: Color(0xFF673AB7),
-                          duration: Duration(seconds: 1),
-                          content: Text(
-                            L.get('copied', locale),
-                            style: GoogleFonts.andika(color: Colors.white),
-                          ),
-                        );
-                        Scaffold.of(context).showSnackBar(snackBar);
-                      });
+                      if (Platform.isAndroid || Platform.isIOS) {
+                        WcFlutterShare.share(
+                            sharePopupTitle: 'Share Link',
+                            subject: 'URL',
+                            text: ip,
+                            mimeType: 'text/plain');
+                      } else {
+                        ClipboardManager.copyToClipBoard(ip).then((result) {
+                          final snackBar = SnackBar(
+                            backgroundColor: Color(0xFF673AB7),
+                            duration: Duration(seconds: 1),
+                            content: Text(
+                              L.get('copied', locale),
+                              style: GoogleFonts.andika(color: Colors.white),
+                            ),
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                        });
+                      }
                     },
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(vertical: 14, horizontal: 12),
                       child: SvgPicture.asset(
-                        'assets/icon_copy.svg',
-                        semanticsLabel: 'update',
+                        Platform.isAndroid || Platform.isIOS
+                            ? 'assets/icon_share.svg'
+                            : 'asswts/icon_copy.svg',
+                        semanticsLabel: 'share',
                         width: 16,
                       ),
                     ),
