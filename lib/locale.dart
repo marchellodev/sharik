@@ -76,13 +76,41 @@ class L {
       'EVERYWHERE': {'en': 'EVERYWHERE', 'ua': 'БУДЬ-ДЕ', 'ru': 'ВЕЗДЕ'},
       'sharik_is_available': {
         'en':
-            'Sharik is available for Android, Windows and Linux!\nClick here to learn more',
+            'Sharik is available for Android, Windows, MacOS and Linux!\nClick here to learn more',
         'ua':
-            'Sharik доступний для Android, Windows та Linux!\nНатисніть тут щоб дізнатися більше',
+            'Sharik доступний для Android, Windows, MacOS та Linux!\nНатисніть тут щоб дізнатися більше',
         'ru':
-            'Sharik доступный для Android, Windows и Linux!\nНажмите здесь чтобы узнать больше'
+            'Sharik доступный для Android, Windows, MacOS и Linux!\nНажмите здесь чтобы узнать больше'
       },
-      'copied': {'en': 'Copied to Clipboard', 'ua': 'Скопійовано до Буферу обміну', 'ru': 'Скопировано в Буфер обмена'},
+      'copied': {
+        'en': 'Copied to Clipboard',
+        'ua': 'Скопійовано до Буферу обміну',
+        'ru': 'Скопировано в Буфер обмена'
+      },
+      'Type text': {
+        'en': 'Type some text',
+        'ua': 'Введіть текст',
+        'ru': 'Введите текст'
+      },
+      'Close': {'en': 'Close', 'ua': 'Закрити', 'ru': 'Закрыть'},
+      'Send': {'en': 'Send', 'ua': 'Відправити', 'ru': 'Отправить'},
+      'Text': {'en': 'Text', 'ua': 'Текст', 'ru': 'Текст'},
+      'App': {'en': 'App', 'ua': 'Програма', 'ru': 'Приложение'},
+      'Hide system apps': {
+        'en': 'Hide system apps',
+        'ua': 'Приховати системні додатки',
+        'ru': 'Спрятать системные приложения',
+      },
+      'Hide non-launchable apps': {
+        'en': 'Hide non-launchable apps',
+        'ua': 'Приховати службові додатки',
+        'ru': 'Спрятать служебные приложения',
+      },
+      'Search': {
+        'en': 'Search',
+        'ua': 'Пошук',
+        'ru': 'Поиск',
+      },
     };
     return dict[key][locale];
   }

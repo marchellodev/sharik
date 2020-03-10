@@ -3,6 +3,6 @@ Version=1.0
 Type=Application
 Terminal=false
 Categories=
-Name=sharik
+Name=Sharik
 Icon=/build/assets/icon
 Exec=

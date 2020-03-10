@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
                             child: Center(
-                                child: Text('App',
+                                child: Text(L.get('App', locale),
                                     style: GoogleFonts.andika(
                                         textStyle: TextStyle(
                                             color: Colors.white,
@@ -116,7 +116,6 @@ class _HomePageState extends State<HomePage> {
                                   child: AppSelector((String selected) async {
                                     Application app =
                                         await DeviceApps.getApp(selected);
-
                                     file = [
                                       'app',
                                       [
@@ -132,6 +131,8 @@ class _HomePageState extends State<HomePage> {
 
                                       latest.insert(0, file);
                                     });
+
+                                    latestBox.put('data', latest);
 
                                     widget.back('file');
                                   }));
@@ -153,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       child: Center(
-                          child: Text('Text',
+                          child: Text(L.get('Text', locale),
                               style: GoogleFonts.andika(
                                   textStyle: TextStyle(
                                       color: Colors.white, fontSize: 24)))),
@@ -164,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                           builder: (BuildContext context) {
                             TextEditingController c = TextEditingController();
                             return AlertDialog(
-                              title: Text("Type some text"),
+                              title: Text(L.get('Type text', locale)),
                               content: TextField(
                                 controller: c,
                                 maxLines: null,
@@ -172,13 +173,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                               actions: <Widget>[
                                 FlatButton(
-                                  child: new Text("Close"),
+                                  child: Text(L.get('Close', locale)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 FlatButton(
-                                  child: new Text("Send"),
+                                  child: Text(L.get('Send', locale)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                     file = ['text', c.text];
@@ -191,6 +192,8 @@ class _HomePageState extends State<HomePage> {
 
                                       latest.insert(0, file);
                                     });
+
+                                    latestBox.put('data', latest);
 
                                     widget.back('file');
                                   },

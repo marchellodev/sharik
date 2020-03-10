@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" UpgradeCode="*" Version="{{.version}}" Language="1033" Name="sharik" Manufacturer="markon">
+    <Product Id="*" UpgradeCode="*" Version="{{.version}}" Language="1033" Name="Sharik" Manufacturer="markon">
         <Package InstallerVersion="300" Compressed="yes"/>
-        <Media Id="1" Cabinet="sharik.cab" EmbedCab="yes" />
+        <Media Id="1" Cabinet="Sharik.cab" EmbedCab="yes" />
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder">
-                <Directory Id="APPLICATIONROOTDIRECTORY" Name="sharik">
+                <Directory Id="APPLICATIONROOTDIRECTORY" Name="Sharik">
                     <Directory Id="ASSETSDIRECTORY" Name="assets"/>
                     <Directory Id="FLUTTERASSETSDIRECTORY" Name="flutter_assets">
                         <?include directories.wxi ?>
@@ -13,13 +13,13 @@
                 </Directory>
             </Directory>
             <Directory Id="ProgramMenuFolder">
-                <Directory Id="ApplicationProgramsFolder" Name="sharik"/>
+                <Directory Id="ApplicationProgramsFolder" Name="Sharik"/>
             </Directory>
         </Directory>
         <Icon Id="ShortcutIcon" SourceFile="build/assets/icon.ico"/>
         <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
-            <Component Id="sharik.exe" Guid="*">
-                <File Id="sharik.exe" Source="build/sharik.exe" KeyPath="yes"/>
+            <Component Id="Sharik.exe" Guid="*">
+                <File Id="Sharik.exe" Source="build/Sharik.exe" KeyPath="yes"/>
             </Component>
             <Component Id="flutter_engine.dll" Guid="*">
                 <File Id="flutter_engine.dll" Source="build/flutter_engine.dll" KeyPath="yes"/>
@@ -37,17 +37,17 @@
         <DirectoryRef Id="ApplicationProgramsFolder">
             <Component Id="ApplicationShortcut" Guid="*">
                 <Shortcut Id="ApplicationStartMenuShortcut"
-                          Name="sharik"
-                          Description="A new Flutter project."
-                          Target="[#sharik.exe]"
+                          Name="Sharik"
+                          Description="Sharik is an app for sending files to almost any device. No internet connection needed."
+                          Target="[#Sharik.exe]"
                           WorkingDirectory="APPLICATIONROOTDIRECTORY"
                           Icon="ShortcutIcon"/>
                 <RemoveFolder Id="CleanUpShortCut" On="uninstall"/>
-                <RegistryValue Root="HKCU" Key="Software\markon\sharik" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+                <RegistryValue Root="HKCU" Key="Software\markon\Sharik" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
         </DirectoryRef>
-        <Feature Id="MainApplication" Title="sharik" Level="1">
-            <ComponentRef Id="sharik.exe"/>
+        <Feature Id="MainApplication" Title="Sharik" Level="1">
+            <ComponentRef Id="Sharik.exe"/>
             <ComponentRef Id="flutter_engine.dll"/>
             <ComponentRef Id="icudtl.dat"/>
             <ComponentRef Id="icon.png"/>
