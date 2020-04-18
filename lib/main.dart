@@ -19,6 +19,25 @@ List<dynamic> file = [];
 
 Box latestBox;
 
+void main() async {
+  //todo: if app is already open (lock file)
+  try {
+    await Hive.initFlutter();
+    await Hive.openBox('app');
+    latestBox = await Hive.openBox('latest');
+
+    runApp(App());
+  } catch (e) {
+    //todo: make this screen more interesting
+    runApp(MaterialApp(
+        home: Scaffold(
+            body: Center(
+      child: Text('Sharik is already open'),
+    ))));
+    print('ERROR');
+  }
+}
+
 void removeTemporaryDir() {
   getTemporaryDirectory().then((dir) {
     dir.exists().then((exists) {
@@ -27,15 +46,6 @@ void removeTemporaryDir() {
       } catch (e) {}
     });
   });
-}
-
-Future<void> main() async {
-  //todo: if app is already open (lock file)
-  await Hive.initFlutter();
-  await Hive.openBox('app');
-  latestBox = await Hive.openBox('latest');
-
-  runApp(App());
 }
 
 class App extends StatefulWidget {
