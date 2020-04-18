@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'models/app.dart';
+import 'models/file.dart';
 import 'models/locale.dart';
 import 'models/page.dart';
 import 'pages/home.dart';
@@ -18,22 +19,18 @@ import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
 
-String locale = 'en';
-List<dynamic> file = [];
-
-Box latestBox;
-
 void main() async {
-  //todo: if app is already open (lock file)
   try {
     Hive.registerAdapter(LocaleModelAdapter());
+    Hive.registerAdapter(FileTypeModelAdapter());
+    Hive.registerAdapter(FileModelAdapter());
 
     await Hive.initFlutter();
     await Hive.openBox('app2');
-    latestBox = await Hive.openBox('latest');
 
     runApp(MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         body: App(),
       ),
@@ -47,16 +44,6 @@ void main() async {
       child: Text('Sharik is already running'),
     ))));
   }
-}
-
-void removeTemporaryDir() {
-  getTemporaryDirectory().then((dir) {
-    dir.exists().then((exists) {
-      try {
-        dir.delete(recursive: true);
-      } catch (e) {}
-    });
-  });
 }
 
 class App extends StatefulWidget {
@@ -98,7 +85,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              IntroPage(() => model.setPage(PageModel.home)),
+              IntroPage(),
               Column(
                 children: <Widget>[
                   SafeArea(
@@ -154,13 +141,28 @@ class AppState extends State<App> with TickerProviderStateMixin {
     _pagerGlobal = TabController(initialIndex: 0, vsync: this, length: 4);
     _pagerHome = TabController(initialIndex: 0, vsync: this, length: 2);
 
-    if (Platform.isAndroid)
+    if (Platform.isAndroid) {
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
       ]);
+    }
 
     super.initState();
+  }
+
+  void removeTemporaryDir() {
+    if (Platform.isAndroid) {
+      getTemporaryDirectory().then((dir) {
+        dir.exists().then((exists) {
+          try {
+            dir.delete(recursive: true);
+          } catch (e) {
+            print(e);
+          }
+        });
+      });
+    }
   }
 }
 

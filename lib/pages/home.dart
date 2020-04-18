@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart';
@@ -6,13 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/models/app.dart';
-import 'package:sharik/models/page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../locale.dart';
-import '../main.dart';
+import '../models/app.dart';
+import '../models/file.dart';
+import '../models/page.dart';
 import 'app_selector.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,18 +22,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var latest = [];
-  AppModel model;
+  var _latest = <FileModel>[];
+  AppModel _model;
 
   @override
   void initState() {
-    model = Provider.of<AppModel>(context, listen: false);
+    _model = Provider.of<AppModel>(context, listen: false);
     pref();
     super.initState();
   }
 
+  //todo: probably remove
   void pref() {
-    setState(() => latest = latestBox.get('data', defaultValue: []));
+    setState(() => _latest =
+        Hive.box('app2').get('latest', defaultValue: []).cast<FileModel>());
+  }
+
+  void saveLatest() {
+    Hive.box('app2').put('latest', _latest);
+  }
+
+  void shareFile(FileModel file) {
+    setState(() {
+      if (_latest.contains(file)) _latest.remove(file);
+
+      _latest.insert(0, file);
+    });
+
+    saveLatest();
+    _model.file = file;
+    _model.setState(() => _model.setPage(PageModel.sharing));
   }
 
   @override
@@ -51,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                 child: Stack(
                   children: <Widget>[
                     Center(
-                        child: Text(L.get('Select file', model.locale),
+                        child: Text(L.get('Select file', _model.locale),
                             style: GoogleFonts.andika(
                                 textStyle: TextStyle(
                                     color: Colors.white, fontSize: 24)))),
@@ -66,73 +85,46 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 onTap: () async {
-                  File f = await FilePicker.getFile();
-                  if (f != null && f.path != null && f.path.length > 0) {
-                    file = ['file', f.path];
-
-                    setState(() {
-                      if (latest.contains(file)) latest.remove(file);
-
-                      latest.insert(0, file);
-                    });
-
-                    latestBox.put('data', latest);
-
-                    model.setState(() => model.setPage(PageModel.sharing));
+                  var f = await FilePicker.getFile();
+                  if (f != null && f.path != null && f.path.isNotEmpty) {
+                    shareFile(
+                        FileModel(data: f.path, type: FileTypeModel.file));
                   }
                 },
               ),
             )),
         Row(
           children: <Widget>[
-            Platform.isAndroid
-                ? Expanded(
-                    child: Container(
-                        margin: EdgeInsets.only(left: 24, top: 8),
-                        height: 48,
-                        child: Material(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.deepPurple[400],
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Center(
-                                child: Text(L.get('App', model.locale),
-                                    style: GoogleFonts.andika(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 24)))),
-                            onTap: () async {
-                              showDialog(
-                                  context: context,
-                                  child: AppSelector((String selected) async {
-                                    Application app =
-                                        await DeviceApps.getApp(selected);
-                                    file = [
-                                      'app',
-                                      [
-                                        app.appName,
-                                        app.packageName,
-                                        app.apkFilePath
-                                      ]
-                                    ];
-
-                                    setState(() {
-                                      if (latest.contains(file))
-                                        latest.remove(file);
-
-                                      latest.insert(0, file);
-                                    });
-
-                                    latestBox.put('data', latest);
-
-                                    model.setState(
-                                        () => model.setPage(PageModel.sharing));
-                                  }));
-                            },
-                          ),
-                        )),
-                  )
-                : Container(),
+            if (Platform.isAndroid)
+              Expanded(
+                child: Container(
+                    margin: EdgeInsets.only(left: 24, top: 8),
+                    height: 48,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.deepPurple[400],
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Center(
+                            child: Text(L.get('App', _model.locale),
+                                style: GoogleFonts.andika(
+                                    textStyle: TextStyle(
+                                        color: Colors.white, fontSize: 24)))),
+                        onTap: () async {
+                          await showDialog(
+                              context: context,
+                              child: AppSelector((String selected) async {
+                                //todo: return app, not string
+                                var app = await DeviceApps.getApp(selected);
+                                shareFile(FileModel(
+                                    type: FileTypeModel.app,
+                                    data: app.apkFilePath,
+                                    name: app.appName));
+                              }, _model.locale));
+                        },
+                      ),
+                    )),
+              ),
             SizedBox(
               width: Platform.isAndroid ? 8 : 24,
             ),
@@ -146,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       child: Center(
-                          child: Text(L.get('Text', model.locale),
+                          child: Text(L.get('Text', _model.locale),
                               style: GoogleFonts.andika(
                                   textStyle: TextStyle(
                                       color: Colors.white, fontSize: 24)))),
@@ -155,9 +147,9 @@ class _HomePageState extends State<HomePage> {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            TextEditingController c = TextEditingController();
+                            var c = TextEditingController();
                             return AlertDialog(
-                              title: Text(L.get('Type text', model.locale)),
+                              title: Text(L.get('Type text', _model.locale)),
                               content: TextField(
                                 controller: c,
                                 maxLines: null,
@@ -165,30 +157,21 @@ class _HomePageState extends State<HomePage> {
                               ),
                               actions: <Widget>[
                                 FlatButton(
-                                  child: Text(L.get('Close', model.locale)),
+                                  child: Text(L.get('Close', _model.locale)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 FlatButton(
-                                  child: Text(L.get('Send', model.locale)),
+                                  child: Text(L.get('Send', _model.locale)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
-                                    file = ['text', c.text];
 
-                                    if (file[1].length == 0) return;
-
-                                    setState(() {
-                                      if (latest.contains(file))
-                                        latest.remove(file);
-
-                                      latest.insert(0, file);
-                                    });
-
-                                    latestBox.put('data', latest);
-
-                                    model.setState(
-                                        () => model.setPage(PageModel.sharing));
+                                    if (c.text.isNotEmpty) {
+                                      shareFile(FileModel(
+                                          data: c.text,
+                                          type: FileTypeModel.text));
+                                    }
                                   },
                                 ),
                               ],
@@ -209,7 +192,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(left: 24, right: 24),
               child: Text(
-                L.get('Latest', model.locale),
+                L.get('Latest', _model.locale),
                 style:
                     GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
               ),
@@ -220,10 +203,10 @@ class _HomePageState extends State<HomePage> {
               child: IconButton(
                   onPressed: () {
                     setState(() {
-                      latest.clear();
+                      _latest.clear();
                     });
 
-                    latestBox.put('data', latest);
+                    saveLatest();
                   },
                   icon: Icon(
                     Icons.delete,
@@ -237,8 +220,8 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.only(left: 24, right: 24),
               child: ListView.builder(
                   padding: EdgeInsets.only(top: 16),
-                  itemCount: latest.length,
-                  itemBuilder: (context, index) => card(latest[index]))),
+                  itemCount: _latest.length,
+                  itemBuilder: (context, index) => card(_latest[index]))),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 18),
@@ -263,7 +246,7 @@ class _HomePageState extends State<HomePage> {
                       height: 18,
                     ),
                   ),
-                  onTap: () => model.setPage(PageModel.language),
+                  onTap: () => _model.setPage(PageModel.language),
                 ),
               ),
               SizedBox(
@@ -283,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                       height: 16,
                     ),
                   ),
-                  onTap: () => model.setPage(PageModel.intro),
+                  onTap: () => _model.setPage(PageModel.intro),
                 ),
               ),
               Spacer(),
@@ -302,8 +285,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () async {
-                    if (await canLaunch('https://marchello.cf'))
+                    if (await canLaunch('https://marchello.cf')) {
                       await launch('https://marchello.cf');
+                    }
                   },
                 ),
               ),
@@ -335,8 +319,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () async {
                     if (await canLaunch(
-                        'https://github.com/marchellodev/sharik'))
+                        'https://github.com/marchellodev/sharik')) {
                       await launch('https://github.com/marchellodev/sharik');
+                    }
                   },
                 ),
               ),
@@ -347,10 +332,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget card(List f) {
-    List<String> s = getIconText(f);
-    String icon = s[0];
-    String text = s[1];
+  Widget card(FileModel f) {
     return Container(
       height: 44,
       margin: EdgeInsets.only(bottom: 12),
@@ -359,30 +341,15 @@ class _HomePageState extends State<HomePage> {
         color: Colors.deepPurple[300],
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: () async {
-            file = f;
-
-            if (f.length == 0) {
-              latest.remove(file);
-              return;
-            }
-
-            setState(() {
-              if (latest.contains(file)) latest.remove(file);
-
-              latest.insert(0, file);
-            });
-
-            latestBox.put('data', latest);
-
-            model.setState(() => model.setPage(PageModel.sharing));
+          onTap: () {
+            shareFile(f);
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  icon,
+                  f.icon,
                   semanticsLabel: 'file ',
                   width: 18,
                 ),
@@ -393,7 +360,7 @@ class _HomePageState extends State<HomePage> {
                     child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Text(
-                    text,
+                    f.name,
                     style: GoogleFonts.andika(
                       textStyle: TextStyle(color: Colors.white, fontSize: 18),
                     ),
@@ -407,27 +374,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-List<String> getIconText(List f) {
-  String icon;
-  String text;
-
-  switch (f[0]) {
-    case 'file':
-      icon = 'assets/icon_folder2.svg';
-      text = (Platform.isAndroid
-          ? f[1].split(Platform.isWindows ? '\\' : '/').last
-          : f[1]);
-      break;
-    case 'text':
-      icon = 'assets/icon_file_word.svg';
-      text = f[1].replaceAll('\n', ' ');
-      break;
-    case 'app':
-      icon = 'assets/icon_file_app.svg';
-      text = f[1][0];
-      break;
-  }
-  return [icon, text];
 }

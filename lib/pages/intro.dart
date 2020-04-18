@@ -4,16 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/models/app.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../locale.dart';
+import '../models/app.dart';
+import '../models/page.dart';
 
 class IntroPage extends StatelessWidget {
-  final Function tap;
-
-  IntroPage(this.tap);
-
   @override
   Widget build(BuildContext context) {
     var model = Provider.of<AppModel>(context, listen: false);
@@ -83,8 +80,9 @@ class IntroPage extends StatelessWidget {
           backgroundColor: Colors.blueGrey[400],
           widgetDescription: GestureDetector(
             onTap: () async {
-              if (await canLaunch('https://github.com/marchellodev/sharik'))
+              if (await canLaunch('https://github.com/marchellodev/sharik')) {
                 await launch('https://github.com/marchellodev/sharik');
+              }
             },
             child: Text(
               L.get('sharik_is_available', model.locale),
@@ -97,7 +95,7 @@ class IntroPage extends StatelessWidget {
           ),
         ),
       ],
-      onDonePress: tap,
+      onDonePress: () => model.setPage(PageModel.home),
     );
   }
 }

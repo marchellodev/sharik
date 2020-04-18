@@ -9,12 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/models/app.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
 import '../locale.dart';
-import '../main.dart';
-import 'home.dart';
+import '../models/app.dart';
+import '../models/file.dart';
 
 class SharePage extends StatefulWidget {
   @override
@@ -30,6 +29,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   Animation conAnimation;
 
   AppModel model;
+  FileModel file;
 
   String ip;
   String network;
@@ -49,8 +49,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   void serve() async {
     await for (var request in server) {
-      if (file[0] == 'file' || file[0] == 'app') {
-        var f = File(file[0] == 'file' ? file[1] : file[1][2]);
+      if (file.type == FileTypeModel.file || file.type == FileTypeModel.app) {
+        var f = File(file.data);
         var size = await f.length();
 
         request.response.headers.contentType =
@@ -64,34 +64,41 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
         request.response.headers.add(
           'Content-disposition',
           'attachment; filename=' +
-              Uri.encodeComponent(file[0] == 'file'
-                  ? file[1].split(Platform.isWindows ? '\\' : '/').last
-                  : file[1][0] + '.apk'),
+              Uri.encodeComponent(file.type == FileTypeModel.file
+                  ? file.name
+                  : file.name + '.apk'),
         );
         request.response.headers.add(
           'Content-length',
           size,
         );
 
-        f.openRead().pipe(request.response).catchError((e) {}).then((a) {
+        await f.openRead().pipe(request.response).catchError((e) {}).then((a) {
           request.response.close();
         });
       } else {
         request.response.headers.contentType =
             ContentType('text', 'plain', charset: 'utf-8');
-        request.response.write(file[1]);
-        request.response.close();
+        request.response.write(file.data);
+        await request.response.close();
       }
     }
   }
 
   Future getIp() async {
-    for (var interface in await NetworkInterface.list())
+    for (var interface in await NetworkInterface.list()) {
       for (var addr in interface.addresses) {
-        if (addr.address.startsWith('192.168.')) return addr.address;
-        if (addr.address.startsWith('10.')) return addr.address;
-        if (addr.address.startsWith('172.16.')) return addr.address;
+        if (addr.address.startsWith('192.168.')) {
+          return addr.address;
+        }
+        if (addr.address.startsWith('10.')) {
+          return addr.address;
+        }
+        if (addr.address.startsWith('172.16.')) {
+          return addr.address;
+        }
       }
+    }
   }
 
   void updIp() async {
@@ -109,7 +116,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
       serve();
     }
     setState(() {
-      ip = "http://$_ip:$port";
+      ip = 'http://$_ip:$port';
     });
 
     ipController.stop();
@@ -123,8 +130,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     });
     conController.repeat();
 
-    bool w = false;
-    bool t = false;
+    var w = false;
+    var t = false;
 
     if (Platform.isAndroid) {
       w = await WiFiForIoTPlugin.isConnected();
@@ -135,14 +142,15 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     setState(() {
       wifi = w;
       tether = t;
-      if (!Platform.isAndroid)
+      if (!Platform.isAndroid) {
         network = L.get('undefined', model.locale);
-      else if (w)
+      } else if (w) {
         network = 'Wi-Fi';
-      else if (t)
+      } else if (t) {
         network = L.get('Mobile Hotspot', model.locale);
-      else
+      } else {
         network = L.get('Not connected', model.locale);
+      }
     });
     conController.stop();
 
@@ -163,6 +171,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   @override
   void initState() {
     model = Provider.of<AppModel>(context, listen: false);
+    file = model.file;
 
     ip = L.get('loading...', model.locale);
     network = L.get('loading...', model.locale);
@@ -182,10 +191,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    List<String> s = getIconText(file);
-    String icon = s[0];
-    String text = s[1];
-
     return Container(
       margin: EdgeInsets.only(left: 24, right: 24, top: 16),
       child: Column(
@@ -201,8 +206,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             child: Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  icon,
-                  semanticsLabel: 'file ',
+                  file.icon,
+                  //todo: add semantics stuff everywhere
+                  semanticsLabel: 'file',
                   width: 18,
                 ),
                 SizedBox(
@@ -212,7 +218,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      text,
+                      file.name,
                       style: GoogleFonts.andika(
                         textStyle: TextStyle(color: Colors.white, fontSize: 18),
                       ),
@@ -276,15 +282,15 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                       text: L.get('Connect to', model.locale)),
                                   Platform.isAndroid
                                       ? TextSpan(
-                                          text: " Wi-Fi ",
+                                          text: ' Wi-Fi ',
                                           style: TextStyle(
                                               color: wifi
                                                   ? Colors.green[100]
                                                   : Colors.red[100]))
-                                      : TextSpan(text: " Wi-Fi "),
+                                      : TextSpan(text: ' Wi-Fi '),
                                   TextSpan(
                                       text: L.get('or enable', model.locale) +
-                                          " "),
+                                          ' '),
                                   Platform.isAndroid
                                       ? TextSpan(
                                           text: L.get('enable Mobile Hotspot',

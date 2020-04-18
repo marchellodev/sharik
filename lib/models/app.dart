@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import 'file.dart';
 import 'locale.dart';
 import 'page.dart';
 
 class AppModel {
   LocaleModel locale = LocaleModel.en;
+  FileModel file;
 
   final TabController _pagerGlobal;
   final TabController _pagerHome;
@@ -13,10 +15,11 @@ class AppModel {
 
   AppModel(this._pagerGlobal, this._pagerHome, this.setState) {
     locale = Hive.box('app2').get('locale', defaultValue: null);
-    if (locale != null)
+    if (locale != null) {
       setPage(PageModel.home);
-    else
+    } else {
       setPage(PageModel.language);
+    }
   }
 
   void setLocale(LocaleModel newLocale) {
@@ -64,10 +67,11 @@ class AppModel {
         case 3:
           return PageModel.home;
       }
-    } else if (global == 3)
+    } else if (global == 3) {
       return PageModel.sharing;
-    else
+    } else {
       throw Exception('Wrong page or something');
+    }
 
     return null;
   }

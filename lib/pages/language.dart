@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/models/app.dart';
-import 'package:sharik/models/locale.dart';
-import 'package:sharik/models/page.dart';
+
+import '../models/app.dart';
+import '../models/locale.dart';
+import '../models/page.dart';
 
 class LanguagePage extends StatelessWidget {
   Widget button(LocaleModel locale, AppModel model) {
     String text;
     String sign;
+    //todo: remove switch, use something else
     switch (locale) {
       case LocaleModel.en:
         text = 'English';
@@ -52,10 +53,8 @@ class LanguagePage extends StatelessWidget {
               ],
             ),
             onTap: () {
-              model.locale = locale;
+              model.setLocale(locale);
               model.setPage(PageModel.intro);
-
-              Hive.box('app2').put('locale', locale);
             },
           ),
         ));
@@ -72,7 +71,7 @@ class LanguagePage extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 8, bottom: 28),
             child: Text(
-              "Select the language\nyou are familiar\nwith",
+              'Select the language\nyou are familiar\nwith',
               textAlign: TextAlign.center,
               style: GoogleFonts.comfortaa(
                 fontSize: 26,

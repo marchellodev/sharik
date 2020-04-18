@@ -1,4 +1,4 @@
-import 'package:sharik/models/locale.dart';
+import 'models/locale.dart';
 
 class L {
   static String get(String key, LocaleModel localeModel) {

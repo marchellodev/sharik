@@ -1,15 +1,16 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sharik/models/app.dart';
 
 import '../locale.dart';
+import '../models/locale.dart';
 
 class AppSelector extends StatefulWidget {
+  //todo: remove callback
   final Function(String package) callback;
+  final LocaleModel locale;
 
-  AppSelector(this.callback);
+  AppSelector(this.callback, this.locale);
 
   @override
   _AppSelectorState createState() => _AppSelectorState();
@@ -22,11 +23,8 @@ class _AppSelectorState extends State<AppSelector> {
   String search;
   String selected;
 
-  AppModel model;
-
   @override
   void initState() {
-    model = Provider.of<AppModel>(context, listen: false);
     getApps();
     super.initState();
   }
@@ -43,16 +41,15 @@ class _AppSelectorState extends State<AppSelector> {
 
   @override
   Widget build(BuildContext context) {
-    List<Application> _apps = [];
-    if (search == null || search.length == 0)
+    var _apps = <Application>[];
+    if (search == null || search.isEmpty) {
       _apps = apps;
-    else
+    } else {
       apps.forEach((element) {
         if (element.packageName.contains(search) ||
             element.appName.contains(search)) _apps.add(element);
       });
-
-    // print(selected);
+    }
 
     return AlertDialog(
 //      title: Text("Type some text asdf asdfhba sdfhbfipsadfhbapsdihfbp"),
@@ -62,7 +59,7 @@ class _AppSelectorState extends State<AppSelector> {
           scrollDirection: Axis.vertical,
           children: <Widget>[
             CheckboxListTile(
-              title: Text(L.get('Hide system apps', model.locale)),
+              title: Text(L.get('Hide system apps', widget.locale)),
               value: checkSystem,
               onChanged: (value) => setState(() {
                 checkSystem = value;
@@ -71,7 +68,7 @@ class _AppSelectorState extends State<AppSelector> {
               controlAffinity: ListTileControlAffinity.leading,
             ),
             CheckboxListTile(
-              title: Text(L.get('Hide non-launchable apps', model.locale)),
+              title: Text(L.get('Hide non-launchable apps', widget.locale)),
               value: checkLaunch,
               onChanged: (value) => setState(() {
                 checkLaunch = value;
@@ -82,7 +79,7 @@ class _AppSelectorState extends State<AppSelector> {
             TextField(
               onChanged: (value) => setState(() => search = value),
               decoration:
-                  InputDecoration(hintText: L.get('Search', model.locale)),
+                  InputDecoration(hintText: L.get('Search', widget.locale)),
             ),
             _apps != null
                 ? ListView.builder(
@@ -114,13 +111,13 @@ class _AppSelectorState extends State<AppSelector> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text(L.get('Close', model.locale)),
+          child: Text(L.get('Close', widget.locale)),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text(L.get('Send', model.locale)),
+          child: Text(L.get('Send', widget.locale)),
           onPressed: selected == null
               ? null
               : () {
