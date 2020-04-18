@@ -26,7 +26,7 @@ class LanguagePage extends StatelessWidget {
         height: 100,
         child: Material(
           borderRadius: BorderRadius.circular(12),
-          color: Color(0xFF7E57C2),
+          color: Colors.deepPurple[400],
           child: InkWell(
             borderRadius: BorderRadius.circular(12),
             child: Stack(

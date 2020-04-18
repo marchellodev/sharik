@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             height: 104,
             child: Material(
               borderRadius: BorderRadius.circular(12),
-              color: Color(0xFF7E57C2),
+              color: Colors.deepPurple[400],
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
                 child: Stack(
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                         height: 48,
                         child: Material(
                           borderRadius: BorderRadius.circular(12),
-                          color: Color(0xFF7E57C2),
+                          color: Colors.deepPurple[400],
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
                             child: Center(
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                   height: 48,
                   child: Material(
                     borderRadius: BorderRadius.circular(12),
-                    color: Color(0xFF7E57C2),
+                    color: Colors.deepPurple[400],
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       child: Center(
@@ -227,7 +227,6 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(
                     Icons.delete,
                     size: 20,
-                    color: Colors.grey.shade800,
                   )),
             )
           ],
@@ -244,17 +243,17 @@ class _HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: 18),
           height: 54,
           decoration: BoxDecoration(
-              color: Color(0xFFD1C4E9),
+              color: Colors.deepPurple[100],
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(24), topRight: Radius.circular(24))),
           child: Row(
             children: <Widget>[
               Material(
-                color: Color(0xFFD1C4E9),
+                color: Colors.deepPurple[100],
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
-                  splashColor: Color(0xFF7E57C2),
+                  splashColor: Colors.deepPurple[400],
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
@@ -270,11 +269,11 @@ class _HomePageState extends State<HomePage> {
                 width: 2,
               ),
               Material(
-                color: Color(0xFFD1C4E9),
+                color: Colors.deepPurple[100],
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
-                  splashColor: Color(0xFF7E57C2),
+                  splashColor: Colors.deepPurple[400],
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
@@ -288,11 +287,11 @@ class _HomePageState extends State<HomePage> {
               ),
               Spacer(),
               Material(
-                color: Color(0xFFD1C4E9),
+                color: Colors.deepPurple[100],
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
-                  splashColor: Color(0xFF7E57C2),
+                  splashColor: Colors.deepPurple[400],
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
@@ -311,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                 width: 2,
               ),
               Container(
-                color: Color(0xFF512DA8),
+                color: Colors.deepPurple[700],
                 height: double.infinity,
                 margin: EdgeInsets.symmetric(vertical: 12),
                 width: 1,
@@ -320,11 +319,11 @@ class _HomePageState extends State<HomePage> {
                 width: 2,
               ),
               Material(
-                color: Color(0xFFD1C4E9),
+                color: Colors.deepPurple[100],
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
-                  splashColor: Color(0xFF7E57C2),
+                  splashColor: Colors.deepPurple[400],
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
@@ -356,7 +355,7 @@ class _HomePageState extends State<HomePage> {
       margin: EdgeInsets.only(bottom: 12),
       child: Material(
         borderRadius: BorderRadius.circular(12),
-        color: Color(0xFF9575CD),
+        color: Colors.deepPurple[300],
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
           onTap: () async {

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:io' show Platform;
 import 'dart:math';
 
 import 'package:clipboard_manager/clipboard_manager.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wifi_iot/wifi_iot.dart';
-import 'dart:io' show Platform;
 
 import '../locale.dart';
 import '../main.dart';
@@ -60,8 +60,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
         request.response.headers.add(
           'Content-disposition',
           'attachment; filename=' +
-              Uri.encodeComponent(
-                  file[0] == 'file' ? file[1].split( Platform.isWindows ? '\\' : '/').last : file[1][0]+'.apk'),
+              Uri.encodeComponent(file[0] == 'file'
+                  ? file[1].split(Platform.isWindows ? '\\' : '/').last
+                  : file[1][0] + '.apk'),
         );
         request.response.headers.add(
           'Content-length',
@@ -186,7 +187,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             padding: EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Color(0xFF7E57C2),
+              color: Colors.deepPurple[400],
             ),
             child: Row(
               children: <Widget>[
@@ -219,7 +220,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 //            padding: EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Color(0xFF7E57C2),
+              color: Colors.deepPurple[400],
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -268,8 +269,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                           text: " Wi-Fi ",
                                           style: TextStyle(
                                               color: wifi
-                                                  ? Color(0xFFC8E6C9)
-                                                  : Color(0xFFFFCDD2)))
+                                                  ? Colors.green[100]
+                                                  : Colors.red[100]))
                                       : TextSpan(text: " Wi-Fi "),
                                   TextSpan(
                                       text: L.get('or enable', locale) + " "),
@@ -279,8 +280,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                               'enable Mobile Hotspot', locale),
                                           style: TextStyle(
                                               color: tether
-                                                  ? Color(0xFFC8E6C9)
-                                                  : Color(0xFFFFCDD2)))
+                                                  ? Colors.green[100]
+                                                  : Colors.red[100]))
                                       : TextSpan(
                                           text: L.get(
                                               'enable Mobile Hotspot', locale)),
@@ -297,7 +298,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                 ),
                 Material(
                   borderRadius: BorderRadius.circular(12),
-                  color: Color(0xFF7E57C2),
+                  color: Colors.deepPurple[400],
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
@@ -339,7 +340,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
           Container(
             decoration: BoxDecoration(
-              color: Color(0xFF7E57C2),
+              color: Colors.deepPurple[400],
               borderRadius: BorderRadius.circular(12),
             ),
             height: 42,
@@ -366,13 +367,13 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
                 Material(
                   borderRadius: BorderRadius.circular(12),
-                  color: Color(0xFF7E57C2),
+                  color: Colors.deepPurple[400],
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
                       ClipboardManager.copyToClipBoard(ip).then((result) {
                         final snackBar = SnackBar(
-                          backgroundColor: Color(0xFF673AB7),
+                          backgroundColor: Colors.deepPurple[500],
                           duration: Duration(seconds: 1),
                           content: Text(
                             L.get('copied', locale),
@@ -395,7 +396,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                 ),
                 Material(
                   borderRadius: BorderRadius.circular(12),
-                  color: Color(0xFF7E57C2),
+                  color: Colors.deepPurple[400],
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
@@ -433,7 +434,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              color: Color(0xFF9575CD),
+              color: Colors.deepPurple[300],
             ),
             child: Text(
               L.get('The recipient', locale),

@@ -32,9 +32,8 @@ void main() async {
     runApp(MaterialApp(
         home: Scaffold(
             body: Center(
-      child: Text('Sharik is already open'),
+      child: Text('Sharik is already running'),
     ))));
-    print('ERROR');
   }
 }
 
@@ -54,42 +53,33 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> with TickerProviderStateMixin {
-  TabController pager;
-  TabController pagerGlobal;
-  bool back = false;
+  TabController _homePager;
+  TabController _pagerGlobal;
 
   void lang() async {
     String _locale = Hive.box('app').get('locale', defaultValue: null);
 
-    await Future.delayed(const Duration(seconds: 1), () {});
-
     if (_locale != null) {
       locale = _locale;
-      pagerGlobal.animateTo(3);
+      _setPage(Page.home);
     } else
-      pagerGlobal.animateTo(1);
+      _setPage(Page.language);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isAndroid)
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
-            controller: pagerGlobal,
+            controller: _pagerGlobal,
             children: [
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                color: Color(0xFF673AB7),
+                color: Colors.deepPurple[500],
                 child: Center(
                   child: SvgPicture.asset('assets/logo_inverse.svg',
                       height: 64, semanticsLabel: 'app icon'),
@@ -101,18 +91,16 @@ class AppState extends State<App> with TickerProviderStateMixin {
                     child: Container(
                         margin:
                             EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-                        child: logo()),
+                        child: SharikLogo()),
                   ),
                   LanguagePage((lang) async {
-                    pagerGlobal.animateTo(2);
+                    _setPage(Page.intro);
                     locale = lang;
                     Hive.box('app').put('locale', locale);
                   }),
                 ],
               ),
-              IntroPage(() {
-                pagerGlobal.animateTo(3);
-              }),
+              IntroPage(() => _setPage(Page.home)),
               Column(
                 children: <Widget>[
                   SafeArea(
@@ -122,23 +110,18 @@ class AppState extends State<App> with TickerProviderStateMixin {
                       child: Stack(
                         alignment: Alignment.centerLeft,
                         children: <Widget>[
-                          logo(),
-                          back
-                              ? IconButton(
-//                                  tooltip: "back",
-                                  onPressed: () {
-                                    setState(() {
-                                      back = false;
-                                    });
-                                    pager.animateTo(0);
+                          SharikLogo(),
+                          if (_getPage() == Page.sharing)
+                            IconButton(
+                                onPressed: () {
+                                  setState(() => _setPage(Page.home));
 
-                                    removeTemporaryDir();
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/icon_back.svg',
-                                    width: 18,
-                                  ))
-                              : Container(),
+                                  removeTemporaryDir();
+                                },
+                                icon: SvgPicture.asset(
+                                  'assets/icon_back.svg',
+                                  width: 18,
+                                ))
                         ],
                       ),
                     ),
@@ -146,22 +129,28 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   Expanded(
                       child: TabBarView(
                           physics: NeverScrollableScrollPhysics(),
-                          controller: pager,
+                          controller: _homePager,
                           children: <Widget>[
                         HomePage((e) {
                           if (e == '_help') {
-                            pagerGlobal.animateTo(2);
+                            _setPage(Page.intro);
                           } else if (e == '_locale') {
-                            pagerGlobal.animateTo(1);
+                            _setPage(Page.language);
                           } else {
-                            setState(() {
-                              back = true;
-                            });
-
-                            pager.animateTo(1);
+                            setState(() => _setPage(Page.sharing));
                           }
                         }),
-                        WillPopScope(onWillPop: _onWillPop, child: SharePage())
+                        WillPopScope(
+                            onWillPop: () async {
+                              await Future.delayed(Duration.zero);
+
+                              if (_getPage() == Page.sharing) {
+                                setState(() => _setPage(Page.home));
+                                removeTemporaryDir();
+                              }
+                              return false;
+                            },
+                            child: SharePage())
                       ]))
                 ],
               )
@@ -170,39 +159,85 @@ class AppState extends State<App> with TickerProviderStateMixin {
     );
   }
 
-  // ignore: missing_return
-  Future<bool> _onWillPop() {
-    setState(() {
-      back = false;
-    });
-    pager.animateTo(0);
-
-    removeTemporaryDir();
-  }
-
-  Widget logo() => Material(
-        type: MaterialType.transparency,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SvgPicture.asset('assets/logo.svg', semanticsLabel: 'app icon'),
-            SizedBox(
-              width: 8,
-            ),
-            Text(
-              "Sharik",
-              style: GoogleFonts.poppins(
-                  fontSize: 36, fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
-      );
-
   @override
   void initState() {
-    pager = TabController(initialIndex: 0, vsync: this, length: 2);
-    pagerGlobal = TabController(initialIndex: 0, vsync: this, length: 4);
+    _homePager = TabController(initialIndex: 0, vsync: this, length: 2);
+    _pagerGlobal = TabController(initialIndex: 0, vsync: this, length: 4);
     lang();
+
+    if (Platform.isAndroid)
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+
     super.initState();
   }
+
+  void _setPage(Page page) {
+    switch (page) {
+      case Page.loading:
+        _homePager.animateTo(0);
+        _pagerGlobal.animateTo(0);
+        break;
+      case Page.language:
+        _homePager.animateTo(0);
+        _pagerGlobal.animateTo(1);
+        break;
+      case Page.intro:
+        _homePager.animateTo(0);
+        _pagerGlobal.animateTo(2);
+        break;
+      case Page.home:
+        _homePager.animateTo(0);
+        _pagerGlobal.animateTo(3);
+        break;
+      case Page.sharing:
+        _pagerGlobal.animateTo(3);
+        _homePager.animateTo(1);
+        break;
+    }
+  }
+
+  Page _getPage() {
+    var home = _homePager.index;
+    var global = _pagerGlobal.index;
+
+    if (home == 0) {
+      switch (global) {
+        case 0:
+          return Page.loading;
+        case 1:
+          return Page.language;
+        case 2:
+          return Page.intro;
+        case 3:
+          return Page.home;
+      }
+    } else if (global == 3)
+      return Page.sharing;
+    else
+      throw Exception('Wrong page or something');
+    return null;
+  }
+}
+
+enum Page { loading, language, intro, home, sharing }
+
+class SharikLogo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) =>
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        SvgPicture.asset('assets/logo.svg', semanticsLabel: 'Sharik app icon'),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          'Sharik',
+          style: GoogleFonts.poppins(
+              fontSize: 36,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey[900]),
+        )
+      ]);
 }

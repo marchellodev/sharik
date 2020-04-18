@@ -38,7 +38,7 @@ class IntroPage extends StatelessWidget {
           title: L.get('CONNECT', locale),
           description: L.get('connect_same', locale),
           pathImage: 'assets/slide_1.png',
-          backgroundColor: Color(0xFFEF5350),
+          backgroundColor: Colors.purple[400],
         ),
         Slide(
           styleTitle: GoogleFonts.comfortaa(
@@ -52,7 +52,7 @@ class IntroPage extends StatelessWidget {
           title: L.get('SEND', locale),
           description: L.get('select_any', locale),
           pathImage: 'assets/slide_2.png',
-          backgroundColor: Color(0xFFAB47BC),
+          backgroundColor: Colors.indigo[400],
         ),
         Slide(
           styleTitle: GoogleFonts.comfortaa(
@@ -66,7 +66,7 @@ class IntroPage extends StatelessWidget {
           title: L.get('RECEIVE', locale),
           description: L.get('open_link', locale),
           pathImage: 'assets/slide_3.png',
-          backgroundColor: Color(0xFF5C6BC0),
+          backgroundColor: Colors.teal[400],
         ),
         Slide(
           styleTitle: GoogleFonts.comfortaa(
@@ -77,7 +77,7 @@ class IntroPage extends StatelessWidget {
           )),
           title: L.get('EVERYWHERE', locale),
           pathImage: 'assets/slide_4.png',
-          backgroundColor: Color(0xFF29B6F6),
+          backgroundColor: Colors.blueGrey[400],
           widgetDescription: GestureDetector(
             onTap: () async {
               if (await canLaunch('https://github.com/marchellodev/sharik'))
