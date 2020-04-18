@@ -2,20 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../main.dart';
 
-// ignore: must_be_immutable
 class LanguagePage extends StatelessWidget {
-  Callback back;
+  final Function(String data) back;
 
   LanguagePage(this.back);
 
   Widget button(String locale) {
     String text;
-    switch(locale){
-      case 'en': text = 'English'; break;
-      case 'ua': text = 'Українська'; break;
-      case 'ru': text = 'Русский'; break;
+    switch (locale) {
+      case 'en':
+        text = 'English';
+        break;
+      case 'ua':
+        text = 'Українська';
+        break;
+      case 'ru':
+        text = 'Русский';
+        break;
     }
 
     return Container(
@@ -31,7 +35,7 @@ class LanguagePage extends StatelessWidget {
                     child: Text(text,
                         style: GoogleFonts.andika(
                             textStyle:
-                            TextStyle(color: Colors.white, fontSize: 24)))),
+                                TextStyle(color: Colors.white, fontSize: 24)))),
                 Container(
                   margin: EdgeInsets.all(6),
                   child: Align(

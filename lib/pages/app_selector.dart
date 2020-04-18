@@ -6,7 +6,7 @@ import '../locale.dart';
 import '../main.dart';
 
 class AppSelector extends StatefulWidget {
-  Function(String package) callback;
+  final Function(String package) callback;
 
   AppSelector(this.callback);
 
@@ -116,10 +116,12 @@ class _AppSelectorState extends State<AppSelector> {
         ),
         FlatButton(
           child: Text(L.get('Send', locale)),
-          onPressed: selected == null ? null : () {
-            Navigator.of(context).pop();
-            widget.callback(selected);
-          },
+          onPressed: selected == null
+              ? null
+              : () {
+                  Navigator.of(context).pop();
+                  widget.callback(selected);
+                },
         ),
       ],
     );

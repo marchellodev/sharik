@@ -8,15 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 import '../locale.dart';
 import '../main.dart';
 
-// ignore: must_be_immutable
 class IntroPage extends StatelessWidget {
-  Function tap;
+  final Function tap;
 
   IntroPage(this.tap);
 
   @override
   Widget build(BuildContext context) {
-    return new IntroSlider(
+    return IntroSlider(
       nameDoneBtn: L.get('DONE', locale),
       nameNextBtn: L.get('NEXT', locale),
       isShowSkipBtn: false,

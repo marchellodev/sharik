@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:device_apps/device_apps.dart';
@@ -13,9 +12,8 @@ import '../locale.dart';
 import '../main.dart';
 import 'app_selector.dart';
 
-// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
-  Callback back;
+  final Function(String data) back;
 
   HomePage(this.back);
 
@@ -32,12 +30,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void pref() async {
-    setState(() {
-      latest = latestBox.get('data', defaultValue: []);
-      // print(latest);
-      // print('setted');
-    });
+  void pref() {
+    setState(() => latest = latestBox.get('data', defaultValue: []));
   }
 
   @override
@@ -74,10 +68,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 onTap: () async {
                   File f = await FilePicker.getFile();
-                  if (f != null) {
+                  if (f != null && f.path != null && f.path.length > 0) {
                     file = ['file', f.path];
-
-                    if (file.length == 0) return;
 
                     setState(() {
                       if (latest.contains(file)) latest.remove(file);
@@ -211,12 +203,34 @@ class _HomePageState extends State<HomePage> {
         SizedBox(
           height: 22,
         ),
-        Container(
-          margin: EdgeInsets.only(left: 24, right: 24),
-          child: Text(
-            L.get('Latest', locale),
-            style: GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
-          ),
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 24, right: 24),
+              child: Text(
+                L.get('Latest', locale),
+                style:
+                    GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
+              ),
+            ),
+            Spacer(),
+            Container(
+              margin: EdgeInsets.only(right: 24),
+              child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      latest.clear();
+                    });
+
+                    latestBox.put('data', latest);
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    size: 20,
+                    color: Colors.grey.shade800,
+                  )),
+            )
+          ],
         ),
         Expanded(
           child: Container(
@@ -282,37 +296,14 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
-                      'assets/icon_email.svg',
-                      semanticsLabel: 'instagram',
-                      height: 14,
-                    ),
-                  ),
-                  onTap: () async {
-                    if (await canLaunch('mailto:marchellodev@gmail.com'))
-                      await launch('mailto:marchellodev@gmail.com');
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 2,
-              ),
-              Material(
-                color: Color(0xFFD1C4E9),
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Color(0xFF7E57C2),
-                  child: Container(
-                    margin: EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_instagram.svg',
+                      'assets/icon_browser.svg',
                       semanticsLabel: 'instagram',
                       height: 18,
                     ),
                   ),
                   onTap: () async {
-                    if (await canLaunch('https://instagram.com/marchellodev'))
-                      await launch('https://instagram.com/marchellodev');
+                    if (await canLaunch('https://marchello.cf'))
+                      await launch('https://marchello.cf');
                   },
                 ),
               ),
@@ -349,31 +340,6 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              SizedBox(
-                width: 2,
-              ),
-              Material(
-                color: Color(0xFFD1C4E9),
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Color(0xFF7E57C2),
-                  child: Container(
-                    margin: EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_store.svg',
-                      semanticsLabel: 'play store',
-                      height: 18,
-                    ),
-                  ),
-                  onTap: () async {
-                    if (await canLaunch(
-                        'https://play.google.com/store/apps/details?id=dev.marchello.sharik'))
-                      await launch(
-                          'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
-                  },
-                ),
-              ),
             ],
           ),
         )
@@ -382,24 +348,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget card(List f) {
-    //weird stuff goes here, but it works :D
-    ScrollController controller = ScrollController();
-
-    // print('displaying card...');
-    int n = 0;
-    void set() {
-      if (controller.positions.isNotEmpty) {
-        controller.jumpTo(controller.position.maxScrollExtent);
-        n++;
-        // print(n);
-        if (n < 5) Timer(Duration(milliseconds: 100), () => set());
-      } else
-        Timer(Duration(milliseconds: 100), () => set());
-    }
-
-    // print(latest);
-    if (!Platform.isAndroid) set();
-
     List<String> s = getIconText(f);
     String icon = s[0];
     String text = s[1];
@@ -443,7 +391,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Expanded(
                     child: SingleChildScrollView(
-                  controller: controller,
                   scrollDirection: Axis.horizontal,
                   child: Text(
                     text,

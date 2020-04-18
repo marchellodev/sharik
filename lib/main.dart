@@ -14,24 +14,26 @@ import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
 
-typedef Callback = void Function(String data);
-
 String locale = 'en';
 List<dynamic> file = [];
 
 Box latestBox;
 
+void removeTemporaryDir() {
+  getTemporaryDirectory().then((dir) {
+    dir.exists().then((exists) {
+      try {
+        dir.delete(recursive: true);
+      } catch (e) {}
+    });
+  });
+}
+
 Future<void> main() async {
+  //todo: if app is already open (lock file)
   await Hive.initFlutter();
   await Hive.openBox('app');
   latestBox = await Hive.openBox('latest');
-
-  getTemporaryDirectory().then((value) async {
-    if (await value.exists())
-      try {
-        value.delete(recursive: true);
-      } catch (e) {}
-  });
 
   runApp(App());
 }
@@ -120,12 +122,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                                     });
                                     pager.animateTo(0);
 
-                                    getTemporaryDirectory().then((value) async {
-                                      if (await value.exists())
-                                        try {
-                                          value.delete(recursive: true);
-                                        } catch (e) {}
-                                    });
+                                    removeTemporaryDir();
                                   },
                                   icon: SvgPicture.asset(
                                     'assets/icon_back.svg',
@@ -170,12 +167,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
     });
     pager.animateTo(0);
 
-    getTemporaryDirectory().then((value) async {
-      if (await value.exists())
-        try {
-          value.delete(recursive: true);
-        } catch (e) {}
-    });
+    removeTemporaryDir();
   }
 
   Widget logo() => Material(
