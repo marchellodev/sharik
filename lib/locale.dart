@@ -1,5 +1,21 @@
+import 'package:sharik/models/locale.dart';
+
 class L {
-  static String get(String key, String locale) {
+  static String get(String key, LocaleModel localeModel) {
+    var locale;
+    //todo: remove switch, use extensions/helpers
+    switch (localeModel) {
+      case LocaleModel.en:
+        locale = 'en';
+        break;
+      case LocaleModel.ru:
+        locale = 'ru';
+        break;
+      case LocaleModel.ua:
+        locale = 'ua';
+        break;
+    }
+
     const dict = {
       'CONNECT': {'en': 'CONNECT', 'ua': 'З\'ЄДНАЙ', 'ru': 'СОЕДИНИ'},
       'connect_same': {

@@ -1,8 +1,8 @@
 start_time=$(date +%s)
 
-#go list -m -u all
+flutter packages pub run build_runner build
 
-flutter channel beta
+flutter channel stable
 flutter upgrade
 flutter clean
 flutter build apk --split-per-abi

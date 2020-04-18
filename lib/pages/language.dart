@@ -2,23 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+import 'package:sharik/models/app.dart';
+import 'package:sharik/models/locale.dart';
+import 'package:sharik/models/page.dart';
 
 class LanguagePage extends StatelessWidget {
-  final Function(String data) back;
-
-  LanguagePage(this.back);
-
-  Widget button(String locale) {
+  Widget button(LocaleModel locale, AppModel model) {
     String text;
+    String sign;
     switch (locale) {
-      case 'en':
+      case LocaleModel.en:
         text = 'English';
+        sign = 'en';
         break;
-      case 'ua':
+      case LocaleModel.ua:
         text = 'Українська';
+        sign = 'ua';
         break;
-      case 'ru':
+      case LocaleModel.ru:
         text = 'Русский';
+        sign = 'ru';
         break;
     }
 
@@ -41,37 +46,46 @@ class LanguagePage extends StatelessWidget {
                   child: Align(
                       alignment: Alignment.bottomRight,
                       child: SvgPicture.asset(
-                        'assets/flag_$locale.svg',
+                        'assets/flag_$sign.svg',
                       )),
                 )
               ],
             ),
-            onTap: () => back(locale),
+            onTap: () {
+              model.locale = locale;
+              model.setPage(PageModel.intro);
+
+              Hive.box('app2').put('locale', locale);
+            },
           ),
         ));
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 8, bottom: 28),
-              child: Text(
-                "Select the language\nyou are familiar\nwith",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.comfortaa(
-                  fontSize: 26,
-                ),
+  Widget build(BuildContext context) {
+    var model = Provider.of<AppModel>(context);
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 8, bottom: 28),
+            child: Text(
+              "Select the language\nyou are familiar\nwith",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.comfortaa(
+                fontSize: 26,
               ),
             ),
-            button('en'),
-            SizedBox(height: 24),
-            button('ru'),
-            SizedBox(height: 24),
-            button('ua'),
-          ],
-        ),
-      );
+          ),
+          button(LocaleModel.en, model),
+          SizedBox(height: 24),
+          button(LocaleModel.ru, model),
+          SizedBox(height: 24),
+          button(LocaleModel.ua, model),
+        ],
+      ),
+    );
+  }
 }

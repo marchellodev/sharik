@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:sharik/models/app.dart';
+import 'package:sharik/models/page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../locale.dart';
@@ -13,19 +16,17 @@ import '../main.dart';
 import 'app_selector.dart';
 
 class HomePage extends StatefulWidget {
-  final Function(String data) back;
-
-  HomePage(this.back);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   var latest = [];
+  AppModel model;
 
   @override
   void initState() {
+    model = Provider.of<AppModel>(context, listen: false);
     pref();
     super.initState();
   }
@@ -36,8 +37,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // print(latest);
-    // print('just was');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 child: Stack(
                   children: <Widget>[
                     Center(
-                        child: Text(L.get('Select file', locale),
+                        child: Text(L.get('Select file', model.locale),
                             style: GoogleFonts.andika(
                                 textStyle: TextStyle(
                                     color: Colors.white, fontSize: 24)))),
@@ -79,7 +78,7 @@ class _HomePageState extends State<HomePage> {
 
                     latestBox.put('data', latest);
 
-                    widget.back('file');
+                    model.setState(() => model.setPage(PageModel.sharing));
                   }
                 },
               ),
@@ -97,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(12),
                             child: Center(
-                                child: Text(L.get('App', locale),
+                                child: Text(L.get('App', model.locale),
                                     style: GoogleFonts.andika(
                                         textStyle: TextStyle(
                                             color: Colors.white,
@@ -126,7 +125,8 @@ class _HomePageState extends State<HomePage> {
 
                                     latestBox.put('data', latest);
 
-                                    widget.back('file');
+                                    model.setState(
+                                        () => model.setPage(PageModel.sharing));
                                   }));
                             },
                           ),
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       child: Center(
-                          child: Text(L.get('Text', locale),
+                          child: Text(L.get('Text', model.locale),
                               style: GoogleFonts.andika(
                                   textStyle: TextStyle(
                                       color: Colors.white, fontSize: 24)))),
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                           builder: (BuildContext context) {
                             TextEditingController c = TextEditingController();
                             return AlertDialog(
-                              title: Text(L.get('Type text', locale)),
+                              title: Text(L.get('Type text', model.locale)),
                               content: TextField(
                                 controller: c,
                                 maxLines: null,
@@ -165,13 +165,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                               actions: <Widget>[
                                 FlatButton(
-                                  child: Text(L.get('Close', locale)),
+                                  child: Text(L.get('Close', model.locale)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 FlatButton(
-                                  child: Text(L.get('Send', locale)),
+                                  child: Text(L.get('Send', model.locale)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                     file = ['text', c.text];
@@ -187,7 +187,8 @@ class _HomePageState extends State<HomePage> {
 
                                     latestBox.put('data', latest);
 
-                                    widget.back('file');
+                                    model.setState(
+                                        () => model.setPage(PageModel.sharing));
                                   },
                                 ),
                               ],
@@ -208,7 +209,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(left: 24, right: 24),
               child: Text(
-                L.get('Latest', locale),
+                L.get('Latest', model.locale),
                 style:
                     GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
               ),
@@ -262,7 +263,7 @@ class _HomePageState extends State<HomePage> {
                       height: 18,
                     ),
                   ),
-                  onTap: () => widget.back('_locale'),
+                  onTap: () => model.setPage(PageModel.language),
                 ),
               ),
               SizedBox(
@@ -282,7 +283,7 @@ class _HomePageState extends State<HomePage> {
                       height: 16,
                     ),
                   ),
-                  onTap: () => widget.back('_help'),
+                  onTap: () => model.setPage(PageModel.intro),
                 ),
               ),
               Spacer(),
@@ -374,7 +375,7 @@ class _HomePageState extends State<HomePage> {
 
             latestBox.put('data', latest);
 
-            widget.back('file');
+            model.setState(() => model.setPage(PageModel.sharing));
           },
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16),

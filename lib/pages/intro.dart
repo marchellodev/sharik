@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:provider/provider.dart';
+import 'package:sharik/models/app.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../locale.dart';
-import '../main.dart';
 
 class IntroPage extends StatelessWidget {
   final Function tap;
@@ -15,9 +16,11 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var model = Provider.of<AppModel>(context, listen: false);
+
     return IntroSlider(
-      nameDoneBtn: L.get('DONE', locale),
-      nameNextBtn: L.get('NEXT', locale),
+      nameDoneBtn: L.get('DONE', model.locale),
+      nameNextBtn: L.get('NEXT', model.locale),
       isShowSkipBtn: false,
       styleNameDoneBtn:
           GoogleFonts.comfortaa(textStyle: TextStyle(color: Colors.white)),
@@ -35,8 +38,8 @@ class IntroPage extends StatelessWidget {
           )),
           styleDescription: GoogleFonts.andika(
               textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
-          title: L.get('CONNECT', locale),
-          description: L.get('connect_same', locale),
+          title: L.get('CONNECT', model.locale),
+          description: L.get('connect_same', model.locale),
           pathImage: 'assets/slide_1.png',
           backgroundColor: Colors.purple[400],
         ),
@@ -49,8 +52,8 @@ class IntroPage extends StatelessWidget {
           )),
           styleDescription: GoogleFonts.andika(
               textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
-          title: L.get('SEND', locale),
-          description: L.get('select_any', locale),
+          title: L.get('SEND', model.locale),
+          description: L.get('select_any', model.locale),
           pathImage: 'assets/slide_2.png',
           backgroundColor: Colors.indigo[400],
         ),
@@ -63,8 +66,8 @@ class IntroPage extends StatelessWidget {
           )),
           styleDescription: GoogleFonts.andika(
               textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
-          title: L.get('RECEIVE', locale),
-          description: L.get('open_link', locale),
+          title: L.get('RECEIVE', model.locale),
+          description: L.get('open_link', model.locale),
           pathImage: 'assets/slide_3.png',
           backgroundColor: Colors.teal[400],
         ),
@@ -75,7 +78,7 @@ class IntroPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
           )),
-          title: L.get('EVERYWHERE', locale),
+          title: L.get('EVERYWHERE', model.locale),
           pathImage: 'assets/slide_4.png',
           backgroundColor: Colors.blueGrey[400],
           widgetDescription: GestureDetector(
@@ -84,7 +87,7 @@ class IntroPage extends StatelessWidget {
                 await launch('https://github.com/marchellodev/sharik');
             },
             child: Text(
-              L.get('sharik_is_available', locale),
+              L.get('sharik_is_available', model.locale),
               style: GoogleFonts.andika(
                   textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
               textAlign: TextAlign.center,
