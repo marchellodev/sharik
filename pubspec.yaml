@@ -1,4 +1,4 @@
-name: Sharik
+name: sharik
 description: Sharik is an app for sending files to almost any device. No internet connection needed.
 homepage: https://github.com/marchellodev/sharik
 repository: https://github.com/marchellodev/sharik
@@ -18,26 +18,20 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: ^0.17.2
-  google_fonts: ^0.3.9
+  flutter_svg: ^0.17.4
+  google_fonts: ^0.5.0+1
   intro_slider: ^2.2.9
-  file_picker: ^1.4.3+2
+  file_picker: ^1.6.3+1
   url_launcher: ^5.4.2
   wifi_iot: ^0.1.1
-  clipboard_manager: ^0.0.1
+  clipboard_manager: ^0.0.4
   path_provider: ^1.6.5
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
   device_apps: ^1.0.9
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
 
 flutter:
-
-  uses-material-design: true
   assets:
     - assets/
     - google_fonts/

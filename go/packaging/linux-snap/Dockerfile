@@ -1,1 +1,0 @@
-FROM snapcore/snapcraft

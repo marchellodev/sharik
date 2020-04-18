@@ -1,5 +1,7 @@
 start_time=$(date +%s)
 
+#go list -m -u all
+
 flutter channel beta
 flutter upgrade
 flutter clean

@@ -1,16 +1,18 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'pages/home.dart';
 import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
-import 'dart:io' show Platform;
-import 'package:hive_flutter/hive_flutter.dart';
 
 typedef Callback = void Function(String data);
 
@@ -24,7 +26,12 @@ Future<void> main() async {
   await Hive.openBox('app');
   latestBox = await Hive.openBox('latest');
 
-  getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
+  getTemporaryDirectory().then((value) async {
+    if (await value.exists())
+      try {
+        value.delete(recursive: true);
+      } catch (e) {}
+  });
 
   runApp(App());
 }
@@ -113,8 +120,12 @@ class AppState extends State<App> with TickerProviderStateMixin {
                                     });
                                     pager.animateTo(0);
 
-                                    getTemporaryDirectory().then((value) =>
-                                        value.deleteSync(recursive: true));
+                                    getTemporaryDirectory().then((value) async {
+                                      if (await value.exists())
+                                        try {
+                                          value.delete(recursive: true);
+                                        } catch (e) {}
+                                    });
                                   },
                                   icon: SvgPicture.asset(
                                     'assets/icon_back.svg',
@@ -159,7 +170,12 @@ class AppState extends State<App> with TickerProviderStateMixin {
     });
     pager.animateTo(0);
 
-    getTemporaryDirectory().then((value) => value.deleteSync(recursive: true));
+    getTemporaryDirectory().then((value) async {
+      if (await value.exists())
+        try {
+          value.delete(recursive: true);
+        } catch (e) {}
+    });
   }
 
   Widget logo() => Material(

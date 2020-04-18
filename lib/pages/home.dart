@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:device_apps/device_apps.dart';
 
 import '../locale.dart';
 import '../main.dart';
@@ -469,7 +469,9 @@ List<String> getIconText(List f) {
   switch (f[0]) {
     case 'file':
       icon = 'assets/icon_folder2.svg';
-      text = (Platform.isAndroid ? f[1].split('/').last : f[1]);
+      text = (Platform.isAndroid
+          ? f[1].split(Platform.isWindows ? '\\' : '/').last
+          : f[1]);
       break;
     case 'text':
       icon = 'assets/icon_file_word.svg';
