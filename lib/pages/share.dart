@@ -229,10 +229,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               ],
             ),
           ),
-
           Container(
             margin: EdgeInsets.only(bottom: 18),
-//            padding: EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.deepPurple[400],
@@ -246,7 +244,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: SvgPicture.asset(
                     'assets/icon_network.svg',
                     semanticsLabel: 'network ',
-//                  height: 16,
                     width: 18,
                   ),
                 ),
@@ -255,8 +252,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                 ),
                 Expanded(
                   child: Container(
-//                                padding: EdgeInsets.symmetric(horizontal: 16),
-
                     margin: EdgeInsets.only(top: 10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,8 +337,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               ],
             ),
           ),
-
-//                              SizedBox(height: 16,),
           Spacer(),
           Center(
               child: Text(
@@ -354,7 +347,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             )),
             textAlign: TextAlign.center,
           )),
-
           Container(
             decoration: BoxDecoration(
               color: Colors.deepPurple[400],
@@ -381,7 +373,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                 SizedBox(
                   width: 6,
                 ),
-
                 Material(
                   borderRadius: BorderRadius.circular(12),
                   color: Colors.deepPurple[400],
@@ -437,14 +428,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-//                SizedBox(
-//                  width: 12,
-//                ),
               ],
             ),
           ),
           Spacer(),
-
           Container(
             width: double.infinity,
             margin: EdgeInsets.symmetric(vertical: 18),

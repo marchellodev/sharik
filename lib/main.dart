@@ -19,6 +19,8 @@ import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
 
+//todo: use json files for different languages
+
 void main() async {
   try {
     Hive.registerAdapter(LocaleModelAdapter());
@@ -37,7 +39,6 @@ void main() async {
     ));
   } catch (e) {
     print(e);
-    //todo: make this screen more interesting
     runApp(MaterialApp(
         home: Scaffold(
             body: Center(

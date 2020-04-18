@@ -43,7 +43,7 @@ class FileModel {
         case FileTypeModel.text:
           name = data.length >= 101
               ? data.replaceAll('\n', ' ').substring(0, 100)
-              : data;
+              : data.replaceAll('\n', ' ');
           break;
         case FileTypeModel.app:
           throw Exception('when type is app, name is neccesary');

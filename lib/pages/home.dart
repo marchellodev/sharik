@@ -28,14 +28,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _model = Provider.of<AppModel>(context, listen: false);
-    pref();
+    _latest =
+        Hive.box('app2').get('latest', defaultValue: []).cast<FileModel>();
     super.initState();
-  }
-
-  //todo: probably remove
-  void pref() {
-    setState(() => _latest =
-        Hive.box('app2').get('latest', defaultValue: []).cast<FileModel>());
   }
 
   void saveLatest() {
@@ -111,16 +106,16 @@ class _HomePageState extends State<HomePage> {
                                     textStyle: TextStyle(
                                         color: Colors.white, fontSize: 24)))),
                         onTap: () async {
-                          await showDialog(
+                          var data = await showDialog(
                               context: context,
-                              child: AppSelector((String selected) async {
-                                //todo: return app, not string
-                                var app = await DeviceApps.getApp(selected);
-                                shareFile(FileModel(
-                                    type: FileTypeModel.app,
-                                    data: app.apkFilePath,
-                                    name: app.appName));
-                              }, _model.locale));
+                              child: AppSelector(_model.locale)) as String;
+                          if (data != null && data.isNotEmpty) {
+                            var app = await DeviceApps.getApp(data);
+                            shareFile(FileModel(
+                                type: FileTypeModel.app,
+                                data: app.apkFilePath,
+                                name: app.appName));
+                          }
                         },
                       ),
                     )),
@@ -143,7 +138,6 @@ class _HomePageState extends State<HomePage> {
                                   textStyle: TextStyle(
                                       color: Colors.white, fontSize: 24)))),
                       onTap: () {
-                        // flutter defined function
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
