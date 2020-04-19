@@ -2,7 +2,6 @@ import 'dart:io' show Platform;
 
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -65,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 child: Stack(
                   children: <Widget>[
                     Center(
-                        child: Text(L.get('Select file', _model.locale),
+                        child: Text(L('Select file', _model.localeAdapter),
                             style: GoogleFonts.andika(
                                 textStyle: TextStyle(
                                     color: Colors.white, fontSize: 24)))),
@@ -101,14 +100,15 @@ class _HomePageState extends State<HomePage> {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(12),
                         child: Center(
-                            child: Text(L.get('App', _model.locale),
+                            child: Text(L('App', _model.localeAdapter),
                                 style: GoogleFonts.andika(
                                     textStyle: TextStyle(
                                         color: Colors.white, fontSize: 24)))),
                         onTap: () async {
                           var data = await showDialog(
-                              context: context,
-                              child: AppSelector(_model.locale)) as String;
+                                  context: context,
+                                  child: AppSelector(_model.localeAdapter))
+                              as String;
                           if (data != null && data.isNotEmpty) {
                             var app = await DeviceApps.getApp(data);
                             shareFile(FileModel(
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       child: Center(
-                          child: Text(L.get('Text', _model.locale),
+                          child: Text(L('Text', _model.localeAdapter),
                               style: GoogleFonts.andika(
                                   textStyle: TextStyle(
                                       color: Colors.white, fontSize: 24)))),
@@ -143,7 +143,8 @@ class _HomePageState extends State<HomePage> {
                           builder: (BuildContext context) {
                             var c = TextEditingController();
                             return AlertDialog(
-                              title: Text(L.get('Type text', _model.locale)),
+                              title: Text(
+                                  L('Type some text', _model.localeAdapter)),
                               content: TextField(
                                 controller: c,
                                 maxLines: null,
@@ -151,13 +152,13 @@ class _HomePageState extends State<HomePage> {
                               ),
                               actions: <Widget>[
                                 FlatButton(
-                                  child: Text(L.get('Close', _model.locale)),
+                                  child: Text(L('Close', _model.localeAdapter)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
                                 FlatButton(
-                                  child: Text(L.get('Send', _model.locale)),
+                                  child: Text(L('Send', _model.localeAdapter)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
 
@@ -186,7 +187,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(left: 24, right: 24),
               child: Text(
-                L.get('Latest', _model.locale),
+                L('Latest', _model.localeAdapter),
                 style:
                     GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
               ),

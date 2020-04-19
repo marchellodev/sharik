@@ -1,14 +1,13 @@
 import 'package:device_apps/device_apps.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../locale.dart';
-import '../models/locale.dart';
+import '../models/app.dart';
 
 class AppSelector extends StatefulWidget {
-  final LocaleModel locale;
+  final LocaleAdapter adapter;
 
-  AppSelector(this.locale);
+  AppSelector(this.adapter);
 
   @override
   _AppSelectorState createState() => _AppSelectorState();
@@ -56,7 +55,7 @@ class _AppSelectorState extends State<AppSelector> {
           scrollDirection: Axis.vertical,
           children: <Widget>[
             CheckboxListTile(
-              title: Text(L.get('Hide system apps', widget.locale)),
+              title: Text(L('Hide system apps', widget.adapter)),
               value: _checkSystem,
               onChanged: (value) => setState(() {
                 _checkSystem = value;
@@ -65,7 +64,7 @@ class _AppSelectorState extends State<AppSelector> {
               controlAffinity: ListTileControlAffinity.leading,
             ),
             CheckboxListTile(
-              title: Text(L.get('Hide non-launchable apps', widget.locale)),
+              title: Text(L('Hide non-launchable apps', widget.adapter)),
               value: _checkLaunch,
               onChanged: (value) => setState(() {
                 _checkLaunch = value;
@@ -76,7 +75,7 @@ class _AppSelectorState extends State<AppSelector> {
             TextField(
               onChanged: (value) => setState(() => _search = value),
               decoration:
-                  InputDecoration(hintText: L.get('Search', widget.locale)),
+                  InputDecoration(hintText: L('Search', widget.adapter)),
             ),
             _apps != null
                 ? ListView.builder(
@@ -109,13 +108,13 @@ class _AppSelectorState extends State<AppSelector> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text(L.get('Close', widget.locale)),
+          child: Text(L('Close', widget.adapter)),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text(L.get('Send', widget.locale)),
+          child: Text(L('Send', widget.adapter)),
           onPressed: _selected == null
               ? null
               : () {

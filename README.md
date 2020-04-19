@@ -4,7 +4,15 @@
 ![Downloads badge]
 ![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)
 
-Sharik is an app for sending files to almost any device. It works with Wi-Fi connection or Tethering (Mobile Hotspot). No internet connection needed.
+Sharik is an app for sending files to almost any device. It works with Wi-Fi connection or Tethering (Wi-Fi Hotspot). No internet connection needed.
+
+## Contributing
+Feel free to leave an issue or create a pull request.
+
+If you want to help with translation, create a fork of this repo, add file `lib/locales/<Your language>.dart` with your translation and submit pull request.
+
+If it's too complicated for you, take a look at `lib/locales/ru.dart` or `lib/locales/ua.dart` and create a similar file for your language. Then send it to me ([marchellodev@gmail.com](mailto:marchellodev@gmail.com)).
+
 
 ## Platforms
 - andoid
@@ -52,9 +60,8 @@ I don't have the binaries, but you can build it for yourself! (not sure it will 
 
 
 ## Build it for yourself
-This app is developed using [Flutter](https://flutter.dev) (Android, iOS) and [Hover](https://hover.build)  (Desktop). Just clone the repo and build it for yourself!
+This app is developed using [Flutter](https://flutter.dev) (Android, iOS) and [Hover](https://hover.build)  (Desktop). Just clone the repo and build Sharik for yourself!
 
-Feel free to leave an issue or create a pull request :>
 ## License
 MIT
 

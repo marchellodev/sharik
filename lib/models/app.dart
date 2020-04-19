@@ -1,29 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../locales/ru.dart';
+import '../locales/ua.dart';
 import 'file.dart';
 import 'locale.dart';
 import 'page.dart';
 
 class AppModel {
   LocaleModel locale = LocaleModel.en;
+  LocaleAdapter localeAdapter;
   FileModel file;
 
   final TabController _pagerGlobal;
   final TabController _pagerHome;
+
   final Function(VoidCallback fn) setState;
 
   AppModel(this._pagerGlobal, this._pagerHome, this.setState) {
     locale = Hive.box('app2').get('locale', defaultValue: null);
     if (locale != null) {
+      setLocaleMap();
       setPage(PageModel.home);
     } else {
       setPage(PageModel.language);
     }
   }
 
+  void setLocaleMap() {
+    switch (locale) {
+      case LocaleModel.en:
+        localeAdapter = LocaleAdapter(map: {}, locale: locale);
+        break;
+      case LocaleModel.ru:
+        localeAdapter = LocaleAdapter(map: getRu, locale: locale);
+        break;
+      case LocaleModel.ua:
+        localeAdapter = LocaleAdapter(map: getUa, locale: locale);
+        break;
+    }
+  }
+
   void setLocale(LocaleModel newLocale) {
     locale = newLocale;
+    setLocaleMap();
     Hive.box('app2').put('locale', locale);
   }
 
@@ -75,4 +95,11 @@ class AppModel {
 
     return null;
   }
+}
+
+class LocaleAdapter {
+  final Map<String, String> map;
+  final LocaleModel locale;
+
+  LocaleAdapter({@required this.map, @required this.locale});
 }

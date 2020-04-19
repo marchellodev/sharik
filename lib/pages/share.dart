@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:io' show Platform;
 import 'dart:math';
 
 import 'package:clipboard_manager/clipboard_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,7 +101,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   void updIp() async {
     setState(() {
-      ip = L.get('loading...', model.locale);
+      ip = L('loading...', model.localeAdapter);
     });
     ipController.repeat();
 
@@ -124,7 +122,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   void updCon() async {
     setState(() {
-      network = L.get('loading...', model.locale);
+      network = L('loading...', model.localeAdapter);
       wifi = false;
       tether = false;
     });
@@ -143,13 +141,13 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
       wifi = w;
       tether = t;
       if (!Platform.isAndroid) {
-        network = L.get('undefined', model.locale);
+        network = L('Undefined', model.localeAdapter);
       } else if (w) {
         network = 'Wi-Fi';
       } else if (t) {
-        network = L.get('Mobile Hotspot', model.locale);
+        network = L('Mobile Hotspot', model.localeAdapter);
       } else {
-        network = L.get('Not connected', model.locale);
+        network = L('Not connected', model.localeAdapter);
       }
     });
     conController.stop();
@@ -173,8 +171,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     model = Provider.of<AppModel>(context, listen: false);
     file = model.file;
 
-    ip = L.get('loading...', model.locale);
-    network = L.get('loading...', model.locale);
+    ip = L('loading...', model.localeAdapter);
+    network = L('loading...', model.localeAdapter);
 
     ipController =
         AnimationController(duration: const Duration(seconds: 1), vsync: this);
@@ -274,7 +272,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                 ),
                                 children: [
                                   TextSpan(
-                                      text: L.get('Connect to', model.locale)),
+                                      text:
+                                          L('Connect to', model.localeAdapter)),
                                   Platform.isAndroid
                                       ? TextSpan(
                                           text: ' Wi-Fi ',
@@ -284,19 +283,19 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                                   : Colors.red[100]))
                                       : TextSpan(text: ' Wi-Fi '),
                                   TextSpan(
-                                      text: L.get('or enable', model.locale) +
-                                          ' '),
+                                      text: L(
+                                          'or set up a', model.localeAdapter)),
                                   Platform.isAndroid
                                       ? TextSpan(
-                                          text: L.get('enable Mobile Hotspot',
-                                              model.locale),
+                                          text: L(' Mobile Hotspot',
+                                              model.localeAdapter),
                                           style: TextStyle(
                                               color: tether
                                                   ? Colors.green[100]
                                                   : Colors.red[100]))
                                       : TextSpan(
-                                          text: L.get('enable Mobile Hotspot',
-                                              model.locale)),
+                                          text: L(' Mobile Hotspot',
+                                              model.localeAdapter)),
                                 ]),
                           ),
                           SizedBox(
@@ -340,7 +339,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
           Spacer(),
           Center(
               child: Text(
-            L.get('Now open', model.locale),
+            L('Now open this link', model.localeAdapter) +
+                '\n' +
+                L('in any browser', model.localeAdapter),
             style: GoogleFonts.comfortaa(
                 textStyle: TextStyle(
               fontSize: 20,
@@ -384,7 +385,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                           backgroundColor: Colors.deepPurple[500],
                           duration: Duration(seconds: 1),
                           content: Text(
-                            L.get('copied', model.locale),
+                            L('Copied to Clipboard', model.localeAdapter),
                             style: GoogleFonts.andika(color: Colors.white),
                           ),
                         );
@@ -441,7 +442,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               color: Colors.deepPurple[300],
             ),
             child: Text(
-              L.get('The recipient', model.locale),
+              L('The recipient needs to be connected', model.localeAdapter) +
+                  '\n' +
+                  L('to the same network', model.localeAdapter),
               textAlign: TextAlign.center,
               style: GoogleFonts.andika(
                 textStyle: TextStyle(color: Colors.white, fontSize: 18),

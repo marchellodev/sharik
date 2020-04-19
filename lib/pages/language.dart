@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,56 +8,36 @@ import '../models/locale.dart';
 import '../models/page.dart';
 
 class LanguagePage extends StatelessWidget {
-  Widget button(LocaleModel locale, AppModel model) {
-    String text;
-    String sign;
-    //todo: remove switch, use something else
-    switch (locale) {
-      case LocaleModel.en:
-        text = 'English';
-        sign = 'en';
-        break;
-      case LocaleModel.ua:
-        text = 'Українська';
-        sign = 'ua';
-        break;
-      case LocaleModel.ru:
-        text = 'Русский';
-        sign = 'ru';
-        break;
-    }
-
-    return Container(
-        height: 100,
-        child: Material(
+  Widget button(LocaleModel locale, AppModel model) => Container(
+      height: 100,
+      child: Material(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.deepPurple[400],
+        child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.deepPurple[400],
-          child: InkWell(
-            borderRadius: BorderRadius.circular(12),
-            child: Stack(
-              children: <Widget>[
-                Center(
-                    child: Text(text,
-                        style: GoogleFonts.andika(
-                            textStyle:
-                                TextStyle(color: Colors.white, fontSize: 24)))),
-                Container(
-                  margin: EdgeInsets.all(6),
-                  child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: SvgPicture.asset(
-                        'assets/flag_$sign.svg',
-                      )),
-                )
-              ],
-            ),
-            onTap: () {
-              model.setLocale(locale);
-              model.setPage(PageModel.intro);
-            },
+          child: Stack(
+            children: <Widget>[
+              Center(
+                  child: Text(locale2name(locale),
+                      style: GoogleFonts.andika(
+                          textStyle:
+                              TextStyle(color: Colors.white, fontSize: 24)))),
+              Container(
+                margin: EdgeInsets.all(6),
+                child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: SvgPicture.asset(
+                      'assets/flag_${locale2sign(locale)}.svg',
+                    )),
+              )
+            ],
           ),
-        ));
-  }
+          onTap: () {
+            model.setLocale(locale);
+            model.setPage(PageModel.intro);
+          },
+        ),
+      ));
 
   @override
   Widget build(BuildContext context) {

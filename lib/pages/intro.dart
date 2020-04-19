@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_slider/intro_slider.dart';
@@ -16,8 +15,8 @@ class IntroPage extends StatelessWidget {
     var model = Provider.of<AppModel>(context, listen: false);
 
     return IntroSlider(
-      nameDoneBtn: L.get('DONE', model.locale),
-      nameNextBtn: L.get('NEXT', model.locale),
+      nameDoneBtn: L('DONE', model.localeAdapter),
+      nameNextBtn: L('NEXT', model.localeAdapter),
       isShowSkipBtn: false,
       styleNameDoneBtn:
           GoogleFonts.comfortaa(textStyle: TextStyle(color: Colors.white)),
@@ -35,8 +34,10 @@ class IntroPage extends StatelessWidget {
           )),
           styleDescription: GoogleFonts.andika(
               textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
-          title: L.get('CONNECT', model.locale),
-          description: L.get('connect_same', model.locale),
+          title: L('CONNECT', model.localeAdapter),
+          description: L(
+              'Connect devices to the same network - use Wi-Fi or Mobile Hotspot',
+              model.localeAdapter),
           pathImage: 'assets/slide_1.png',
           backgroundColor: Colors.purple[400],
         ),
@@ -49,8 +50,8 @@ class IntroPage extends StatelessWidget {
           )),
           styleDescription: GoogleFonts.andika(
               textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
-          title: L.get('SEND', model.locale),
-          description: L.get('select_any', model.locale),
+          title: L('SEND', model.localeAdapter),
+          description: L('Select any file you like', model.localeAdapter),
           pathImage: 'assets/slide_2.png',
           backgroundColor: Colors.indigo[400],
         ),
@@ -63,8 +64,9 @@ class IntroPage extends StatelessWidget {
           )),
           styleDescription: GoogleFonts.andika(
               textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
-          title: L.get('RECEIVE', model.locale),
-          description: L.get('open_link', model.locale),
+          title: L('RECEIVE', model.localeAdapter),
+          description: L('Open given link on another device in any browser',
+              model.localeAdapter),
           pathImage: 'assets/slide_3.png',
           backgroundColor: Colors.teal[400],
         ),
@@ -75,7 +77,7 @@ class IntroPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
           )),
-          title: L.get('EVERYWHERE', model.locale),
+          title: L('EVERYWHERE', model.localeAdapter),
           pathImage: 'assets/slide_4.png',
           backgroundColor: Colors.blueGrey[400],
           widgetDescription: GestureDetector(
@@ -85,7 +87,10 @@ class IntroPage extends StatelessWidget {
               }
             },
             child: Text(
-              L.get('sharik_is_available', model.locale),
+              L('Sharik is available for Android, Windows, MacOS and Linux!',
+                      model.localeAdapter) +
+                  '\n' +
+                  L('Click here to learn more', model.localeAdapter),
               style: GoogleFonts.andika(
                   textStyle: TextStyle(color: Colors.white, fontSize: 18.0)),
               textAlign: TextAlign.center,
