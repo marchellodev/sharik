@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:sharik/locales/pl.dart';
 
 import '../locales/ru.dart';
 import '../locales/ua.dart';
@@ -37,6 +38,9 @@ class AppModel {
         break;
       case LocaleModel.ua:
         localeAdapter = LocaleAdapter(map: getUa, locale: locale);
+        break;
+      case LocaleModel.pl:
+        localeAdapter = LocaleAdapter(map: getPl, locale: locale);
         break;
     }
   }

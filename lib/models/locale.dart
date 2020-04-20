@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'locale.g.dart';
 
+//todo: make creating translations easier
 @HiveType(typeId: 0)
 enum LocaleModel {
   @HiveField(0)
@@ -9,7 +10,9 @@ enum LocaleModel {
   @HiveField(1)
   ru,
   @HiveField(2)
-  ua
+  ua,
+  @HiveField(3)
+  pl
 }
 
 String locale2sign(LocaleModel locale) {
@@ -22,6 +25,9 @@ String locale2sign(LocaleModel locale) {
       break;
     case LocaleModel.ua:
       return 'ua';
+      break;
+    case LocaleModel.pl:
+      return 'pl';
       break;
   }
   throw Exception('Unknown locale');
@@ -37,6 +43,9 @@ String locale2name(LocaleModel locale) {
       break;
     case LocaleModel.ua:
       return 'Українська';
+      break;
+    case LocaleModel.pl:
+      return 'Polski';
       break;
   }
   throw Exception('Unknown locale');
