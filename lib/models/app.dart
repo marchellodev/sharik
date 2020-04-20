@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:sharik/locales/pl.dart';
 
+import '../locales/pl.dart';
 import '../locales/ru.dart';
 import '../locales/ua.dart';
 import 'file.dart';

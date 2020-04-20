@@ -11,8 +11,9 @@ Feel free to leave an issue or create a pull request.
 
 If you want to help with translation, create a fork of this repo, add file `lib/locales/<Your language>.dart` with your translation and submit pull request.
 
-If it's too complicated for you, take a look at `lib/locales/ru.dart` or `lib/locales/ua.dart` and create a similar file for your language. Then send it to me ([marchellodev@gmail.com](mailto:marchellodev@gmail.com)).
+If that's too complicated for you, take a look at `lib/locales/ru.dart` or `lib/locales/ua.dart` and create a similar file for your language. Then send it to me ([marchellodev@gmail.com](mailto:marchellodev@gmail.com)) or create an issue.
 
+If you found an error in one of the translations, please don't hesitate to create a pull request or just open an issue
 
 ## Platforms
 - andoid

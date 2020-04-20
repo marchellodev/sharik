@@ -34,5 +34,12 @@ Map<String, String> get getPl => {
       'App': 'Aplikacja',
       'Hide system apps': 'Ukryj aplikacje systemowe',
       'Hide non-launchable apps': 'Ukryj aplikacje bez interfejsu',
-      'Search': 'Szukaj'
+      'Search': 'Szukaj',
+      //v2.1
+      'Updates': 'Aktualizacje',
+      'The latest version is already installed':
+          'Najnowsza wersja już zainstalowana',
+      'Current version': 'Поточна верія',
+      'The latest version': 'Остання версія',
+      'Changelog': 'Зміни',
     };

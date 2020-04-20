@@ -14,7 +14,7 @@ class LanguagePage extends StatelessWidget {
 
     return Expanded(
       child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 24),
         physics: AlwaysScrollableScrollPhysics(),
         shrinkWrap: true,
         children: <Widget>[
@@ -35,6 +35,7 @@ class LanguagePage extends StatelessWidget {
           LanguageButton(LocaleModel.pl, model),
           SizedBox(height: 16),
           LanguageButton(LocaleModel.ua, model),
+          SizedBox(height: 16),
         ],
       ),
     );

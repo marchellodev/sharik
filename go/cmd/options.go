@@ -2,10 +2,11 @@ package main
 
 import (
 	"github.com/go-flutter-desktop/go-flutter"
+	"github.com/go-flutter-desktop/plugins/package_info"
 	"github.com/go-flutter-desktop/plugins/path_provider"
 	"github.com/go-flutter-desktop/plugins/url_launcher"
-	file_picker "github.com/marchellodev/flutter_file_picker/go"
 	"github.com/marchellodev/go_flutter_clipboard_manager"
+	filePicker "github.com/miguelpruivo/flutter_file_picker/go"
 )
 
 var options = []flutter.Option{
@@ -17,8 +18,9 @@ var options = []flutter.Option{
 		ApplicationName: "sharik",
 	}),
 
-	flutter.AddPlugin(&file_picker.FilePickerPlugin{}),
+	flutter.AddPlugin(&filePicker.FilePickerPlugin{}),
 
 	flutter.AddPlugin(&url_launcher.UrlLauncherPlugin{}),
 	flutter.AddPlugin(&clipboard_manager.ClipboardManagerPlugin{}),
+	flutter.AddPlugin(&package_info.PackageInfoPlugin{}),
 }

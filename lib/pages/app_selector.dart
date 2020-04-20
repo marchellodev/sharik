@@ -49,62 +49,59 @@ class _AppSelectorState extends State<AppSelector> {
     }
 
     return AlertDialog(
-      content: Container(
-        width: double.maxFinite,
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            CheckboxListTile(
-              title: Text(L('Hide system apps', widget.adapter)),
-              value: _checkSystem,
-              onChanged: (value) => setState(() {
-                _checkSystem = value;
-                getApps();
-              }),
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            CheckboxListTile(
-              title: Text(L('Hide non-launchable apps', widget.adapter)),
-              value: _checkLaunch,
-              onChanged: (value) => setState(() {
-                _checkLaunch = value;
-                getApps();
-              }),
-              controlAffinity: ListTileControlAffinity.leading,
-            ),
-            TextField(
-              onChanged: (value) => setState(() => _search = value),
-              decoration:
-                  InputDecoration(hintText: L('Search', widget.adapter)),
-            ),
-            _apps != null
-                ? ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _apps.length,
-                    physics: ScrollPhysics(),
-                    itemBuilder: (context, item) {
-                      ApplicationWithIcon app = _apps[item];
-                      return ListTile(
-                        leading: Image.memory(app.icon),
-                        title: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(app.appName)),
-                        subtitle: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              app.packageName,
-                            )),
-                        onTap: () =>
-                            setState(() => _selected = app.packageName),
-                        selected: _selected == app.packageName,
-                      );
-                    })
-                : Center(
-                    child: Container(
-                        padding: EdgeInsets.all(24),
-                        child: CircularProgressIndicator()))
-          ],
-        ),
+      scrollable: true,
+      content: Column(
+        children: <Widget>[
+          CheckboxListTile(
+            title: Text(L('Hide system apps', widget.adapter)),
+            value: _checkSystem,
+            onChanged: (value) => setState(() {
+              _checkSystem = value;
+              getApps();
+            }),
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+          CheckboxListTile(
+            title: Text(L('Hide non-launchable apps', widget.adapter)),
+            value: _checkLaunch,
+            onChanged: (value) => setState(() {
+              _checkLaunch = value;
+              getApps();
+            }),
+            controlAffinity: ListTileControlAffinity.leading,
+          ),
+          TextField(
+            onChanged: (value) => setState(() => _search = value),
+            decoration: InputDecoration(hintText: L('Search', widget.adapter)),
+          ),
+          _apps != null
+              ? Column(
+                  children: _apps
+                      .map((e) {
+                        ApplicationWithIcon app = e;
+                        return ListTile(
+                          leading: Image.memory(app.icon),
+                          title: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(app.appName)),
+                          subtitle: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                app.packageName,
+                              )),
+                          onTap: () =>
+                              setState(() => _selected = app.packageName),
+                          selected: _selected == app.packageName,
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
+                )
+              : Center(
+                  child: Container(
+                      padding: EdgeInsets.all(24),
+                      child: CircularProgressIndicator()))
+        ],
       ),
       actions: <Widget>[
         FlatButton(

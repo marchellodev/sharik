@@ -34,5 +34,12 @@ Map<String, String> get getRu => {
       'App': 'Приложение',
       'Hide system apps': 'Спрятать системные приложения',
       'Hide non-launchable apps': 'Спрятать служебные приложения',
-      'Search': 'Поиск'
+      'Search': 'Поиск',
+      //v2.1
+      'Updates': 'Обновления',
+      'The latest version is already installed':
+          'Последняя версия уже установлена',
+      'Current version': 'Aktualna wersja',
+      'The latest version': 'Najnowsza wersja',
+      'Changelog': 'Zmiany',
     };

@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +19,6 @@ import 'pages/home.dart';
 import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
-
-//todo: use json files for different languages
 
 void main() async {
   try {
@@ -36,6 +36,8 @@ void main() async {
         body: App(),
       ),
     ));
+
+    analytics();
   } catch (e) {
     print(e);
     runApp(MaterialApp(
@@ -43,6 +45,21 @@ void main() async {
             body: Center(
       child: Text('Sharik is already running'),
     ))));
+  }
+}
+
+void analytics() async {
+  try {
+    final info = await PackageInfo.fromPlatform();
+    var v = info.version.split('.')[0] + '.' + info.version.split('.')[1];
+
+    print(Platform.operatingSystemVersion);
+
+    await http.read(
+        'https://marchello.cf/shas/analytics?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
+  } catch (e) {
+    print('analytics error');
+    print(e);
   }
 }
 
@@ -101,7 +118,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                                 onPressed: () {
                                   setState(() => model.setPage(PageModel.home));
 
-                                  removeTemporaryDir();
+                                  _removeTemporaryDir();
                                 },
                                 icon: SvgPicture.asset(
                                   'assets/icon_back.svg',
@@ -123,7 +140,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                             onWillPop: () async {
                               if (model.getPage() == PageModel.sharing) {
                                 setState(() => model.setPage(PageModel.home));
-                                removeTemporaryDir();
+                                _removeTemporaryDir();
                               }
                               return false;
                             },
@@ -151,7 +168,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void removeTemporaryDir() {
+  void _removeTemporaryDir() {
     if (Platform.isAndroid) {
       getTemporaryDirectory().then((dir) {
         dir.exists().then((exists) {

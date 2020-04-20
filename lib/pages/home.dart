@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
+import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -197,15 +201,14 @@ class _HomePageState extends State<HomePage> {
               margin: EdgeInsets.only(right: 24),
               child: IconButton(
                   onPressed: () {
-                    setState(() {
-                      _latest.clear();
-                    });
+                    setState(() => _latest.clear());
 
                     saveLatest();
                   },
-                  icon: Icon(
-                    Icons.delete,
-                    size: 20,
+                  icon: SvgPicture.asset(
+                    'assets/icon_remove.svg',
+                    semanticsLabel: 'remove',
+                    height: 16,
                   )),
             )
           ],
@@ -272,6 +275,112 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(8),
                   splashColor: Colors.deepPurple[400],
                   child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    child: Text(
+                      'v2.1',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepPurple[700],
+                          fontFamily: 'JetBrainsMono'),
+                    ),
+                  ),
+                  onTap: () {
+                    //todo: refactor
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => FutureBuilder(
+                            future: () async {
+                              final info = await PackageInfo.fromPlatform();
+                              var v = info.version.split('.')[0] +
+                                  '.' +
+                                  info.version.split('.')[1];
+
+                              var response = await http.read(
+                                  'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
+
+                              return jsonDecode(response);
+                            }(),
+                            builder: (_, snapshot) => AlertDialog(
+                                  title: Text(
+                                    L('Updates', _model.localeAdapter),
+                                    style: GoogleFonts.comfortaa(
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      !snapshot.hasData
+                                          ? Container(
+                                              child:
+                                                  CircularProgressIndicator())
+                                          : (snapshot.data['latest'] ||
+                                                  !snapshot.data['ok']
+                                              ? Text(L(
+                                                  'The latest version is already installed',
+                                                  _model.localeAdapter))
+                                              : changelog(snapshot.data)),
+                                    ],
+                                  ),
+                                  actions: [
+                                    if (Platform.isAndroid &&
+                                        snapshot.hasData &&
+                                        snapshot.data['ok'] &&
+                                        !snapshot.data['latest'])
+                                      FlatButton(
+                                        onPressed: () async {
+                                          if (await canLaunch(
+                                              'https://play.google.com/store/apps/details?id=dev.marchello.sharik')) {
+                                            await launch(
+                                                'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
+                                          }
+                                        },
+                                        child: Text('Play Store'),
+                                      ),
+                                    if (snapshot.hasData &&
+                                        snapshot.data['ok'] &&
+                                        !snapshot.data['latest'])
+                                      FlatButton(
+                                        onPressed: () async {
+                                          if (await canLaunch(
+                                              'https://github.com/marchellodev/sharik')) {
+                                            await launch(
+                                                'https://github.com/marchellodev/sharik');
+                                          }
+                                        },
+                                        child: Text('GitHub'),
+                                      ),
+                                    FlatButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: Text(
+                                          L('Close', _model.localeAdapter)),
+                                    )
+                                  ],
+                                  scrollable: true,
+                                )));
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 2,
+              ),
+              Container(
+                color: Colors.deepPurple[800],
+                height: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 12),
+                width: 1,
+              ),
+              SizedBox(
+                width: 2,
+              ),
+              Material(
+                color: Colors.deepPurple[100],
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Colors.deepPurple[400],
+                  child: Container(
                     margin: EdgeInsets.all(12),
                     child: SvgPicture.asset(
                       'assets/icon_browser.svg',
@@ -287,16 +396,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                width: 2,
-              ),
-              Container(
-                color: Colors.deepPurple[700],
-                height: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 12),
                 width: 1,
-              ),
-              SizedBox(
-                width: 2,
               ),
               Material(
                 color: Colors.deepPurple[100],
@@ -323,6 +423,79 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         )
+      ],
+    );
+  }
+
+  Widget changelog(Map data) {
+    var changes = <Widget>[];
+
+    data['changelog'].forEach((element) {
+      changes.add(Text(
+        'v${element['version']}',
+        style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16),
+      ));
+      changes.add(SizedBox(
+        height: 4,
+      ));
+      element['changes'].forEach((change) {
+        changes.add(Text(' • $change',
+            style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14)));
+        changes.add(SizedBox(
+          height: 2,
+        ));
+      });
+      changes.add(SizedBox(
+        height: 10,
+      ));
+    });
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+                width: 160,
+                child: Text(
+                  L('Current version', _model.localeAdapter) + ':',
+                  style: GoogleFonts.andika(fontSize: 16),
+                )),
+            SizedBox(
+              width: 4,
+            ),
+            Text(
+              'v${data['current_version']}',
+              style: TextStyle(fontFamily: 'JetBrainsMono'),
+            )
+          ],
+        ),
+        Row(
+          children: [
+            Container(
+                width: 160,
+                child: Text(
+                  L('The latest version', _model.localeAdapter) + ':',
+                  style: GoogleFonts.andika(fontSize: 16),
+                )),
+            SizedBox(
+              width: 4,
+            ),
+            Text('v${data['latest_version']}',
+                style: TextStyle(fontFamily: 'JetBrainsMono'))
+          ],
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        Center(
+          child: Text(
+            L('Changelog', _model.localeAdapter),
+            style: GoogleFonts.comfortaa(fontSize: 18),
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: changes,
+        ),
       ],
     );
   }

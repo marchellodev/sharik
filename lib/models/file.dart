@@ -18,7 +18,6 @@ class FileModel {
   @HiveField(2)
   String name;
 
-  //todo: use proper icons
   String get icon {
     switch (type) {
       case FileTypeModel.file:
