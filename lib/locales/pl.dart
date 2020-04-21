@@ -39,7 +39,7 @@ Map<String, String> get getPl => {
       'Updates': 'Aktualizacje',
       'The latest version is already installed':
           'Najnowsza wersja już zainstalowana',
-      'Current version': 'Поточна верія',
-      'The latest version': 'Остання версія',
-      'Changelog': 'Зміни',
+      'Current version': 'Obecna wersja',
+      'The latest version': 'Najnowsza wersja',
+      'Changelog': 'Dziennik zmian',
     };

@@ -30,6 +30,7 @@ void main() async {
     await Hive.openBox('app2');
 
     runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,

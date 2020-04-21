@@ -1,6 +1,7 @@
 start_time=$(date +%s)
 
 flutter packages pub run build_runner build
+#dpkg-buildpackage -b --force-sign
 
 flutter channel stable
 flutter upgrade

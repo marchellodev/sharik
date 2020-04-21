@@ -39,7 +39,7 @@ Map<String, String> get getRu => {
       'Updates': 'Обновления',
       'The latest version is already installed':
           'Последняя версия уже установлена',
-      'Current version': 'Aktualna wersja',
-      'The latest version': 'Najnowsza wersja',
-      'Changelog': 'Zmiany',
+      'Current version': 'Текущая версия',
+      'The latest version': 'Последняя версия',
+      'Changelog': 'Изменения',
     };

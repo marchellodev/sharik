@@ -148,7 +148,10 @@ class _HomePageState extends State<HomePage> {
                             var c = TextEditingController();
                             return AlertDialog(
                               title: Text(
-                                  L('Type some text', _model.localeAdapter)),
+                                L('Type some text', _model.localeAdapter),
+                                style: GoogleFonts.comfortaa(
+                                    fontWeight: FontWeight.w700),
+                              ),
                               content: TextField(
                                 controller: c,
                                 maxLines: null,
@@ -157,9 +160,7 @@ class _HomePageState extends State<HomePage> {
                               actions: <Widget>[
                                 FlatButton(
                                   child: Text(L('Close', _model.localeAdapter)),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
+                                  onPressed: () => Navigator.of(context).pop(),
                                 ),
                                 FlatButton(
                                   child: Text(L('Send', _model.localeAdapter)),
@@ -294,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                               var v = info.version.split('.')[0] +
                                   '.' +
                                   info.version.split('.')[1];
-
+                              v = '2.0';
                               var response = await http.read(
                                   'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
 
@@ -357,7 +358,7 @@ class _HomePageState extends State<HomePage> {
                                           L('Close', _model.localeAdapter)),
                                     )
                                   ],
-                                  scrollable: true,
+//                                  scrollable: true,
                                 )));
                   },
                 ),
@@ -449,55 +450,59 @@ class _HomePageState extends State<HomePage> {
         height: 10,
       ));
     });
-    return Column(
-      children: [
-        Row(
+    return Container(
+        height: 360,
+        width: double.maxFinite,
+        child: ListView(
+          shrinkWrap: true,
           children: [
-            Container(
-                width: 160,
-                child: Text(
-                  L('Current version', _model.localeAdapter) + ':',
-                  style: GoogleFonts.andika(fontSize: 16),
-                )),
-            SizedBox(
-              width: 4,
+            Row(
+              children: [
+                Container(
+                    width: 160,
+                    child: Text(
+                      L('Current version', _model.localeAdapter) + ':',
+                      style: GoogleFonts.andika(fontSize: 16),
+                    )),
+                SizedBox(
+                  width: 4,
+                ),
+                Text(
+                  'v${data['current_version']}',
+                  style: TextStyle(fontFamily: 'JetBrainsMono'),
+                )
+              ],
             ),
-            Text(
-              'v${data['current_version']}',
-              style: TextStyle(fontFamily: 'JetBrainsMono'),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-                width: 160,
-                child: Text(
-                  L('The latest version', _model.localeAdapter) + ':',
-                  style: GoogleFonts.andika(fontSize: 16),
-                )),
-            SizedBox(
-              width: 4,
+            Row(
+              children: [
+                Container(
+                    width: 160,
+                    child: Text(
+                      L('The latest version', _model.localeAdapter) + ':',
+                      style: GoogleFonts.andika(fontSize: 16),
+                    )),
+                SizedBox(
+                  width: 4,
+                ),
+                Text('v${data['latest_version']}',
+                    style: TextStyle(fontFamily: 'JetBrainsMono'))
+              ],
             ),
-            Text('v${data['latest_version']}',
-                style: TextStyle(fontFamily: 'JetBrainsMono'))
+            SizedBox(
+              height: 16,
+            ),
+            Center(
+              child: Text(
+                L('Changelog', _model.localeAdapter),
+                style: GoogleFonts.comfortaa(fontSize: 18),
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: changes,
+            ),
           ],
-        ),
-        SizedBox(
-          height: 16,
-        ),
-        Center(
-          child: Text(
-            L('Changelog', _model.localeAdapter),
-            style: GoogleFonts.comfortaa(fontSize: 18),
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: changes,
-        ),
-      ],
-    );
+        ));
   }
 
   Widget card(FileModel f) {

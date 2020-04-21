@@ -32,6 +32,8 @@ github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200419104939-9b86c984c866 h1:4zUt7n3i+F
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200419104939-9b86c984c866/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200419152627-bf0707bfd6c6 h1:0Dm9nbKM4Lrer6uugJPNuSfruJ4FWaK2A9nQv1mQOto=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200419152627-bf0707bfd6c6/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
+github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200420212212-258d9bec320e h1:8ywu4ELC/6owgOZlZx75CyYS5AYwUT2L+hzPModKvag=
+github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200420212212-258d9bec320e/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
 github.com/golang/protobuf v1.2.0 h1:P3YflyNX/ehuJFLhxviNdFxQPkGK5cDcApsge1SqnvM=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
 github.com/gopherjs/gopherjs v0.0.0-20190915194858-d3ddacdb130f/go.mod h1:wJfORRmW1u3UXTncJ5qlYoELFm8eSnnEO6hX4iZ3EWY=
