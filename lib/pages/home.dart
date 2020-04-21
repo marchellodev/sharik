@@ -295,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                               var v = info.version.split('.')[0] +
                                   '.' +
                                   info.version.split('.')[1];
-                              v = '2.0';
+
                               var response = await http.read(
                                   'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
 
