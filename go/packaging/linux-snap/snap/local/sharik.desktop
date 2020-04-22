@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=2.1.0
+Type=Application
+Terminal=false
+Categories=Utilities
+Name=sharik
+Icon=/icon.png
+Exec=/sharik

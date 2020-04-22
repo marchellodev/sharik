@@ -22,8 +22,12 @@ dependencies:
   flutter_svg: ^0.17.4
   google_fonts: ^0.6.2
   intro_slider: ^2.2.9
- 
-  file_picker: 1.4.3+2
+
+  # for android (https://github.com/miguelpruivo/flutter_file_picker/issues/223)
+  #  file_picker: 1.4.3+2
+
+  # for desktop
+  file_picker: ^1.6.3+2
 
   url_launcher: ^5.4.5
   wifi_iot: ^0.1.1
