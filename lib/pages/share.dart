@@ -6,6 +6,7 @@ import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
@@ -21,34 +22,49 @@ class SharePage extends StatefulWidget {
 }
 
 class ShareState extends State<SharePage> with TickerProviderStateMixin {
-  AnimationController ipController;
-  Animation ipAnimation;
-  AnimationController conController;
-  Animation conAnimation;
+  AnimationController _ipController;
+  Animation _ipAnimation;
+  AnimationController _conController;
+  Animation _conAnimation;
 
-  AppModel model;
-  FileModel file;
+  AppModel _model;
+  FileModel _file;
 
   String ip;
   String network;
   bool wifi = false;
   bool tether = false;
   int port = 0;
-  HttpServer server;
+  HttpServer _server;
 
-  Future<int> getUnusedPort([InternetAddress address]) {
-    return HttpServer.bind(address ?? InternetAddress.anyIPv4, 0)
-        .then((socket) {
-      var port = socket.port;
-      socket.close();
-      return port;
-    });
+  Future<bool> _isPortFree(int port) async {
+    try {
+      var _ = await HttpServer.bind(InternetAddress.anyIPv4, port);
+      await _.close(force: true);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<dynamic> _getPort() async {
+    final ports = [50500, 50050, 60060, 60600, 56789, 62200];
+
+    for (final port in ports) {
+      if (await _isPortFree(port)) {
+        return port;
+      }
+    }
+
+    var _ = await HttpServer.bind(InternetAddress.anyIPv4, 0);
+    await _.close(force: true);
+    return _.port;
   }
 
   void serve() async {
-    await for (var request in server) {
-      if (file.type == FileTypeModel.file || file.type == FileTypeModel.app) {
-        var f = File(file.data);
+    await for (var request in _server) {
+      if (_file.type == FileTypeModel.file || _file.type == FileTypeModel.app) {
+        var f = File(_file.data);
         var size = await f.length();
 
         request.response.headers.contentType =
@@ -62,9 +78,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
         request.response.headers.add(
           'Content-disposition',
           'attachment; filename=' +
-              Uri.encodeComponent(file.type == FileTypeModel.file
-                  ? file.name
-                  : file.name + '.apk'),
+              Uri.encodeComponent(_file.type == FileTypeModel.file
+                  ? _file.name
+                  : _file.name + '.apk'),
         );
         request.response.headers.add(
           'Content-length',
@@ -77,7 +93,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
       } else {
         request.response.headers.contentType =
             ContentType('text', 'plain', charset: 'utf-8');
-        request.response.write(file.data);
+        request.response.write(_file.data);
         await request.response.close();
       }
     }
@@ -100,33 +116,32 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   }
 
   void updIp() async {
-    setState(() {
-      ip = L('loading...', model.localeAdapter);
-    });
-    ipController.repeat();
+    setState(() => ip = L('loading...', _model.localeAdapter));
 
-    await Future.delayed(const Duration(milliseconds: 500), () {});
+    if (!_ipController.isAnimating) {
+      unawaited(_ipController.forward().then((value) => _ipController.reset()));
+    }
+
     String _ip = await getIp();
 
     if (port == 0 && _ip != null) {
-      server = await HttpServer.bind(InternetAddress(_ip), 0, shared: true);
-      port = server.port;
+      port = await _getPort();
+      _server = await HttpServer.bind(InternetAddress.anyIPv4, port);
       serve();
     }
-    setState(() {
-      ip = 'http://$_ip:$port';
-    });
-
-    ipController.stop();
+    setState(() => ip = 'http://$_ip:$port');
   }
 
   void updCon() async {
     setState(() {
-      network = L('loading...', model.localeAdapter);
+      network = L('loading...', _model.localeAdapter);
       wifi = false;
       tether = false;
     });
-    conController.repeat();
+    if (!_ipController.isAnimating) {
+      unawaited(
+          _conController.forward().then((value) => _conController.reset()));
+    }
 
     var w = false;
     var t = false;
@@ -136,51 +151,48 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
       t = await WiFiForIoTPlugin.isWiFiAPEnabled();
     }
 
-    await Future.delayed(const Duration(milliseconds: 500), () {});
     setState(() {
       wifi = w;
       tether = t;
       if (!Platform.isAndroid) {
-        network = L('Undefined', model.localeAdapter);
+        network = L('Undefined', _model.localeAdapter);
       } else if (w) {
         network = 'Wi-Fi';
       } else if (t) {
-        network = L('Mobile Hotspot', model.localeAdapter);
+        network = L('Mobile Hotspot', _model.localeAdapter);
       } else {
-        network = L('Not connected', model.localeAdapter);
+        network = L('Not connected', _model.localeAdapter);
       }
     });
-    conController.stop();
-
     updIp();
   }
 
   @override
   void dispose() {
-    if (server != null) server.close();
+    if (_server != null) _server.close();
 
-    if (conController.isAnimating) conController.stop();
+    if (_conController.isAnimating) _conController.stop();
 
-    if (ipController.isAnimating) ipController.stop();
+    if (_ipController.isAnimating) _ipController.stop();
 
     super.dispose();
   }
 
   @override
   void initState() {
-    model = Provider.of<AppModel>(context, listen: false);
-    file = model.file;
+    _model = Provider.of<AppModel>(context, listen: false);
+    _file = _model.file;
 
-    ip = L('loading...', model.localeAdapter);
-    network = L('loading...', model.localeAdapter);
+    ip = L('loading...', _model.localeAdapter);
+    network = L('loading...', _model.localeAdapter);
 
-    ipController =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    ipAnimation = Tween(begin: 0, end: 2 * pi).animate(ipController);
+    _ipController = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
+    _ipAnimation = Tween(begin: 0, end: pi).animate(_ipController);
 
-    conController =
-        AnimationController(duration: const Duration(seconds: 1), vsync: this);
-    conAnimation = Tween(begin: 0, end: 2 * pi).animate(conController);
+    _conController = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
+    _conAnimation = Tween(begin: 0, end: pi).animate(_conController);
 
     updCon();
 
@@ -204,7 +216,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             child: Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  file.icon,
+                  _file.icon,
                   //todo: add semantics stuff everywhere
                   semanticsLabel: 'file',
                   width: 18,
@@ -216,7 +228,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      file.name,
+                      _file.name,
                       style: GoogleFonts.andika(
                         textStyle: TextStyle(color: Colors.white, fontSize: 18),
                       ),
@@ -272,8 +284,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                 ),
                                 children: [
                                   TextSpan(
-                                      text:
-                                          L('Connect to', model.localeAdapter)),
+                                      text: L(
+                                          'Connect to', _model.localeAdapter)),
                                   Platform.isAndroid
                                       ? TextSpan(
                                           text: ' Wi-Fi ',
@@ -284,18 +296,18 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                       : TextSpan(text: ' Wi-Fi '),
                                   TextSpan(
                                       text: L(
-                                          'or set up a', model.localeAdapter)),
+                                          'or set up a', _model.localeAdapter)),
                                   Platform.isAndroid
                                       ? TextSpan(
                                           text: L(' Mobile Hotspot',
-                                              model.localeAdapter),
+                                              _model.localeAdapter),
                                           style: TextStyle(
                                               color: tether
                                                   ? Colors.green[100]
                                                   : Colors.red[100]))
                                       : TextSpan(
                                           text: L(' Mobile Hotspot',
-                                              model.localeAdapter)),
+                                              _model.localeAdapter)),
                                 ]),
                           ),
                           SizedBox(
@@ -319,10 +331,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                       padding:
                           EdgeInsets.symmetric(vertical: 14, horizontal: 14),
                       child: AnimatedBuilder(
-                        animation: conAnimation,
+                        animation: _conAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: conAnimation.value / 1, child: child);
+                              angle: _conAnimation.value / 1, child: child);
                         },
                         child: SvgPicture.asset(
                           'assets/icon_update.svg',
@@ -339,9 +351,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
           Spacer(),
           Center(
               child: Text(
-            L('Now open this link', model.localeAdapter) +
+            L('Now open this link', _model.localeAdapter) +
                 '\n' +
-                L('in any browser', model.localeAdapter),
+                L('in any browser', _model.localeAdapter),
             style: GoogleFonts.comfortaa(
                 textStyle: TextStyle(
               fontSize: 20,
@@ -385,7 +397,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                           backgroundColor: Colors.deepPurple[500],
                           duration: Duration(seconds: 1),
                           content: Text(
-                            L('Copied to Clipboard', model.localeAdapter),
+                            L('Copied to Clipboard', _model.localeAdapter),
                             style: GoogleFonts.andika(color: Colors.white),
                           ),
                         );
@@ -415,10 +427,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                       padding:
                           EdgeInsets.symmetric(vertical: 14, horizontal: 12),
                       child: AnimatedBuilder(
-                        animation: ipAnimation,
+                        animation: _ipAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: ipAnimation.value / 1, child: child);
+                              angle: _ipAnimation.value / 1, child: child);
                         },
                         child: SvgPicture.asset(
                           'assets/icon_update.svg',
@@ -442,9 +454,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               color: Colors.deepPurple[300],
             ),
             child: Text(
-              L('The recipient needs to be connected', model.localeAdapter) +
+              L('The recipient needs to be connected', _model.localeAdapter) +
                   '\n' +
-                  L('to the same network', model.localeAdapter),
+                  L('to the same network', _model.localeAdapter),
               textAlign: TextAlign.center,
               style: GoogleFonts.andika(
                 textStyle: TextStyle(color: Colors.white, fontSize: 18),
