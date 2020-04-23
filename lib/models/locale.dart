@@ -15,23 +15,7 @@ enum LocaleModel {
   pl
 }
 
-String locale2sign(LocaleModel locale) {
-  switch (locale) {
-    case LocaleModel.en:
-      return 'en';
-      break;
-    case LocaleModel.ru:
-      return 'ru';
-      break;
-    case LocaleModel.ua:
-      return 'ua';
-      break;
-    case LocaleModel.pl:
-      return 'pl';
-      break;
-  }
-  throw Exception('Unknown locale');
-}
+String locale2sign(LocaleModel locale) => locale.toString().split('.').last;
 
 String locale2name(LocaleModel locale) {
   switch (locale) {

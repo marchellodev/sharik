@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
@@ -6,6 +7,7 @@ import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 import 'package:wifi_iot/wifi_iot.dart';
@@ -62,39 +64,60 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   }
 
   void serve() async {
-    await for (var request in _server) {
-      if (_file.type == FileTypeModel.file || _file.type == FileTypeModel.app) {
-        var f = File(_file.data);
-        var size = await f.length();
+    await for (final request in _server) {
+      if (request.requestedUri.toString().split('/').length == 4 &&
+          request.requestedUri.toString().split('/').last == 'sharik.json') {
+        final info = await PackageInfo.fromPlatform();
+        var v = info.version.split('.')[0] + '.' + info.version.split('.')[1];
 
         request.response.headers.contentType =
-            ContentType('application', 'octet-stream', charset: 'utf-8');
-
-        request.response.headers.add(
-          'Content-Transfer-Encoding',
-          'Binary',
-        );
-
-        request.response.headers.add(
-          'Content-disposition',
-          'attachment; filename=' +
-              Uri.encodeComponent(_file.type == FileTypeModel.file
-                  ? _file.name
-                  : _file.name + '.apk'),
-        );
-        request.response.headers.add(
-          'Content-length',
-          size,
-        );
-
-        await f.openRead().pipe(request.response).catchError((e) {}).then((a) {
-          request.response.close();
-        });
-      } else {
-        request.response.headers.contentType =
-            ContentType('text', 'plain', charset: 'utf-8');
-        request.response.write(_file.data);
+            ContentType('application', 'json', charset: 'utf-8');
+        request.response.write(jsonEncode({
+          'sharik': v,
+          'type': _file.type.toString().split('.').last,
+          'os': Platform.operatingSystem,
+          'name': Platform.localHostname
+        }));
         await request.response.close();
+      } else {
+        if (_file.type == FileTypeModel.file ||
+            _file.type == FileTypeModel.app) {
+          var f = File(_file.data);
+          var size = await f.length();
+
+          request.response.headers.contentType =
+              ContentType('application', 'octet-stream', charset: 'utf-8');
+
+          request.response.headers.add(
+            'Content-Transfer-Encoding',
+            'Binary',
+          );
+
+          request.response.headers.add(
+            'Content-disposition',
+            'attachment; filename=' +
+                Uri.encodeComponent(_file.type == FileTypeModel.file
+                    ? _file.name
+                    : _file.name + '.apk'),
+          );
+          request.response.headers.add(
+            'Content-length',
+            size,
+          );
+
+          await f
+              .openRead()
+              .pipe(request.response)
+              .catchError((e) {})
+              .then((a) {
+            request.response.close();
+          });
+        } else {
+          request.response.headers.contentType =
+              ContentType('text', 'plain', charset: 'utf-8');
+          request.response.write(_file.data);
+          await request.response.close();
+        }
       }
     }
   }
