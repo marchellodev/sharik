@@ -10,13 +10,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info/package_info.dart';
+import 'package:ping_discover_network/ping_discover_network.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../conf.dart';
 import '../locale.dart';
 import '../models/app.dart';
 import '../models/file.dart';
 import '../models/page.dart';
+import '../models/sender.dart';
 import 'app_selector.dart';
 
 class HomePage extends StatefulWidget {
@@ -248,9 +251,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => _model.setPage(PageModel.language),
                 ),
               ),
-              SizedBox(
-                width: 2,
-              ),
+              SizedBox(width: 2),
               Material(
                 color: Colors.deepPurple[100],
                 borderRadius: BorderRadius.circular(8),
@@ -267,6 +268,152 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () => _model.setPage(PageModel.intro),
                 ),
+              ),
+              SizedBox(width: 2),
+              Material(
+                color: Colors.deepPurple[100],
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                    borderRadius: BorderRadius.circular(8),
+                    splashColor: Colors.deepPurple[400],
+                    child: Container(
+                      margin: EdgeInsets.all(12),
+                      child: SvgPicture.asset(
+                        'assets/icon_receive.svg',
+                        semanticsLabel: 'receive',
+                        height: 16,
+                      ),
+                    ),
+                    onTap: () {
+                      var senders = <Sender>[];
+                      var running = false;
+                      var stop = false;
+                      var n = 0;
+
+                      void portRunner(StateSetter setState) async {
+                        if (stop) {
+                          return;
+                        }
+
+                        running = true;
+
+                        var port = ports[n % ports.length];
+
+                        if (n % 4 == 0) {
+                          await Future.delayed(Duration(seconds: 1));
+                        }
+
+                        senders.removeWhere(
+                            (element) => element.n < n ~/ ports.length);
+
+                        NetworkAnalyzer.discover2(
+                          '192.168.0',
+                          port,
+                          timeout: Duration(milliseconds: 500),
+                        )..listen((addr) async {
+                            if (addr.exists) {
+                              //todo: deserialization
+
+                              try {
+                                var info = jsonDecode(await http.read(
+                                    'http://${addr.ip}:$port/sharik.json'));
+
+                                var sender = Sender(
+                                    n: n ~/ ports.length,
+                                    ip: addr.ip,
+                                    type: info['type'],
+                                    version: info['sharik'],
+                                    name: info['name'],
+                                    os: info['os'],
+                                    url: 'http://${addr.ip}:$port');
+                                var inArr = senders.firstWhere(
+                                    (element) =>
+                                        element.ip == sender.ip &&
+                                        element.os == sender.os &&
+                                        element.name == sender.name,
+                                    orElse: () => null);
+
+                                if (inArr == null) {
+                                  setState(() => senders.add(sender));
+                                } else {
+                                  inArr.n = n;
+                                }
+                              } catch (e) {
+                                //todo: catch error
+                              }
+                            }
+                          }).onDone(() {
+                            n++;
+                            portRunner(setState);
+                          });
+                      }
+
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              //todo: translate
+                              title: Text('Receiver'),
+                              content: StatefulBuilder(
+                                builder: (_, StateSetter setState) {
+                                  if (!running) {
+                                    portRunner(setState);
+                                  }
+
+                                  return senders.isNotEmpty
+                                      ? Container(
+                                          height: 320,
+                                          width: 120,
+                                          child: ListView(
+                                            shrinkWrap: true,
+                                            children: senders
+                                                .map((e) {
+                                                  return ListTile(
+                                                    onTap: () async {
+                                                      if (await canLaunch(
+                                                          e.url)) {
+                                                        await launch(e.url);
+                                                      }
+                                                    },
+                                                    subtitle: Text(e.os),
+                                                    title: Text(e.name),
+                                                    //todo: what's below looks ugly
+//                                                    leading: SvgPicture.asset(
+//                                                        FileModel(
+//                                                                type: e.type,
+//                                                                name: e.name)
+//                                                            .icon,
+//                                                        color: Colors.black),
+                                                  );
+                                                })
+                                                .toList()
+                                                .cast<Widget>(),
+                                          ),
+                                        )
+                                      : Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Center(
+                                              child: Container(
+                                                height: 28,
+                                                width: 28,
+                                                margin: EdgeInsets.all(4),
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                  ;
+                                },
+                              ),
+                            );
+                          }).then((value) => stop = true);
+                    }),
               ),
               Spacer(),
               Material(

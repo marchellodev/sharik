@@ -12,6 +12,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
+import '../conf.dart';
 import '../locale.dart';
 import '../models/app.dart';
 import '../models/file.dart';
@@ -50,8 +51,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   }
 
   Future<dynamic> _getPort() async {
-    final ports = [50500, 50050, 60060, 60600, 56789, 62200];
-
     for (final port in ports) {
       if (await _isPortFree(port)) {
         return port;
@@ -72,11 +71,12 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
+        //todo: keep version and port list in the same place
         request.response.write(jsonEncode({
           'sharik': v,
           'type': _file.type.toString().split('.').last,
+          'name': _file.name,
           'os': Platform.operatingSystem,
-          'name': Platform.localHostname
         }));
         await request.response.close();
       } else {
