@@ -1,7 +1,7 @@
-# ![App logo]
-[![License badge]](https://github.com/marchellodev/sharik/blob/master/LICENSE)
-[![Version badge]](https://github.com/marchellodev/sharik/releases)
-[![Downloads badge]](https://github.com/marchellodev/sharik/releases)
+# ![App logo](media/banner.png)
+[![License badge](https://img.shields.io/github/license/marchellodev/sharik)](https://github.com/marchellodev/sharik/blob/master/LICENSE)
+[![Version badge](https://img.shields.io/github/v/release/marchellodev/sharik)](https://github.com/marchellodev/sharik/releases)
+[![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
 [![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
 
@@ -40,7 +40,7 @@ Application is not signed, so you may get 'suspicious application' alert or some
 
 - [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.2/sharik_v2.2_windows.msi)
 - [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.2/sharik_v2.2_windows.zip)
-
+cd 
 
 
 ### Linux (the best os ever)
@@ -67,8 +67,3 @@ This app is built using [Flutter](https://flutter.dev) (Android, iOS) and [Hover
 
 ## License
 MIT
-
-[App logo]: media/banner.png
-[Downloads badge]: https://img.shields.io/github/downloads/marchellodev/sharik/total
-[License badge]: https://img.shields.io/github/license/marchellodev/sharik
-[Version badge]: https://img.shields.io/github/v/release/marchellodev/sharik
