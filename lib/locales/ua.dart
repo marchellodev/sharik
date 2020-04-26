@@ -42,4 +42,7 @@ Map<String, String> get getUa => {
       'Current version': 'Поточна верія',
       'The latest version': 'Остання версія',
       'Changelog': 'Зміни',
+
+      //v2.2
+      'Receiver': 'Приймач'
     };

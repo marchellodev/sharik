@@ -4,13 +4,9 @@ homepage: https://github.com/marchellodev/sharik
 repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
-version: 2.1.0
-versionCode: 3
-
-
-
-authors:
-  - marchellodev
+version: 2.2.0
+versionCode: 4
+author: marchellodev
 
 environment:
   sdk: ">=2.5.0 <3.0.0"
@@ -27,7 +23,7 @@ dependencies:
   file_picker: 1.4.3+2
 
   # for desktop
-#  file_picker: ^1.6.3+2
+#  file_picker: ^1.7.0
 
   url_launcher: ^5.4.5
   wifi_iot: ^0.1.1

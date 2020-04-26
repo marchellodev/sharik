@@ -42,4 +42,7 @@ Map<String, String> get getPl => {
       'Current version': 'Obecna wersja',
       'The latest version': 'Najnowsza wersja',
       'Changelog': 'Dziennik zmian',
+
+      //v2.2 (not reviewed)
+      'Receiver': 'Odbiorca'
     };

@@ -42,4 +42,7 @@ Map<String, String> get getRu => {
       'Current version': 'Текущая версия',
       'The latest version': 'Последняя версия',
       'Changelog': 'Изменения',
+
+      //v2.2
+      'Receiver': 'Получатель'
     };

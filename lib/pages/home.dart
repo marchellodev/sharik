@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io' show Platform;
+import 'dart:io' show NetworkInterface, Platform;
 
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart';
@@ -291,6 +291,29 @@ class _HomePageState extends State<HomePage> {
                       var stop = false;
                       var n = 0;
 
+                      //todo: check for ip wiser?
+                      Future<String> getIpMask() async {
+                        for (var interface in await NetworkInterface.list()) {
+                          for (var addr in interface.addresses) {
+                            if (addr.address.startsWith('192.168.')) {
+                              return '192.168.0';
+                            }
+                            if (addr.address.startsWith('172.16.')) {
+                              return '172.16.0';
+                            }
+                            if (addr.address.startsWith('10.')) {
+                              return '10.0.0';
+                            }
+                          }
+                        }
+                        if (!stop) {
+                          await Future.delayed(Duration(seconds: 1));
+                          return getIpMask();
+                        } else {
+                          return null;
+                        }
+                      }
+
                       void portRunner(StateSetter setState) async {
                         if (stop) {
                           return;
@@ -304,16 +327,23 @@ class _HomePageState extends State<HomePage> {
                           await Future.delayed(Duration(seconds: 1));
                         }
 
-                        senders.removeWhere(
-                            (element) => element.n < n ~/ ports.length);
+                        if (senders.firstWhere(
+                                (element) => element.n < n ~/ ports.length,
+                                orElse: () => null) !=
+                            null) {
+                          setState(() {
+                            senders.removeWhere(
+                                (element) => element.n < n ~/ ports.length);
+                          });
+                        }
 
                         NetworkAnalyzer.discover2(
-                          '192.168.0',
+                          await getIpMask(),
                           port,
                           timeout: Duration(milliseconds: 500),
                         )..listen((addr) async {
                             if (addr.exists) {
-                              //todo: deserialization
+                              //todo: proper deserialization
 
                               try {
                                 var info = jsonDecode(await http.read(
@@ -353,8 +383,9 @@ class _HomePageState extends State<HomePage> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              //todo: translate
-                              title: Text('Receiver'),
+                              title: Text(L('Receiver', _model.localeAdapter),
+                                  style: GoogleFonts.comfortaa(
+                                      fontWeight: FontWeight.w700)),
                               content: StatefulBuilder(
                                 builder: (_, StateSetter setState) {
                                   if (!running) {
@@ -409,9 +440,14 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ],
                                         );
-                                  ;
                                 },
                               ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text(L('Close', _model.localeAdapter)),
+                                )
+                              ],
                             );
                           }).then((value) => stop = true);
                     }),
@@ -426,7 +462,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: Text(
-                      'v2.1',
+                      'v2.2',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.deepPurple[700],

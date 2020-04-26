@@ -71,7 +71,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
-        //todo: keep version and port list in the same place
         request.response.write(jsonEncode({
           'sharik': v,
           'type': _file.type.toString().split('.').last,
@@ -128,10 +127,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
         if (addr.address.startsWith('192.168.')) {
           return addr.address;
         }
-        if (addr.address.startsWith('10.')) {
+        if (addr.address.startsWith('172.16.')) {
           return addr.address;
         }
-        if (addr.address.startsWith('172.16.')) {
+        if (addr.address.startsWith('10.')) {
           return addr.address;
         }
       }
