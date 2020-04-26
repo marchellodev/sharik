@@ -40,9 +40,9 @@ class FileModel {
           name = data.split(Platform.isWindows ? '\\' : '/').last;
           break;
         case FileTypeModel.text:
-          name = data.length >= 101
-              ? data.replaceAll('\n', ' ').substring(0, 100)
-              : data.replaceAll('\n', ' ');
+          var _ = data.trim().replaceAll('\n', ' ');
+          name =
+              _.length >= 101 ? _.substring(0, 100) : _.replaceAll('\n', ' ');
           break;
         case FileTypeModel.app:
           throw Exception('when type is app, name is neccesary');

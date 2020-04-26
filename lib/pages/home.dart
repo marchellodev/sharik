@@ -190,33 +190,34 @@ class _HomePageState extends State<HomePage> {
         SizedBox(
           height: 22,
         ),
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 24, right: 24),
-              child: Text(
-                L('Latest', _model.localeAdapter),
-                style:
-                    GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
+        if (_latest != null && _latest.isNotEmpty)
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 24, right: 24),
+                child: Text(
+                  L('Latest', _model.localeAdapter),
+                  style:
+                      GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
+                ),
               ),
-            ),
-            Spacer(),
-            Container(
-              margin: EdgeInsets.only(right: 24),
-              child: IconButton(
-                  onPressed: () {
-                    setState(() => _latest.clear());
+              Spacer(),
+              Container(
+                margin: EdgeInsets.only(right: 24),
+                child: IconButton(
+                    onPressed: () {
+                      setState(() => _latest.clear());
 
-                    saveLatest();
-                  },
-                  icon: SvgPicture.asset(
-                    'assets/icon_remove.svg',
-                    semanticsLabel: 'remove',
-                    height: 16,
-                  )),
-            )
-          ],
-        ),
+                      saveLatest();
+                    },
+                    icon: SvgPicture.asset(
+                      'assets/icon_remove.svg',
+                      semanticsLabel: 'remove',
+                      height: 16,
+                    )),
+              )
+            ],
+          ),
         Expanded(
           child: Container(
               padding: EdgeInsets.only(left: 24, right: 24),
