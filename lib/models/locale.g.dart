@@ -19,6 +19,8 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
         return LocaleModel.ru;
       case 2:
         return LocaleModel.ua;
+      case 3:
+        return LocaleModel.pl;
       default:
         return null;
     }
@@ -35,6 +37,9 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
         break;
       case LocaleModel.ua:
         writer.writeByte(2);
+        break;
+      case LocaleModel.pl:
+        writer.writeByte(3);
         break;
     }
   }

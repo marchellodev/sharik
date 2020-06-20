@@ -34,5 +34,15 @@ Map<String, String> get getUa => {
       'App': 'Програма',
       'Hide system apps': 'Приховати системні додатки',
       'Hide non-launchable apps': 'Приховати службові додатки',
-      'Search': 'Пошук'
+      'Search': 'Пошук',
+      //v2.1
+      'Updates': 'Оновлення',
+      'The latest version is already installed':
+          'Остання версія вже встановлена',
+      'Current version': 'Поточна верія',
+      'The latest version': 'Остання версія',
+      'Changelog': 'Зміни',
+
+      //v2.2
+      'Receiver': 'Приймач'
     };

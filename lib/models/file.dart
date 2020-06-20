@@ -18,7 +18,6 @@ class FileModel {
   @HiveField(2)
   String name;
 
-  //todo: use proper icons
   String get icon {
     switch (type) {
       case FileTypeModel.file:
@@ -41,9 +40,9 @@ class FileModel {
           name = data.split(Platform.isWindows ? '\\' : '/').last;
           break;
         case FileTypeModel.text:
-          name = data.length >= 101
-              ? data.replaceAll('\n', ' ').substring(0, 100)
-              : data.replaceAll('\n', ' ');
+          var _ = data.trim().replaceAll('\n', ' ');
+          name =
+              _.length >= 101 ? _.substring(0, 100) : _.replaceAll('\n', ' ');
           break;
         case FileTypeModel.app:
           throw Exception('when type is app, name is neccesary');

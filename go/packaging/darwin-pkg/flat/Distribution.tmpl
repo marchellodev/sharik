@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="1">
+	<title>{{.applicationName}}</title>
+	<background alignment="topleft" file="root/Applications/{{.applicationName}} {{.version}}.app/Contents/MacOS/assets/icon.png"/>
+	<choices-outline>
+	    <line choice="choiceBase"/>
+    </choices-outline>
+    <choice id="choiceBase" title="base">
+        <pkg-ref id="{{.organizationName}}.base.pkg"/>
+    </choice>
+    <pkg-ref id="{{.organizationName}}.base.pkg" version="{{.version}}" auth="Root">#base.pkg</pkg-ref>
+</installer-gui-script>

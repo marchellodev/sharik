@@ -49,10 +49,12 @@ class _AppSelectorState extends State<AppSelector> {
     }
 
     return AlertDialog(
+//      scrollable: true,
       content: Container(
+        height: double.maxFinite,
         width: double.maxFinite,
         child: ListView(
-          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
           children: <Widget>[
             CheckboxListTile(
               title: Text(L('Hide system apps', widget.adapter)),
@@ -78,27 +80,28 @@ class _AppSelectorState extends State<AppSelector> {
                   InputDecoration(hintText: L('Search', widget.adapter)),
             ),
             _apps != null
-                ? ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _apps.length,
-                    physics: ScrollPhysics(),
-                    itemBuilder: (context, item) {
-                      ApplicationWithIcon app = _apps[item];
-                      return ListTile(
-                        leading: Image.memory(app.icon),
-                        title: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(app.appName)),
-                        subtitle: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              app.packageName,
-                            )),
-                        onTap: () =>
-                            setState(() => _selected = app.packageName),
-                        selected: _selected == app.packageName,
-                      );
-                    })
+                ? Column(
+                    children: _apps
+                        .map((e) {
+                          ApplicationWithIcon app = e;
+                          return ListTile(
+                            leading: Image.memory(app.icon),
+                            title: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(app.appName)),
+                            subtitle: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  app.packageName,
+                                )),
+                            onTap: () =>
+                                setState(() => _selected = app.packageName),
+                            selected: _selected == app.packageName,
+                          );
+                        })
+                        .toList()
+                        .cast<Widget>(),
+                  )
                 : Center(
                     child: Container(
                         padding: EdgeInsets.all(24),
