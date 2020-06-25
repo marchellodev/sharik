@@ -5,7 +5,6 @@ import (
 	"github.com/go-flutter-desktop/plugins/package_info"
 	"github.com/go-flutter-desktop/plugins/path_provider"
 	"github.com/go-flutter-desktop/plugins/url_launcher"
-	"github.com/marchellodev/go_flutter_clipboard_manager"
 	filePicker "github.com/miguelpruivo/flutter_file_picker/go"
 )
 
@@ -21,6 +20,5 @@ var options = []flutter.Option{
 	flutter.AddPlugin(&filePicker.FilePickerPlugin{}),
 
 	flutter.AddPlugin(&url_launcher.UrlLauncherPlugin{}),
-	flutter.AddPlugin(&clipboard_manager.ClipboardManagerPlugin{}),
 	flutter.AddPlugin(&package_info.PackageInfoPlugin{}),
 }

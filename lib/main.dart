@@ -22,6 +22,7 @@ import 'pages/share.dart';
 
 //todo: android icon
 void main() async {
+
   try {
     Hive.registerAdapter(LocaleModelAdapter());
     Hive.registerAdapter(FileTypeModelAdapter());
@@ -45,8 +46,8 @@ void main() async {
     runApp(MaterialApp(
         home: Scaffold(
             body: Center(
-              child: Text('Sharik is already running'),
-            ))));
+      child: Text('Sharik is already running'),
+    ))));
   }
 }
 
@@ -58,10 +59,7 @@ void analytics() async {
     print(Platform.operatingSystemVersion);
 
     await http.read(
-        'https://marchello.cf/shas/analytics?package=${info
-            .packageName}&version=$v&platform=${Platform
-            .operatingSystem}&platform_version=${Uri.encodeComponent(
-            Platform.operatingSystemVersion)}');
+        'https://marchello.cf/shas/analytics?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
   } catch (e) {
     print('analytics error');
     print(e);
@@ -101,7 +99,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   children: <Widget>[
                     Container(
                         margin:
-                        EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                            EdgeInsets.symmetric(vertical: 24, horizontal: 12),
                         child: SharikLogo()),
                     LanguagePage(),
                   ],
@@ -113,7 +111,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   SafeArea(
                     child: Container(
                       margin:
-                      EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                          EdgeInsets.symmetric(vertical: 24, horizontal: 12),
                       child: Stack(
                         alignment: Alignment.centerLeft,
                         children: <Widget>[
@@ -138,20 +136,19 @@ class AppState extends State<App> with TickerProviderStateMixin {
                           physics: NeverScrollableScrollPhysics(),
                           controller: _pagerHome,
                           children: <Widget>[
-                            Builder(
-                              builder: (context) => HomePage(),
-                            ),
-                            WillPopScope(
-                                onWillPop: () async {
-                                  if (model.getPage() == PageModel.sharing) {
-                                    setState(() =>
-                                        model.setPage(PageModel.home));
-                                    _removeTemporaryDir();
-                                  }
-                                  return false;
-                                },
-                                child: SharePage()),
-                          ]))
+                        Builder(
+                          builder: (context) => HomePage(),
+                        ),
+                        WillPopScope(
+                            onWillPop: () async {
+                              if (model.getPage() == PageModel.sharing) {
+                                setState(() => model.setPage(PageModel.home));
+                                _removeTemporaryDir();
+                              }
+                              return false;
+                            },
+                            child: SharePage()),
+                      ]))
                 ],
               )
             ]);

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
@@ -414,7 +414,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      ClipboardManager.copyToClipBoard(ip).then((result) {
+                      Clipboard.setData(ClipboardData(text: ip)).then((result) {
                         final snackBar = SnackBar(
                           backgroundColor: Colors.deepPurple[500],
                           duration: Duration(seconds: 1),
