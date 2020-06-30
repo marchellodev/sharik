@@ -48,7 +48,6 @@ Application is not signed, so you may get 'suspicious application' alert or some
 
 - [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_windows.msi)
 - [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_windows.zip)
-cd 
 
 
 ### Linux (the best os ever)
