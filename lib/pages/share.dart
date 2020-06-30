@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
+import 'package:sharik_wrapper/sharik_wrapper.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
 import '../conf.dart';
@@ -121,23 +122,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     }
   }
 
-  Future getIp() async {
-    for (var interface in await NetworkInterface.list()) {
-      for (var addr in interface.addresses) {
-        if (addr.address.startsWith('192.168.')) {
-          return addr.address;
-        }
-        if (addr.address.startsWith('172.16.')) {
-          return addr.address;
-        }
-        if (addr.address.startsWith('10.')) {
-          return addr.address;
-        }
-      }
-    }
-  }
+  Future getIp() async => SharikWrapper.getLocalIp;
 
-  void updIp() async {
+  void updIp([hard = false]) async {
     setState(() => ip = L('loading...', _model.localeAdapter));
 
     if (!_ipController.isAnimating) {
@@ -443,7 +430,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
                     onTap: () {
-                      updIp();
+                      updIp(true);
                     },
                     child: Container(
                       padding:

@@ -20,9 +20,8 @@ import 'pages/intro.dart';
 import 'pages/language.dart';
 import 'pages/share.dart';
 
-//todo: android icon
+// todo move into provider / bloc
 void main() async {
-
   try {
     Hive.registerAdapter(LocaleModelAdapter());
     Hive.registerAdapter(FileTypeModelAdapter());

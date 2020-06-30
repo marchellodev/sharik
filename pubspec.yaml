@@ -4,7 +4,7 @@ homepage: https://github.com/marchellodev/sharik
 repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
-version: 2.2.0
+version: 2.3.0
 versionCode: 4
 author: marchellodev
 
@@ -36,6 +36,9 @@ dependencies:
   package_info: ^0.4.1
 
   ping_discover_network: ^0.2.0+1
+
+  sharik_wrapper:
+    git: https://github.com/marchellodev/sharik_wrapper
 
 
 

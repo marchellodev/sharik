@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:package_info/package_info.dart';
 import 'package:ping_discover_network/ping_discover_network.dart';
 import 'package:provider/provider.dart';
+import 'package:sharik_wrapper/sharik_wrapper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
@@ -293,25 +294,28 @@ class _HomePageState extends State<HomePage> {
 
                       //todo: check for ip wiser?
                       Future<String> getIpMask() async {
-                        for (var interface in await NetworkInterface.list()) {
-                          for (var addr in interface.addresses) {
-                            if (addr.address.startsWith('192.168.')) {
-                              return '192.168.0';
-                            }
-                            if (addr.address.startsWith('172.16.')) {
-                              return '172.16.0';
-                            }
-                            if (addr.address.startsWith('10.')) {
-                              return '10.0.0';
-                            }
-                          }
-                        }
-                        if (!stop) {
-                          await Future.delayed(Duration(seconds: 1));
-                          return getIpMask();
-                        } else {
-                          return null;
-                        }
+                        final ip = (await SharikWrapper.getLocalIp).split('.');
+                        return '${ip[0]}.${ip[1]}.${ip[2]}';
+
+//                        for (var interface in await NetworkInterface.list()) {
+//                          for (var addr in interface.addresses) {
+//                            if (addr.address.startsWith('192.168.')) {
+//                              return '192.168.0';
+//                            }
+//                            if (addr.address.startsWith('172.16.')) {
+//                              return '172.16.0';
+//                            }
+//                            if (addr.address.startsWith('10.')) {
+//                              return '10.0.0';
+//                            }
+//                          }
+//                        }
+//                        if (!stop) {
+//                          await Future.delayed(Duration(seconds: 1));
+//                          return getIpMask();
+//                        } else {
+//                          return null;
+//                        }
                       }
 
                       void portRunner(StateSetter setState) async {
@@ -462,7 +466,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: Text(
-                      'v2.2',
+                      'v2.3',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.deepPurple[700],
