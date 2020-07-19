@@ -1,0 +1,11 @@
+pkgname={{.packageName}}
+pkgver={{.version}}
+pkgrel={{.release}}
+pkgdesc="{{.description}}"
+arch=("x86_64")
+license=('{{.license}}')
+
+package() {
+    mkdir -p $pkgdir/
+    cp * $pkgdir/ -r
+}
