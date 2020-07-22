@@ -1,3 +1,0 @@
-52B866A5-A70C-F15E-16FB-B0B9E376E65A
-# This GUID is your upgrade code and ensures that you can properly update your app.
-# Don't change it.
