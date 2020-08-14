@@ -19,7 +19,7 @@ hover build linux --docker
 hover build linux-appimage --docker
 hover build linux-deb --docker
 hover build linux-rpm --docker
-hover build linux-snap --docker
+hover build linux-pkg --docker
 
 hover build windows --docker
 hover build windows-msi --docker

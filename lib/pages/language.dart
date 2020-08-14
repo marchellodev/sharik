@@ -30,7 +30,11 @@ class LanguagePage extends StatelessWidget {
           ),
           LanguageButton(LocaleModel.en, model),
           SizedBox(height: 16),
+          LanguageButton(LocaleModel.inHi, model),
+          SizedBox(height: 16),
           LanguageButton(LocaleModel.ru, model),
+          SizedBox(height: 16),
+          LanguageButton(LocaleModel.inGu, model),
           SizedBox(height: 16),
           LanguageButton(LocaleModel.pl, model),
           SizedBox(height: 16),
@@ -60,9 +64,8 @@ class LanguageButton extends StatelessWidget {
             children: <Widget>[
               Center(
                   child: Text(locale2name(locale),
-                      style: GoogleFonts.andika(
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 24)))),
+                      style: GoogleFonts.getFont(getAndikaFont(locale),
+                          color: Colors.white, fontSize: 24))),
               Container(
                 margin: EdgeInsets.all(6),
                 child: Align(

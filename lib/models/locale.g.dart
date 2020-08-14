@@ -21,6 +21,10 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
         return LocaleModel.ua;
       case 3:
         return LocaleModel.pl;
+      case 4:
+        return LocaleModel.inHi;
+      case 5:
+        return LocaleModel.inGu;
       default:
         return null;
     }
@@ -40,6 +44,12 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
         break;
       case LocaleModel.pl:
         writer.writeByte(3);
+        break;
+      case LocaleModel.inHi:
+        writer.writeByte(4);
+        break;
+      case LocaleModel.inGu:
+        writer.writeByte(5);
         break;
     }
   }

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io' show NetworkInterface, Platform;
+import 'dart:io' show Platform;
 
 import 'package:device_apps/device_apps.dart';
 import 'package:file_picker/file_picker.dart';

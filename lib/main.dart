@@ -39,7 +39,8 @@ void main() async {
       ),
     ));
 
-    analytics();
+//    analytics()
+    // todo analytics
   } catch (e) {
     print(e);
     runApp(MaterialApp(

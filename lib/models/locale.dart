@@ -12,7 +12,11 @@ enum LocaleModel {
   @HiveField(2)
   ua,
   @HiveField(3)
-  pl
+  pl,
+  @HiveField(4)
+  inHi,
+  @HiveField(5)
+  inGu,
 }
 
 String locale2sign(LocaleModel locale) => locale.toString().split('.').last;
@@ -31,6 +35,23 @@ String locale2name(LocaleModel locale) {
     case LocaleModel.pl:
       return 'Polski';
       break;
+    case LocaleModel.inHi:
+      return 'हिन्दी';
+      break;
+    case LocaleModel.inGu:
+      return 'ગુજરાતી';
+      break;
   }
   throw Exception('Unknown locale');
+}
+
+String getAndikaFont(LocaleModel locale) {
+  if (locale == LocaleModel.inHi) {
+    return 'Poppins';
+  }
+  if (locale == LocaleModel.inGu) {
+    return 'Hind Vadodara';
+  } else {
+    return 'Andika';
+  }
 }
