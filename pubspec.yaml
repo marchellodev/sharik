@@ -4,8 +4,8 @@ homepage: https://github.com/marchellodev/sharik
 repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
-version: 2.3.0
-versionCode: 4
+version: 2.4.0
+versionCode: 5
 author: marchellodev
 
 environment:

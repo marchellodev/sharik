@@ -32,38 +32,38 @@ If you found an error in one of the translations, please don't hesitate to creat
 - Linux
 - MacOS (probably)
 
-[![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v2.3/)
+[![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v2.4/)
 ### Android
 <a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
 
 If you have some problems with Google Play, here are the latest apks:
-- [For all architectures](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_android.apk)
-- [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_android_arm64_v8a.apk)
-- [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_android_armeabi_v7a.apk)
-- [x86_64](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_android_x86_64.apk)
+- [For all architectures](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_android.apk)
+- [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_android_arm64_v8a.apk)
+- [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_android_armeabi_v7a.apk)
+- [x86_64](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_android_x86_64.apk)
 
 
 ### Windows
 Application is not signed, so you may get 'suspicious application' alert or something like that. Ignore it. Or you can give me a few hundred bucks, so I can buy a certificate :>
 
-- [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_windows.msi)
-- [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_windows.zip)
+- [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_windows.msi)
+- [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_windows.zip)
 
 
 ### Linux (the best os ever)
 Download links:
-- [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_linux.AppImage)
-- [DEB (debian)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_linux.deb)
-- [RPM (centOS)](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_linux.rpm)
-- [zip](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_linux.zip)
+- [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_linux.AppImage)
+- [DEB (debian)](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_linux.deb)
+- [RPM (centOS)](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_linux.rpm)
+- [zip](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_linux.zip)
 
 
 ### MacOS
 May not work, haven't tested, don't even know which version you should download (buy me a mac :>)
 
-- [DMG](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_darwin.dmg)
-- [PKG](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_darwin.pkg)
-- [zip](https://github.com/marchellodev/sharik/releases/download/v2.3/sharik_v2.3_darwin.zip)
+- [DMG](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_darwin.dmg)
+- [PKG](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_darwin.pkg)
+- [zip](https://github.com/marchellodev/sharik/releases/download/v2.4/sharik_v2.4_darwin.zip)
 
 ### iOS
 I don't have the binaries, but you can build it for yourself! (not sure it will work though) (buy me a mac :>)

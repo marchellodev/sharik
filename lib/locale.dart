@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import 'models/app.dart';
 import 'models/locale.dart';
 
 String L(String key, LocaleAdapter adapter) {

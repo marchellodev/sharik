@@ -1,4 +1,6 @@
-Map<String, String> get getIN_hi => {
+// https://siddhmistry.surge.sh
+
+Map<String, String> get getInHi => {
       'CONNECT': 'जुडिये',
       'Connect devices to the same network - use Wi-Fi or Mobile Hotspot':
           'डिवाइस को एक ही नेटवर्क से कनेक्ट करें - वाई-फाई या मोबाइल हॉटस्पॉट का उपयोग करें',
@@ -17,7 +19,8 @@ Map<String, String> get getIN_hi => {
       'Not connected': 'जुड़े नहीं हैं',
       'Now open this link': 'अब इस लिंक को ओपन करें',
       'in any browser': 'किसी भी ब्राउज़र में',
-      'The recipient needs to be connected': 'प्राप्तकर्ता को कनेक्ट करने की आवश्यकता है',
+      'The recipient needs to be connected':
+          'प्राप्तकर्ता को कनेक्ट करने की आवश्यकता है',
       'to the same network': 'एक ही नेटवर्क के लिए',
       'Select file': 'फ़ाइल का चयन करें',
       'Latest': 'नवीनतम',
@@ -44,6 +47,9 @@ Map<String, String> get getIN_hi => {
       'Changelog': 'बदलाव का',
 
       //v2.2
-      'Receiver': 'रिसीवर'
-      //https://siddhmistry.surge.sh
+      'Receiver': 'रिसीवर',
+
+      //v2.4 (fonts)
+      'Andika': 'Mukta',
+      'Comfortaa': 'Pragati Narrow',
     };

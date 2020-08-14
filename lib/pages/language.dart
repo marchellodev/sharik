@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../locale.dart';
 import '../models/app.dart';
 import '../models/locale.dart';
 import '../models/page.dart';
@@ -23,7 +24,8 @@ class LanguagePage extends StatelessWidget {
             child: Text(
               'Select the language\nyou are familiar\nwith',
               textAlign: TextAlign.center,
-              style: GoogleFonts.comfortaa(
+              style: GoogleFonts.getFont(
+                'Comfortaa',
                 fontSize: 26,
               ),
             ),
@@ -64,8 +66,10 @@ class LanguageButton extends StatelessWidget {
             children: <Widget>[
               Center(
                   child: Text(locale2name(locale),
-                      style: GoogleFonts.getFont(getAndikaFont(locale),
-                          color: Colors.white, fontSize: 24))),
+                      style: GoogleFonts.getFont(
+                          L('Andika', getLocaleAdapter(locale)),
+                          color: Colors.white,
+                          fontSize: 24))),
               Container(
                 margin: EdgeInsets.all(6),
                 child: Align(

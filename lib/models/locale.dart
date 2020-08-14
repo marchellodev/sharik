@@ -1,4 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+
+import '../locales/in_gu.dart';
+import '../locales/in_hi.dart';
+import '../locales/pl.dart';
+import '../locales/ru.dart';
+import '../locales/ua.dart';
 
 part 'locale.g.dart';
 
@@ -45,13 +52,33 @@ String locale2name(LocaleModel locale) {
   throw Exception('Unknown locale');
 }
 
-String getAndikaFont(LocaleModel locale) {
-  if (locale == LocaleModel.inHi) {
-    return 'Poppins';
+class LocaleAdapter {
+  final Map<String, String> map;
+  final LocaleModel locale;
+
+  LocaleAdapter({@required this.map, @required this.locale});
+}
+
+LocaleAdapter getLocaleAdapter(LocaleModel locale) {
+  switch (locale) {
+    case LocaleModel.en:
+      return LocaleAdapter(map: {}, locale: locale);
+      break;
+    case LocaleModel.ru:
+      return LocaleAdapter(map: getRu, locale: locale);
+      break;
+    case LocaleModel.ua:
+      return LocaleAdapter(map: getUa, locale: locale);
+      break;
+    case LocaleModel.pl:
+      return LocaleAdapter(map: getPl, locale: locale);
+      break;
+    case LocaleModel.inHi:
+      return LocaleAdapter(map: getInHi, locale: locale);
+      break;
+    case LocaleModel.inGu:
+      return LocaleAdapter(map: getInGu, locale: locale);
+      break;
   }
-  if (locale == LocaleModel.inGu) {
-    return 'Hind Vadodara';
-  } else {
-    return 'Andika';
-  }
+  throw Exception('no such local!!!');
 }

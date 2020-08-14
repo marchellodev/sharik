@@ -10,8 +10,8 @@ import (
 )
 
 var options = []flutter.Option{
-	flutter.WindowInitialDimensions(420, 640),
-	flutter.WindowDimensionLimits(420, 640, 420, 640),
+	flutter.WindowInitialDimensions(440, 680),
+	//flutter.WindowDimensionLimits(420, 640, 420, 640),
 
 	flutter.AddPlugin(&path_provider.PathProviderPlugin{
 		VendorName:      "marchellodev",

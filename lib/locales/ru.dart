@@ -44,5 +44,9 @@ Map<String, String> get getRu => {
       'Changelog': 'Изменения',
 
       //v2.2
-      'Receiver': 'Получатель'
+      'Receiver': 'Получатель',
+
+      //v2.4 (fonts)
+      'Andika': 'Andika',
+      'Comfortaa': 'Comfortaa'
     };

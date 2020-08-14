@@ -44,5 +44,9 @@ Map<String, String> get getUa => {
       'Changelog': 'Зміни',
 
       //v2.2
-      'Receiver': 'Приймач'
+      'Receiver': 'Приймач',
+
+      //v2.4 (fonts)
+      'Andika': 'Andika',
+      'Comfortaa': 'Comfortaa'
     };

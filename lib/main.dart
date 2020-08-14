@@ -31,6 +31,12 @@ void main() async {
     await Hive.openBox('app2');
 
     runApp(MaterialApp(
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: child,
+        );
+      },
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
@@ -48,6 +54,14 @@ void main() async {
             body: Center(
       child: Text('Sharik is already running'),
     ))));
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
 

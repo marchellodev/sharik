@@ -44,5 +44,9 @@ Map<String, String> get getPl => {
       'Changelog': 'Dziennik zmian',
 
       //v2.2 (not reviewed)
-      'Receiver': 'Odbiorca'
+      'Receiver': 'Odbiorca',
+
+      //v2.4 (fonts)
+      'Andika': 'Andika',
+      'Comfortaa': 'Comfortaa'
     };

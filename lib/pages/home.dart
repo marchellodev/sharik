@@ -73,9 +73,10 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     Center(
                         child: Text(L('Select file', _model.localeAdapter),
-                            style: GoogleFonts.andika(
-                                textStyle: TextStyle(
-                                    color: Colors.white, fontSize: 24)))),
+                            style: GoogleFonts.getFont(
+                                L('Andika', _model.localeAdapter),
+                                color: Colors.white,
+                                fontSize: 24))),
                     Container(
                       margin: EdgeInsets.all(16),
                       child: Align(
@@ -109,9 +110,10 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(12),
                         child: Center(
                             child: Text(L('App', _model.localeAdapter),
-                                style: GoogleFonts.andika(
-                                    textStyle: TextStyle(
-                                        color: Colors.white, fontSize: 24)))),
+                                style: GoogleFonts.getFont(
+                                    L('Andika', _model.localeAdapter),
+                                    color: Colors.white,
+                                    fontSize: 24))),
                         onTap: () async {
                           var data = await showDialog(
                                   context: context,
@@ -142,9 +144,10 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(12),
                       child: Center(
                           child: Text(L('Text', _model.localeAdapter),
-                              style: GoogleFonts.andika(
-                                  textStyle: TextStyle(
-                                      color: Colors.white, fontSize: 24)))),
+                              style: GoogleFonts.getFont(
+                                  L('Andika', _model.localeAdapter),
+                                  color: Colors.white,
+                                  fontSize: 24))),
                       onTap: () {
                         showDialog(
                           context: context,
@@ -153,7 +156,8 @@ class _HomePageState extends State<HomePage> {
                             return AlertDialog(
                               title: Text(
                                 L('Type some text', _model.localeAdapter),
-                                style: GoogleFonts.comfortaa(
+                                style: GoogleFonts.getFont(
+                                    L('Comfortaa', _model.localeAdapter),
                                     fontWeight: FontWeight.w700),
                               ),
                               content: TextField(
@@ -163,11 +167,15 @@ class _HomePageState extends State<HomePage> {
                               ),
                               actions: <Widget>[
                                 FlatButton(
-                                  child: Text(L('Close', _model.localeAdapter)),
+                                  child: Text(L('Close', _model.localeAdapter),
+                                      style: GoogleFonts.getFont(
+                                          L('Andika', _model.localeAdapter))),
                                   onPressed: () => Navigator.of(context).pop(),
                                 ),
                                 FlatButton(
-                                  child: Text(L('Send', _model.localeAdapter)),
+                                  child: Text(L('Send', _model.localeAdapter),
+                                      style: GoogleFonts.getFont(
+                                          L('Andika', _model.localeAdapter))),
                                   onPressed: () {
                                     Navigator.of(context).pop();
 
@@ -198,8 +206,9 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsets.only(left: 24, right: 24),
                 child: Text(
                   L('Latest', _model.localeAdapter),
-                  style:
-                      GoogleFonts.comfortaa(textStyle: TextStyle(fontSize: 24)),
+                  style: GoogleFonts.getFont(
+                      L('Comfortaa', _model.localeAdapter),
+                      fontSize: 24),
                 ),
               ),
               Spacer(),
@@ -388,7 +397,8 @@ class _HomePageState extends State<HomePage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text(L('Receiver', _model.localeAdapter),
-                                  style: GoogleFonts.comfortaa(
+                                  style: GoogleFonts.getFont(
+                                      L('Comfortaa', _model.localeAdapter),
                                       fontWeight: FontWeight.w700)),
                               content: StatefulBuilder(
                                 builder: (_, StateSetter setState) {
@@ -449,7 +459,11 @@ class _HomePageState extends State<HomePage> {
                               actions: <Widget>[
                                 FlatButton(
                                   onPressed: () => Navigator.of(context).pop(),
-                                  child: Text(L('Close', _model.localeAdapter)),
+                                  child: Text(
+                                    L('Close', _model.localeAdapter),
+                                    style: GoogleFonts.getFont(
+                                        L('Andika', _model.localeAdapter)),
+                                  ),
                                 )
                               ],
                             );
@@ -466,7 +480,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: Text(
-                      'v2.3',
+                      'v2.4',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.deepPurple[700],
@@ -492,7 +506,8 @@ class _HomePageState extends State<HomePage> {
                             builder: (_, snapshot) => AlertDialog(
                                   title: Text(
                                     L('Updates', _model.localeAdapter),
-                                    style: GoogleFonts.comfortaa(
+                                    style: GoogleFonts.getFont(
+                                        L('Comfortaa', _model.localeAdapter),
                                         fontWeight: FontWeight.w700),
                                   ),
                                   content: Column(
@@ -543,7 +558,10 @@ class _HomePageState extends State<HomePage> {
                                       onPressed: () =>
                                           Navigator.of(context).pop(),
                                       child: Text(
-                                          L('Close', _model.localeAdapter)),
+                                        L('Close', _model.localeAdapter),
+                                        style: GoogleFonts.getFont(
+                                            L('Andika', _model.localeAdapter)),
+                                      ),
                                     )
                                   ],
 //                                  scrollable: true,
@@ -650,7 +668,9 @@ class _HomePageState extends State<HomePage> {
                     width: 160,
                     child: Text(
                       L('Current version', _model.localeAdapter) + ':',
-                      style: GoogleFonts.andika(fontSize: 16),
+                      style: GoogleFonts.getFont(
+                          L('Andika', _model.localeAdapter),
+                          fontSize: 16),
                     )),
                 SizedBox(
                   width: 4,
@@ -667,7 +687,9 @@ class _HomePageState extends State<HomePage> {
                     width: 160,
                     child: Text(
                       L('The latest version', _model.localeAdapter) + ':',
-                      style: GoogleFonts.andika(fontSize: 16),
+                      style: GoogleFonts.getFont(
+                          L('Andika', _model.localeAdapter),
+                          fontSize: 16),
                     )),
                 SizedBox(
                   width: 4,
@@ -682,7 +704,8 @@ class _HomePageState extends State<HomePage> {
             Center(
               child: Text(
                 L('Changelog', _model.localeAdapter),
-                style: GoogleFonts.comfortaa(fontSize: 18),
+                style: GoogleFonts.getFont(L('Comfortaa', _model.localeAdapter),
+                    fontSize: 18),
               ),
             ),
             Column(
@@ -722,9 +745,10 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   child: Text(
                     f.name,
-                    style: GoogleFonts.andika(
-                      textStyle: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
+                    style: GoogleFonts.getFont(
+                        L('Andika', _model.localeAdapter),
+                        color: Colors.white,
+                        fontSize: 18),
                     maxLines: 1,
                   ),
                 ))

@@ -1,8 +1,9 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sharik/models/locale.dart';
 
 import '../locale.dart';
-import '../models/app.dart';
 
 class AppSelector extends StatefulWidget {
   final LocaleAdapter adapter;
@@ -111,13 +112,15 @@ class _AppSelectorState extends State<AppSelector> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text(L('Close', widget.adapter)),
+          child: Text(L('Close', widget.adapter),
+              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text(L('Send', widget.adapter)),
+          child: Text(L('Send', widget.adapter),
+              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
           onPressed: _selected == null
               ? null
               : () {

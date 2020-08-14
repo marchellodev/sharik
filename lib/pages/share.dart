@@ -238,8 +238,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                     scrollDirection: Axis.horizontal,
                     child: Text(
                       _file.name,
-                      style: GoogleFonts.andika(
-                        textStyle: TextStyle(color: Colors.white, fontSize: 18),
+                      style: GoogleFonts.getFont(
+                        L('Andika', _model.localeAdapter),
+                        color: Colors.white,
+                        fontSize: 18,
                       ),
                       maxLines: 1,
                     ),
@@ -279,17 +281,19 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                             scrollDirection: Axis.horizontal,
                             child: Text(
                               network,
-                              style: GoogleFonts.andika(
-                                textStyle: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                              style: GoogleFonts.getFont(
+                                L('Andika', _model.localeAdapter),
+                                color: Colors.white,
+                                fontSize: 18,
                               ),
                             ),
                           ),
                           RichText(
                             text: TextSpan(
-                                style: GoogleFonts.andika(
-                                  textStyle: TextStyle(
-                                      color: Colors.white, fontSize: 16),
+                                style: GoogleFonts.getFont(
+                                  L('Andika', _model.localeAdapter),
+                                  color: Colors.white,
+                                  fontSize: 16,
                                 ),
                                 children: [
                                   TextSpan(
@@ -363,10 +367,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             L('Now open this link', _model.localeAdapter) +
                 '\n' +
                 L('in any browser', _model.localeAdapter),
-            style: GoogleFonts.comfortaa(
-                textStyle: TextStyle(
+            style: GoogleFonts.getFont(
+              L('Comfortaa', _model.localeAdapter),
               fontSize: 20,
-            )),
+            ),
             textAlign: TextAlign.center,
           )),
           Container(
@@ -386,9 +390,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                     scrollDirection: Axis.horizontal,
                     child: Text(
                       ip,
-                      style: GoogleFonts.andika(
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 18)),
+                      // todo remove TextStyle
+                      style: GoogleFonts.getFont('Andika',
+                          color: Colors.white, fontSize: 18),
                     ),
                   ),
                 ),
@@ -407,7 +411,9 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                           duration: Duration(seconds: 1),
                           content: Text(
                             L('Copied to Clipboard', _model.localeAdapter),
-                            style: GoogleFonts.andika(color: Colors.white),
+                            style: GoogleFonts.getFont(
+                                L('Andika', _model.localeAdapter),
+                                color: Colors.white),
                           ),
                         );
                         Scaffold.of(context).showSnackBar(snackBar);
@@ -467,9 +473,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   '\n' +
                   L('to the same network', _model.localeAdapter),
               textAlign: TextAlign.center,
-              style: GoogleFonts.andika(
-                textStyle: TextStyle(color: Colors.white, fontSize: 18),
-              ),
+              style: GoogleFonts.getFont(L('Andika', _model.localeAdapter),
+                  color: Colors.white, fontSize: 18),
             ),
           ),
         ],
