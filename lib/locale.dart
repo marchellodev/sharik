@@ -11,7 +11,7 @@ String L(String key, LocaleAdapter adapter) {
     if (kReleaseMode) {
       return key;
     } else {
-      throw Exception('not translated \'$key\' to ${adapter.locale}');
+      throw Exception('not translated "$key" to ${adapter.locale}');
     }
   }
 

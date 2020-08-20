@@ -40,7 +40,7 @@ class FileModel {
           name = data.split(Platform.isWindows ? '\\' : '/').last;
           break;
         case FileTypeModel.text:
-          var _ = data.trim().replaceAll('\n', ' ');
+          final _ = data.trim().replaceAll('\n', ' ');
           name =
               _.length >= 101 ? _.substring(0, 100) : _.replaceAll('\n', ' ');
           break;

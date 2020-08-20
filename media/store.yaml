@@ -1,0 +1,63 @@
+en:
+  Name: "Sharik - file sharing via WI-FI"
+  Short description: "Share files with any device via Wi-Fi or Tethering"
+  Full description: "This app can help you send files to almost any device.
+                     All you need is a browser and a Wi-Fi connection or Tethering (Mobile Hotspot)
+
+                     You can share files, text or even an android app. It's easy and fast to use.
+                     You don't even need the same app at the other end - use browser or any downloading tool (e. g. wget).
+                     Use our newest tool called receiver to open shared content directly in sharik.
+
+                     This app does not contain ads and is completely open-sourced.
+                     Sharik is also available for Windows, MacOS and Linux
+
+                     GitHub page: github.com/marchellodev/sharik"
+
+
+ru:
+  Name: "Sharik - распространение файлов через Wi-Fi"
+  Short description: "Делитесь файлами с любыми устройствамт с помощи Wi-Fi или Тетеринг"
+  Full description: "Данное приложение может помочь Вам отправлять файлы на почти любое устройство
+
+                     Все что вам нужно это подключение Wi-Fi или Тетеринг (Мобильная точка доступа).
+
+                     Вы можете делиться файлами, текстами или даже андроид приложениями. Это просто и быстро
+                     Вам даже не нужно то же самое приложение на другом устройстве - используйте браузер или любоую утилиту для скачивания файлов (к примеру wget)
+                     Попробуйте нашу новую утилиту получатель для открытия файлов которыми делитесь прямо в шарике
+
+                     Программа не содержит рекламы и распространяется с открытым кодом.
+                     Приложение так же доступно для Windows, MacOS и Linux
+
+                     Страница на GitHub: https://github.com/marchellodev/sharik"
+
+
+uk:
+  Name: "Sharik - поширення файлів через Wi-Fi"
+  Short description: "Діліться файлами з будь-якими девайсами за допомогою Wi-Fi або Прив'язування"
+  Full description: "Цей додаток може допомогти Вам відправляти файли до майже будь-якого пристрою.
+
+                     Все що вам потрібно це підключення Wi-Fi або Прив'язування (Мобільна Точка доступу).
+
+                     Ви можете ділитися файлами, текстами або навіть андроїд програмами. Це просто та швидко.
+                     Вам навіть не потрібна та ж сама програма на іншому девайсі - використовуйте веб-переглядач або будь-який засіб для завантаження файлів (наприклад wget)
+                     Спробуйте наш найновіший інструмент - отримувач та відкривайте поширюваний контент прямо в шаріку.
+
+                     Програма не містить реклами і поширюється з відкритим кодом.
+                     Додаток також дуступний для Windows, MacOS та Linux
+
+                     Сторінка на GitHub: https://github.com/marchellodev/sharik"
+
+
+pl:
+  Name: "Sharik - udostępnianie plików przez Wi-Fi"
+  Short description: "Udostępniaj pliki dla dowolnego urządzenia z użyciem Wi-Fi bądź Hotspot"
+  Full description: "Ta aplikacja pomoże w przesłaniu plików do (prawie) każdego urządzenia.
+                     Jedyne czego potrzebujesz, to przeglądarka i połączenie Wi-Fi, bądź Hotspot mobilny.
+
+
+                     Możesz udostępniać pliki, tekst, a nawet aplikację na Androida. Jest łatwy i szybki w użyciu.
+                     Z drugiej strony nie potrzebujesz nawet tej samej aplikacji - użyj przeglądarki lub innego narzędzia do pobierania (np. Wget).
+                     Skorzystaj z naszego najnowszego narzędzia o nazwie odbiornik, aby otworzyć udostępnioną zawartość bezpośrednio w sharik.
+
+                     Aplikacja nie zawiera reklam i jest całkowicie open-source.
+                     Sharik jest także dostępny na platformy: Windows, MacOS oraz Linux."

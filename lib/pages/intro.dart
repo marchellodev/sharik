@@ -12,7 +12,7 @@ import '../models/page.dart';
 class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var model = Provider.of<AppModel>(context, listen: false);
+    final model = Provider.of<AppModel>(context, listen: false);
 
     return IntroSlider(
       nameDoneBtn: L('DONE', model.localeAdapter),
@@ -93,10 +93,7 @@ class IntroPage extends StatelessWidget {
               }
             },
             child: Text(
-              L('Sharik is available for Android, Windows, MacOS and Linux!',
-                      model.localeAdapter) +
-                  '\n' +
-                  L('Click here to learn more', model.localeAdapter),
+              '${L('Sharik is available for Android, Windows, MacOS and Linux!', model.localeAdapter)}\n${L('Click here to learn more', model.localeAdapter)}',
               style: GoogleFonts.getFont(L('Andika', model.localeAdapter),
                   color: Colors.white, fontSize: 18.0),
               textAlign: TextAlign.center,

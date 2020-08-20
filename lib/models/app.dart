@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
+import '../cast.dart';
 import 'file.dart';
 import 'locale.dart';
 import 'page.dart';
@@ -16,7 +17,8 @@ class AppModel {
   final Function(VoidCallback fn) setState;
 
   AppModel(this._pagerGlobal, this._pagerHome, this.setState) {
-    locale = Hive.box('app2').get('locale', defaultValue: null);
+    locale =
+        cast<LocaleModel>(Hive.box('app2').get('locale', defaultValue: null));
     if (locale != null) {
       localeAdapter = getLocaleAdapter(locale);
       setPage(PageModel.home);
@@ -58,8 +60,8 @@ class AppModel {
   }
 
   PageModel getPage() {
-    var home = _pagerHome.index;
-    var global = _pagerGlobal.index;
+    final home = _pagerHome.index;
+    final global = _pagerGlobal.index;
 
     if (home == 0) {
       switch (global) {

@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:sharik_wrapper/sharik_wrapper.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 
+import '../cast.dart';
 import '../conf.dart';
 import '../locale.dart';
 import '../models/app.dart';
@@ -43,7 +44,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   Future<bool> _isPortFree(int port) async {
     try {
-      var _ = await HttpServer.bind(InternetAddress.anyIPv4, port);
+      final _ = await HttpServer.bind(InternetAddress.anyIPv4, port);
       await _.close(force: true);
       return true;
     } catch (e) {
@@ -58,17 +59,18 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
       }
     }
 
-    var _ = await HttpServer.bind(InternetAddress.anyIPv4, 0);
+    final _ = await HttpServer.bind(InternetAddress.anyIPv4, 0);
     await _.close(force: true);
     return _.port;
   }
 
+  // ignore: avoid_void_async
   void serve() async {
     await for (final request in _server) {
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
         final info = await PackageInfo.fromPlatform();
-        var v = info.version.split('.')[0] + '.' + info.version.split('.')[1];
+        final v = '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
 
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
@@ -82,8 +84,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
       } else {
         if (_file.type == FileTypeModel.file ||
             _file.type == FileTypeModel.app) {
-          var f = File(_file.data);
-          var size = await f.length();
+          final f = File(_file.data);
+          final size = await f.length();
 
           request.response.headers.contentType =
               ContentType('application', 'octet-stream', charset: 'utf-8');
@@ -95,10 +97,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
           request.response.headers.add(
             'Content-disposition',
-            'attachment; filename=' +
-                Uri.encodeComponent(_file.type == FileTypeModel.file
-                    ? _file.name
-                    : _file.name + '.apk'),
+            'attachment; filename=${Uri.encodeComponent(_file.type == FileTypeModel.file ? _file.name : '${_file.name}.apk')}',
           );
           request.response.headers.add(
             'Content-length',
@@ -124,23 +123,25 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   Future getIp() async => SharikWrapper.getLocalIp;
 
-  void updIp([hard = false]) async {
+  // ignore: avoid_void_async, avoid_positional_boolean_parameters
+  void updIp([bool hard = false]) async {
     setState(() => ip = L('loading...', _model.localeAdapter));
 
     if (!_ipController.isAnimating) {
       unawaited(_ipController.forward().then((value) => _ipController.reset()));
     }
 
-    String _ip = await getIp();
+    final _ip = cast<String>(await getIp());
 
     if (port == 0 && _ip != null) {
-      port = await _getPort();
+      port = cast<int>(await _getPort());
       _server = await HttpServer.bind(InternetAddress.anyIPv4, port);
       serve();
     }
     setState(() => ip = 'http://$_ip:$port');
   }
 
+  // ignore: avoid_void_async
   void updCon() async {
     setState(() {
       network = L('loading...', _model.localeAdapter);
@@ -211,13 +212,13 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 24, right: 24, top: 8),
+      margin: const EdgeInsets.only(left: 24, right: 24, top: 8),
       child: Column(
         children: <Widget>[
           Container(
             height: 46,
-            margin: EdgeInsets.only(bottom: 14),
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.only(bottom: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.deepPurple[400],
@@ -230,7 +231,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   semanticsLabel: 'file',
                   width: 18,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Expanded(
@@ -259,20 +260,20 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.only(left: 16),
-                  margin: EdgeInsets.only(top: 18),
+                  padding: const EdgeInsets.only(left: 16),
+                  margin: const EdgeInsets.only(top: 18),
                   child: SvgPicture.asset(
                     'assets/icon_network.svg',
                     semanticsLabel: 'network ',
                     width: 18,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Expanded(
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -298,37 +299,39 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                   TextSpan(
                                       text: L(
                                           'Connect to', _model.localeAdapter)),
-                                  Platform.isAndroid
-                                      ? TextSpan(
-                                          text: ' Wi-Fi ',
-                                          style: TextStyle(
-                                              color: wifi
-                                                  ? Colors.green[100]
-                                                  : Colors.red[100]))
-                                      : TextSpan(text: ' Wi-Fi '),
+                                  if (Platform.isAndroid)
+                                    TextSpan(
+                                        text: ' Wi-Fi ',
+                                        style: TextStyle(
+                                            color: wifi
+                                                ? Colors.green[100]
+                                                : Colors.red[100]))
+                                  else
+                                    const TextSpan(text: ' Wi-Fi '),
                                   TextSpan(
                                       text: L(
                                           'or set up a', _model.localeAdapter)),
-                                  Platform.isAndroid
-                                      ? TextSpan(
-                                          text: L(' Mobile Hotspot',
-                                              _model.localeAdapter),
-                                          style: TextStyle(
-                                              color: tether
-                                                  ? Colors.green[100]
-                                                  : Colors.red[100]))
-                                      : TextSpan(
-                                          text: L(' Mobile Hotspot',
-                                              _model.localeAdapter)),
+                                  if (Platform.isAndroid)
+                                    TextSpan(
+                                        text: L(' Mobile Hotspot',
+                                            _model.localeAdapter),
+                                        style: TextStyle(
+                                            color: tether
+                                                ? Colors.green[100]
+                                                : Colors.red[100]))
+                                  else
+                                    TextSpan(
+                                        text: L(' Mobile Hotspot',
+                                            _model.localeAdapter)),
                                 ]),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 12,
                           ),
                         ]),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Material(
@@ -340,13 +343,14 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                       updCon();
                     },
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 14),
                       child: AnimatedBuilder(
                         animation: _conAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: _conAnimation.value / 1, child: child);
+                              angle: cast<double>(_conAnimation.value) ?? 0 / 1,
+                              child: child);
                         },
                         child: SvgPicture.asset(
                           'assets/icon_update.svg',
@@ -360,12 +364,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Center(
               child: Text(
-            L('Now open this link', _model.localeAdapter) +
-                '\n' +
-                L('in any browser', _model.localeAdapter),
+            '${L('Now open this link', _model.localeAdapter)}\n${L('in any browser', _model.localeAdapter)}',
             style: GoogleFonts.getFont(
               L('Comfortaa', _model.localeAdapter),
               fontSize: 20,
@@ -378,10 +380,10 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(12),
             ),
             height: 42,
-            margin: EdgeInsets.symmetric(horizontal: 2, vertical: 18),
+            margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 18),
             child: Row(
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   width: 14,
                 ),
                 Expanded(
@@ -395,7 +397,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 6,
                 ),
                 Material(
@@ -407,7 +409,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                       Clipboard.setData(ClipboardData(text: ip)).then((result) {
                         final snackBar = SnackBar(
                           backgroundColor: Colors.deepPurple[500],
-                          duration: Duration(seconds: 1),
+                          duration: const Duration(seconds: 1),
                           content: Text(
                             L('Copied to Clipboard', _model.localeAdapter),
                             style: GoogleFonts.getFont(
@@ -419,8 +421,8 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                       });
                     },
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 12),
                       child: SvgPicture.asset(
                         'assets/icon_copy.svg',
                         semanticsLabel: 'update',
@@ -438,13 +440,14 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                       updIp(true);
                     },
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14, horizontal: 12),
                       child: AnimatedBuilder(
                         animation: _ipAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: _ipAnimation.value / 1, child: child);
+                              angle: cast<double>(_ipAnimation.value) ?? 0 / 1,
+                              child: child);
                         },
                         child: SvgPicture.asset(
                           'assets/icon_update.svg',
@@ -458,19 +461,17 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(vertical: 18),
-            padding: EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(vertical: 18),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.deepPurple[300],
             ),
             child: Text(
-              L('The recipient needs to be connected', _model.localeAdapter) +
-                  '\n' +
-                  L('to the same network', _model.localeAdapter),
+              '${L('The recipient needs to be connected', _model.localeAdapter)}\n${L('to the same network', _model.localeAdapter)}',
               textAlign: TextAlign.center,
               style: GoogleFonts.getFont(L('Andika', _model.localeAdapter),
                   color: Colors.white, fontSize: 18),

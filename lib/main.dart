@@ -6,11 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:usage/usage_io.dart';
 
 import 'models/app.dart';
 import 'models/file.dart';
@@ -22,7 +21,9 @@ import 'pages/language.dart';
 import 'pages/share.dart';
 
 // todo move into provider / bloc
-void main() async {
+Analytics ga;
+
+Future<void> main() async {
   try {
     Hive.registerAdapter(LocaleModelAdapter());
     Hive.registerAdapter(FileTypeModelAdapter());
@@ -30,6 +31,14 @@ void main() async {
 
     await Hive.initFlutter();
     await Hive.openBox('app2');
+
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
+        documentDirectory: await getApplicationDocumentsDirectory());
+
+    ga.sendEvent('pages', 'app_open');
+
+    ga.sendEvent('app_open',
+        'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 
     runApp(MaterialApp(
       builder: (context, child) {
@@ -42,9 +51,9 @@ void main() async {
             minWidth: 420,
             defaultScale: true,
             breakpoints: [
-              ResponsiveBreakpoint.resize(400, name: MOBILE),
-              ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+              const ResponsiveBreakpoint.resize(400, name: MOBILE),
+              const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+              const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
             ]);
       },
       debugShowCheckedModeBanner: false,
@@ -54,12 +63,9 @@ void main() async {
         body: App(),
       ),
     ));
-
-//    analytics()
-    // todo analytics
   } catch (e) {
     print(e);
-    runApp(MaterialApp(
+    runApp(const MaterialApp(
         home: Scaffold(
             body: Center(
       child: Text('Sharik is already running'),
@@ -72,21 +78,6 @@ class MyBehavior extends ScrollBehavior {
   Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
-  }
-}
-
-void analytics() async {
-  try {
-    final info = await PackageInfo.fromPlatform();
-    var v = info.version.split('.')[0] + '.' + info.version.split('.')[1];
-
-    print(Platform.operatingSystemVersion);
-
-    await http.read(
-        'https://marchello.cf/shas/analytics?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
-  } catch (e) {
-    print('analytics error');
-    print(e);
   }
 }
 
@@ -104,9 +95,9 @@ class AppState extends State<App> with TickerProviderStateMixin {
     return Provider<AppModel>(
       create: (_) => AppModel(_pagerGlobal, _pagerHome, setState),
       child: Builder(builder: (context) {
-        var model = Provider.of<AppModel>(context, listen: false);
+        final model = Provider.of<AppModel>(context, listen: false);
         return TabBarView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pagerGlobal,
             children: [
               Container(
@@ -122,8 +113,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
                 child: Column(
                   children: <Widget>[
                     Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 24, horizontal: 12),
                         child: SharikLogo()),
                     LanguagePage(),
                   ],
@@ -134,8 +125,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
                 children: <Widget>[
                   SafeArea(
                     child: Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 24, horizontal: 12),
                       child: Stack(
                         alignment: Alignment.centerLeft,
                         children: <Widget>[
@@ -157,7 +148,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                   ),
                   Expanded(
                       child: TabBarView(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           controller: _pagerHome,
                           children: <Widget>[
                         Builder(
@@ -182,8 +173,8 @@ class AppState extends State<App> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _pagerGlobal = TabController(initialIndex: 0, vsync: this, length: 4);
-    _pagerHome = TabController(initialIndex: 0, vsync: this, length: 2);
+    _pagerGlobal = TabController(vsync: this, length: 4);
+    _pagerHome = TabController(vsync: this, length: 2);
 
     if (Platform.isAndroid) {
       SystemChrome.setPreferredOrientations([
@@ -215,7 +206,7 @@ class SharikLogo extends StatelessWidget {
   Widget build(BuildContext context) =>
       Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         SvgPicture.asset('assets/logo.svg', semanticsLabel: 'Sharik app icon'),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Text(

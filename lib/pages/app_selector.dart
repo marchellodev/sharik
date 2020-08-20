@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharik/models/locale.dart';
 
+import '../cast.dart';
 import '../locale.dart';
 
 class AppSelector extends StatefulWidget {
   final LocaleAdapter adapter;
 
-  AppSelector(this.adapter);
+  const AppSelector(this.adapter);
 
   @override
   _AppSelectorState createState() => _AppSelectorState();
@@ -43,15 +44,16 @@ class _AppSelectorState extends State<AppSelector> {
     if (_search == null || _search.isEmpty) {
       _apps = apps;
     } else {
-      apps.forEach((element) {
-        if (element.packageName.contains(_search) ||
-            element.appName.contains(_search)) _apps.add(element);
-      });
+      for (final el in apps) {
+        if (el.packageName.contains(_search) || el.appName.contains(_search)) {
+          _apps.add(el);
+        }
+      }
     }
 
     return AlertDialog(
 //      scrollable: true,
-      content: Container(
+      content: SizedBox(
         height: double.maxFinite,
         width: double.maxFinite,
         child: ListView(
@@ -80,52 +82,53 @@ class _AppSelectorState extends State<AppSelector> {
               decoration:
                   InputDecoration(hintText: L('Search', widget.adapter)),
             ),
-            _apps != null
-                ? Column(
-                    children: _apps
-                        .map((e) {
-                          ApplicationWithIcon app = e;
-                          return ListTile(
-                            leading: Image.memory(app.icon),
-                            title: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Text(app.appName)),
-                            subtitle: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Text(
-                                  app.packageName,
-                                )),
-                            onTap: () =>
-                                setState(() => _selected = app.packageName),
-                            selected: _selected == app.packageName,
-                          );
-                        })
-                        .toList()
-                        .cast<Widget>(),
-                  )
-                : Center(
-                    child: Container(
-                        padding: EdgeInsets.all(24),
-                        child: CircularProgressIndicator()))
+            if (_apps != null)
+              Column(
+                children: _apps
+                    .map((e) {
+                      final app = cast<ApplicationWithIcon>(e);
+                      return ListTile(
+                        leading: Image.memory(app.icon),
+                        title: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(app.appName)),
+                        subtitle: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              app.packageName,
+                            )),
+                        onTap: () =>
+                            setState(() => _selected = app.packageName),
+                        selected: _selected == app.packageName,
+                      );
+                    })
+                    .toList()
+                    .cast<Widget>(),
+              )
+            else
+              Center(
+                  child: Container(
+                      padding: const EdgeInsets.all(24),
+                      child: const CircularProgressIndicator()))
           ],
         ),
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text(L('Close', widget.adapter),
-              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: Text(L('Close', widget.adapter),
+              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
         ),
         FlatButton(
-          child: Text(L('Send', widget.adapter),
-              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
           onPressed: _selected == null
               ? null
               : () {
                   Navigator.of(context).pop(_selected);
                 },
+          child: Text(L('Send', widget.adapter),
+              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
         ),
       ],
     );
