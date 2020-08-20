@@ -520,9 +520,12 @@ class _HomePageState extends State<HomePage> {
                                                   CircularProgressIndicator())
                                           : (snapshot.data['latest'] ||
                                                   !snapshot.data['ok']
-                                              ? Text(L(
-                                                  'The latest version is already installed',
-                                                  _model.localeAdapter))
+                                              ? Text(
+                                                  L('The latest version is already installed',
+                                                      _model.localeAdapter),
+                                                  style: GoogleFonts.getFont(L(
+                                                      'Andika',
+                                                      _model.localeAdapter)))
                                               : changelog(snapshot.data)),
                                     ],
                                   ),

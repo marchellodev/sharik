@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'models/app.dart';
 import 'models/file.dart';
@@ -32,10 +33,19 @@ void main() async {
 
     runApp(MaterialApp(
       builder: (context, child) {
-        return ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: child,
-        );
+        return ResponsiveWrapper.builder(
+            ScrollConfiguration(
+              behavior: MyBehavior(),
+              child: child,
+            ),
+            maxWidth: 1400,
+            minWidth: 420,
+            defaultScale: true,
+            breakpoints: [
+              ResponsiveBreakpoint.resize(400, name: MOBILE),
+              ResponsiveBreakpoint.autoScale(800, name: TABLET),
+              ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+            ]);
       },
       debugShowCheckedModeBanner: false,
       home: Scaffold(

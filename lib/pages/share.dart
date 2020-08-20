@@ -211,12 +211,12 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 24, right: 24, top: 16),
+      margin: EdgeInsets.only(left: 24, right: 24, top: 8),
       child: Column(
         children: <Widget>[
           Container(
             height: 46,
-            margin: EdgeInsets.only(bottom: 18),
+            margin: EdgeInsets.only(bottom: 14),
             padding: EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -251,7 +251,6 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 18),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.deepPurple[400],

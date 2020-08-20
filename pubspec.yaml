@@ -31,11 +31,13 @@ dependencies:
   hive: ^1.4.3
   hive_flutter: ^0.3.1
   device_apps: ^1.2.0
-  provider: ^4.3.2
+  provider: ^4.3.2+1
   http: ^0.12.2
   package_info: ^0.4.1
 
+
   ping_discover_network: ^0.2.0+1
+  responsive_framework: ^0.0.8
 
   sharik_wrapper:
     git: https://github.com/marchellodev/sharik_wrapper

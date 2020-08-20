@@ -1,6 +1,6 @@
 module sharik/go
 
-go 1.14
+go 1.15
 
 require (
 	github.com/Xuanwo/go-locale v1.0.0 // indirect
@@ -12,5 +12,5 @@ require (
 	github.com/marchellodev/sharik_wrapper/go v0.0.0-20200630113028-c69ede5a36be
 	github.com/miguelpruivo/flutter_file_picker/go v0.0.0-20200604215027-87ee48b7f3f6
 	github.com/pkg/errors v0.9.1
-	golang.org/x/sys v0.0.0-20200814200057-3d37ad5750ed // indirect
+	golang.org/x/sys v0.0.0-20200819171115-d785dc25833f // indirect
 )
