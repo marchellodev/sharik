@@ -11,5 +11,5 @@ require (
 	github.com/marchellodev/sharik_wrapper/go v0.0.0-20200820160950-4ad6ead8a227
 	github.com/miguelpruivo/flutter_file_picker/go v0.0.0-20200604215027-87ee48b7f3f6
 	github.com/pkg/errors v0.9.1
-	golang.org/x/sys v0.0.0-20200819171115-d785dc25833f // indirect
+	golang.org/x/sys v0.0.0-20200820212457-1fb795427249 // indirect
 )

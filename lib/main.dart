@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,45 +24,16 @@ import 'pages/share.dart';
 Analytics ga;
 
 Future<void> main() async {
+  Hive.registerAdapter(LocaleModelAdapter());
+  Hive.registerAdapter(FileTypeModelAdapter());
+  Hive.registerAdapter(FileModelAdapter());
+
   try {
-    Hive.registerAdapter(LocaleModelAdapter());
-    Hive.registerAdapter(FileTypeModelAdapter());
-    Hive.registerAdapter(FileModelAdapter());
-
-    await Hive.initFlutter();
-    await Hive.openBox('app2');
-
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
-        documentDirectory: await getApplicationDocumentsDirectory());
-
-    ga.sendEvent('pages', 'app_open');
-
-    ga.sendEvent('app_open',
-        'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
-
-    runApp(MaterialApp(
-      builder: (context, child) {
-        return ResponsiveWrapper.builder(
-            ScrollConfiguration(
-              behavior: MyBehavior(),
-              child: child,
-            ),
-            maxWidth: 1400,
-            minWidth: 420,
-            defaultScale: true,
-            breakpoints: [
-              const ResponsiveBreakpoint.resize(400, name: MOBILE),
-              const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
-            ]);
-      },
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: Colors.white,
-        body: App(),
-      ),
-    ));
+    if (Platform.isAndroid || Platform.isIOS) {
+      await Hive.initFlutter();
+    } else {
+      Hive.init('storage');
+    }
   } catch (e) {
     print(e);
     runApp(const MaterialApp(
@@ -70,7 +41,47 @@ Future<void> main() async {
             body: Center(
       child: Text('Sharik is already running'),
     ))));
+    return;
   }
+
+  await Hive.openBox('app2');
+
+  if (Platform.isAndroid || Platform.isIOS) {
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
+        documentDirectory: await getApplicationDocumentsDirectory());
+  } else {
+    File('storage/.sharik').create(recursive: true);
+
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
+        documentDirectory: Directory('storage'));
+  }
+  ga.sendEvent('pages', 'app_open');
+  ga.sendEvent('app_open',
+      'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
+
+  runApp(MaterialApp(
+    builder: (context, child) {
+      return ResponsiveWrapper.builder(
+          ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: child,
+          ),
+          maxWidth: 1400,
+          minWidth: 420,
+          defaultScale: true,
+          breakpoints: [
+            const ResponsiveBreakpoint.resize(400, name: MOBILE),
+            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          ]);
+    },
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.white,
+      body: App(),
+    ),
+  ));
 }
 
 class MyBehavior extends ScrollBehavior {

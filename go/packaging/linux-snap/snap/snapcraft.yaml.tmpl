@@ -1,0 +1,68 @@
+name: {{.packageName}}
+base: core18
+license: MIT
+version: '{{.version}}'
+summary: Sharik lets you easily share files within your local network
+description: |
+  {{.description}}
+confinement: strict
+grade: stable
+apps:
+  {{.packageName}}:
+    command-chain: [bin/desktop-launch]
+    command: {{.executableName}}
+    desktop: local/{{.executableName}}.desktop
+plugs:
+  network:
+  network-bind:
+  removable-media:
+  home:
+  x11:
+  opengl:
+  desktop:
+  desktop-legacy:
+  unity7:
+  wayland:
+  gnome-3-28-1804:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-28-1804
+layout:
+  /usr/share/zenity:
+    bind: $SNAP/usr/share/zenity
+parts:
+  desktop-gnome-platform:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-depth: 1
+    source-subdir: gtk
+
+    plugin: make
+    build-packages:
+    - gcc
+    - libglib2.0-dev
+    stage-packages:
+    - libglib2.0-bin
+    override-build: |
+      snapcraftctl build
+      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
+  zenity-integration:
+    plugin: nil
+    stage-snaps:
+      - zenity-integration
+  desktop:
+    plugin: dump
+    source: snap
+  assets:
+    plugin: dump
+    source: build/assets
+  app:
+    after:
+      - desktop-gnome-platform
+    plugin: dump
+    source: build
+    stage-packages:
+      - libx11-6
+      - libxrandr2
+      - libxcursor1
+      - libxinerama1
+      - libgl1

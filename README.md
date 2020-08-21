@@ -1,8 +1,10 @@
 # ![App logo](media/banner.png)
 [![License badge](https://img.shields.io/github/license/marchellodev/sharik)](https://github.com/marchellodev/sharik/blob/master/LICENSE)
 [![Version badge](https://img.shields.io/github/v/release/marchellodev/sharik)](https://github.com/marchellodev/sharik/releases)
+[![sharik-app](https://snapcraft.io//sharik-app/badge.svg)](https://snapcraft.io/sharik-app)
 [![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
+
 [![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
 
 **Share files across devices with Sharik!**
@@ -49,6 +51,8 @@ Application is not signed, so you may get 'suspicious application' alert or some
 
 
 ### Linux (the best os ever)
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/sharik-app)
+
 Download links:
 - [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.AppImage)
 - [DEB (debian)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.deb)
