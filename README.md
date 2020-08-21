@@ -59,6 +59,7 @@ Application is not signed, so you may get 'suspicious application' alert or some
 
 You can get sharik for linux from the Snap Store:
 `sudo snap install sharik-app`
+
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/sharik-app)
 
 If you don't have snap installed:
