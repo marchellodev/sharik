@@ -4,8 +4,13 @@
 [![sharik-app](https://snapcraft.io//sharik-app/badge.svg)](https://snapcraft.io/sharik-app)
 [![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
-
 [![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
+
+![GitHub language count](https://img.shields.io/github/languages/count/marchellodev/sharik)
+![Android](https://img.shields.io/badge/OS-Android-informational?logo=Android)
+![Linux](https://img.shields.io/badge/OS-Linux-informational?logo=linux)
+![Mac](https://img.shields.io/badge/OS-Mac-informational?logo=apple)
+![Windows](https://img.shields.io/badge/OS-Windows-informational?logo=windows)
 
 **Share files across devices with Sharik!**
 
