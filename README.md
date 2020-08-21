@@ -55,10 +55,13 @@ Application is not signed, so you may get 'suspicious application' alert or some
 - [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_windows.zip)
 
 
-### Linux (the best os ever)
+### Linux
+
+You can get sharik for linux from the Snap Store:
+`sudo snap install sharik-app`
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/sharik-app)
 
-Download links:
+If you don't have snap installed:
 - [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.AppImage)
 - [DEB (debian)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.deb)
 - [RPM (centOS)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.rpm)
