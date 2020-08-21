@@ -5,153 +5,187 @@ en:
   Short description: "An open-source, cross-platform solution for sharing files within a local network"
   # 4000 characters
   Full description: |
-  Sharik is an open-source, cross-platform solution for sharing files via Wi-Fi or Mobile Hotspot.
+    Sharik is an open-source, cross-platform solution for sharing files via Wi-Fi or Mobile Hotspot.
 
 
-  This app allows you to easily send photos, apps, files, text, literally anything, to all kinds of devices connected to the same network. It's convenient and blazing fast.
+    This app allows you to easily send photos, apps, files, text, literally anything, to all kinds of devices connected to the same network. It's convenient and blazing fast.
 
-  After selecting a language and going through the intro, you can see the sharing buttons and the latest files you shared on the main screen. At this point, you can share images, files, installed apps, or simply text. After selecting the file, you will be shown the Sharing screen. Here you can see your connectivity status (Wi-Fi/Mobile Hotspot) and the URL you need to open on the other device. After typing this URL in the browser and hitting Enter on the other machine, the file will start downloading. Please make sure that both devices are connected to the same network.
+    After selecting a language and going through the intro, you can see the sharing buttons and the latest files you shared on the main screen. At this point, you can share images, files, installed apps, or simply text. After selecting the file, you will be shown the Sharing screen. Here you can see your connectivity status (Wi-Fi/Mobile Hotspot) and the URL you need to open on the other device. After typing this URL in the browser and hitting Enter on the other machine, the file will start downloading. Please make sure that both devices are connected to the same network.
 
-  Suppose you have Sharik installed on both machines. In this case, after sharing the file from one computer, you can simply click the button "Receive" on the bottom panel of another Sharik. After clicking, the Receiver screen will be shown. If Sharik sees another device sharing something in your local network, it will be displayed. So you can just click on it, the browser will open, and the download will start.
+    Suppose you have Sharik installed on both machines. In this case, after sharing the file from one computer, you can simply click the button "Receive" on the bottom panel of another Sharik. After clicking, the Receiver screen will be shown. If Sharik sees another device sharing something in your local network, it will be displayed. So you can just click on it, the browser will open, and the download will start.
 
-  Sharik is entirely free to use, and it contains no ads. Moreover, it's source code is published in GitHub, so everyone can contribute to the development process. If you like it, please leave a star on our GitHub repository, and consider making a contribution: add a new language or help us with code.
+    Sharik is entirely free to use, and it contains no ads. Moreover, it's source code is published in GitHub, so everyone can contribute to the development process. If you like it, please leave a star on our GitHub repository, and consider making a contribution: add a new language or help us with code.
 
-  Sharik is created using in Dart, Flutter, Hover.build, and Golang. Shaik is published under an open license (MIT).
-
-
-  YOU CAN SEND:
-    1. Photos (jpg, png, gif, etc)
-    2. Applications (apk)
-    3. Files (zip, rar, 7z, pdf, etc)
-    4. Text
-
-  SHARIK IS AVAILABLE ON THOSE LANGUAGES:
-    - English (English)
-    - Hindi (हिन्दी)
-    - Russian (Русский)
-    - Gujarati (ગુજરાતી)
-    - Polski (Polski)
-    - Ukrainian (Українська)
-
-  SHARIK IS ALSO AVAILABLE FOR:
-    - Windows
-    - macOS
-    - Linux
-    - Android
-    - iOS
-
-  GitHub page: https://github.com/marchellodev/sharik
+    Sharik is created using in Dart, Flutter, Hover.build, and Golang. Shaik is published under an open license (MIT).
 
 
-  Download Sharik right now!
+    YOU CAN SEND:
+      1. Photos (jpg, png, gif, etc)
+      2. Applications (apk)
+      3. Files (zip, rar, 7z, pdf, etc)
+      4. Text
+
+    SHARIK IS AVAILABLE ON THOSE LANGUAGES:
+      - English (English)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+
+    SHARIK IS ALSO AVAILABLE FOR:
+      - Windows
+      - macOS
+      - Linux
+      - Android
+      - iOS
+
+    GitHub page: https://github.com/marchellodev/sharik
+
+
+    Download Sharik right now!
 
 
 
 
 ru:
   Name: "Sharik - передача файлов через Wi-Fi"
-  Short description: "Опен-сорсное, кросс-платформенное решение для шаринга файлов в локальной сети"
+  Short description: "Опенсорсное, кросс-платформенное решение для шаринга файлов в локальной сети"
   Full description: |
-  Sharik это опен-сорсное, кросс-платформенное решение для шаринга файлов через Wi-Fi или Мобильную Точку Доступа.
+    Sharik это опенсорсное, кросс-платформенное решение для шаринга файлов через Wi-Fi или Мобильную Точку Доступа.
 
 
-  Это приложение позволяет лекго отправлять фотографии, приложения, файлы, текст, практически все что угодно, на любые устройства, подсоединенные к той же сети. Это удобно и невероятно быстро.
+    Это приложение позволяет лекго отправлять фотографии, приложения, файлы, текст, практически все что угодно, на любые устройства, подсоединенные к той же сети. Это удобно и невероятно быстро.
 
-  После выбора языка и ознакомления с интро, на главном экране можно увидеть кнопки для шаринга и последние зашаренные файлы. Тут можно расшаривать картинки, файлы, установленные приложения, или просто текст. После выбора файла, будет показан экран Шеринга. Тут можно увидеть статус соединения с сетью (Wi-Fi/Мобильная Точка Доступа) и ссылку которую нужно открыть на другом устройстве. После ввода этой ссылки в браузере и нажатия на Ввод на другом компьютере, файл начнет скачиваться. Пожалуйста, проверьте что оба устройства подсоединены к одной и той же сети.
+    После выбора языка и ознакомления с интро, на главном экране можно увидеть кнопки для шаринга и последние зашаренные файлы. Тут можно расшаривать картинки, файлы, установленные приложения, или просто текст. После выбора файла, будет показан экран Шеринга. Тут можно увидеть статус соединения с сетью (Wi-Fi/Мобильная Точка Доступа) и ссылку которую нужно открыть на другом устройстве. После ввода этой ссылки в браузере и нажатия на Ввод на другом компьютере, файл начнет скачиваться. Пожалуйста, проверьте что оба устройства подсоединены к одной и той же сети.
 
-  Допустим, Sharik уже установлен на обох устройствах. В этом случае, после отправки файла с одного девайса, можно просто нажать на кнопку "Принять" на нижней панели другого Шарика. После нажатия, будет показан экран Приема. Если Sharik увидит другое устройство, которое делится чем-то в локальной сети, оно будет показано. При нажатии, будет открыт экран браузера и закачка начнется.
+    Допустим, Sharik уже установлен на обох устройствах. В этом случае, после отправки файла с одного девайса, можно просто нажать на кнопку "Принять" на нижней панели другого Шарика. После нажатия, будет показан экран Приема. Если Sharik увидит другое устройство, которое делится чем-то в локальной сети, оно будет показано. При нажатии, будет открыт экран браузера и закачка начнется.
 
-  Sharik это полностью бесплатное приложение, которое не имеет даже рекламы. Более того, его исходный код опубликован на GitHub, так что каждый может внести свой вклад в разработку и развития Шарика. Если вам нравится Sharik, пожалуйста поставьте звездочку на нашем ГитХаб репозитории и рассмотрите возможность сделать свой вклад: добавить новый язык или помочь нам с программной частью.
+    Sharik это полностью бесплатное приложение, которое не имеет даже рекламы. Более того, его исходный код опубликован на GitHub, так что каждый может внести свой вклад в разработку и развития Шарика. Если вам нравится Sharik, пожалуйста поставьте звездочку на нашем ГитХаб репозитории и рассмотрите возможность сделать свой вклад: добавить новый язык или помочь нам с программной частью.
 
-  Sharik сделан с помощью  Dart, Flutter, Hover.build, и Golang. Sharik опубликован под открытой лицензией (MIT)
-
-
-  МОЖНО ОТПРАВИТЬ:
-    1. Картинки (jpg, png, gif, и другие)
-    2. Приложения (apk)
-    3. Файлы (zip, rar, 7z, pdf, и другие)
-    4. Текст
-
-  SHARIK ДОСТУПЕН НА СЛЕДУЮЩИХ ЯЗЫКАХ:
-    - English (English)
-    - Hindi (हिन्दी)
-    - Russian (Русский)
-    - Gujarati (ગુજરાતી)
-    - Polski (Polski)
-    - Ukrainian (Українська)
-
-  SHARIK ТАКЖЕ ДОСТУПЕН ДЛЯ:
-    - Windows (Виндовс)
-    - macOS (МакОс)
-    - Linux (Линукс)
-    - Android (Андроид)
-    - iOS (Айос)
-
-  GitHub страница: https://github.com/marchellodev/sharik
+    Sharik сделан с помощью  Dart, Flutter, Hover.build, и Golang. Sharik опубликован под открытой лицензией (MIT)
 
 
-  Скачивайте Sharik прямо сейчас!
+    МОЖНО ОТПРАВИТЬ:
+      1. Картинки (jpg, png, gif, и другие)
+      2. Приложения (apk)
+      3. Файлы (zip, rar, 7z, pdf, и другие)
+      4. Текст
+
+    SHARIK ДОСТУПЕН НА СЛЕДУЮЩИХ ЯЗЫКАХ:
+      - English (English)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+
+    SHARIK ТАКЖЕ ДОСТУПЕН ДЛЯ:
+      - Windows (Виндовс)
+      - macOS (МакОс)
+      - Linux (Линукс)
+      - Android (Андроид)
+      - iOS (Айос)
+
+    GitHub страница: https://github.com/marchellodev/sharik
+
+
+    Скачивайте Sharik прямо сейчас!
 
 
 
 
 uk:
   Name: "Sharik - передача файлів через Wi-Fi"
-  Short description: "Опен-сорсне, крос-платформенне рішення для шарінгу файлів в локальній мережі"
+  Short description: "Опенсорсне, крос-платформенне рішення для шарінгу файлів в локальній мережі"
   Full description: |
-  Sharik це опен-сорсне, крос-платформенне рішення для шарінгу файлів через Wi-Fi або Мобільну Точку Доступу.
+    Sharik це опенсорсне, крос-платформенне рішення для шарінгу файлів через Wi-Fi або Мобільну Точку Доступу.
 
 
-  Цей додаток дозволяє легко відправляти фотографії, додатки, файли, текст, фактично все що завгодно на будь-які девайси, під'єднані до тієї ж самої мережі. Це зручно та неймовірно швидко.
+    Цей додаток дозволяє легко відправляти фотографії, додатки, файли, текст, фактично все що завгодно на будь-які девайси, під'єднані до тієї ж самої мережі. Це зручно та неймовірно швидко.
 
-  Після вибору мови та ознайомлення з інтро, на головному екрані можна побачити кнопки для шарінгу та останні зашарені файли. Тут можна розшарювати каринки, файли, установлені додатки, або просто текст. Після вибору файла, буде показаний екран Шерінгу. Тут можна помітити статус з'єднання з мережею (Wi-Fi/Мобільна Точка Доступу) і посилання яке потрібно відкрити на іншому девайсі. Після вводу цього посилання в браузері та натискання Ввід на іншому комп'ютері, файл почте завантажуватися. Будь ласка, перевірте що обидва девайса підключені до однієї й тієї ж мережі.
+    Після вибору мови та ознайомлення з інтро, на головному екрані можна побачити кнопки для шарінгу та останні зашарені файли. Тут можна розшарювати каринки, файли, установлені додатки, або просто текст. Після вибору файла, буде показаний екран Шерінгу. Тут можна помітити статус з'єднання з мережею (Wi-Fi/Мобільна Точка Доступу) і посилання яке потрібно відкрити на іншому девайсі. Після вводу цього посилання в браузері та натискання Ввід на іншому комп'ютері, файл почте завантажуватися. Будь ласка, перевірте що обидва девайса підключені до однієї й тієї ж мережі.
 
-  Припустимо, Sharik вже встановлений на обох пристроях. В цьому випадку, після відправки файла з одного девайса, можна просто нажати на кнопку "Прийняти" на нижній панелі іншого Шаріка. Після натискання, буде показаний екран Приймання. Якщо Sharik побачить другий девайс, який ділиться чимось в локальній мережі, він буде показаний. При натисканні, буде відкрито екран браузера та завантаження почнеться.
+    Припустимо, Sharik вже встановлений на обох пристроях. В цьому випадку, після відправки файла з одного девайса, можна просто нажати на кнопку "Прийняти" на нижній панелі іншого Шаріка. Після натискання, буде показаний екран Приймання. Якщо Sharik побачить другий девайс, який ділиться чимось в локальній мережі, він буде показаний. При натисканні, буде відкрито екран браузера та завантаження почнеться.
 
-  Sharik це повністю безкоштовний додаток, який навіть не містить реклами. Більше того, його вихідний код опублікований на GitHub, таким чином будь-хто може зробити свій внесок в розробку та розвиток Шаріка. Якщо вам подобається Sharik, будь ласка поставте зірочку на нашому ГітХаб репозиторії та роздивіться можливість зробити свій внесок: добавити нову мову або допомогти нам з програмною частиною.
+    Sharik це повністю безкоштовний додаток, який навіть не містить реклами. Більше того, його вихідний код опублікований на GitHub, таким чином будь-хто може зробити свій внесок в розробку та розвиток Шаріка. Якщо вам подобається Sharik, будь ласка поставте зірочку на нашому ГітХаб репозиторії та роздивіться можливість зробити свій внесок: добавити нову мову або допомогти нам з програмною частиною.
 
-  Sharik був зроблений за допомогою Dart, Flutter, Hover.build, та Golang. Sharik опублікований під відкритою ліцензією (MIT).
-
-
-  МОЖЛИВО ВІДПРАВИТИ:
-    1. Зображення (jpg, png, gif, и другие)
-    2. Додатки (apk)
-    3. Файли (zip, rar, 7z, pdf, и другие)
-    4. Текст
-
-  SHARIK ДОСТУПНИЙ НА НАСТУПНИХ МОВАХ:
-    - English (English)
-    - Hindi (हिन्दी)
-    - Russian (Русский)
-    - Gujarati (ગુજરાતી)
-    - Polski (Polski)
-    - Ukrainian (Українська)
-
-  SHARIK ТАКОЖ ДОСТУПНИЙ ДЛЯ:
-    - Windows (Віндовс)
-    - macOS (МакОс)
-    - Linux (Лінукс)
-    - Android (Андроїд)
-    - iOS (Айос)
-
-  GitHub сторінка: https://github.com/marchellodev/sharik
+    Sharik був зроблений за допомогою Dart, Flutter, Hover.build, та Golang. Sharik опублікований під відкритою ліцензією (MIT).
 
 
-  Завантажуйте Sharik прямо зараз!
+    МОЖЛИВО ВІДПРАВИТИ:
+      1. Зображення (jpg, png, gif, и другие)
+      2. Додатки (apk)
+      3. Файли (zip, rar, 7z, pdf, и другие)
+      4. Текст
 
+    SHARIK ДОСТУПНИЙ НА НАСТУПНИХ МОВАХ:
+      - English (English)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+
+    SHARIK ТАКОЖ ДОСТУПНИЙ ДЛЯ:
+      - Windows (Віндовс)
+      - macOS (МакОс)
+      - Linux (Лінукс)
+      - Android (Андроїд)
+      - iOS (Айос)
+
+    GitHub сторінка: https://github.com/marchellodev/sharik
+
+
+    Завантажуйте Sharik прямо зараз!
+
+
+
+# needs review
 pl:
-  Name: "Sharik - udostępnianie plików przez Wi-Fi"
-  Short description: "Udostępniaj pliki dla dowolnego urządzenia z użyciem Wi-Fi bądź Hotspot"
-  Full description: "Ta aplikacja pomoże w przesłaniu plików do (prawie) każdego urządzenia.
-                     Jedyne czego potrzebujesz, to przeglądarka i połączenie Wi-Fi, bądź Hotspot mobilny.
+  Name: "Sharik - przesyłanie plików przez Wi-Fi"
+  # NOTE: 82/80 characters
+  Short description: "Open source, wieloplatformowe rozwiązanie do udostępniania plików w sieci lokalnej"
+  Full description: |
+    Sharik jest open source, wieloplatformowe rozwiązanie do udostępniania plików przez Wi-Fi lub Mobilny Hotspot.
 
 
-                     Możesz udostępniać pliki, tekst, a nawet aplikację na Androida. Jest łatwy i szybki w użyciu.
-                     Z drugiej strony nie potrzebujesz nawet tej samej aplikacji - użyj przeglądarki lub innego narzędzia do pobierania (np. Wget).
-                     Skorzystaj z naszego najnowszego narzędzia o nazwie odbiornik, aby otworzyć udostępnioną zawartość bezpośrednio w sharik.
+    Ta aplikacja umożliwia łatwe wysyłanie zdjęć, aplikacji, plików, tekstu, prawie wszystkiego, do dowolnego urządzenia podłączonego do tej samej sieci. Jest wygodny i niesamowicie szybki.
 
-                     Aplikacja nie zawiera reklam i jest całkowicie open-source.
-                     Sharik jest także dostępny na platformy: Windows, MacOS oraz Linux."
+    Po wybraniu języka i zapoznaniu się ze wstępem, na ekranie głównym można zobaczyć przyciski do udostępniania oraz ostatnio udostępnione pliki. Tutaj możesz udostępniać zdjęcia, pliki, zainstalowane aplikacje lub tylko tekst. Po wybraniu pliku zostanie wyświetlony ekran Udostępnianie. Tutaj możesz zobaczyć stan połączenia z siecią (Wi-Fi/Mobilny Hotspot) i łącze, które musisz otworzyć na innym urządzeniu. Po wpisaniu tego linku w przeglądarce i kliknięciu Enter na innym komputerze rozpocznie się pobieranie pliku. Sprawdź, czy oba urządzenia są podłączone do tej samej sieci.
+
+    Powiedzmy, że Sharik jest już zainstalowany na obu urządzeniach. W takim przypadku po wysłaniu pliku z jednego urządzenia wystarczy kliknąć przycisk „Akceptuj” na dolnym panelu drugiej kuli. Po naciśnięciu zostanie wyświetlony ekran odbioru. Jeśli Sharik zobaczy, że inne urządzenie udostępnia coś w sieci lokalnej, zostanie to pokazane. Po kliknięciu otworzy się ekran przeglądarki i rozpocznie się pobieranie.
+
+    Sharik jest całkowicie darmowy i nie ma nawet reklam. Co więcej, jego kod źródłowy jest publikowany na GitHub, dzięki czemu każdy może przyczynić się do rozwoju i rozwoju Sharik. Jeśli podoba Ci się Sharik, umieść gwiazdkę w naszych repozytoriach GitHub i rozważ wniesienie wkładu: dodaj nowy język lub pomóż nam z oprogramowaniem.
+
+    Sharik składa się z Dart, Flutter, Hover.build i Golang. Sharik jest publikowany na otwartej licencji (MIT)
+
+
+    MOGĘ WYSŁAĆ:
+      1. Obrazek (jpg, png, gif, itp)
+      2. Aplikacje (apk)
+      3. Pliki (zip, rar, 7z, pdf, itp)
+      4. Tekst
+
+    SHARIK JEST DOSTĘPNY W NASTĘPUJĄCYCH JĘZYKACH:
+      - English (English)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+
+    SHARIK JEST RÓWNIEŻ DOSTĘPNY DLA:
+      - Windows
+      - macOS
+      - Linux
+      - Android
+      - iOS
+
+    GitHub strona: https://github.com/marchellodev/sharik
+
+
+    Pobierz Sharik teraz!
 
 
 in-gu:
