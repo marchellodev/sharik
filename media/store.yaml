@@ -146,26 +146,25 @@ uk:
 
 # needs review
 pl:
-  Name: "Sharik - przesyłanie plików przez Wi-Fi"
-  # NOTE: 82/80 characters
-  Short description: "Open source, wieloplatformowe rozwiązanie do udostępniania plików w sieci lokalnej"
+  Name: "Sharik - przesyłaj pliki z użyciem Wi-Fi"
+  Short description: "Open source i wieloplatformowe rozwiązanie do udostępniania plików w LAN"
   Full description: |
-    Sharik jest open source, wieloplatformowe rozwiązanie do udostępniania plików przez Wi-Fi lub Mobilny Hotspot.
+    Sharik jest open-source'owym, wieloplatformowym rozwiązaniem do udostępniania plików przez Wi-Fi lub Mobile Hotspot.
 
 
-    Ta aplikacja umożliwia łatwe wysyłanie zdjęć, aplikacji, plików, tekstu, prawie wszystkiego, do dowolnego urządzenia podłączonego do tej samej sieci. Jest wygodny i niesamowicie szybki.
+    Aplikacja pozwala na łatwe wysyłanie zdjęć, aplikacji, plików, tekstu, dosłownie wszystkiego, do wszystkich rodzajów urządzeń podłączonych do tej samej sieci. Jest to wygodne i błyskawiczne.
 
-    Po wybraniu języka i zapoznaniu się ze wstępem, na ekranie głównym można zobaczyć przyciski do udostępniania oraz ostatnio udostępnione pliki. Tutaj możesz udostępniać zdjęcia, pliki, zainstalowane aplikacje lub tylko tekst. Po wybraniu pliku zostanie wyświetlony ekran Udostępnianie. Tutaj możesz zobaczyć stan połączenia z siecią (Wi-Fi/Mobilny Hotspot) i łącze, które musisz otworzyć na innym urządzeniu. Po wpisaniu tego linku w przeglądarce i kliknięciu Enter na innym komputerze rozpocznie się pobieranie pliku. Sprawdź, czy oba urządzenia są podłączone do tej samej sieci.
+    Po wybraniu języka i przejściu przez intro, na głównym ekranie można zobaczyć przyciski udostępniania i najnowsze pliki, które zostały udostępnione. W tym momencie można udostępnić obrazy, pliki, zainstalowane aplikacje lub po prostu tekst. Po wybraniu pliku pojawi się ekran współdzielenia. Tutaj można zobaczyć status połączenia (Wi-Fi/Mobile Hotspot) oraz adres URL, który należy otworzyć na drugim urządzeniu. Po wpisaniu tego adresu URL w przeglądarce i naciśnięciu Enter na drugim urządzeniu, plik zacznie się pobierać. Należy upewnić się, że oba urządzenia są podłączone do tej samej sieci.
 
-    Powiedzmy, że Sharik jest już zainstalowany na obu urządzeniach. W takim przypadku po wysłaniu pliku z jednego urządzenia wystarczy kliknąć przycisk „Akceptuj” na dolnym panelu drugiej kuli. Po naciśnięciu zostanie wyświetlony ekran odbioru. Jeśli Sharik zobaczy, że inne urządzenie udostępnia coś w sieci lokalnej, zostanie to pokazane. Po kliknięciu otworzy się ekran przeglądarki i rozpocznie się pobieranie.
+    Załóżmy, że masz Sharik zainstalowany na obu komputerach. W tym przypadku, po udostępnieniu pliku z jednego komputera, wystarczy kliknąć przycisk "Odbierz" na dolnym panelu innego Sharik. Po kliknięciu wyświetli się ekran "Odbiór". Jeśli Sharik zobaczy inne urządzenie udostępniające coś w Twojej sieci lokalnej, zostanie to wyświetlone. Tak więc można po prostu kliknąć na to urządzenie, przeglądarka otworzy się i rozpocznie się pobieranie.
 
-    Sharik jest całkowicie darmowy i nie ma nawet reklam. Co więcej, jego kod źródłowy jest publikowany na GitHub, dzięki czemu każdy może przyczynić się do rozwoju i rozwoju Sharik. Jeśli podoba Ci się Sharik, umieść gwiazdkę w naszych repozytoriach GitHub i rozważ wniesienie wkładu: dodaj nowy język lub pomóż nam z oprogramowaniem.
+    Sharik jest całkowicie darmowy w użyciu i nie zawiera żadnych reklam. Co więcej, jego kod źródłowy jest publikowany na stronie GitHub, więc każdy może wnieść swój wkład w proces rozwoju. Jeśli Ci się to podoba, zostaw gwiazdę na naszym repozytorium GitHub i rozważ możliwość wniesienia wkładu: dodaj nowy język lub pomóż nam z kodem.
 
-    Sharik składa się z Dart, Flutter, Hover.build i Golang. Sharik jest publikowany na otwartej licencji (MIT)
+    Sharik jest tworzony za pomocą Dart, Flutter, Hover.build i Golang. Sharik jest publikowany na otwartej licencji (MIT).
 
 
-    MOGĘ WYSŁAĆ:
-      1. Obrazek (jpg, png, gif, itp)
+    MOŻESZ WYSŁAĆ:
+      1. Obraz (jpg, png, gif, itp)
       2. Aplikacje (apk)
       3. Pliki (zip, rar, 7z, pdf, itp)
       4. Tekst
@@ -185,10 +184,10 @@ pl:
       - Android
       - iOS
 
-    GitHub strona: https://github.com/marchellodev/sharik
+    Repozytorium GitHub: https://github.com/marchellodev/sharik
 
 
-    Pobierz Sharik teraz!
+    Pobierz Sharika teraz!
 
 
 
