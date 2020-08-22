@@ -1,0 +1,4 @@
+- UI tweaks
+- crash on getting IP with no network connection fix
+- performance improvements
+

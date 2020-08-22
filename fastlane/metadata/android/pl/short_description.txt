@@ -1,0 +1,1 @@
+Wieloplatformowe rozwiązanie do udostępniania plików w sieci lokalnej
