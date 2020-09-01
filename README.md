@@ -21,7 +21,7 @@ It works with Wi-Fi connection or Tethering (Wi-Fi Hotspot). No internet connect
 
 **There is also a cli-only version of Sharik written in Go - [sharic](https://github.com/marchellodev/sharic).**
 
-It's available for Linux, Windows and MacOS.
+It's available for Linux, Windows, MacOS, or you can use it as a library!
 
 
 ## Contributing
@@ -38,6 +38,8 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 - MacOS (probably)
 
 [![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v2.5/)
+
+
 ### Android
 <a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
 
@@ -49,7 +51,10 @@ If you have some problems with Google Play, here are the latest apks:
 
 
 ### Windows
-Application is not signed, so you may get 'suspicious application' alert or something like that. Ignore it. Or you can give me a few hundred bucks, so I can buy a certificate :>
+<a href='//www.microsoft.com/store/apps/9NGCLB7JSPR9?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/ru-ru/store/badges/images/English_get-it-from-MS.png' alt='Get it from Microsoft' width='200'/></a>
+
+
+The Windows application is not signed, so you may get a 'suspicious application' alert or something like that. Sorry for that.
 
 - [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_windows.msi)
 - [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_windows.zip)
@@ -62,7 +67,6 @@ You can get sharik for linux from the Snap Store:
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/sharik-app)
 
-If you don't have snap installed:
 - [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.AppImage)
 - [DEB (debian)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.deb)
 - [RPM (centOS)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.rpm)
@@ -70,14 +74,14 @@ If you don't have snap installed:
 
 
 ### MacOS
-May not work, haven't tested, don't even know which version you should download (buy me a mac :>)
-
 - [DMG](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_darwin.dmg)
 - [PKG](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_darwin.pkg)
 - [zip](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_darwin.zip)
 
+
 ### iOS
-I don't have the binaries, but you can build it for yourself! (not sure it will work though) (buy me a mac :>)
+Sorry, the app is not yet available on the App Store.
+
 
 
 ## Tech
