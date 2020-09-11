@@ -60,134 +60,68 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-            margin: const EdgeInsets.only(left: 24, right: 24, top: 8),
-            height: 104,
-            child: Material(
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+        Widget>[
+      Container(
+          margin: const EdgeInsets.only(left: 24, right: 24, top: 8),
+          height: 104,
+          child: Material(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.deepPurple[400],
+            child: InkWell(
               borderRadius: BorderRadius.circular(12),
-              color: Colors.deepPurple[400],
-              child: InkWell(
-                borderRadius: BorderRadius.circular(12),
-                onTap: () async {
-                  final f = await FilePicker.getFile();
-                  if (f != null && f.path != null && f.path.isNotEmpty) {
-                    shareFile(
-                        FileModel(data: f.path, type: FileTypeModel.file));
-                  }
-                },
-                child: Stack(
-                  children: <Widget>[
-                    Center(
-                        child: Text(L('Select file', _model.localeAdapter),
-                            style: GoogleFonts.getFont(
-                                L('Andika', _model.localeAdapter),
-                                color: Colors.white,
-                                fontSize: 24))),
-                    Container(
-                      margin: const EdgeInsets.all(16),
-                      child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: SvgPicture.asset(
-                            'assets/icon_file.svg',
-                          )),
-                    )
-                  ],
-                ),
+              onTap: () async {
+                final f = await FilePicker.getFile();
+                if (f != null && f.path != null && f.path.isNotEmpty) {
+                  shareFile(FileModel(data: f.path, type: FileTypeModel.file));
+                }
+              },
+              child: Stack(
+                children: <Widget>[
+                  Center(
+                      child: Text(L('Select file', _model.localeAdapter),
+                          style: GoogleFonts.getFont(
+                              L('Andika', _model.localeAdapter),
+                              color: Colors.white,
+                              fontSize: 24))),
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: SvgPicture.asset(
+                          'assets/icon_file.svg',
+                        )),
+                  )
+                ],
               ),
-            )),
-        Row(
-          children: <Widget>[
-            if (Platform.isAndroid)
-              Expanded(
-                child: Container(
-                    margin: const EdgeInsets.only(left: 24, top: 8),
-                    height: 48,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.deepPurple[400],
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () async {
-                          final data = await showDialog(
-                                  context: context,
-                                  child: AppSelector(_model.localeAdapter))
-                              as String;
-                          if (data != null && data.isNotEmpty) {
-                            final app = await DeviceApps.getApp(data);
-                            shareFile(FileModel(
-                                type: FileTypeModel.app,
-                                data: app.apkFilePath,
-                                name: app.appName));
-                          }
-                        },
-                        child: Center(
-                            child: Text(L('App', _model.localeAdapter),
-                                style: GoogleFonts.getFont(
-                                    L('Andika', _model.localeAdapter),
-                                    color: Colors.white,
-                                    fontSize: 24))),
-                      ),
-                    )),
-              ),
-            SizedBox(
-              width: Platform.isAndroid ? 8 : 24,
             ),
+          )),
+      Row(
+        children: <Widget>[
+          if (Platform.isAndroid)
             Expanded(
               child: Container(
-                  margin: const EdgeInsets.only(right: 24, top: 8),
+                  margin: const EdgeInsets.only(left: 24, top: 8),
                   height: 48,
                   child: Material(
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.deepPurple[400],
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            final c = TextEditingController();
-                            return AlertDialog(
-                              title: Text(
-                                L('Type some text', _model.localeAdapter),
-                                style: GoogleFonts.getFont(
-                                    L('Comfortaa', _model.localeAdapter),
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              content: TextField(
-                                controller: c,
-                                maxLines: null,
-                              ),
-                              actions: <Widget>[
-                                FlatButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: Text(L('Close', _model.localeAdapter),
-                                      style: GoogleFonts.getFont(
-                                          L('Andika', _model.localeAdapter))),
-                                ),
-                                FlatButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-
-                                    if (c.text.isNotEmpty) {
-                                      shareFile(FileModel(
-                                          data: c.text,
-                                          type: FileTypeModel.text));
-                                    }
-                                  },
-                                  child: Text(L('Send', _model.localeAdapter),
-                                      style: GoogleFonts.getFont(
-                                          L('Andika', _model.localeAdapter))),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                      onTap: () async {
+                        final data = await showDialog(
+                            context: context,
+                            child: AppSelector(_model.localeAdapter)) as String;
+                        if (data != null && data.isNotEmpty) {
+                          final app = await DeviceApps.getApp(data);
+                          shareFile(FileModel(
+                              type: FileTypeModel.app,
+                              data: app.apkFilePath,
+                              name: app.appName));
+                        }
                       },
                       child: Center(
-                          child: Text(L('Text', _model.localeAdapter),
+                          child: Text(L('App', _model.localeAdapter),
                               style: GoogleFonts.getFont(
                                   L('Andika', _model.localeAdapter),
                                   color: Colors.white,
@@ -195,109 +129,172 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )),
             ),
+          SizedBox(
+            width: Platform.isAndroid ? 8 : 24,
+          ),
+          Expanded(
+            child: Container(
+                margin: const EdgeInsets.only(right: 24, top: 8),
+                height: 48,
+                child: Material(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.deepPurple[400],
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          final c = TextEditingController();
+                          return AlertDialog(
+                            title: Text(
+                              L('Type some text', _model.localeAdapter),
+                              style: GoogleFonts.getFont(
+                                  L('Comfortaa', _model.localeAdapter),
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            content: TextField(
+                              autofocus: true,
+                              controller: c,
+                              maxLines: null,
+                            ),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: Text(L('Close', _model.localeAdapter),
+                                    style: GoogleFonts.getFont(
+                                        L('Andika', _model.localeAdapter))),
+                              ),
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+
+                                  if (c.text.isNotEmpty) {
+                                    shareFile(FileModel(
+                                        data: c.text,
+                                        type: FileTypeModel.text));
+                                  }
+                                },
+                                child: Text(L('Send', _model.localeAdapter),
+                                    style: GoogleFonts.getFont(
+                                        L('Andika', _model.localeAdapter))),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: Center(
+                        child: Text(L('Text', _model.localeAdapter),
+                            style: GoogleFonts.getFont(
+                                L('Andika', _model.localeAdapter),
+                                color: Colors.white,
+                                fontSize: 24))),
+                  ),
+                )),
+          ),
+        ],
+      ),
+      const SizedBox(
+        height: 22,
+      ),
+      if (_latest != null && _latest.isNotEmpty)
+        Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 24, right: 24),
+              child: Text(
+                L('Latest', _model.localeAdapter),
+                style: GoogleFonts.getFont(L('Comfortaa', _model.localeAdapter),
+                    fontSize: 24),
+              ),
+            ),
+            const Spacer(),
+            Container(
+              margin: const EdgeInsets.only(right: 24),
+              child: IconButton(
+                  onPressed: () {
+                    setState(() => _latest.clear());
+
+                    saveLatest();
+                  },
+                  icon: SvgPicture.asset(
+                    'assets/icon_remove.svg',
+                    semanticsLabel: 'remove',
+                    height: 16,
+                  )),
+            )
           ],
         ),
-        const SizedBox(
-          height: 22,
-        ),
-        if (_latest != null && _latest.isNotEmpty)
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 24, right: 24),
-                child: Text(
-                  L('Latest', _model.localeAdapter),
-                  style: GoogleFonts.getFont(
-                      L('Comfortaa', _model.localeAdapter),
-                      fontSize: 24),
-                ),
-              ),
-              const Spacer(),
-              Container(
-                margin: const EdgeInsets.only(right: 24),
-                child: IconButton(
-                    onPressed: () {
-                      setState(() => _latest.clear());
-
-                      saveLatest();
-                    },
-                    icon: SvgPicture.asset(
-                      'assets/icon_remove.svg',
-                      semanticsLabel: 'remove',
-                      height: 16,
-                    )),
-              )
-            ],
-          ),
-        Expanded(
-          child: Container(
-              padding: const EdgeInsets.only(left: 24, right: 24),
-              child: ListView.builder(
-                  padding: const EdgeInsets.only(top: 16),
-                  itemCount: _latest.length,
-                  itemBuilder: (context, index) => card(_latest[index]))),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          height: 54,
-          decoration: BoxDecoration(
+      Expanded(
+        child: Container(
+            padding: const EdgeInsets.only(left: 24, right: 24),
+            child: ListView.builder(
+                padding: const EdgeInsets.only(top: 16),
+                itemCount: _latest.length,
+                itemBuilder: (context, index) => card(_latest[index]))),
+      ),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        height: 64,
+        decoration: BoxDecoration(
+            color: Colors.deepPurple[100],
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+        child: Row(
+          children: <Widget>[
+            Material(
               color: Colors.deepPurple[100],
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
-          child: Row(
-            children: <Widget>[
-              Material(
-                color: Colors.deepPurple[100],
+              borderRadius: BorderRadius.circular(8),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () => _model.setPage(PageModel.language),
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_locale.svg',
-                      semanticsLabel: 'locale',
-                      height: 18,
-                    ),
+                splashColor: Colors.deepPurple[400],
+                onTap: () => _model.setPage(PageModel.language),
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(
+                    'assets/icon_locale.svg',
+                    semanticsLabel: 'locale',
+                    height: 18,
                   ),
                 ),
               ),
-              const SizedBox(width: 2),
-              Material(
-                color: Colors.deepPurple[100],
+            ),
+            const SizedBox(width: 2),
+            Material(
+              color: Colors.deepPurple[100],
+              borderRadius: BorderRadius.circular(8),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () => _model.setPage(PageModel.intro),
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_help.svg',
-                      semanticsLabel: 'help',
-                      height: 16,
-                    ),
+                splashColor: Colors.deepPurple[400],
+                onTap: () => _model.setPage(PageModel.intro),
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(
+                    'assets/icon_help.svg',
+                    semanticsLabel: 'help',
+                    height: 16,
                   ),
                 ),
               ),
-              const SizedBox(width: 2),
-              Material(
-                color: Colors.deepPurple[100],
+            ),
+            const SizedBox(width: 2),
+            Material(
+              color: Colors.deepPurple[100],
+              borderRadius: BorderRadius.circular(8),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () {
-                    final senders = <Sender>[];
-                    var running = false;
-                    var stop = false;
-                    var n = 0;
+                splashColor: Colors.deepPurple[400],
+                onTap: () {
+                  final senders = <Sender>[];
+                  var running = false;
+                  var stop = false;
+                  var n = 0;
 
-                    //todo: check for ip wiser?
-                    Future<String> getIpMask() async {
-                      final ip = (await SharikWrapper.getLocalIp).split('.');
-                      return '${ip[0]}.${ip[1]}.${ip[2]}';
+                  //todo: check for ip wiser?
+                  Future<String> getIpMask() async {
+                    final ip = (await SharikWrapper.getLocalIp).split('.');
+                    return '${ip[0]}.${ip[1]}.${ip[2]}';
 
 //                        for (var interface in await NetworkInterface.list()) {
 //                          for (var addr in interface.addresses) {
@@ -318,328 +315,334 @@ class _HomePageState extends State<HomePage> {
 //                        } else {
 //                          return null;
 //                        }
+                  }
+
+                  // ignore: avoid_void_async
+                  void portRunner(StateSetter setState) async {
+                    if (stop) {
+                      return;
                     }
 
-                    // ignore: avoid_void_async
-                    void portRunner(StateSetter setState) async {
-                      if (stop) {
-                        return;
-                      }
+                    running = true;
 
-                      running = true;
+                    final port = ports[n % ports.length];
 
-                      final port = ports[n % ports.length];
+                    if (n % 4 == 0) {
+                      await Future.delayed(const Duration(seconds: 1));
+                    }
 
-                      if (n % 4 == 0) {
-                        await Future.delayed(const Duration(seconds: 1));
-                      }
+                    if (senders.firstWhere(
+                            (element) => element.n < n ~/ ports.length,
+                            orElse: () => null) !=
+                        null) {
+                      setState(() {
+                        senders.removeWhere(
+                            (element) => element.n < n ~/ ports.length);
+                      });
+                    }
+                    // todo recode all of that
+                    // ignore: avoid_single_cascade_in_expression_statements
+                    NetworkAnalyzer.discover2(
+                      await getIpMask(),
+                      port,
+                      timeout: const Duration(milliseconds: 500),
+                    )..listen((addr) async {
+                        if (addr.exists) {
+                          //todo: proper deserialization
 
-                      if (senders.firstWhere(
-                              (element) => element.n < n ~/ ports.length,
-                              orElse: () => null) !=
-                          null) {
-                        setState(() {
-                          senders.removeWhere(
-                              (element) => element.n < n ~/ ports.length);
-                        });
-                      }
-                      // todo recode all of that
-                      // ignore: avoid_single_cascade_in_expression_statements
-                      NetworkAnalyzer.discover2(
-                        await getIpMask(),
-                        port,
-                        timeout: const Duration(milliseconds: 500),
-                      )..listen((addr) async {
-                          if (addr.exists) {
-                            //todo: proper deserialization
+                          try {
+                            final info = jsonDecode(await http
+                                .read('http://${addr.ip}:$port/sharik.json'));
 
-                            try {
-                              final info = jsonDecode(await http
-                                  .read('http://${addr.ip}:$port/sharik.json'));
+                            final sender = Sender(
+                                n: n ~/ ports.length,
+                                ip: addr.ip,
+                                type: cast<String>(info['type']),
+                                version: cast<String>(info['sharik']),
+                                name: cast<String>(info['name']),
+                                os: cast<String>(info['os']),
+                                url: 'http://${addr.ip}:$port');
+                            final inArr = senders.firstWhere(
+                                (element) =>
+                                    element.ip == sender.ip &&
+                                    element.os == sender.os &&
+                                    element.name == sender.name,
+                                orElse: () => null);
 
-                              final sender = Sender(
-                                  n: n ~/ ports.length,
-                                  ip: addr.ip,
-                                  type: cast<String>(info['type']),
-                                  version: cast<String>(info['sharik']),
-                                  name: cast<String>(info['name']),
-                                  os: cast<String>(info['os']),
-                                  url: 'http://${addr.ip}:$port');
-                              final inArr = senders.firstWhere(
-                                  (element) =>
-                                      element.ip == sender.ip &&
-                                      element.os == sender.os &&
-                                      element.name == sender.name,
-                                  orElse: () => null);
-
-                              if (inArr == null) {
-                                setState(() => senders.add(sender));
-                              } else {
-                                inArr.n = n;
-                              }
-                            } catch (e) {
-                              //todo: catch error
+                            if (inArr == null) {
+                              setState(() => senders.add(sender));
+                            } else {
+                              inArr.n = n;
                             }
+                          } catch (e) {
+                            //todo: catch error
                           }
-                        }).onDone(() {
-                          n++;
-                          portRunner(setState);
-                        });
-                    }
+                        }
+                      }).onDone(() {
+                        n++;
+                        portRunner(setState);
+                      });
+                  }
 
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(L('Receiver', _model.localeAdapter),
-                                style: GoogleFonts.getFont(
-                                    L('Comfortaa', _model.localeAdapter),
-                                    fontWeight: FontWeight.w700)),
-                            content: StatefulBuilder(
-                              builder: (_, StateSetter setState) {
-                                if (!running) {
-                                  portRunner(setState);
-                                }
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(L('Receiver', _model.localeAdapter),
+                              style: GoogleFonts.getFont(
+                                  L('Comfortaa', _model.localeAdapter),
+                                  fontWeight: FontWeight.w700)),
+                          content: StatefulBuilder(
+                            builder: (_, StateSetter setState) {
+                              if (!running) {
+                                portRunner(setState);
+                              }
 
-                                return senders.isNotEmpty
-                                    ? SizedBox(
-                                        height: 320,
-                                        width: 120,
-                                        child: ListView(
-                                          shrinkWrap: true,
-                                          children: senders
-                                              .map((e) {
-                                                return ListTile(
-                                                  onTap: () async {
-                                                    if (await canLaunch(
-                                                        e.url)) {
-                                                      await launch(e.url);
-                                                    }
-                                                  },
-                                                  subtitle: Text(e.os),
-                                                  title: Text(e.name),
-                                                  //todo: what's below looks ugly
+                              return senders.isNotEmpty
+                                  ? SizedBox(
+                                      height: 320,
+                                      width: 120,
+                                      child: ListView(
+                                        shrinkWrap: true,
+                                        children: senders
+                                            .map((e) {
+                                              return ListTile(
+                                                onTap: () async {
+                                                  if (await canLaunch(e.url)) {
+                                                    await launch(e.url);
+                                                  }
+                                                },
+                                                subtitle: Text(e.os),
+                                                title: Text(e.name),
+                                                //todo: what's below looks ugly
 //                                                    leading: SvgPicture.asset(
 //                                                        FileModel(
 //                                                                type: e.type,
 //                                                                name: e.name)
 //                                                            .icon,
 //                                                        color: Colors.black),
-                                                );
-                                              })
-                                              .toList()
-                                              .cast<Widget>(),
-                                        ),
-                                      )
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Center(
-                                            child: Container(
-                                              height: 28,
-                                              width: 28,
-                                              margin: const EdgeInsets.all(4),
-                                              child:
-                                                  const CircularProgressIndicator(),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                              },
-                            ),
-                            actions: <Widget>[
-                              FlatButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text(
-                                  L('Close', _model.localeAdapter),
-                                  style: GoogleFonts.getFont(
-                                      L('Andika', _model.localeAdapter)),
-                                ),
-                              )
-                            ],
-                          );
-                        }).then((value) => stop = true);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_receive.svg',
-                      semanticsLabel: 'receive',
-                      height: 16,
-                    ),
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Material(
-                color: Colors.deepPurple[100],
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () {
-                    //todo: refactor
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) => FutureBuilder(
-                            future: () async {
-                              final info = await PackageInfo.fromPlatform();
-                              final v =
-                                  '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
-
-                              final response = await http.read(
-                                  'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
-
-                              return jsonDecode(response);
-                            }(),
-                            builder: (_, AsyncSnapshot snapshot) => AlertDialog(
-                                  title: Text(
-                                    L('Updates', _model.localeAdapter),
-                                    style: GoogleFonts.getFont(
-                                        L('Comfortaa', _model.localeAdapter),
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  // todo create model for this
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      if (!snapshot.hasData)
-                                        const CircularProgressIndicator()
-                                      else if (cast<bool>(
-                                              snapshot.data['latest']) ||
-                                          !cast<bool>(snapshot.data['ok']))
-                                        Text(
-                                            L('The latest version is already installed',
-                                                _model.localeAdapter),
-                                            style: GoogleFonts.getFont(L(
-                                                'Andika',
-                                                _model.localeAdapter)))
-                                      else
-                                        changelog(cast<Map>(snapshot.data)),
-                                    ],
-                                  ),
-                                  actions: [
-                                    if (Platform.isAndroid &&
-                                        snapshot.hasData &&
-                                        cast<bool>(snapshot.data['ok']) &&
-                                        !cast<bool>(snapshot.data['latest']))
-                                      FlatButton(
-                                        onPressed: () async {
-                                          if (await canLaunch(
-                                              'https://play.google.com/store/apps/details?id=dev.marchello.sharik')) {
-                                            await launch(
-                                                'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
-                                          }
-                                        },
-                                        child: Text('Play Store',
-                                            style: GoogleFonts.andika()),
-                                      ),
-                                    if (snapshot.hasData &&
-                                        cast<bool>(snapshot.data['ok']) &&
-                                        !cast<bool>(snapshot.data['latest']))
-                                      FlatButton(
-                                        onPressed: () async {
-                                          if (await canLaunch(
-                                              'https://github.com/marchellodev/sharik')) {
-                                            await launch(
-                                                'https://github.com/marchellodev/sharik');
-                                          }
-                                        },
-                                        child: Text('GitHub',
-                                            style: GoogleFonts.andika()),
-                                      ),
-                                    FlatButton(
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                      child: Text(
-                                        L('Close', _model.localeAdapter),
-                                        style: GoogleFonts.getFont(
-                                            L('Andika', _model.localeAdapter)),
+                                              );
+                                            })
+                                            .toList()
+                                            .cast<Widget>(),
                                       ),
                                     )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            height: 28,
+                                            width: 28,
+                                            margin: const EdgeInsets.all(4),
+                                            child:
+                                                const CircularProgressIndicator(),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                            },
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text(
+                                L('Close', _model.localeAdapter),
+                                style: GoogleFonts.getFont(
+                                    L('Andika', _model.localeAdapter)),
+                              ),
+                            )
+                          ],
+                        );
+                      }).then((value) => stop = true);
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(
+                    'assets/icon_receive.svg',
+                    semanticsLabel: 'receive',
+                    height: 16,
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(),
+            Material(
+              color: Colors.deepPurple[100],
+              borderRadius: BorderRadius.circular(8),
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                splashColor: Colors.deepPurple[400],
+                onTap: () {
+                  //todo: refactor
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => FutureBuilder(
+                          future: () async {
+                            final info = await PackageInfo.fromPlatform();
+                            final v =
+                                '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
+
+                            final response = await http.read(
+                                'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
+
+                            return jsonDecode(response);
+                          }(),
+                          builder: (_, AsyncSnapshot snapshot) => AlertDialog(
+                                title: Text(
+                                  L('Updates', _model.localeAdapter),
+                                  style: GoogleFonts.getFont(
+                                      L('Comfortaa', _model.localeAdapter),
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                // todo create model for this
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (!snapshot.hasData)
+                                      const CircularProgressIndicator()
+                                    else if (cast<bool>(
+                                            snapshot.data['latest']) ||
+                                        !cast<bool>(snapshot.data['ok']))
+                                      Text(
+                                          L('The latest version is already installed',
+                                              _model.localeAdapter),
+                                          style: GoogleFonts.getFont(L(
+                                              'Andika', _model.localeAdapter)))
+                                    else
+                                      changelog(cast<Map>(snapshot.data)),
                                   ],
+                                ),
+                                actions: [
+                                  if (Platform.isAndroid &&
+                                      snapshot.hasData &&
+                                      cast<bool>(snapshot.data['ok']) &&
+                                      !cast<bool>(snapshot.data['latest']))
+                                    FlatButton(
+                                      onPressed: () async {
+                                        if (await canLaunch(
+                                            'https://play.google.com/store/apps/details?id=dev.marchello.sharik')) {
+                                          await launch(
+                                              'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
+                                        }
+                                      },
+                                      child: Text('Play Store',
+                                          style: GoogleFonts.andika()),
+                                    ),
+                                  if (snapshot.hasData &&
+                                      cast<bool>(snapshot.data['ok']) &&
+                                      !cast<bool>(snapshot.data['latest']))
+                                    FlatButton(
+                                      onPressed: () async {
+                                        if (await canLaunch(
+                                            'https://github.com/marchellodev/sharik')) {
+                                          await launch(
+                                              'https://github.com/marchellodev/sharik');
+                                        }
+                                      },
+                                      child: Text('GitHub',
+                                          style: GoogleFonts.andika()),
+                                    ),
+                                  FlatButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text(
+                                      L('Close', _model.localeAdapter),
+                                      style: GoogleFonts.getFont(
+                                          L('Andika', _model.localeAdapter)),
+                                    ),
+                                  )
+                                ],
 //                                  scrollable: true,
-                                )));
-                  },
-                  child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    child: Text(
-                      'v2.5',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.deepPurple[700],
-                          fontFamily: 'JetBrainsMono'),
-                    ),
+                              )));
+                },
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  child: Text(
+                    'v2.5',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.deepPurple[700],
+                        fontFamily: 'JetBrainsMono'),
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 2,
-              ),
-              Container(
-                color: Colors.deepPurple[800],
-                height: double.infinity,
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                width: 1,
-              ),
-              const SizedBox(
-                width: 2,
-              ),
-              Material(
-                color: Colors.deepPurple[100],
+            ),
+            const SizedBox(
+              width: 2,
+            ),
+            Container(
+              color: Colors.deepPurple[800],
+              height: double.infinity,
+              margin: const EdgeInsets.symmetric(vertical: 12),
+              width: 1,
+            ),
+            const SizedBox(
+              width: 2,
+            ),
+            Material(
+              color: Colors.deepPurple[100],
+              borderRadius: BorderRadius.circular(8),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () async {
-                    if (await canLaunch('https://marchello.cf')) {
-                      await launch('https://marchello.cf');
-                    }
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_browser.svg',
-                      semanticsLabel: 'instagram',
-                      height: 18,
-                    ),
+                splashColor: Colors.deepPurple[400],
+                onTap: () async {
+                  if (await canLaunch('https://marchello.cf')) {
+                    await launch('https://marchello.cf');
+                  }
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(
+                    'assets/icon_browser.svg',
+                    semanticsLabel: 'instagram',
+                    height: 18,
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 1,
-              ),
-              Material(
-                color: Colors.deepPurple[100],
+            ),
+            const SizedBox(
+              width: 1,
+            ),
+            Material(
+              color: Colors.deepPurple[100],
+              borderRadius: BorderRadius.circular(8),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () async {
-                    if (await canLaunch(
-                        'https://github.com/marchellodev/sharik')) {
-                      await launch('https://github.com/marchellodev/sharik');
-                    }
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_github.svg',
-                      semanticsLabel: 'play store',
-                      height: 18,
-                    ),
+                splashColor: Colors.deepPurple[400],
+                onTap: () async {
+                  if (await canLaunch(
+                      'https://github.com/marchellodev/sharik')) {
+                    await launch('https://github.com/marchellodev/sharik');
+                  }
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(
+                    'assets/icon_github.svg',
+                    semanticsLabel: 'play store',
+                    height: 18,
                   ),
                 ),
               ),
-            ],
-          ),
-        )
-      ],
-    );
+            ),
+          ],
+        ),
+      ),
+      Container(
+        color: Colors.deepPurple[100],
+        child: SafeArea(
+          top: false,
+          right: false,
+          left: false,
+          child: Container(),
+        ),
+      )
+    ]);
   }
 
   Widget changelog(Map data) {

@@ -477,6 +477,14 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                   color: Colors.white, fontSize: 18),
             ),
           ),
+          SizedBox(
+            child: SafeArea(
+              top: false,
+              right: false,
+              left: false,
+              child: Container(),
+            ),
+          )
         ],
       ),
     );

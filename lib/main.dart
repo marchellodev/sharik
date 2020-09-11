@@ -121,6 +121,7 @@ class AppState extends State<App> with TickerProviderStateMixin {
                 ),
               ),
               SafeArea(
+                bottom: false,
                 child: Column(
                   children: <Widget>[
                     Container(
