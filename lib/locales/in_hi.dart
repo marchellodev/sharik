@@ -52,4 +52,7 @@ Map<String, String> get getInHi => {
       //v2.4 (fonts)
       'Andika': 'Mukta',
       'Comfortaa': 'Pragati Narrow',
+
+      //v2.5 (ios)
+      'Gallery': 'गेलरी'
     };

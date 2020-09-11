@@ -129,8 +129,35 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )),
             ),
+          if (Platform.isIOS)
+            Expanded(
+              child: Container(
+                  margin: const EdgeInsets.only(left: 24, top: 8),
+                  height: 48,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.deepPurple[400],
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () async {
+                        final f =
+                            await FilePicker.getFile(type: FileType.media);
+                        if (f != null && f.path != null && f.path.isNotEmpty) {
+                          shareFile(FileModel(
+                              data: f.path, type: FileTypeModel.file));
+                        }
+                      },
+                      child: Center(
+                          child: Text(L('Gallery', _model.localeAdapter),
+                              style: GoogleFonts.getFont(
+                                  L('Andika', _model.localeAdapter),
+                                  color: Colors.white,
+                                  fontSize: 24))),
+                    ),
+                  )),
+            ),
           SizedBox(
-            width: Platform.isAndroid ? 8 : 24,
+            width: Platform.isAndroid || Platform.isIOS ? 8 : 24,
           ),
           Expanded(
             child: Container(

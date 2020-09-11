@@ -48,5 +48,8 @@ Map<String, String> get getRu => {
 
       //v2.4 (fonts)
       'Andika': 'Andika',
-      'Comfortaa': 'Comfortaa'
+      'Comfortaa': 'Comfortaa',
+
+      //v2.5 (ios)
+      'Gallery': 'Галерея'
     };

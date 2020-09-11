@@ -51,5 +51,8 @@ Map<String, String> get getInGu => {
 
       //v2.4 (fonts)
       'Andika': 'Mukta Vaani',
-      'Comfortaa': 'Hind Vadodara'
+      'Comfortaa': 'Hind Vadodara',
+
+      //v2.5 (ios)
+      'Gallery': 'ગેલેરી'
     };
