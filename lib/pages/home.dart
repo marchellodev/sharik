@@ -531,8 +531,8 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     if (!snapshot.hasData)
                                       const CircularProgressIndicator()
-                                    else if (cast<bool>(
-                                            snapshot.data['latest']) ||
+                                    else if (snapshot.data['latest'] == null ||
+                                        cast<bool>(snapshot.data['latest']) ||
                                         !cast<bool>(snapshot.data['ok']))
                                       Text(
                                           L('The latest version is already installed',
@@ -626,7 +626,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(12),
                   child: SvgPicture.asset(
                     'assets/icon_browser.svg',
-                    semanticsLabel: 'instagram',
+                    semanticsLabel: 'website',
                     height: 18,
                   ),
                 ),
@@ -651,7 +651,7 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(12),
                   child: SvgPicture.asset(
                     'assets/icon_github.svg',
-                    semanticsLabel: 'play store',
+                    semanticsLabel: 'github',
                     height: 18,
                   ),
                 ),

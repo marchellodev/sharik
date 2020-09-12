@@ -11,17 +11,29 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>sharik</string>
+	<string>Sharik</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>Sharing file </string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Sharing file </string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Sharing file </string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sharing file from the gallery</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Sharing file from the gallery</string>
+	<key>NSRemovableVolumesUsageDescription</key>
+	<string>Sharing file </string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
