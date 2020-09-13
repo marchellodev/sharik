@@ -17,7 +17,7 @@ dependencies:
 
 
   # UI
-  flutter_svg: ^0.18.1
+  flutter_svg: ^0.19.0
   google_fonts: ^1.1.0
   intro_slider: ^2.3.1
   responsive_framework: ^0.0.8
@@ -40,6 +40,7 @@ dependencies:
   package_info: ^0.4.3
 
   usage: ^3.4.2
+
 
 
   # ARCHITECTURE

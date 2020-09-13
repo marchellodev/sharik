@@ -123,6 +123,61 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
   Future getIp() async => SharikWrapper.getLocalIp;
 
+  // Future<String> getIp() async {
+  //   final list = await NetworkInterface.list(
+  //       includeLinkLocal: false,
+  //       includeLoopback: false,
+  //       type: InternetAddressType.IPv4);
+  //
+  //   for (final el in list) {
+  //     final addr = el.addresses[0].toString();
+  //
+  //     if (addr.startsWith('10.') || addr.endsWith('.1')) {
+  //       continue;
+  //     }
+  //
+  //     final arr = addr.split('.');
+  //
+  //     final mask = '${addr[0]}.${addr[1]}.${addr[2]}.';
+  //
+  //     for (var i = 1; i < 255; i++) {
+  //       ping(mask + i.toString()).then((value) {
+  //         if (value) {
+  //           print('FOUND!!!: $mask$i');
+  //         }
+  //       });
+  //     }
+  //
+  //     print(addr);
+  //   }
+  //
+  //   return '123';
+  // }
+  //
+  // Future<bool> ping(String addr) async {
+  //   const arr = [
+  //     'unreachable',
+  //     'unknown',
+  //     '100% packet loss',
+  //     'failed',
+  //     'failure',
+  //     '100% loss',
+  //     'timed out',
+  //   ];
+  //
+  //   final r = await Process.run(
+  //       '/system/bin/ping', ['-c', '1', '-w', '1', '168.0.0.1']);
+  //   final out =
+  //       ((r.stdout as String).isNotEmpty ? r.stdout : r.stderr).toString();
+  //
+  //   for (final el in arr) {
+  //     if (out.contains(el)) {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
+
   // ignore: avoid_void_async, avoid_positional_boolean_parameters
   void updIp([bool hard = false]) async {
     setState(() => ip = L('loading...', _model.localeAdapter));
