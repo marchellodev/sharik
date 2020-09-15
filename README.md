@@ -6,8 +6,8 @@
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
 [![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
 
-![GitHub language count](https://img.shields.io/github/languages/count/marchellodev/sharik)
 ![Android](https://img.shields.io/badge/OS-Android-informational?logo=Android)
+![iOS](https://img.shields.io/badge/OS-Windows-informational?logo=ios)
 ![Linux](https://img.shields.io/badge/OS-Linux-informational?logo=linux)
 ![Mac](https://img.shields.io/badge/OS-Mac-informational?logo=apple)
 ![Windows](https://img.shields.io/badge/OS-Windows-informational?logo=windows)
@@ -81,6 +81,8 @@ You can get sharik for linux from the Snap Store:
 
 ### iOS
 <a href="https://apps.apple.com/app/id1531473857" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-10-03&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>
+
+<a href='https://apps.apple.com/app/id1531473857'><img alt='Get it on App Store' src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-10-03&kind=iossoftware&bubble=ios_apps' width="200"/></a>
 
 
 ## Tech
