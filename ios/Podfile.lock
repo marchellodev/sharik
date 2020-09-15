@@ -39,6 +39,7 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - Reachability (3.2)
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
@@ -47,6 +48,9 @@ PODS:
     - SDWebImage/Core (~> 5.6)
   - sharik_wrapper (0.0.1):
     - Flutter
+  - simple_connectivity (0.0.1):
+    - Flutter
+    - Reachability
   - url_launcher (0.0.1):
     - Flutter
   - wifi_iot (0.0.1):
@@ -58,6 +62,7 @@ DEPENDENCIES:
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - sharik_wrapper (from `.symlinks/plugins/sharik_wrapper/ios`)
+  - simple_connectivity (from `.symlinks/plugins/simple_connectivity/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - wifi_iot (from `.symlinks/plugins/wifi_iot/ios`)
 
@@ -66,6 +71,7 @@ SPEC REPOS:
     - DKImagePickerController
     - DKPhotoGallery
     - FLAnimatedImage
+    - Reachability
     - SDWebImage
     - SDWebImageFLPlugin
 
@@ -80,6 +86,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   sharik_wrapper:
     :path: ".symlinks/plugins/sharik_wrapper/ios"
+  simple_connectivity:
+    :path: ".symlinks/plugins/simple_connectivity/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
   wifi_iot:
@@ -93,9 +101,11 @@ SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SDWebImageFLPlugin: 6c2295fb1242d44467c6c87dc5db6b0a13228fd8
   sharik_wrapper: 215ac1641ccc3639eab42f9eeb04ad372cca669c
+  simple_connectivity: 84a7221f5ca3d54ebf18faa4d74f0bb6cc757cbe
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   wifi_iot: b5aafd6f9b52f8a357383a1deabab45f31cd602d
 

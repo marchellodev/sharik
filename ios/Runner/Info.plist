@@ -22,15 +22,21 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Sharing file from the gallery</string>
 	<key>NSDesktopFolderUsageDescription</key>
 	<string>Sharing file </string>
 	<key>NSDocumentsFolderUsageDescription</key>
 	<string>Sharing file </string>
 	<key>NSDownloadsFolderUsageDescription</key>
 	<string>Sharing file </string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Sharik uses the data obtained from this permission for determining the connectivity status (Wi-Fi / Not connected)</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Sharik uses the data obtained from this permission for determining the connectivity status (Wi-Fi / Not connected)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Sharik uses the data obtained from this permission for determining the connectivity status (Wi-Fi / Not connected)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Sharing file from the gallery</string>
-	<key>NSAppleMusicUsageDescription</key>
 	<string>Sharing file from the gallery</string>
 	<key>NSRemovableVolumesUsageDescription</key>
 	<string>Sharing file </string>
@@ -38,6 +44,8 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -93,7 +93,7 @@ class IntroPage extends StatelessWidget {
               }
             },
             child: Text(
-              '${L('Sharik is available for Android, Windows, MacOS and Linux!', model.localeAdapter)}\n${L('Click here to learn more', model.localeAdapter)}',
+              L('Click here to learn more', model.localeAdapter),
               style: GoogleFonts.getFont(L('Andika', model.localeAdapter),
                   color: Colors.white, fontSize: 18.0),
               textAlign: TextAlign.center,

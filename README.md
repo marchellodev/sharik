@@ -35,6 +35,7 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 - Android
 - Windows
 - Linux
+- iOS
 - MacOS (probably)
 
 [![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v2.5/)
@@ -43,7 +44,6 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 ### Android
 <a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
 
-If you have some problems with Google Play, here are the latest apks:
 - [For all architectures](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android.apk)
 - [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android_arm64_v8a.apk)
 - [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android_armeabi_v7a.apk)
@@ -80,8 +80,7 @@ You can get sharik for linux from the Snap Store:
 
 
 ### iOS
-Sorry, the app is not yet available on the App Store.
-
+<a href="https://apps.apple.com/app/id1531473857" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-10-03&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>
 
 
 ## Tech

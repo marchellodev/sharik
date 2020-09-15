@@ -66,13 +66,13 @@ Future<void> main() async {
             behavior: MyBehavior(),
             child: child,
           ),
-          maxWidth: 1400,
+          maxWidth: 1800,
           minWidth: 420,
           defaultScale: true,
           breakpoints: [
             const ResponsiveBreakpoint.resize(400, name: MOBILE),
-            const ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            const ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+            const ResponsiveBreakpoint.autoScale(680, name: TABLET),
+            const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP),
           ]);
     },
     debugShowCheckedModeBanner: false,

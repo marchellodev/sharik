@@ -27,6 +27,7 @@ dependencies:
   http: ^0.12.2
   wifi_iot: ^0.1.1
   ping_discover_network: ^0.2.0+1
+  simple_connectivity: ^0.1.1
 
   path_provider: ^1.6.14
   url_launcher: ^5.5.0
@@ -47,9 +48,10 @@ dependencies:
   provider: ^4.3.2+1
 
 
-
   sharik_wrapper:
-    git: https://github.com/marchellodev/sharik_wrapper
+    path: /Users/admin/sharik_wrapper
+
+#    git: https://github.com/marchellodev/sharik_wrapper
 
 
 

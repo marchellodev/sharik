@@ -367,10 +367,13 @@ class _HomePageState extends State<HomePage> {
                             (element) => element.n < n ~/ ports.length);
                       });
                     }
+                    final ip = await getIpMask();
+                    print(ip);
+
                     // todo recode all of that
                     // ignore: avoid_single_cascade_in_expression_statements
                     NetworkAnalyzer.discover2(
-                      await getIpMask(),
+                      ip,
                       port,
                       timeout: const Duration(milliseconds: 500),
                     )..listen((addr) async {

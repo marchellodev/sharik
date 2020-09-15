@@ -12,6 +12,7 @@ import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 import 'package:sharik_wrapper/sharik_wrapper.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'package:simple_connectivity/simple_connectivity.dart' as s;
 
 import '../cast.dart';
 import '../conf.dart';
@@ -121,8 +122,24 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     }
   }
 
-  Future getIp() async => SharikWrapper.getLocalIp;
+  Future getIp() async {
+    return SharikWrapper.getLocalIp;
+  }
 
+  Future<bool> iosHotspot() async {
+    final list = await NetworkInterface.list(
+        includeLinkLocal: false,
+        includeLoopback: false,
+        type: InternetAddressType.IPv4);
+
+    for (final el in list) {
+      if (el.name.startsWith('bridge')) {
+        return true;
+      }
+    }
+
+    return false;
+  }
   // Future<String> getIp() async {
   //   final list = await NetworkInterface.list(
   //       includeLinkLocal: false,
@@ -214,12 +231,20 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
     if (Platform.isAndroid) {
       w = await WiFiForIoTPlugin.isConnected();
       t = await WiFiForIoTPlugin.isWiFiAPEnabled();
+    } else if (Platform.isIOS || Platform.isMacOS) {
+      final connectivityResult = await s.Connectivity().checkConnectivity();
+
+      if (connectivityResult == s.ConnectivityResult.wifi) {
+        w = true;
+      } else if (await iosHotspot()) {
+        t = true;
+      }
     }
 
     setState(() {
       wifi = w;
       tether = t;
-      if (!Platform.isAndroid) {
+      if (!Platform.isAndroid && !Platform.isIOS && !Platform.isMacOS) {
         network = L('Undefined', _model.localeAdapter);
       } else if (w) {
         network = 'Wi-Fi';
@@ -354,7 +379,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                   TextSpan(
                                       text: L(
                                           'Connect to', _model.localeAdapter)),
-                                  if (Platform.isAndroid)
+                                  if (Platform.isAndroid || Platform.isIOS)
                                     TextSpan(
                                         text: ' Wi-Fi ',
                                         style: TextStyle(
@@ -366,7 +391,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                   TextSpan(
                                       text: L(
                                           'or set up a', _model.localeAdapter)),
-                                  if (Platform.isAndroid)
+                                  if (Platform.isAndroid || Platform.isIOS)
                                     TextSpan(
                                         text: L(' Mobile Hotspot',
                                             _model.localeAdapter),
