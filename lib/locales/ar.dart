@@ -46,8 +46,8 @@ Map<String, String> get getAr => {
       'Receiver': 'المستلم',
 
       //v2.4 (fonts)
-      'Andika': 'Andika',
-      'Comfortaa': 'Comfortaa',
+      'Andika': 'Tajawal',
+      'Comfortaa': 'Changa',
 
       //v2.5 (ios)
       'Gallery': 'استديو الصور'
