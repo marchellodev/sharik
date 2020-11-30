@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
+import 'package:sharik/locales/ar.dart';
 
 import '../locales/in_gu.dart';
 import '../locales/in_hi.dart';
@@ -15,14 +16,16 @@ enum LocaleModel {
   @HiveField(0)
   en,
   @HiveField(1)
-  ru,
+  ar,
   @HiveField(2)
-  ua,
+  ru,
   @HiveField(3)
-  pl,
+  ua,
   @HiveField(4)
-  inHi,
+  pl,
   @HiveField(5)
+  inHi,
+  @HiveField(6)
   inGu,
 }
 
@@ -32,6 +35,9 @@ String locale2name(LocaleModel locale) {
   switch (locale) {
     case LocaleModel.en:
       return 'English';
+      break;
+    case LocaleModel.ar:
+      return 'عربي';
       break;
     case LocaleModel.ru:
       return 'Русский';
@@ -63,6 +69,9 @@ LocaleAdapter getLocaleAdapter(LocaleModel locale) {
   switch (locale) {
     case LocaleModel.en:
       return LocaleAdapter(map: {}, locale: locale);
+      break;
+    case LocaleModel.ar:
+      return LocaleAdapter(map: getAr, locale: locale);
       break;
     case LocaleModel.ru:
       return LocaleAdapter(map: getRu, locale: locale);

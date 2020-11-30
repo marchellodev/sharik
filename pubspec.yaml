@@ -15,13 +15,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # UI
   flutter_svg: ^0.19.0
   google_fonts: ^1.1.0
   intro_slider: ^2.3.1
   responsive_framework: ^0.0.8
-
 
   # UTILS
   http: ^0.12.2
@@ -42,20 +40,12 @@ dependencies:
 
   usage: ^3.4.2
 
-
-
   # ARCHITECTURE
   provider: ^4.3.2+1
 
-
-
   sharik_wrapper:
-    path: /Users/admin/sharik_wrapper
-
-#    git: https://github.com/marchellodev/sharik_wrapper
-
-
-
+    # path: /Users/admin/sharik_wrapper
+    git: https://github.com/marchellodev/sharik_wrapper
 
 dev_dependencies:
   hive_generator: any
@@ -74,4 +64,3 @@ flutter:
     - family: JetBrainsMono
       fonts:
         - asset: fonts/JetBrainsMono-Regular.ttf
-
