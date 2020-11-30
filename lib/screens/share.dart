@@ -10,24 +10,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik_wrapper/sharik_wrapper.dart';
 import 'package:wifi_iot/wifi_iot.dart';
 import 'package:simple_connectivity/simple_connectivity.dart' as s;
 
-import '../cast.dart';
+import '../utils/cast.dart';
 import '../conf.dart';
 import '../locale.dart';
 import '../models/app.dart';
 import '../models/file.dart';
 
-class SharePage extends StatefulWidget {
+class SharingScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return ShareState();
   }
 }
 
-class ShareState extends State<SharePage> with TickerProviderStateMixin {
+class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   AnimationController _ipController;
   Animation _ipAnimation;
   AnimationController _conController;
@@ -123,7 +122,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
   }
 
   Future getIp() async {
-    return SharikWrapper.getLocalIp;
+    return 'localhost';
   }
 
   Future<bool> iosHotspot() async {
@@ -140,6 +139,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
 
     return false;
   }
+
   // Future<String> getIp() async {
   //   final list = await NetworkInterface.list(
   //       includeLinkLocal: false,
@@ -497,7 +497,7 @@ class ShareState extends State<SharePage> with TickerProviderStateMixin {
                                 color: Colors.white),
                           ),
                         );
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       });
                     },
                     child: Container(

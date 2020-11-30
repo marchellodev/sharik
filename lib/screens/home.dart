@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:device_apps/device_apps.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,24 +11,22 @@ import 'package:http/http.dart' as http;
 import 'package:package_info/package_info.dart';
 import 'package:ping_discover_network/ping_discover_network.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik_wrapper/sharik_wrapper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../cast.dart';
 import '../conf.dart';
-import '../locale.dart';
 import '../models/app.dart';
 import '../models/file.dart';
 import '../models/page.dart';
 import '../models/sender.dart';
+import '../utils/helper.dart';
 import 'app_selector.dart';
 
-class HomePage extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   var _latest = <FileModel>[];
   AppModel _model;
 
@@ -59,7 +56,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext c) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
         Widget>[
       Container(
@@ -71,19 +68,17 @@ class _HomePageState extends State<HomePage> {
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () async {
-                final f = await FilePicker.getFile();
-                if (f != null && f.path != null && f.path.isNotEmpty) {
-                  shareFile(FileModel(data: f.path, type: FileTypeModel.file));
-                }
+                // final f = await FilePicker.getFile();
+                // if (f != null && f.path != null && f.path.isNotEmpty) {
+                //   shareFile(FileModel(data: f.path, type: FileTypeModel.file));
+                // }
               },
               child: Stack(
                 children: <Widget>[
                   Center(
-                      child: Text(L('Select file', _model.localeAdapter),
-                          style: GoogleFonts.getFont(
-                              L('Andika', _model.localeAdapter),
-                              color: Colors.white,
-                              fontSize: 24))),
+                      child: Text(c.l.homeSelectFile,
+                          style: GoogleFonts.getFont(c.l.fontAndika,
+                              color: Colors.white, fontSize: 24))),
                   Container(
                     margin: const EdgeInsets.all(16),
                     child: Align(
@@ -111,7 +106,8 @@ class _HomePageState extends State<HomePage> {
                       onTap: () async {
                         final data = await showDialog(
                             context: context,
-                            child: AppSelector(_model.localeAdapter)) as String;
+                            builder: (_) =>
+                                AppSelector(_model.localeAdapter)) as String;
                         if (data != null && data.isNotEmpty) {
                           final app = await DeviceApps.getApp(data);
                           shareFile(FileModel(
@@ -121,11 +117,9 @@ class _HomePageState extends State<HomePage> {
                         }
                       },
                       child: Center(
-                          child: Text(L('App', _model.localeAdapter),
-                              style: GoogleFonts.getFont(
-                                  L('Andika', _model.localeAdapter),
-                                  color: Colors.white,
-                                  fontSize: 24))),
+                          child: Text(c.l.homeSelectApp,
+                              style: GoogleFonts.getFont(c.l.fontAndika,
+                                  color: Colors.white, fontSize: 24))),
                     ),
                   )),
             ),
@@ -140,19 +134,17 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () async {
-                        final f =
-                            await FilePicker.getFile(type: FileType.media);
-                        if (f != null && f.path != null && f.path.isNotEmpty) {
-                          shareFile(FileModel(
-                              data: f.path, type: FileTypeModel.file));
-                        }
+                        // final f =
+                        //     await FilePicker.getFile(type: FileType.media);
+                        // if (f != null && f.path != null && f.path.isNotEmpty) {
+                        //   shareFile(FileModel(
+                        //       data: f.path, type: FileTypeModel.file));
+                        // }
                       },
                       child: Center(
-                          child: Text(L('Gallery', _model.localeAdapter),
-                              style: GoogleFonts.getFont(
-                                  L('Andika', _model.localeAdapter),
-                                  color: Colors.white,
-                                  fontSize: 24))),
+                          child: Text(c.l.homeSelectGallery,
+                              style: GoogleFonts.getFont(c.l.fontAndika,
+                                  color: Colors.white, fontSize: 24))),
                     ),
                   )),
             ),
@@ -172,39 +164,36 @@ class _HomePageState extends State<HomePage> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          final c = TextEditingController();
+                          final controller = TextEditingController();
                           return AlertDialog(
                             title: Text(
-                              L('Type some text', _model.localeAdapter),
-                              style: GoogleFonts.getFont(
-                                  L('Comfortaa', _model.localeAdapter),
+                              c.l.homeSelectTextTypeSomeText,
+                              style: GoogleFonts.getFont(c.l.fontComfortaa,
                                   fontWeight: FontWeight.w700),
                             ),
                             content: TextField(
                               autofocus: true,
-                              controller: c,
+                              controller: controller,
                               maxLines: null,
                             ),
                             actions: <Widget>[
                               FlatButton(
                                 onPressed: () => Navigator.of(context).pop(),
-                                child: Text(L('Close', _model.localeAdapter),
-                                    style: GoogleFonts.getFont(
-                                        L('Andika', _model.localeAdapter))),
+                                child: Text(c.l.generalClose,
+                                    style: GoogleFonts.getFont(c.l.fontAndika)),
                               ),
                               FlatButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
 
-                                  if (c.text.isNotEmpty) {
+                                  if (controller.text.isNotEmpty) {
                                     shareFile(FileModel(
-                                        data: c.text,
+                                        data: controller.text,
                                         type: FileTypeModel.text));
                                   }
                                 },
-                                child: Text(L('Send', _model.localeAdapter),
-                                    style: GoogleFonts.getFont(
-                                        L('Andika', _model.localeAdapter))),
+                                child: Text(c.l.generalSend,
+                                    style: GoogleFonts.getFont(c.l.fontAndika)),
                               ),
                             ],
                           );
@@ -212,11 +201,9 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                     child: Center(
-                        child: Text(L('Text', _model.localeAdapter),
-                            style: GoogleFonts.getFont(
-                                L('Andika', _model.localeAdapter),
-                                color: Colors.white,
-                                fontSize: 24))),
+                        child: Text(c.l.homeSelectText,
+                            style: GoogleFonts.getFont(c.l.fontAndika,
+                                color: Colors.white, fontSize: 24))),
                   ),
                 )),
           ),
@@ -231,9 +218,8 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24),
               child: Text(
-                L('Latest', _model.localeAdapter),
-                style: GoogleFonts.getFont(L('Comfortaa', _model.localeAdapter),
-                    fontSize: 24),
+                c.l.homeLatest,
+                style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
               ),
             ),
             const Spacer(),
@@ -259,7 +245,8 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
                 padding: const EdgeInsets.only(top: 16),
                 itemCount: _latest.length,
-                itemBuilder: (context, index) => card(_latest[index]))),
+                itemBuilder: (context, index) =>
+                    card(context, _latest[index]))),
       ),
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -320,7 +307,8 @@ class _HomePageState extends State<HomePage> {
 
                   //todo: check for ip wiser?
                   Future<String> getIpMask() async {
-                    final ip = (await SharikWrapper.getLocalIp).split('.');
+                    // final ip = (await SharikWrapper.getLocalIp).split('.');
+                    const ip = 'localhost';
                     return '${ip[0]}.${ip[1]}.${ip[2]}';
 
 //                        for (var interface in await NetworkInterface.list()) {
@@ -418,9 +406,8 @@ class _HomePageState extends State<HomePage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text(L('Receiver', _model.localeAdapter),
-                              style: GoogleFonts.getFont(
-                                  L('Comfortaa', _model.localeAdapter),
+                          title: Text(c.l.homeReceiver,
+                              style: GoogleFonts.getFont(c.l.fontComfortaa,
                                   fontWeight: FontWeight.w700)),
                           content: StatefulBuilder(
                             builder: (_, StateSetter setState) {
@@ -479,9 +466,8 @@ class _HomePageState extends State<HomePage> {
                             FlatButton(
                               onPressed: () => Navigator.of(context).pop(),
                               child: Text(
-                                L('Close', _model.localeAdapter),
-                                style: GoogleFonts.getFont(
-                                    L('Andika', _model.localeAdapter)),
+                                c.l.generalClose,
+                                style: GoogleFonts.getFont(c.l.fontAndika),
                               ),
                             )
                           ],
@@ -522,9 +508,8 @@ class _HomePageState extends State<HomePage> {
                           }(),
                           builder: (_, AsyncSnapshot snapshot) => AlertDialog(
                                 title: Text(
-                                  L('Updates', _model.localeAdapter),
-                                  style: GoogleFonts.getFont(
-                                      L('Comfortaa', _model.localeAdapter),
+                                  c.l.homeUpdates,
+                                  style: GoogleFonts.getFont(c.l.fontComfortaa,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 // todo create model for this
@@ -537,13 +522,11 @@ class _HomePageState extends State<HomePage> {
                                     else if (snapshot.data['latest'] == null ||
                                         cast<bool>(snapshot.data['latest']) ||
                                         !cast<bool>(snapshot.data['ok']))
-                                      Text(
-                                          L('The latest version is already installed',
-                                              _model.localeAdapter),
-                                          style: GoogleFonts.getFont(L(
-                                              'Andika', _model.localeAdapter)))
+                                      Text(c.l.homeUpdatesTheLatestVersionIsInstalled,
+                                          style: GoogleFonts.getFont(
+                                              c.l.fontAndika))
                                     else
-                                      changelog(cast<Map>(snapshot.data)),
+                                      changelog(c, cast<Map>(snapshot.data)),
                                   ],
                                 ),
                                 actions: [
@@ -580,9 +563,9 @@ class _HomePageState extends State<HomePage> {
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                     child: Text(
-                                      L('Close', _model.localeAdapter),
-                                      style: GoogleFonts.getFont(
-                                          L('Andika', _model.localeAdapter)),
+                                      c.l.generalClose,
+                                      style:
+                                          GoogleFonts.getFont(c.l.fontAndika),
                                     ),
                                   )
                                 ],
@@ -593,69 +576,11 @@ class _HomePageState extends State<HomePage> {
                   margin:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   child: Text(
-                    'v2.5',
+                    'sharik v3.0',
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.deepPurple[700],
                         fontFamily: 'JetBrainsMono'),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 2,
-            ),
-            Container(
-              color: Colors.deepPurple[800],
-              height: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: 12),
-              width: 1,
-            ),
-            const SizedBox(
-              width: 2,
-            ),
-            Material(
-              color: Colors.deepPurple[100],
-              borderRadius: BorderRadius.circular(8),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(8),
-                splashColor: Colors.deepPurple[400],
-                onTap: () async {
-                  if (await canLaunch('https://marchello.cf')) {
-                    await launch('https://marchello.cf');
-                  }
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    'assets/icon_browser.svg',
-                    semanticsLabel: 'website',
-                    height: 18,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 1,
-            ),
-            Material(
-              color: Colors.deepPurple[100],
-              borderRadius: BorderRadius.circular(8),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(8),
-                splashColor: Colors.deepPurple[400],
-                onTap: () async {
-                  if (await canLaunch(
-                      'https://github.com/marchellodev/sharik')) {
-                    await launch('https://github.com/marchellodev/sharik');
-                  }
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    'assets/icon_github.svg',
-                    semanticsLabel: 'github',
-                    height: 18,
                   ),
                 ),
               ),
@@ -675,7 +600,7 @@ class _HomePageState extends State<HomePage> {
     ]);
   }
 
-  Widget changelog(Map data) {
+  Widget changelog(BuildContext c, Map data) {
     final changes = <Widget>[];
 
     data['changelog'].forEach((element) {
@@ -708,10 +633,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                     width: 160,
                     child: Text(
-                      '${L('Current version', _model.localeAdapter)}:',
-                      style: GoogleFonts.getFont(
-                          L('Andika', _model.localeAdapter),
-                          fontSize: 16),
+                      '${c.l.homeUpdatesCurrentVersion}:',
+                      style: GoogleFonts.getFont(c.l.fontAndika, fontSize: 16),
                     )),
                 const SizedBox(
                   width: 4,
@@ -727,10 +650,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                     width: 160,
                     child: Text(
-                      '${L('The latest version', _model.localeAdapter)}:',
-                      style: GoogleFonts.getFont(
-                          L('Andika', _model.localeAdapter),
-                          fontSize: 16),
+                      '${c.l.homeUpdatesLatestVersion}:',
+                      style: GoogleFonts.getFont(c.l.fontAndika, fontSize: 16),
                     )),
                 const SizedBox(
                   width: 4,
@@ -744,9 +665,8 @@ class _HomePageState extends State<HomePage> {
             ),
             Center(
               child: Text(
-                L('Changelog', _model.localeAdapter),
-                style: GoogleFonts.getFont(L('Comfortaa', _model.localeAdapter),
-                    fontSize: 18),
+                c.l.homeUpdatesChangelog,
+                style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 18),
               ),
             ),
             Column(
@@ -757,7 +677,7 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  Widget card(FileModel f) {
+  Widget card(BuildContext c, FileModel f) {
     return Container(
       height: 44,
       margin: const EdgeInsets.only(bottom: 12),
@@ -786,10 +706,8 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   child: Text(
                     f.name,
-                    style: GoogleFonts.getFont(
-                        L('Andika', _model.localeAdapter),
-                        color: Colors.white,
-                        fontSize: 18),
+                    style: GoogleFonts.getFont(c.l.fontAndika,
+                        color: Colors.white, fontSize: 18),
                     maxLines: 1,
                   ),
                 ))

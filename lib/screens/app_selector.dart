@@ -1,16 +1,10 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sharik/models/locale.dart';
 
-import '../cast.dart';
-import '../locale.dart';
+import '../utils/helper.dart';
 
 class AppSelector extends StatefulWidget {
-  final LocaleAdapter adapter;
-
-  const AppSelector(this.adapter);
-
   @override
   _AppSelectorState createState() => _AppSelectorState();
 }
@@ -50,7 +44,7 @@ class _AppSelectorState extends State<AppSelector> {
         }
       }
     }
-
+    // todo decrease paddings but maintain style
     return AlertDialog(
 //      scrollable: true,
       content: SizedBox(
@@ -60,7 +54,7 @@ class _AppSelectorState extends State<AppSelector> {
           shrinkWrap: true,
           children: <Widget>[
             CheckboxListTile(
-              title: Text(L('Hide system apps', widget.adapter)),
+              title: Text(context.l.selectAppHideSystem),
               value: _checkSystem,
               onChanged: (value) => setState(() {
                 _checkSystem = value;
@@ -69,7 +63,7 @@ class _AppSelectorState extends State<AppSelector> {
               controlAffinity: ListTileControlAffinity.leading,
             ),
             CheckboxListTile(
-              title: Text(L('Hide non-launchable apps', widget.adapter)),
+              title: Text(context.l.selectAppHideNonLaunch),
               value: _checkLaunch,
               onChanged: (value) => setState(() {
                 _checkLaunch = value;
@@ -79,8 +73,7 @@ class _AppSelectorState extends State<AppSelector> {
             ),
             TextField(
               onChanged: (value) => setState(() => _search = value),
-              decoration:
-                  InputDecoration(hintText: L('Search', widget.adapter)),
+              decoration: InputDecoration(hintText: context.l.selectAppSearch),
             ),
             if (_apps != null)
               Column(
@@ -118,8 +111,8 @@ class _AppSelectorState extends State<AppSelector> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(L('Close', widget.adapter),
-              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
+          child: Text(context.l.generalClose,
+              style: GoogleFonts.getFont(context.l.fontAndika)),
         ),
         FlatButton(
           onPressed: _selected == null
@@ -127,8 +120,8 @@ class _AppSelectorState extends State<AppSelector> {
               : () {
                   Navigator.of(context).pop(_selected);
                 },
-          child: Text(L('Send', widget.adapter),
-              style: GoogleFonts.getFont(L('Andika', widget.adapter))),
+          child: Text(context.l.generalSend,
+              style: GoogleFonts.getFont(context.l.fontAndika)),
         ),
       ],
     );

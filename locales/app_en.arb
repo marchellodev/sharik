@@ -1,0 +1,86 @@
+{
+  "homeSelectFile": "Select file",
+  "@homeSelectFile": {
+    "description": "Select file"
+  },
+  "homeSelectApp": "App",
+  "@homeSelectApp": {
+    "description": "Select app"
+  },
+  "homeSelectText": "Text",
+  "@homeSelectText": {
+    "description": "Input text"
+  },
+  "homeSelectGallery": "Gallery",
+  "@homeSelectGallery": {
+    "description": "Select from Gallery"
+  },
+  "homeSelectTextTypeSomeText": "Type some text",
+  "@homeSelectTextTypeSomeText": {
+    "description": "Type some text"
+  },
+  "homeLatest": "Latest",
+  "@homeLatest": {
+    "description": "Latest"
+  },
+  "homeReceiver": "Receiver",
+  "@homeReceiver": {
+    "description": "Receiver"
+  },
+  "homeUpdates": "Updates",
+  "@homeUpdates": {
+    "description": "Updates"
+  },
+  "homeUpdatesTheLatestVersionIsInstalled": "The latest version is already installed",
+  "@homeUpdatesTheLatestVersionIsInstalled": {
+    "description": "The latest version is already installed"
+  },
+  "homeUpdatesCurrentVersion": "Current version",
+  "@homeUpdatesCurrentVersion": {
+    "description": "Current version"
+  },
+  "homeUpdatesLatestVersion": "Latest version",
+  "@homeUpdatesLatestVersion": {
+    "description": "Latest version"
+  },
+  "homeUpdatesChangelog": "Changelog",
+  "@homeUpdatesChangelog": {
+    "description": "Changelog"
+  },
+  "selectAppSearch": "Search",
+  "@selectAppSearch": {
+    "description": "Search"
+  },
+  "selectAppHideSystem": "Hide system apps",
+  "@selectAppHideSystem": {
+    "description": "Hide system apps"
+  },
+  "selectAppHideNonLaunch": "Hide non-launchable apps",
+  "@selectAppHideNonLaunch": {
+    "description": "Hide non-launchable apps"
+  },
+  "introGeneralDone": "DONE",
+  "@introGeneralDone": {
+    "description": "DONE"
+  },
+  "introGeneralNext": "NEXT",
+  "@introGeneralNext": {
+    "description": "NEXT"
+  },
+  "generalClose": "Close",
+  "@generalClose": {
+    "description": "Close"
+  },
+  "generalSend": "Send",
+  "@generalSend": {
+    "description": "Send"
+  },
+  "fontAndika": "Andika",
+  "@fontAndika": {
+    "description": "Font Andika"
+  },
+  "fontComfortaa": "Comfortaa",
+  "@fontComfortaa": {
+    "description": "Font Comfortaa"
+  }
+}

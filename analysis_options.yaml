@@ -7,5 +7,7 @@ linter:
     prefer_single_quotes: true
     file_names: false
 
+    avoid_setters_without_getters: false
+
     # only for debug
     avoid_print: false

@@ -3,37 +3,34 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:provider/provider.dart';
+import 'package:sharik/logic/navigation.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../utils/helper.dart';
 
-import '../locale.dart';
-import '../models/app.dart';
-import '../models/page.dart';
-
-class IntroPage extends StatelessWidget {
+class IntroScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    final model = Provider.of<AppModel>(context, listen: false);
+  Widget build(BuildContext c) {
 
     return IntroSlider(
-      nameDoneBtn: L('DONE', model.localeAdapter),
-      nameNextBtn: L('NEXT', model.localeAdapter),
+      nameDoneBtn: c.l.introGeneralDone,
+      nameNextBtn: c.l.introGeneralNext,
       isShowSkipBtn: false,
-      styleNameDoneBtn: GoogleFonts.getFont(L('Comfortaa', model.localeAdapter),
+      styleNameDoneBtn: GoogleFonts.getFont(c.l.fontComfortaa,
           color: Colors.white),
-      styleNamePrevBtn: GoogleFonts.getFont(L('Comfortaa', model.localeAdapter),
+      styleNamePrevBtn: GoogleFonts.getFont(c.l.fontComfortaa,
           color: Colors.white),
       colorDot: Colors.white70,
       colorActiveDot: Colors.white,
       slides: <Slide>[
         Slide(
           styleTitle: GoogleFonts.getFont(
-            L('Comfortaa', model.localeAdapter),
+            c.l.fontComfortaa,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
           ),
           styleDescription: GoogleFonts.getFont(
-              L('Andika', model.localeAdapter),
+             c.l.fontAndika,
               color: Colors.white,
               fontSize: 18.0),
           title: L('CONNECT', model.localeAdapter),
@@ -45,13 +42,13 @@ class IntroPage extends StatelessWidget {
         ),
         Slide(
           styleTitle: GoogleFonts.getFont(
-            L('Comfortaa', model.localeAdapter),
+            c.l.fontComfortaa,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
           ),
           styleDescription: GoogleFonts.getFont(
-              L('Andika', model.localeAdapter),
+              c.l.fontAndika,
               color: Colors.white,
               fontSize: 18.0),
           title: L('SEND', model.localeAdapter),
@@ -61,7 +58,7 @@ class IntroPage extends StatelessWidget {
         ),
         Slide(
           styleTitle: GoogleFonts.getFont(
-            L('Comfortaa', model.localeAdapter),
+            c.l.fontComfortaa,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
@@ -77,8 +74,7 @@ class IntroPage extends StatelessWidget {
           backgroundColor: Colors.teal[400],
         ),
         Slide(
-          styleTitle: GoogleFonts.getFont(
-            L('Comfortaa', model.localeAdapter),
+          styleTitle: GoogleFonts.getFont(c.l.fontComfortaa,
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
@@ -94,7 +90,7 @@ class IntroPage extends StatelessWidget {
             },
             child: Text(
               L('Click here to learn more', model.localeAdapter),
-              style: GoogleFonts.getFont(L('Andika', model.localeAdapter),
+              style: GoogleFonts.getFont(c.l.fontAndika,
                   color: Colors.white, fontSize: 18.0),
               textAlign: TextAlign.center,
               maxLines: 4,
@@ -103,7 +99,7 @@ class IntroPage extends StatelessWidget {
           ),
         ),
       ],
-      onDonePress: () => model.setPage(PageModel.home),
+      onDonePress: () => c.n.page = HomePage(),
     );
   }
 }

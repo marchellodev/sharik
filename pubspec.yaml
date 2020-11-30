@@ -9,61 +9,74 @@ versionCode: 6
 author: marchellodev
 
 environment:
-  sdk: ">=2.5.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  flutter_localizations:
+    sdk: flutter
+
 
   # UI
-  flutter_svg: ^0.19.0
-  google_fonts: ^1.1.0
-  intro_slider: ^2.3.1
-  responsive_framework: ^0.0.8
+  flutter_svg: ^0.19.2+1
+  google_fonts: ^1.1.1
+  intro_slider: ^2.3.3
+  responsive_framework: ^0.0.14
 
 
   # UTILS
   http: ^0.12.2
-  wifi_iot: ^0.1.1
+  wifi_iot: ^0.2.0
   ping_discover_network: ^0.2.0+1
   simple_connectivity: ^0.1.1
 
-  path_provider: ^1.6.14
-  url_launcher: ^5.5.0
-
-  file_picker: ^1.13.3
+  path_provider: ^1.6.24
+  url_launcher: ^5.7.10
+  file_picker: ^2.1.0
   device_apps: ^1.2.0
 
-  hive: ^1.4.4
+  hive: ^1.4.4+1
   hive_flutter: ^0.3.1
 
-  package_info: ^0.4.3
+  package_info: ^0.4.3+2
 
   usage: ^3.4.2
+
+  intl: ^0.16.1
 
 
 
   # ARCHITECTURE
-  provider: ^4.3.2+1
+  provider: ^4.3.2+2
 
 
+  # DESKTOP-SPECIFIC
+  window_size:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 040f36c82b63e8764ec2fd97066767503a667b6d
 
-  sharik_wrapper:
-    path: /Users/admin/sharik_wrapper
-
-#    git: https://github.com/marchellodev/sharik_wrapper
+  file_chooser:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/file_chooser
+      ref: 040f36c82b63e8764ec2fd97066767503a667b6d
 
 
 
 
 dev_dependencies:
-  hive_generator: any
   build_runner: any
+  hive_generator: ^0.8.2
 
-  lint: any
+  intl_translation: ^0.17.10+1
+  lint: ^1.5.1
 
 flutter:
+  generate: true
   uses-material-design: false
 
   assets:
