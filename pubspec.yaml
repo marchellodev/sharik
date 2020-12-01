@@ -44,8 +44,8 @@ dependencies:
   provider: ^4.3.2+1
 
   sharik_wrapper:
-    # path: /Users/admin/sharik_wrapper
     git: https://github.com/marchellodev/sharik_wrapper
+    ref: 75f56ceac1bb5d01536b33cfe194fd05cbbefab7
 
 dev_dependencies:
   hive_generator: any
