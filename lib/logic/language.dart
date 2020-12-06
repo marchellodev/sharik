@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'file:///C:/Users/markm/IdeaProjects/sharik/lib/conf.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../conf.dart';
 
 class Language {
   final String name;
@@ -8,11 +10,13 @@ class Language {
   final Locale locale;
   final String contributorName;
   final String contributorLink;
+  final AppLocalizations localizations;
 
   const Language(
       {@required this.name,
       @required this.nameLocal,
       @required this.locale,
+      @required this.localizations,
       this.contributorName,
       this.contributorLink});
 }

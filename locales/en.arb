@@ -1,0 +1,25 @@
+{
+  "@@locale": "en",
+  "homeSelectFile": "Select file",
+  "homeSelectApp": "App",
+  "homeSelectText": "Text",
+  "homeSelectGallery": "Gallery",
+  "homeSelectTextTypeSomeText": "Type some text",
+  "homeLatest": "Latest",
+  "homeReceiver": "Receiver",
+  "homeUpdates": "Updates",
+  "homeUpdatesTheLatestVersionIsInstalled": "The latest version is already installed",
+  "homeUpdatesCurrentVersion": "Current version",
+  "homeUpdatesLatestVersion": "Latest version",
+  "homeUpdatesChangelog": "Changelog",
+  "selectAppSearch": "Search",
+  "selectAppHideSystem": "Hide system apps",
+  "selectAppHideNonLaunch": "Hide non-launchable apps",
+  "introGeneralDone": "DONE",
+  "introGeneralNext": "NEXT",
+  "generalClose": "Close",
+  "generalSend": "Send",
+
+  "fontAndika": "Andika",
+  "fontComfortaa": "Comfortaa"
+}

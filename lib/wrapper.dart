@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'package:provider/provider.dart';
 
 import 'components/logo.dart';
@@ -21,7 +20,7 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _pagerGlobal = TabController(vsync: this, length: 4);
+    _pagerGlobal = TabController(vsync: this, length: 4, initialIndex: 1);
     _pagerHome = TabController(vsync: this, length: 2);
 
     if (Platform.isAndroid) {
@@ -32,6 +31,7 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
     }
 
     context.read<NavigationManager>().onChange = (NPage p) {
+      print('changing page...: $p');
       switch (p.runtimeType) {
         case LoadingPage:
           _pagerHome.animateTo(0);
@@ -67,19 +67,9 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
         children: [
           // todo loading page goes here
           LoadingPage().widget,
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: <Widget>[
-                // todo use layout
-                Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 24, horizontal: 12),
-                    child: SharikLogo()),
-                LanguagePage().widget,
-              ],
-            ),
-          ),
+
+          LanguagePage().widget,
+
           IntroPage().widget,
           Column(
             children: <Widget>[
@@ -91,7 +81,8 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
                     alignment: Alignment.centerLeft,
                     children: <Widget>[
                       SharikLogo(),
-                      if (context.read<NavigationManager>().page.runtimeType ==
+                      // todo consider using context.select
+                      if (context.watch<NavigationManager>().page.runtimeType ==
                           HomePage)
                         IconButton(
                             onPressed: () {

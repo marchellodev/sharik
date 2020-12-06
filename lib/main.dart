@@ -22,10 +22,12 @@ import 'wrapper.dart';
 // todo make sure /screens/language.dart not package:sharik/
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  if(Platform.isLinux || Platform.isWindows || Platform.isMacOS){
+    WidgetsFlutterBinding.ensureInitialized();
 
-  screen.setWindowMinSize(const Size(440, 680));
-  screen.setWindowMaxSize(const Size(440, 680));
+    screen.setWindowMinSize(const Size(440, 680));
+    screen.setWindowMaxSize(const Size(440, 680));
+  }
 
   Hive.registerAdapter(FileTypeModelAdapter());
   Hive.registerAdapter(FileModelAdapter());
@@ -48,7 +50,8 @@ Future<void> main() async {
   }
   await Hive.openBox<String>('strings');
 
-  _initAnalytics();
+  // todo improve analytics
+  // _initAnalytics();
 
   runApp(MultiProvider(
     providers: [

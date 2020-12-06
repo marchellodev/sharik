@@ -9,14 +9,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:provider/provider.dart';
-import 'package:wifi_iot/wifi_iot.dart';
 import 'package:simple_connectivity/simple_connectivity.dart' as s;
+import 'package:wifi_iot/wifi_iot.dart';
 
-import '../utils/cast.dart';
 import '../conf.dart';
-import '../locale.dart';
-import '../models/app.dart';
 import '../models/file.dart';
 
 class SharingScreen extends StatefulWidget {
@@ -28,11 +24,10 @@ class SharingScreen extends StatefulWidget {
 
 class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   AnimationController _ipController;
-  Animation _ipAnimation;
+  Animation<double> _ipAnimation;
   AnimationController _conController;
-  Animation _conAnimation;
+  Animation<double> _conAnimation;
 
-  AppModel _model;
   FileModel _file;
 
   String ip;
@@ -197,16 +192,17 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   // ignore: avoid_void_async, avoid_positional_boolean_parameters
   void updIp([bool hard = false]) async {
-    setState(() => ip = L('loading...', _model.localeAdapter));
+    setState(() => ip = 'loading...');
 
     if (!_ipController.isAnimating) {
       unawaited(_ipController.forward().then((value) => _ipController.reset()));
     }
 
-    final _ip = cast<String>(await getIp());
+    final _ip = await getIp();
 
     if (port == 0 && _ip != null) {
-      port = cast<int>(await _getPort());
+      // port = await _getPort();
+      port = 50500;
       _server = await HttpServer.bind(InternetAddress.anyIPv4, port);
       serve();
     }
@@ -216,7 +212,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   // ignore: avoid_void_async
   void updCon() async {
     setState(() {
-      network = L('loading...', _model.localeAdapter);
+      network = 'loading...';
       wifi = false;
       tether = false;
     });
@@ -245,13 +241,13 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
       wifi = w;
       tether = t;
       if (!Platform.isAndroid && !Platform.isIOS && !Platform.isMacOS) {
-        network = L('Undefined', _model.localeAdapter);
+        network = 'Undefined';
       } else if (w) {
         network = 'Wi-Fi';
       } else if (t) {
-        network = L('Mobile Hotspot', _model.localeAdapter);
+        network = 'Mobile Hotspot';
       } else {
-        network = L('Not connected', _model.localeAdapter);
+        network = 'Not connected';
       }
     });
     updIp();
@@ -270,19 +266,19 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _model = Provider.of<AppModel>(context, listen: false);
-    _file = _model.file;
+    // _model = Provider.of<AppModel>(context, listen: false);
+    // _file = _model.file;
 
-    ip = L('loading...', _model.localeAdapter);
-    network = L('loading...', _model.localeAdapter);
+    ip = 'loading...';
+    network = 'loading...';
 
     _ipController = AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
-    _ipAnimation = Tween(begin: 0, end: pi).animate(_ipController);
+    _ipAnimation = Tween(begin: 0.0, end: pi).animate(_ipController);
 
     _conController = AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
-    _conAnimation = Tween(begin: 0, end: pi).animate(_conController);
+    _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
     updCon();
 
@@ -320,7 +316,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     child: Text(
                       _file.name,
                       style: GoogleFonts.getFont(
-                        L('Andika', _model.localeAdapter),
+                        'Andika',
                         color: Colors.white,
                         fontSize: 18,
                       ),
@@ -362,7 +358,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                             child: Text(
                               network,
                               style: GoogleFonts.getFont(
-                                L('Andika', _model.localeAdapter),
+                                'Andika',
                                 color: Colors.white,
                                 fontSize: 18,
                               ),
@@ -371,14 +367,13 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                           RichText(
                             text: TextSpan(
                                 style: GoogleFonts.getFont(
-                                  L('Andika', _model.localeAdapter),
+                                  'Andika',
                                   color: Colors.white,
                                   fontSize: 16,
                                 ),
                                 children: [
-                                  TextSpan(
-                                      text: L(
-                                          'Connect to', _model.localeAdapter)),
+                                  const TextSpan(
+                                      text:'Connect to'),
                                   if (Platform.isAndroid || Platform.isIOS)
                                     TextSpan(
                                         text: ' Wi-Fi ',
@@ -388,21 +383,18 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                                                 : Colors.red[100]))
                                   else
                                     const TextSpan(text: ' Wi-Fi '),
-                                  TextSpan(
-                                      text: L(
-                                          'or set up a', _model.localeAdapter)),
+                                  const TextSpan(
+                                      text: 'or set up a'),
                                   if (Platform.isAndroid || Platform.isIOS)
                                     TextSpan(
-                                        text: L(' Mobile Hotspot',
-                                            _model.localeAdapter),
+                                        text: ' Mobile Hotspot',
                                         style: TextStyle(
                                             color: tether
                                                 ? Colors.green[100]
                                                 : Colors.red[100]))
                                   else
-                                    TextSpan(
-                                        text: L(' Mobile Hotspot',
-                                            _model.localeAdapter)),
+                                    const TextSpan(
+                                        text: ' Mobile Hotspot'),
                                 ]),
                           ),
                           const SizedBox(
@@ -429,7 +421,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         animation: _conAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: cast<double>(_conAnimation.value) ?? 0 / 1,
+                              angle: _conAnimation.value ?? 0 / 1,
                               child: child);
                         },
                         child: SvgPicture.asset(
@@ -447,9 +439,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
           const Spacer(),
           Center(
               child: Text(
-            '${L('Now open this link', _model.localeAdapter)}\n${L('in any browser', _model.localeAdapter)}',
-            style: GoogleFonts.getFont(
-              L('Comfortaa', _model.localeAdapter),
+            'Now open this link\nin any browser',
+            style: GoogleFonts.getFont('Comfortaa',
               fontSize: 20,
             ),
             textAlign: TextAlign.center,
@@ -490,10 +481,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         final snackBar = SnackBar(
                           backgroundColor: Colors.deepPurple[500],
                           duration: const Duration(seconds: 1),
-                          content: Text(
-                            L('Copied to Clipboard', _model.localeAdapter),
-                            style: GoogleFonts.getFont(
-                                L('Andika', _model.localeAdapter),
+                          content: Text('Copied to Clipboard',
+                            style: GoogleFonts.getFont('Andika',
                                 color: Colors.white),
                           ),
                         );
@@ -526,7 +515,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         animation: _ipAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: cast<double>(_ipAnimation.value) ?? 0 / 1,
+                              angle: _ipAnimation.value ?? 0 / 1,
                               child: child);
                         },
                         child: SvgPicture.asset(
@@ -551,9 +540,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               color: Colors.deepPurple[300],
             ),
             child: Text(
-              '${L('The recipient needs to be connected', _model.localeAdapter)}\n${L('to the same network', _model.localeAdapter)}',
+              'The recipient needs to be connected\nto the same network',
               textAlign: TextAlign.center,
-              style: GoogleFonts.getFont(L('Andika', _model.localeAdapter),
+              style: GoogleFonts.getFont('Andika',
                   color: Colors.white, fontSize: 18),
             ),
           ),

@@ -11,6 +11,7 @@ author: marchellodev
 environment:
   sdk: ">=2.6.0 <3.0.0"
 
+# todo verify & sync google_fonts files
 dependencies:
   flutter:
     sdk: flutter
@@ -79,6 +80,7 @@ flutter:
   uses-material-design: false
 
   assets:
+    - assets/flags/
     - assets/
     - google_fonts/
 

@@ -10,13 +10,10 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info/package_info.dart';
 import 'package:ping_discover_network/ping_discover_network.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
-import '../models/app.dart';
 import '../models/file.dart';
-import '../models/page.dart';
 import '../models/sender.dart';
 import '../utils/helper.dart';
 import 'app_selector.dart';
@@ -28,11 +25,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var _latest = <FileModel>[];
-  AppModel _model;
 
   @override
   void initState() {
-    _model = Provider.of<AppModel>(context, listen: false);
+    // _model = Provider.of<AppModel>(context, listen: false);
     final _ = cast<List>(Hive.box('app2').get('latest')) ?? [];
 
     _latest = _.cast<FileModel>();
@@ -51,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     saveLatest();
-    _model.file = file;
-    _model.setState(() => _model.setPage(PageModel.sharing));
+    // _model.file = file;
+    // _model.setState(() => _model.setPage(PageModel.sharing));
   }
 
   @override
@@ -107,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         final data = await showDialog(
                             context: context,
                             builder: (_) =>
-                                AppSelector(_model.localeAdapter)) as String;
+                                AppSelector()) as String;
                         if (data != null && data.isNotEmpty) {
                           final app = await DeviceApps.getApp(data);
                           shareFile(FileModel(
@@ -263,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 splashColor: Colors.deepPurple[400],
-                onTap: () => _model.setPage(PageModel.language),
+                onTap: () => print('_model.setPage(PageModel.language)'),
                 child: Container(
                   margin: const EdgeInsets.all(12),
                   child: SvgPicture.asset(
@@ -281,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 splashColor: Colors.deepPurple[400],
-                onTap: () => _model.setPage(PageModel.intro),
+                onTap: () => print('_model.setPage(PageModel.intro)'),
                 child: Container(
                   margin: const EdgeInsets.all(12),
                   child: SvgPicture.asset(
