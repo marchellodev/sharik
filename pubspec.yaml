@@ -25,7 +25,6 @@ dependencies:
   intro_slider: ^2.3.3
   responsive_framework: ^0.0.14
 
-
   # UTILS
   http: ^0.12.2
   wifi_iot: ^0.2.0
@@ -87,4 +86,3 @@ flutter:
     - family: JetBrainsMono
       fonts:
         - asset: fonts/JetBrainsMono-Regular.ttf
-

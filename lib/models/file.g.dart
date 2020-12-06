@@ -8,7 +8,7 @@ part of 'file.dart';
 
 class FileTypeModelAdapter extends TypeAdapter<FileTypeModel> {
   @override
-  final typeId = 2;
+  final int typeId = 2;
 
   @override
   FileTypeModel read(BinaryReader reader) {
@@ -38,17 +38,27 @@ class FileTypeModelAdapter extends TypeAdapter<FileTypeModel> {
         break;
     }
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FileTypeModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
 
 class FileModelAdapter extends TypeAdapter<FileModel> {
   @override
-  final typeId = 1;
+  final int typeId = 1;
 
   @override
   FileModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FileModel(
       type: fields[0] as FileTypeModel,
@@ -68,4 +78,14 @@ class FileModelAdapter extends TypeAdapter<FileModel> {
       ..writeByte(2)
       ..write(obj.name);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FileModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
