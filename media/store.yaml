@@ -393,7 +393,7 @@ sk:
     Sharik je otvorené multi-platformové riešenie na zdieľanie súborov cez Wi-Fi alebo mobilný prístupový bod.
 
 
-    This app allows you to easily send photos, apps, files, text, literally anything, to all kinds of devices connected to the same network. It's convenient and blazing fast.
+    Táto aplikácia dokáže jednoducho poslať fotky, aplikácie, súbory, text, doslova čokoľvek, do všetkých zariadení pripojených k rovnakej sieti. Je praktická a neskutočne rýchla.
 
     After selecting a language and going through the intro, you can see the sharing buttons and the latest files you shared on the main screen. At this point, you can share images, files, installed apps, or simply text. After selecting the file, you will be shown the Sharing screen. Here you can see your connectivity status (Wi-Fi/Mobile Hotspot) and the URL you need to open on the other device. After typing this URL in the browser and hitting Enter on the other machine, the file will start downloading. Please make sure that both devices are connected to the same network.
 
@@ -427,7 +427,7 @@ sk:
       - Android
       - iOS
 
-    GitHub: https://github.com/marchellodev/sharik
+    GitHub stránka: https://github.com/marchellodev/sharik
 
 
     Stiahnite si Sharik hneď teraz!
