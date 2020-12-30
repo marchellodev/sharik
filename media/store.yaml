@@ -395,13 +395,13 @@ sk:
 
     Táto aplikácia dokáže jednoducho poslať fotky, aplikácie, súbory, text, doslova čokoľvek, do všetkých zariadení pripojených k rovnakej sieti. Je praktická a neskutočne rýchla.
 
-    After selecting a language and going through the intro, you can see the sharing buttons and the latest files you shared on the main screen. At this point, you can share images, files, installed apps, or simply text. After selecting the file, you will be shown the Sharing screen. Here you can see your connectivity status (Wi-Fi/Mobile Hotspot) and the URL you need to open on the other device. After typing this URL in the browser and hitting Enter on the other machine, the file will start downloading. Please make sure that both devices are connected to the same network.
+    Po zvolení jazyka a po absolvovaní rýchleho návodu môžete na hlavnej stránke vidieť tlačidlá na zdieľanie a naposledy zdieľané súbory. Tu môžete zdieľať obrázky, súbory, inštalované aplikácie alebo text. Po zvolení súboru sa zobrazí obrazovka zdieľania. Tu môžete vidieť stav vášho pripojenia (Wi-Fi/Mobilný prístupový bod) a odkaz (URL), ktorý musíte otvoriť na inom zariadení. Po načítaní odkazu vo webovom prehliadači iného zariadenia sa súbor začne sťahovať. Prosím, uistite sa, že sú obe zariadenia pripojené do rovnakej siete.
 
-    Suppose you have Sharik installed on both machines. In this case, after sharing the file from one computer, you can simply click the button "Receive" on the bottom panel of another Sharik. After clicking, the Receiver screen will be shown. If Sharik sees another device sharing something in your local network, it will be displayed. So you can just click on it, the browser will open, and the download will start.
+    Predpokladajme, že máte Sharik nainštalovaný na oboch zariadeniach. V tomto prípade po zdieľaní súboru z jedného zariadenia, jednoducho na druhom zariadení kliknete v dolnom paneli na tlačidlo "PRIJAŤ". Po kliknutí sa zobrazí obrazovka prijímania. Ak Sharik zaznamená iné zariadenie zdieľajúce niečo vo vašej lokálnej sieti, zobrazí ho. Potom už naň iba kliknete, webový prehliadač sa otvorí a sťahovanie sa začne.
 
-    Sharik is entirely free to use, and it contains no ads. Moreover, it's source code is published in GitHub, so everyone can contribute to the development process. If you like it, please leave a star on our GitHub repository, and consider making a contribution: add a new language or help us with code.
+    Sharik je kompletne zdarma a neobsahuje reklamy. Otvorený zdrojový kód je zdieľaný verejne na GitHube, takže sa každý môže zapojiť do vývoja. Ak sa vám Sharik páči, prosím, pridajte na GitHub repozitári hviezdičku a zvážte príspevok vo forme nového prekladu alebo pomocou vylepšenia kódu.
 
-    Sharik is created using in Dart, Flutter, Hover.build, and Golang. Shaik is published under an open license (MIT).
+    Sharik je vytvorený pomocou Dart, Flutter (Android, iOS), Hover (Desktop) a Golang. Sharik je šírený pod otvorenou licenciou (MIT).
 
 
     MÓŽETE POSLAŤ:
