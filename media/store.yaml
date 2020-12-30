@@ -35,6 +35,7 @@ en:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     SHARIK IS ALSO AVAILABLE FOR:
       - Windows
@@ -85,6 +86,7 @@ ar:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     شارك متوفر أيضا لـ:
       - نظام الويندوز
@@ -130,6 +132,7 @@ ru:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     SHARIK ТАКЖЕ ДОСТУПЕН ДЛЯ:
       - Windows (Виндовс)
@@ -175,6 +178,7 @@ uk:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     SHARIK ТАКОЖ ДОСТУПНИЙ ДЛЯ:
       - Windows (Віндовс)
@@ -221,6 +225,7 @@ pl:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     SHARIK JEST RÓWNIEŻ DOSTĘPNY DLA:
       - Windows
@@ -264,6 +269,7 @@ in-gu:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     Sharik પણ આ માટે ઉપલબ્ધ છે:
       - Windows
@@ -309,6 +315,7 @@ in-hi:
       - Gujarati (ગુજરાતી)
       - Polski (Polski)
       - Ukrainian (Українська)
+      - Slovak (Slovenčina)
 
     SHARIK के लिए भी उपलब्ध है:
       - Windows
@@ -360,6 +367,7 @@ in-hi:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Portuguese (Português do Brasil)
+      - Slovak (Slovenčina)
 
     SHARIK TAMBÉM ESTÁ DISPONÍVEL PARA:
       - Windows
@@ -373,3 +381,53 @@ in-hi:
 
     Baixar o Sharik agora!
 
+sk:
+  # 50 characters
+  Name: "Sharik - zdieľanie súborov cez WI-FI"
+  # 60 characters
+  Very short description: "Sharik jednoducho zdieľa súbory v lokálnej sieti"
+  # 80 characters
+  Short description: "Otvorené multi-platformové riešenie na zdieľanie súborov v lokálnej sieti"
+  # 4000 characters
+  Full description: |
+    Sharik je otvorené multi-platformové riešenie na zdieľanie súborov cez Wi-Fi alebo mobilný prístupový bod.
+
+
+    Táto aplikácia dokáže jednoducho poslať fotky, aplikácie, súbory, text, doslova čokoľvek, do všetkých zariadení pripojených k rovnakej sieti. Je praktická a neskutočne rýchla.
+
+    Po zvolení jazyka a po absolvovaní rýchleho návodu môžete na hlavnej stránke vidieť tlačidlá na zdieľanie a naposledy zdieľané súbory. Tu môžete zdieľať obrázky, súbory, inštalované aplikácie alebo text. Po zvolení súboru sa zobrazí obrazovka zdieľania. Tu môžete vidieť stav vášho pripojenia (Wi-Fi/Mobilný prístupový bod) a odkaz (URL), ktorý musíte otvoriť na inom zariadení. Po načítaní odkazu vo webovom prehliadači iného zariadenia sa súbor začne sťahovať. Prosím, uistite sa, že sú obe zariadenia pripojené do rovnakej siete.
+
+    Predpokladajme, že máte Sharik nainštalovaný na oboch zariadeniach. V tomto prípade po zdieľaní súboru z jedného zariadenia, jednoducho na druhom zariadení kliknete v dolnom paneli na tlačidlo "PRIJAŤ". Po kliknutí sa zobrazí obrazovka prijímania. Ak Sharik zaznamená iné zariadenie zdieľajúce niečo vo vašej lokálnej sieti, zobrazí ho. Potom už naň iba kliknete, webový prehliadač sa otvorí a sťahovanie sa začne.
+
+    Sharik je kompletne zdarma a neobsahuje reklamy. Otvorený zdrojový kód je zdieľaný verejne na GitHube, takže sa každý môže zapojiť do vývoja. Ak sa vám Sharik páči, prosím, pridajte na GitHub repozitári hviezdičku a zvážte príspevok vo forme nového prekladu alebo pomocou vylepšenia kódu.
+
+    Sharik je vytvorený pomocou Dart, Flutter (Android, iOS), Hover (Desktop) a Golang. Sharik je šírený pod otvorenou licenciou (MIT).
+
+
+    MÓŽETE POSLAŤ:
+      1. Fotky (jpg, png, gif, etc)
+      2. Aplikácie (apk)
+      3. Súbory (zip, rar, 7z, pdf, etc)
+      4. Text
+
+    SHARIK JE K DISPOZÍCII V TÝCHTO JAZYKOCH:
+      - English (English)
+      - Arabic (عربي)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+      - Slovak (Slovenčina)
+
+    SHARIK JE K DISPOZÍCII PRE:
+      - Windows
+      - macOS
+      - Linux
+      - Android
+      - iOS
+
+    GitHub stránka: https://github.com/marchellodev/sharik
+
+
+    Stiahnite si Sharik hneď teraz!
