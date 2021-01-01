@@ -30,6 +30,13 @@ Feel free to leave an issue or create a pull request.
 If you want to help with translations, create a fork of this repo, add or change file `lib/locales/<Your language>.dart` and submit a pull request.
 If you are adding a new language, please edit `media/store.yaml`, so I can add this language to Play Store too.
 
+### Translators
+
+- Polish by [Atrate](https://github.com/Atrate)
+- Gujarati and Hindi by [mrfoxie](https://github.com/mrfoxie)
+- Arabic by [Yazeed AlKhalaf](https://github.com/YazeedAlKhalaf)
+- Brazilian Portuguese by [mezysinc](https://github.com/mezysinc)
+- Slovak (slovenčina) by [Tibor Repček](https://github.com/tiborepcek/)
 
 ## Platforms
 - Android
