@@ -37,6 +37,7 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 - Arabic by [Yazeed AlKhalaf](https://github.com/YazeedAlKhalaf)
 - Brazilian Portuguese by [mezysinc](https://github.com/mezysinc)
 - Slovak (slovenčina) by [Tibor Repček](https://github.com/tiborepcek/)
+- Turkish (Türkçe) by [T. E. Kalaycı](https://github.com/tekrei/)
 
 ## Platforms
 - Android
