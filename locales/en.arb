@@ -19,6 +19,14 @@
   "introGeneralNext": "NEXT",
   "generalClose": "Close",
   "generalSend": "Send",
+  "intro1ConnectTitle": "CONNECT",
+  "intro1ConnectDescription": "Connect devices to the same network - use Wi-Fi or Mobile Hotspot",
+  "intro2SendTitle": "SEND",
+  "intro2SendDescription": "Select any file you like",
+  "intro3ReceiveTitle": "RECEIVE",
+  "intro3ReceiveDescription": "Open given link on another device in any browser",
+  "intro4EverywhereTitle": "EVERYWHERE",
+  "intro4EverywhereDescription": "Sharik is completely free and available for all major platforms. Click here to learn more",
 
   "fontAndika": "Andika",
   "fontComfortaa": "Comfortaa"

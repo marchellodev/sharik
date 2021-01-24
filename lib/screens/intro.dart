@@ -20,6 +20,8 @@ class IntroScreen extends StatelessWidget {
           GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
       colorDot: Colors.white70,
       colorActiveDot: Colors.white,
+      // todo use svgs instead
+      // todo work on slides & descriptions
       slides: <Slide>[
         Slide(
           styleTitle: GoogleFonts.getFont(
@@ -30,10 +32,9 @@ class IntroScreen extends StatelessWidget {
           ),
           styleDescription: GoogleFonts.getFont(c.l.fontAndika,
               color: Colors.white, fontSize: 18.0),
-          title: 'CONNECT',
-          description:
-              'Connect devices to the same network - use Wi-Fi or Mobile Hotspot',
-          pathImage: 'assets/slide_1.png',
+          title: c.l.intro1ConnectTitle,
+          description: c.l.intro1ConnectDescription,
+          pathImage: 'assets/slides/1_connect.png',
           backgroundColor: Colors.purple[400],
         ),
         Slide(
@@ -45,9 +46,9 @@ class IntroScreen extends StatelessWidget {
           ),
           styleDescription: GoogleFonts.getFont(c.l.fontAndika,
               color: Colors.white, fontSize: 18.0),
-          title: 'SEND',
-          description: 'Select any file you like',
-          pathImage: 'assets/slide_2.png',
+          title: c.l.intro2SendTitle,
+          description: c.l.intro2SendDescription,
+          pathImage: 'assets/slides/2_send.png',
           backgroundColor: Colors.indigo[400],
         ),
         Slide(
@@ -59,9 +60,9 @@ class IntroScreen extends StatelessWidget {
           ),
           styleDescription: GoogleFonts.getFont(c.l.fontAndika,
               color: Colors.white, fontSize: 18.0),
-          title: 'RECEIVE',
-          description: 'Open given link on another device in any browser',
-          pathImage: 'assets/slide_3.png',
+          title: c.l.intro3ReceiveTitle,
+          description: c.l.intro3ReceiveDescription,
+          pathImage: 'assets/slides/3_receive.png',
           backgroundColor: Colors.teal[400],
         ),
         Slide(
@@ -71,8 +72,8 @@ class IntroScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 30.0,
           ),
-          title: 'EVERYWHERE',
-          pathImage: 'assets/slide_4.png',
+          title: c.l.intro4EverywhereTitle,
+          pathImage: 'assets/slides/4_everywhere.png',
           backgroundColor: Colors.blueGrey[400],
           widgetDescription: GestureDetector(
             onTap: () async {
@@ -81,7 +82,7 @@ class IntroScreen extends StatelessWidget {
               }
             },
             child: Text(
-              'Click here to learn more',
+              c.l.intro4EverywhereDescription,
               style: GoogleFonts.getFont(c.l.fontAndika,
                   color: Colors.white, fontSize: 18.0),
               textAlign: TextAlign.center,

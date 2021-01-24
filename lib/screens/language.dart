@@ -15,8 +15,7 @@ class LanguageScreen extends StatelessWidget {
 
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      physics: const AlwaysScrollableScrollPhysics(),
-      shrinkWrap: true,
+      physics: const BouncingScrollPhysics(),
       children: <Widget>[
         const SafeArea(
           child: SizedBox(
