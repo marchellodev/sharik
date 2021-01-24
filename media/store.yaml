@@ -18,7 +18,7 @@ en:
 
     Sharik is entirely free to use, and it contains no ads. Moreover, it's source code is published in GitHub, so everyone can contribute to the development process. If you like it, please leave a star on our GitHub repository, and consider making a contribution: add a new language or help us with code.
 
-    Sharik is created using in Dart, Flutter, Hover.build, and Golang. Shaik is published under an open license (MIT).
+    Sharik is created using in Dart, Flutter, Hover.build, and Golang. Sharik is published under an open license (MIT).
 
 
     YOU CAN SEND:
@@ -36,6 +36,7 @@ en:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK IS ALSO AVAILABLE FOR:
       - Windows
@@ -87,6 +88,7 @@ ar:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     شارك متوفر أيضا لـ:
       - نظام الويندوز
@@ -133,6 +135,7 @@ ru:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK ТАКЖЕ ДОСТУПЕН ДЛЯ:
       - Windows (Виндовс)
@@ -179,6 +182,7 @@ uk:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK ТАКОЖ ДОСТУПНИЙ ДЛЯ:
       - Windows (Віндовс)
@@ -226,6 +230,7 @@ pl:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK JEST RÓWNIEŻ DOSTĘPNY DLA:
       - Windows
@@ -270,6 +275,7 @@ in-gu:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     Sharik પણ આ માટે ઉપલબ્ધ છે:
       - Windows
@@ -316,6 +322,7 @@ in-hi:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK के लिए भी उपलब्ध है:
       - Windows
@@ -349,7 +356,7 @@ in-hi:
 
     O Sharik é totalmente livre para usar, e não contém anúncios. Além disso, seu código fonte é publicado no GitHub, para que todos possam contribuir no processo de desenvolvimento. Se você gostar, por favor clique numa estrela em nosso repositório do GitHub, e considere fazer uma contribuição: adicione um novo idioma ou nos ajude com o código.
 
-    Sharik é criado usando Dart, Flutter, Hover.build, e Golang. Shaik é publicado sob uma licença livre (MIT).
+    Sharik é criado usando Dart, Flutter, Hover.build, e Golang. Sharik é publicado sob uma licença livre (MIT).
 
 
     VOCÊ PODE ENVIAR:
@@ -368,6 +375,7 @@ in-hi:
       - Ukrainian (Українська)
       - Portuguese (Português do Brasil)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK TAMBÉM ESTÁ DISPONÍVEL PARA:
       - Windows
@@ -419,6 +427,7 @@ sk:
       - Polski (Polski)
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
+      - Turkish (Türkçe)
 
     SHARIK JE K DISPOZÍCII PRE:
       - Windows
@@ -431,3 +440,55 @@ sk:
 
 
     Stiahnite si Sharik hneď teraz!
+
+tr:
+  # 50 characters
+  Name: "Sharik - WI-FI ile dosya paylaşımı"
+  # 60 characters
+  Very short description: "Sharik kendi yerel ağınız içerisinde kolayca dosya paylaşmanızı sağlar"
+  # 80 characters
+  Short description: "Yerel bir ağda dosya paylaşmak için açık kaynak, çok platformlu bir çözüm"
+  # 4000 characters
+  Full description: |
+    Sharik Wi-Fi veya Mobil Kablosuz Erişim Noktası aracılığıyla dosya paylaşmak için açık kaynak, çok platformlu bir çözümdür.
+
+
+    Bu uygulama aynı ağa bağlı her çeşit aygıtlara kolayca fotoğraf, uygulama, dosya, metin, yani herhangi bir şeyi kolayca göndermenizi sağlar. Kullanışlı ve bariz bir şekilde hızlıdır.
+
+    Bir dil seçtikten ve girişi geçtikten sonra, paylaşma düğmelerini ve en son paylaştığınız dosyaları ana ekranda görebilirsiniz. Bu noktada resimler, dosyalar, kurulu uygulamalar veya basitçe metinleri paylaşabilirsiniz. Dosyayı seçtikten sonra, Paylaşma ekranı görüntülenecektir. Bu ekranda bağlantı durumunuzu (Wi-Fi/Mobil Kablosuz Erişim Noktası) ve diğer aygıtta açmanız gereken URL'yi göreceksiniz. Bu URL'yi diğer aygıtta tarayıcıda yazıp Enter'a tıkladığınızda, dosya indirilmeye başlayacaktır. Her iki aygıtın da aynı ağa bağlı olduğundan emin olun.
+
+    Sharik'in her iki aygıtta kurulu olduğunu varsayalım. Bu durumda, bir bilgisayardaki dosyayı paylaştıktan sonra, diğer Sharik uygulamasında aşağıdaki panelde "Al" düğmesine tıklayabilirsiniz. Tıkladıktan sonra, Alıcı ekranı gösterilecektir. Eğer Sharik başka bir aygıtın yerel ağınızda bir şey paylaştığını gördüğünde burada görüntüleyecektir. Böylece ona tıklayabilirsiniz ve tarayıcı onu açacak ve indirme başlayacaktır.
+
+    Sharik tamamen ücretsizdir ve reklam içermez. Üstelik kaynak kodu GitHub'ta yayınlanıyor, böylece herkes geliştirme sürecine katkı sağlayabilir. Eğer beğendiyseniz lütfen GitHub deposuna bir yıldız bırakın ve katkı sağlamayı düşünün: yeni bir dil ekleyin veya kodlamaya yardımcı olun.
+
+    Sharik Dart, Flutter, Hover.build, ve Golang ile oluşturuldu. Sharik açık bir lisansla (MIT) yayınlanıyor.
+
+
+    GÖNDEREBİLECEKLERİNİZ:
+      1. Fotoğraflar (jpg, png, gif, vb.)
+      2. Uygulamalar (apk)
+      3. Dosyalar (zip, rar, 7z, pdf, vb.)
+      4. Metin
+
+    SHARIK ŞU DİLLERDE MEVCUT:
+      - English (English)
+      - Arabic (عربي)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+      - Slovak (Slovenčina)
+      - Turkish (Türkçe)
+
+    SHARIK ŞU PLATFORMLARDA MEVCUT:
+      - Windows
+      - macOS
+      - Linux
+      - Android
+      - iOS
+
+    GitHub sayfası: https://github.com/marchellodev/sharik
+
+
+    Sharik'i hemen şimdi indirin!
