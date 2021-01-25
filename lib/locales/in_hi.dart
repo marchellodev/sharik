@@ -1,58 +1,58 @@
 // https://siddhmistry.surge.sh
 
 Map<String, String> get getInHi => {
-      'CONNECT': 'जुडिये',
+      'CONNECT': 'संबंध जोड़ें',
       'Connect devices to the same network - use Wi-Fi or Mobile Hotspot':
-          'डिवाइस को एक ही नेटवर्क से कनेक्ट करें - वाई-फाई या मोबाइल हॉटस्पॉट का उपयोग करें',
+          'सभी उपकरणों को WiFi अथवा Hotspot के माध्यम से एक साथ जोड़िए।',
       'SEND': 'भेजें',
-      'Select any file you like': 'अपनी पसंद की कोई भी फाइल चुनें',
-      'RECEIVE': 'प्राप्त करना',
+      'Select any file you like': 'किसी भी पसंदीदा फाइल का चयन करें।',
+      'RECEIVE': 'प्राप्त करें',
       'Open given link on another device in any browser':
-          'किसी भी ब्राउज़र में किसी अन्य डिवाइस पर दिया गया लिंक खोलें',
-      'DONE': 'किया हुआ',
-      'NEXT': 'आगे',
+          'किसी भी डिवाइस के ब्राउज़र पर दिया गया लिंक खोलें।',
+      'DONE': 'संपूर्ण हुआ',
+      'NEXT': 'अगला',
       'loading...': 'लोड हो रहा है...',
       'Mobile Hotspot': 'मोबाइल हॉटस्पॉट',
-      'Connect to': 'जुड़े',
-      'or set up a': 'या सेट अप ए',
-      ' Mobile Hotspot': ' मोबाइल हॉटस्पॉट',
-      'Not connected': 'जुड़े नहीं हैं',
-      'Now open this link': 'अब इस लिंक को ओपन करें',
-      'in any browser': 'किसी भी ब्राउज़र में',
+      'Connect to': '',
+      'or set up a': 'अथवा',
+      ' Mobile Hotspot': 'Mobile Hotspot के माध्यम से जुड़ें',
+      'Not connected': 'जुड़ाव नहीं हुआ',
+      'Now open this link': 'दिए गए लिंक को',
+      'in any browser': 'किसी भी ब्राउज़र में खोलें',
       'The recipient needs to be connected':
-          'प्राप्तकर्ता को कनेक्ट करने की आवश्यकता है',
-      'to the same network': 'एक ही नेटवर्क के लिए',
-      'Select file': 'फ़ाइल का चयन करें',
+          'प्राप्तकर्ता को एक ही नेटवर्क से जुड़ने',
+      'to the same network': 'की आव्यसक्ता है।',
+      'Select file': 'पसंदीदा फाइल चुनें',
       'Latest': 'नवीनतम',
       'Undefined': 'अपरिभाषित',
-      'EVERYWHERE': 'हर जगह',
+      'EVERYWHERE': 'सभी जगह',
       'Sharik is available for Android, Windows, MacOS and Linux!':
           'एंड्रॉइड, विंडोज, मैकओएस और लिनक्स के लिए शारिक उपलब्ध है!',
-      'Click here to learn more': 'और जानने के लिए यहां क्लिक करे',
-      'Copied to Clipboard': 'क्लिपबोर्ड पर नकल',
-      'Type some text': 'कुछ टेक्स्ट टाइप करें',
+      'Click here to learn more': 'अधिक जानकारी के लिए यहां दबाएं',
+      'Copied to Clipboard': 'नकल उतार लिया गया',
+      'Type some text': 'कुछ लिखें',
       'Close': 'बंद करे',
-      'Send': 'संदेश',
-      'Text': 'टेक्स्ट',
+      'Send': 'भेजें',
+      'Text': 'लिखें',
       'App': 'ऐप',
       'Hide system apps': 'सिस्टम ऐप्स छिपाएं',
-      'Hide non-launchable apps': 'गैर-प्रशंसनीय एप्लिकेशन छिपाएँ',
-      'Search': 'खोज',
+      'Hide non-launchable apps': 'न खुलने वाले ऐप छिपाएँ',
+      'Search': 'खोज करें',
       //v2.1
       'Updates': 'अपडेट',
       'The latest version is already installed':
           'नवीनतम संस्करण पहले से ही स्थापित है',
       'Current version': 'वर्तमान संस्करण',
       'The latest version': 'नवीनतम संस्करण',
-      'Changelog': 'बदलाव का',
+      'Changelog': 'किए गए बदलाव',
 
       //v2.2
-      'Receiver': 'रिसीवर',
+      'Receiver': 'प्राप्त करें',
 
       //v2.4 (fonts)
       'Andika': 'Mukta',
       'Comfortaa': 'Pragati Narrow',
 
       //v2.5 (ios)
-      'Gallery': 'गेलरी'
+      'Gallery': 'गैलेरी'
     };
