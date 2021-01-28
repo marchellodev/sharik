@@ -46,8 +46,8 @@ Map<String, String> get getFa => {
       'Receiver': 'دریافت کننده',
 
       //v2.4 (fonts)
-      'Andika': 'Tajawal',
-      'Comfortaa': 'Changa',
+      'Andika': 'yekan',
+      'Comfortaa': 'yekan',
 
       //v2.5 (ios)
       'Gallery': 'گالری'
