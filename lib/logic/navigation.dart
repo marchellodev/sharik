@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sharik/screens/home.dart';
 import 'package:sharik/screens/intro.dart';
-import 'package:sharik/screens/language.dart';
+import 'package:sharik/screens/languages.dart';
 import 'package:sharik/screens/loading.dart';
 import 'package:sharik/screens/share.dart';
 

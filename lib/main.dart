@@ -19,7 +19,7 @@ import 'wrapper.dart';
 
 // todo move into provider / bloc
 // todo accessibility
-// todo make sure /screens/language.dart not package:sharik/
+// todo make sure /screens/languages.dart not package:sharik/
 
 Future<void> main() async {
   if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {

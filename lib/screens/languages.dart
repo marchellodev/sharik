@@ -12,7 +12,6 @@ import '../utils/helper.dart';
 class LanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       physics: const BouncingScrollPhysics(),
@@ -35,10 +34,7 @@ class LanguageScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        for (var lang in languageList) ...[
-          LanguageButton(lang),
-          const SizedBox(height: 6)
-        ],
+        for (var lang in languageList) ...[LanguageButton(lang), const SizedBox(height: 6)],
       ],
     );
   }
@@ -51,9 +47,9 @@ class LanguageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext c) => Padding(
-        padding: const EdgeInsets.only(bottom: 14),
+        padding: const EdgeInsets.only(bottom: 10),
         child: SizedBox(
-            height: 88,
+            height: 78,
             child: Material(
               borderRadius: BorderRadius.circular(12),
               color: Colors.deepPurple[400],
@@ -66,20 +62,19 @@ class LanguageButton extends StatelessWidget {
                 },
                 child: Stack(
                   children: <Widget>[
+                    Align(
+                      alignment: Alignment.centerRight,
+                      // margin: const EdgeInsets.all(6),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SvgPicture.asset(
+                          'assets/flags/${language.name}.svg',
+                        ),
+                      ),
+                    ),
                     Center(
                         child: Text(language.nameLocal,
-                            style: GoogleFonts.getFont(
-                                language.localizations.fontAndika,
-                                color: Colors.white,
-                                fontSize: 24))),
-                    Container(
-                      margin: const EdgeInsets.all(6),
-                      child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: SvgPicture.asset(
-                            'assets/flags/${language.name}.svg',
-                          )),
-                    )
+                            style: GoogleFonts.getFont(language.localizations.fontAndika, color: Colors.white, fontSize: 24))),
                   ],
                 ),
               ),

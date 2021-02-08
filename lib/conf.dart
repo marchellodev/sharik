@@ -5,10 +5,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_fa.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_gu.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_hi.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_ml.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_pl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ru.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_ml.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
 import 'package:sharik/logic/language.dart';
 
 List<int> get ports => [50500, 50050, 56789, 56788];
@@ -47,6 +50,18 @@ List<Language> get languageList => [
           locale: const Locale('fa'),
           localizations: AppLocalizationsFa()),
       Language(
+          // 90 million
+          name: 'brazilian_portuguese',
+          nameLocal: 'português brasileiro',
+          locale: const Locale('pt_br'),
+          localizations: AppLocalizationsBr()),
+      Language(
+          // 80 million
+          name: 'turkish',
+          nameLocal: 'Türkçe',
+          locale: const Locale('tr'),
+          localizations: AppLocalizationsTr()),
+      Language(
           // 60 million (56+4)
           name: 'gujarati',
           nameLocal: 'ગુજરાતી',
@@ -69,5 +84,11 @@ List<Language> get languageList => [
           name: 'ukrainian',
           nameLocal: 'Українська',
           locale: const Locale('uk'),
-          localizations: AppLocalizationsUk())
+          localizations: AppLocalizationsUk()),
+      Language(
+          // 5 million
+          name: 'slovak',
+          nameLocal: 'Slovenčina',
+          locale: const Locale('sk'),
+          localizations: AppLocalizationsSk())
     ];
