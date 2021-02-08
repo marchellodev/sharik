@@ -22,7 +22,7 @@ import 'wrapper.dart';
 // todo make sure /screens/language.dart not package:sharik/
 
 Future<void> main() async {
-  if(Platform.isLinux || Platform.isWindows || Platform.isMacOS){
+  if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
     WidgetsFlutterBinding.ensureInitialized();
 
     screen.setWindowMinSize(const Size(440, 680));
@@ -91,7 +91,7 @@ class SharikApp extends StatelessWidget {
       supportedLocales: languageList.map((e) => e.locale),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        resizeToAvoidBottomPadding: false,
+//        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         body: AppWrapper(),
       ),
@@ -102,24 +102,20 @@ class SharikApp extends StatelessWidget {
 Future<void> _initAnalytics() async {
   Analytics ga;
   if (Platform.isAndroid || Platform.isIOS) {
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
-        documentDirectory: await getApplicationDocumentsDirectory());
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
   } else {
     File('storage/.sharik').create(recursive: true);
 
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
-        documentDirectory: Directory('storage'));
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
   }
 
   ga.sendEvent('pages', 'app_open');
-  ga.sendEvent('app_open',
-      'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
+  ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 }
 
 class ScrollBehaviour extends ScrollBehavior {
   @override
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
+  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
   }
 }

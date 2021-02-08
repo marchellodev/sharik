@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter_gen/gen_l10n/app_localizations_ar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_fa.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_gu.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_hi.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_pl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ru.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_ml.dart';
 import 'package:sharik/logic/language.dart';
 
 List<int> get ports => [50500, 50050, 56789, 56788];
@@ -39,6 +41,12 @@ List<Language> get languageList => [
           locale: const Locale('ru'),
           localizations: AppLocalizationsRu()),
       Language(
+          // 110 million
+          name: 'farsi',
+          nameLocal: 'فارسی',
+          locale: const Locale('fa'),
+          localizations: AppLocalizationsFa()),
+      Language(
           // 60 million (56+4)
           name: 'gujarati',
           nameLocal: 'ગુજરાતી',
@@ -50,6 +58,12 @@ List<Language> get languageList => [
           nameLocal: 'Polski',
           locale: const Locale('pl'),
           localizations: AppLocalizationsPl()),
+      Language(
+          // 45 million
+          name: 'malayalam',
+          nameLocal: 'മലയാളം',
+          locale: const Locale('ml'),
+          localizations: AppLocalizationsMl()),
       Language(
           // 40 million
           name: 'ukrainian',

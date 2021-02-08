@@ -21,7 +21,7 @@ Map<String, String> get getTr => {
       'Latest': 'En son',
       'Undefined': 'Tanımsız',
       'EVERYWHERE': 'HERYERDE',
-      'Sharik is available for Android, Windows, MacOS and Linux!': 'Sharik Android, Windows, MacOS ve Linux'te mevcut!',
+      'Sharik is available for Android, Windows, MacOS and Linux!': 'Sharik Android, Windows, MacOS ve Linux\'te mevcut!',
       'Click here to learn more': 'Daha fazlasını öğrenmek için buraya tıklayın',
       'Copied to Clipboard': 'Panoya Kopyalandı',
       'Type some text': 'Biraz metin yazın',

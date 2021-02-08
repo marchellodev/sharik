@@ -36,8 +36,10 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 - Gujarati and Hindi by [mrfoxie](https://github.com/mrfoxie)
 - Arabic by [Yazeed AlKhalaf](https://github.com/YazeedAlKhalaf)
 - Brazilian Portuguese by [mezysinc](https://github.com/mezysinc)
-- Slovak (slovenčina) by [Tibor Repček](https://github.com/tiborepcek/)
-- Turkish (Türkçe) by [T. E. Kalaycı](https://github.com/tekrei/)
+- Slovak (slovenčina) by [Tibor Repček](https://github.com/tiborepcek)
+- Turkish (Türkçe) by [T. E. Kalaycı](https://github.com/tekrei)
+- Farsi by [behzad-njf](https://github.com/behzad-njf)
+- Malayalam by [zcraber](https://github.com/zcraber)
 
 ## Platforms
 - Android
