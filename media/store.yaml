@@ -38,6 +38,7 @@ en:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK IS ALSO AVAILABLE FOR:
       - Windows
@@ -90,6 +91,7 @@ fa:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     همچنین شریک برای این پلتفرم ها موجود می باشد:
       - Windows
@@ -143,6 +145,7 @@ ar:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     شارك متوفر أيضا لـ:
       - نظام الويندوز
@@ -191,6 +194,7 @@ ru:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK ТАКЖЕ ДОСТУПЕН ДЛЯ:
       - Windows (Виндовс)
@@ -239,6 +243,7 @@ uk:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK ТАКОЖ ДОСТУПНИЙ ДЛЯ:
       - Windows (Віндовс)
@@ -288,6 +293,7 @@ pl:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK JEST RÓWNIEŻ DOSTĘPNY DLA:
       - Windows
@@ -334,6 +340,7 @@ in-gu:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     Sharik પણ આ માટે ઉપલબ્ધ છે:
       - Windows
@@ -382,6 +389,7 @@ in-hi:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK के लिए भी उपलब्ध है:
       - Windows
@@ -436,6 +444,7 @@ in-hi:
       - Portuguese (Português do Brasil)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK TAMBÉM ESTÁ DISPONÍVEL PARA:
       - Windows
@@ -489,6 +498,7 @@ sk:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK JE K DISPOZÍCII PRE:
       - Windows
@@ -542,6 +552,7 @@ tr:
       - Ukrainian (Українська)
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
 
     SHARIK ŞU PLATFORMLARDA MEVCUT:
       - Windows
@@ -595,6 +606,7 @@ ml:
       - Slovak (Slovenčina)
       - Turkish (Türkçe)
       - Malayalam (മലയാളം)
+      - Chinese Simplified (简体中文)
 
     ഷെയറിക് താഴെപ്പറയുന്ന പ്ലാറ്റ്‌ഫോമുകളിൽ ലഭ്യമാണ്:
       - വിൻഡോസ്
@@ -607,3 +619,55 @@ ml:
 
 
     ഇപ്പോൾ തന്നെ ഷെയറിക് ഡൗൺലോഡ് ചെയ്യുക!
+
+zh_Hans:
+  # 50 characters
+  Name: "Sharik - 通过 WI-FI 分享文件"
+  # 60 characters
+  Very short description: "Sharik 使你方便地通过本地网络分享文件"
+  # 80 characters
+  Short description: "一个开源跨平台的本地网络文件分享解决方案"
+  # 4000 characters
+  Full description: |
+    Sharik十一个开源跨平台的通过Wi-Fi或手机热点分享文件的解决方案。
+
+    这个应用帮助你方便地发送照片、应用、文件、文本等几乎任何东西到所有连接到相同网络的设备上，方便快捷。
+
+    通过引导页面选择一种语言后，你可以在主屏幕看到分享按钮和最近分享的文件。在这个项目中，你可以分享图像、文件、安装过的应用或者一些简单的文本内容。选择文件后，你将进入文件分享页面，在这里你可以查看你的连接状态（Wi-Fi或手机热点）和你需要在其他设备输入的URL。在其他设备的浏览器输入这个URL并回车后，你分享的文件将开始下载。请保证所有设备已被连接至相同网络。
+
+    考虑到你可能在多台设备安装了Sharik，此时在一台设备分享文件后，你只需要简单点击另一台设备的Sharik底部面板上的“接收”按钮。点击后将展示接收界面，如果Sharik发现你的本地网络中的另一台设备正在分享东西，它将会被展示在这里。你可以点击它，然后浏览器会被打开，自动开始下载。
+
+    Sharik使用上完全免费，并且没有广告。另外，Sharik的源代码发布在Github，所以任何人都可以参与开发。如果你喜欢Sharik，请到Github仓库点一个star，并考虑参与贡献：添加一门新的语言翻译或者贡献代码。
+
+    Sharik使用Dart、Flutter、Hover.build和Golang开发并基于MIT开源协议发布。
+
+    你可以发送：
+      1. 图像 (jpg, png, gif, etc)
+      2. 应用 (apk)
+      3. 文件 (zip, rar, 7z, pdf, etc)
+      4. 文本
+
+    SHARIK在这些语言下可用:
+      - English (English)
+      - Persian (فارسی)
+      - Arabic (عربي)
+      - Hindi (हिन्दी)
+      - Russian (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polski (Polski)
+      - Ukrainian (Українська)
+      - Slovak (Slovenčina)
+      - Turkish (Türkçe)
+      - Chinese Simplified (简体中文)
+
+    SHARIK支持下列平台:
+      - Windows
+      - macOS
+      - Linux
+      - Android
+      - iOS
+
+    GitHub page: https://github.com/marchellodev/sharik
+
+
+    立即下载Sharik！
