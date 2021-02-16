@@ -32,6 +32,7 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 
 ### Translators
 
+- Persian by [Behzad NjF](https://github.com/behzad-njf)
 - Polish by [Atrate](https://github.com/Atrate)
 - Gujarati and Hindi by [mrfoxie](https://github.com/mrfoxie)
 - Arabic by [Yazeed AlKhalaf](https://github.com/YazeedAlKhalaf)
