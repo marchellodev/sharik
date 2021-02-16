@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sharik/screens/home.dart';
+import 'package:sharik/screens/about.dart';
+import 'package:sharik/screens/dashboard.dart';
 import 'package:sharik/screens/intro.dart';
 import 'package:sharik/screens/languages.dart';
 import 'package:sharik/screens/loading.dart';
@@ -18,6 +19,7 @@ class NavigationManager {
   set page(NPage page) {
     _page = page;
     _onChange(_page);
+
   }
 }
 
@@ -48,4 +50,10 @@ class HomePage extends NPage {
 class SharingPage extends NPage {
   @override
   Widget get widget => SharingScreen();
+}
+
+
+class AboutPage extends NPage {
+  @override
+  Widget get widget => AboutScreen();
 }

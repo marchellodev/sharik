@@ -1,13 +1,14 @@
 # ![App logo](media/banner.png)
 [![License badge](https://img.shields.io/github/license/marchellodev/sharik)](https://github.com/marchellodev/sharik/blob/master/LICENSE)
 [![Version badge](https://img.shields.io/github/v/release/marchellodev/sharik)](https://github.com/marchellodev/sharik/releases)
-[![sharik-app](https://snapcraft.io//sharik-app/badge.svg)](https://snapcraft.io/sharik-app)
+[![sharik-app](https://snapcraft.io/sharik-app/badge.svg)](https://snapcraft.io/sharik-app)
+[![f-droid](https://img.shields.io/f-droid/v/dev.marchello.sharik)](https://f-droid.org/en/packages/dev.marchello.sharik)
 [![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
 [![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
 
 ![Android](https://img.shields.io/badge/OS-Android-informational?logo=Android)
-![iOS](https://img.shields.io/badge/OS-Windows-informational?logo=ios)
+![iOS](https://img.shields.io/badge/OS-IOS-informational?logo=apple)
 ![Linux](https://img.shields.io/badge/OS-Linux-informational?logo=linux)
 ![Mac](https://img.shields.io/badge/OS-Mac-informational?logo=apple)
 ![Windows](https://img.shields.io/badge/OS-Windows-informational?logo=windows)
@@ -53,6 +54,7 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 
 
 ### Android
+<a href='https://f-droid.org/en/packages/dev.marchello.sharik'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en-us.png' width="200"/></a>
 <a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
 
 - [For all architectures](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android.apk)

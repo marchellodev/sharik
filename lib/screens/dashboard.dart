@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info/package_info.dart';
 import 'package:ping_discover_network/ping_discover_network.dart';
+import 'package:sharik/logic/navigation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
@@ -29,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // _model = Provider.of<AppModel>(context, listen: false);
-    final _ = cast<List>(Hive.box('app2').get('latest')) ?? [];
+    // final _ = cast<List>(Hive.box('app2').get('latest')) ?? [];
 
-    _latest = _.cast<FileModel>();
+    // _latest = _.cast<FileModel>();
     super.initState();
   }
 
@@ -481,6 +482,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const Spacer(),
+            // todo make it into a component
             Material(
               color: Colors.deepPurple[100],
               borderRadius: BorderRadius.circular(8),
@@ -488,85 +490,86 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(8),
                 splashColor: Colors.deepPurple[400],
                 onTap: () {
+                  context.n.page = AboutPage();
                   //todo: refactor
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => FutureBuilder(
-                          future: () async {
-                            final info = await PackageInfo.fromPlatform();
-                            final v =
-                                '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
-
-                            final response = await http.read(
-                                'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
-
-                            return jsonDecode(response);
-                          }(),
-                          builder: (_, AsyncSnapshot snapshot) => AlertDialog(
-                                title: Text(
-                                  c.l.homeUpdates,
-                                  style: GoogleFonts.getFont(c.l.fontComfortaa,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                // todo create model for this
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (!snapshot.hasData)
-                                      const CircularProgressIndicator()
-                                    else if (snapshot.data['latest'] == null ||
-                                        cast<bool>(snapshot.data['latest']) ||
-                                        !cast<bool>(snapshot.data['ok']))
-                                      Text(c.l.homeUpdatesTheLatestVersionIsInstalled,
-                                          style: GoogleFonts.getFont(
-                                              c.l.fontAndika))
-                                    else
-                                      changelog(c, cast<Map>(snapshot.data)),
-                                  ],
-                                ),
-                                actions: [
-                                  if (Platform.isAndroid &&
-                                      snapshot.hasData &&
-                                      cast<bool>(snapshot.data['ok']) &&
-                                      !cast<bool>(snapshot.data['latest']))
-                                    FlatButton(
-                                      onPressed: () async {
-                                        if (await canLaunch(
-                                            'https://play.google.com/store/apps/details?id=dev.marchello.sharik')) {
-                                          await launch(
-                                              'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
-                                        }
-                                      },
-                                      child: Text('Play Store',
-                                          style: GoogleFonts.andika()),
-                                    ),
-                                  if (snapshot.hasData &&
-                                      cast<bool>(snapshot.data['ok']) &&
-                                      !cast<bool>(snapshot.data['latest']))
-                                    FlatButton(
-                                      onPressed: () async {
-                                        if (await canLaunch(
-                                            'https://github.com/marchellodev/sharik')) {
-                                          await launch(
-                                              'https://github.com/marchellodev/sharik');
-                                        }
-                                      },
-                                      child: Text('GitHub',
-                                          style: GoogleFonts.andika()),
-                                    ),
-                                  FlatButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: Text(
-                                      c.l.generalClose,
-                                      style:
-                                          GoogleFonts.getFont(c.l.fontAndika),
-                                    ),
-                                  )
-                                ],
-//                                  scrollable: true,
-                              )));
+//                   showDialog(
+//                       context: context,
+//                       builder: (BuildContext context) => FutureBuilder(
+//                           future: () async {
+//                             final info = await PackageInfo.fromPlatform();
+//                             final v =
+//                                 '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
+//
+//                             final response = await http.read(
+//                                 'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
+//
+//                             return jsonDecode(response);
+//                           }(),
+//                           builder: (_, AsyncSnapshot snapshot) => AlertDialog(
+//                                 title: Text(
+//                                   c.l.homeUpdates,
+//                                   style: GoogleFonts.getFont(c.l.fontComfortaa,
+//                                       fontWeight: FontWeight.w700),
+//                                 ),
+//                                 // todo create model for this
+//                                 content: Column(
+//                                   mainAxisSize: MainAxisSize.min,
+//                                   mainAxisAlignment: MainAxisAlignment.center,
+//                                   children: [
+//                                     if (!snapshot.hasData)
+//                                       const CircularProgressIndicator()
+//                                     else if (snapshot.data['latest'] == null ||
+//                                         cast<bool>(snapshot.data['latest']) ||
+//                                         !cast<bool>(snapshot.data['ok']))
+//                                       Text(c.l.homeUpdatesTheLatestVersionIsInstalled,
+//                                           style: GoogleFonts.getFont(
+//                                               c.l.fontAndika))
+//                                     else
+//                                       changelog(c, cast<Map>(snapshot.data)),
+//                                   ],
+//                                 ),
+//                                 actions: [
+//                                   if (Platform.isAndroid &&
+//                                       snapshot.hasData &&
+//                                       cast<bool>(snapshot.data['ok']) &&
+//                                       !cast<bool>(snapshot.data['latest']))
+//                                     FlatButton(
+//                                       onPressed: () async {
+//                                         if (await canLaunch(
+//                                             'https://play.google.com/store/apps/details?id=dev.marchello.sharik')) {
+//                                           await launch(
+//                                               'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
+//                                         }
+//                                       },
+//                                       child: Text('Play Store',
+//                                           style: GoogleFonts.andika()),
+//                                     ),
+//                                   if (snapshot.hasData &&
+//                                       cast<bool>(snapshot.data['ok']) &&
+//                                       !cast<bool>(snapshot.data['latest']))
+//                                     FlatButton(
+//                                       onPressed: () async {
+//                                         if (await canLaunch(
+//                                             'https://github.com/marchellodev/sharik')) {
+//                                           await launch(
+//                                               'https://github.com/marchellodev/sharik');
+//                                         }
+//                                       },
+//                                       child: Text('GitHub',
+//                                           style: GoogleFonts.andika()),
+//                                     ),
+//                                   FlatButton(
+//                                     onPressed: () =>
+//                                         Navigator.of(context).pop(),
+//                                     child: Text(
+//                                       c.l.generalClose,
+//                                       style:
+//                                           GoogleFonts.getFont(c.l.fontAndika),
+//                                     ),
+//                                   )
+//                                 ],
+// //                                  scrollable: true,
+//                               )));
                 },
                 child: Container(
                   margin:

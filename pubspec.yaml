@@ -79,6 +79,7 @@ flutter:
   assets:
     - assets/slides/
     - assets/flags/
+    - assets/icons/social
     - assets/
     - google_fonts/
 
