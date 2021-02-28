@@ -25,29 +25,34 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _latest = <FileModel>[];
+  List<FileModel> _latest = <FileModel>[];
 
   @override
   void initState() {
-    // _model = Provider.of<AppModel>(context, listen: false);
-    // final _ = cast<List>(Hive.box('app2').get('latest')) ?? [];
+    _latest =  Hive.box<FileModel>('history').values.toList();
 
-    // _latest = _.cast<FileModel>();
     super.initState();
   }
 
-  void saveLatest() {
-    Hive.box('app2').put('latest', _latest);
+  Future<void> saveLatest()async {
+   await Hive.box<FileModel>('history').clear();
+   await Hive.box<FileModel>('history').addAll(_latest);
+   print('wrote');
+   print(Hive.box<FileModel>('history').values.length);
   }
 
-  void shareFile(FileModel file) {
+  Future<void> shareFile(FileModel file) async {
     setState(() {
       if (_latest.contains(file)) _latest.remove(file);
 
       _latest.insert(0, file);
     });
 
-    saveLatest();
+    await saveLatest();
+
+    context.n.file = file;
+    context.n.page = SharingPage();
+
     // _model.file = file;
     // _model.setState(() => _model.setPage(PageModel.sharing));
   }

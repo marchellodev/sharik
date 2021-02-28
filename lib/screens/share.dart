@@ -14,6 +14,7 @@ import 'package:wifi_iot/wifi_iot.dart';
 
 import '../conf.dart';
 import '../models/file.dart';
+import '../utils/helper.dart';
 
 class SharingScreen extends StatefulWidget {
   @override
@@ -268,6 +269,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   void initState() {
     // _model = Provider.of<AppModel>(context, listen: false);
     // _file = _model.file;
+    _file = context.n.file;
 
     ip = 'loading...';
     network = 'loading...';

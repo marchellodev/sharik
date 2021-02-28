@@ -53,6 +53,7 @@ Future<void> main() async {
     return;
   }
   await Hive.openBox<String>('strings');
+  await Hive.openBox<FileModel>('history');
 
   // todo improve analytics
   // _initAnalytics();

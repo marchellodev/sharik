@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sharik/models/file.dart';
 import 'package:sharik/screens/about.dart';
-import 'package:sharik/screens/dashboard.dart';
+import 'package:sharik/screens/home.dart';
 import 'package:sharik/screens/intro.dart';
 import 'package:sharik/screens/languages.dart';
 import 'package:sharik/screens/loading.dart';
@@ -11,6 +12,7 @@ import 'package:sharik/screens/share.dart';
 class NavigationManager {
   NPage _page = HomePage();
   Function(NPage page) _onChange;
+  FileModel file;
 
   NPage get page => _page;
 
@@ -23,8 +25,12 @@ class NavigationManager {
   }
 }
 
+// todo use enum instead
+
 abstract class NPage {
   Widget get widget;
+
+  const NPage();
 }
 
 class LoadingPage extends NPage {

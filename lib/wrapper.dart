@@ -80,6 +80,8 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
   }
 
   Future<void> init() async {
+    // todo init all of the stuff here
+
     if (Hive.box<String>('strings').containsKey('language')) {
       context.n.page = HomePage();
     } else {
@@ -139,7 +141,7 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
                   }
                   return false;
                 },
-                child: SharingPage().widget),
+                child:SharingPage().widget),
             AboutScreen()
           ]))
         ],
