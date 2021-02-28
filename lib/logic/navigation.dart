@@ -9,7 +9,7 @@ import 'package:sharik/screens/share.dart';
 // todo think about this organization once again
 
 class NavigationManager {
-  NPage _page = LanguagePage();
+  NPage _page = HomePage();
   Function(NPage page) _onChange;
 
   NPage get page => _page;

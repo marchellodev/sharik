@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sharik/screens/about.dart';
 
 import 'components/logo.dart';
 import 'logic/navigation.dart';
+import 'utils/helper.dart';
 
 class AppWrapper extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    _pagerGlobal = TabController(vsync: this, length: 4, initialIndex: 1);
+    _pagerGlobal = TabController(vsync: this, length: 4);
     _pagerHome = TabController(vsync: this, length: 3);
 
     if (Platform.isAndroid) {
@@ -72,7 +74,17 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
       }
     };
 
+    init();
+
     super.initState();
+  }
+
+  Future<void> init() async {
+    if (Hive.box<String>('strings').containsKey('language')) {
+      context.n.page = HomePage();
+    } else {
+      context.n.page = LanguagePage();
+    }
   }
 
   @override
@@ -85,13 +97,13 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
 
       IntroPage().widget,
       Column(
-        children: <Widget>[
+        children: [
           SafeArea(
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
               child: Stack(
                 alignment: Alignment.centerLeft,
-                children: <Widget>[
+                children: [
                   SharikLogo(),
                   // todo consider using context.select
                   // Consumer<NavigationManager>(builder: (BuildContext context, NavigationManager model, child) {
@@ -113,25 +125,23 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-              child: TabBarView(
-                  physics: showBackButton ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-                  controller: _pagerHome,
-                  children: <Widget>[
-                Builder(
-                  builder: (context) => HomePage().widget,
-                ),
-                WillPopScope(
-                    onWillPop: () async {
-                      if (showBackButton) {
-                        // todo use shortcut for that
-                        setState(() => context.read<NavigationManager>().page = HomePage());
-                        _removeTemporaryDir();
-                      }
-                      return false;
-                    },
-                    child: SharingPage().widget),
-                 AboutScreen()
-              ]))
+              child:
+                  TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _pagerHome, children: <Widget>[
+            Builder(
+              builder: (context) => HomePage().widget,
+            ),
+            WillPopScope(
+                onWillPop: () async {
+                  if (showBackButton) {
+                    // todo use shortcut for that
+                    setState(() => context.read<NavigationManager>().page = HomePage());
+                    _removeTemporaryDir();
+                  }
+                  return false;
+                },
+                child: SharingPage().widget),
+            AboutScreen()
+          ]))
         ],
       )
     ]);

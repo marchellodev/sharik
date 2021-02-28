@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:usage/usage_io.dart';
 import 'package:window_size/window_size.dart' as screen;
@@ -38,13 +40,15 @@ Future<void> main() async {
     } else {
       Hive.init('storage');
     }
-  } catch (e) {
+  } on Exception catch (_, e) {
     print(e);
+
+    Clipboard.setData(ClipboardData(text: e.toString()));
 
     runApp(const MaterialApp(
         home: Scaffold(
             body: Center(
-      child: Text('Sharik is already running'),
+      child: Text('Sharik is already running. Error copied to clipboard'),
     ))));
     return;
   }
@@ -69,7 +73,7 @@ class SharikApp extends StatelessWidget {
       builder: (_, child) {
         return ResponsiveWrapper.builder(
             ScrollConfiguration(
-              behavior: ScrollBehaviour(),
+              behavior: BouncingScrollBehavior(),
               child: child,
             ),
             maxWidth: 1800,
@@ -91,7 +95,6 @@ class SharikApp extends StatelessWidget {
       supportedLocales: languageList.map((e) => e.locale),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-//        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         body: AppWrapper(),
       ),
@@ -111,11 +114,4 @@ Future<void> _initAnalytics() async {
 
   ga.sendEvent('pages', 'app_open');
   ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
-}
-
-class ScrollBehaviour extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
-    return child;
-  }
 }
