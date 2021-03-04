@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter_gen/gen_l10n/app_localizations_ar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_fa.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_gu.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations_ru.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
 import 'package:sharik/logic/language.dart';
 
 List<int> get ports => [50500, 50050, 56789, 56788];

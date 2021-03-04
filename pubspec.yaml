@@ -45,10 +45,16 @@ dependencies:
   usage: ^4.0.0
 
   intl: ^0.17.0
+  collection: ^1.15.0-nullsafety.4
 
 
   file_selector: ^0.8.2
   file_selector_windows: ^0.0.2
+  file_selector_linux: ^0.0.2
+  file_selector_macos: ^0.0.4
+
+  # Android and IOS
+  file_picker: ^2.1.7
 
 
   # ARCHITECTURE
@@ -61,7 +67,8 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
       ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
-  collection: ^1.15.0-nullsafety.4
+
+
 
 
 

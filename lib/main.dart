@@ -106,13 +106,16 @@ class SharikApp extends StatelessWidget {
 Future<void> _initAnalytics() async {
   Analytics ga;
   if (Platform.isAndroid || Platform.isIOS) {
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
+        documentDirectory: await getApplicationDocumentsDirectory());
   } else {
     File('storage/.sharik').create(recursive: true);
 
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
+        documentDirectory: Directory('storage'));
   }
 
   ga.sendEvent('pages', 'app_open');
-  ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
+  ga.sendEvent('app_open',
+      'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 }

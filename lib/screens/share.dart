@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -118,14 +119,35 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   }
 
   Future getIp() async {
-    return 'localhost';
+    final list = await NetworkInterface.list(type: InternetAddressType.IPv4);
+
+    for (final el in list) {
+      print(el);
+    }
+
+    if (Platform.isAndroid) {
+      final ip = list.firstWhereOrNull((element) => element.name == 'wlan0');
+
+      if (ip != null) {
+        return ip.addresses.first.address;
+      }
+    } else if (Platform.isWindows) {
+      final ip = list.firstWhereOrNull((element) => element.name == 'Wi-Fi');
+
+      if (ip != null) {
+        return ip.addresses.first.address;
+      }
+    }
+
+    if (list.isEmpty) {
+      return 'null';
+    } else {
+      return list[0].addresses.first.address;
+    }
   }
 
   Future<bool> iosHotspot() async {
-    final list = await NetworkInterface.list(
-        includeLinkLocal: false,
-        includeLoopback: false,
-        type: InternetAddressType.IPv4);
+    final list = await NetworkInterface.list(type: InternetAddressType.IPv4);
 
     for (final el in list) {
       if (el.name.startsWith('bridge')) {

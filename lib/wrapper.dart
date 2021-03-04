@@ -91,62 +91,72 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
 
   @override
   Widget build(_) {
-    return TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _pagerGlobal, children: [
-      // todo loading page goes here
-      LoadingPage().widget,
-
-      LanguagePage().widget,
-
-      IntroPage().widget,
-      Column(
+    return TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pagerGlobal,
         children: [
-          SafeArea(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-              child: Stack(
-                alignment: Alignment.centerLeft,
-                children: [
-                  SharikLogo(),
-                  // todo consider using context.select
-                  // Consumer<NavigationManager>(builder: (BuildContext context, NavigationManager model, child) {
-                  //
-                  // },)
-                  if (showBackButton)
-                    IconButton(
-                        onPressed: () {
-                          setState(() => context.read<NavigationManager>().page = HomePage());
+          // todo loading page goes here
+          LoadingPage().widget,
 
-                          _removeTemporaryDir();
-                        },
-                        icon: SvgPicture.asset(
-                          'assets/icon_back.svg',
-                          width: 18,
-                        ))
-                ],
+          LanguagePage().widget,
+
+          IntroPage().widget,
+          Column(
+            children: [
+              SafeArea(
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+                  child: Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      SharikLogo(),
+                      // todo consider using context.select
+                      // Consumer<NavigationManager>(builder: (BuildContext context, NavigationManager model, child) {
+                      //
+                      // },)
+                      if (showBackButton)
+                        IconButton(
+                            onPressed: () {
+                              setState(() => context
+                                  .read<NavigationManager>()
+                                  .page = HomePage());
+
+                              _removeTemporaryDir();
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/icon_back.svg',
+                              width: 18,
+                            ))
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          Expanded(
-              child:
-                  TabBarView(physics: const NeverScrollableScrollPhysics(), controller: _pagerHome, children: <Widget>[
-            Builder(
-              builder: (context) => HomePage().widget,
-            ),
-            WillPopScope(
-                onWillPop: () async {
-                  if (showBackButton) {
-                    // todo use shortcut for that
-                    setState(() => context.read<NavigationManager>().page = HomePage());
-                    _removeTemporaryDir();
-                  }
-                  return false;
-                },
-                child:SharingPage().widget),
-            AboutScreen()
-          ]))
-        ],
-      )
-    ]);
+              Expanded(
+                  child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: _pagerHome,
+                      children: <Widget>[
+                    Builder(
+                      builder: (context) => HomePage().widget,
+                    ),
+                    WillPopScope(
+                        onWillPop: () async {
+                          if (showBackButton) {
+                            // todo use shortcut for that
+                            setState(() => context
+                                .read<NavigationManager>()
+                                .page = HomePage());
+                            _removeTemporaryDir();
+                          }
+                          return false;
+                        },
+                        child: SharingPage().widget),
+                    AboutScreen()
+                  ]))
+            ],
+          )
+        ]);
   }
 
   void _removeTemporaryDir() {

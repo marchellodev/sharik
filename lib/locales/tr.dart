@@ -1,10 +1,12 @@
 Map<String, String> get getTr => {
       'CONNECT': 'BAĞLAN',
-      'Connect devices to the same network - use Wi-Fi or Mobile Hotspot': 'Aygıtları aynı ağa bağla - Wi-Fi veya Mobil Kablosuz Erişim Noktası kullan',
+      'Connect devices to the same network - use Wi-Fi or Mobile Hotspot':
+          'Aygıtları aynı ağa bağla - Wi-Fi veya Mobil Kablosuz Erişim Noktası kullan',
       'SEND': 'GÖNDER',
       'Select any file you like': 'İstediğiniz herhangi bir dosyayı seçin',
       'RECEIVE': 'AL',
-      'Open given link on another device in any browser': 'Verilen bağlantıyı başka bir aygıtta veya herhangi bir tarayıcıda açın',
+      'Open given link on another device in any browser':
+          'Verilen bağlantıyı başka bir aygıtta veya herhangi bir tarayıcıda açın',
       'DONE': 'TAMAM',
       'NEXT': 'SONRAKİ',
       'loading...': 'yükleniyor...',
@@ -21,8 +23,10 @@ Map<String, String> get getTr => {
       'Latest': 'En son',
       'Undefined': 'Tanımsız',
       'EVERYWHERE': 'HERYERDE',
-      'Sharik is available for Android, Windows, MacOS and Linux!': 'Sharik Android, Windows, MacOS ve Linux\'te mevcut!',
-      'Click here to learn more': 'Daha fazlasını öğrenmek için buraya tıklayın',
+      'Sharik is available for Android, Windows, MacOS and Linux!':
+          'Sharik Android, Windows, MacOS ve Linux\'te mevcut!',
+      'Click here to learn more':
+          'Daha fazlasını öğrenmek için buraya tıklayın',
       'Copied to Clipboard': 'Panoya Kopyalandı',
       'Type some text': 'Biraz metin yazın',
       'Close': 'Kapat',

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
 
 import '../conf.dart';
 
@@ -36,8 +36,8 @@ class LanguageManager extends ChangeNotifier {
 
     final locales = WidgetsBinding.instance!.window.locales;
     for (final locale in locales) {
-      final language = languageList.firstWhereOrNull(
-          (element) => element.locale == locale);
+      final language =
+          languageList.firstWhereOrNull((element) => element.locale == locale);
 
       if (language != null) {
         _language = language;

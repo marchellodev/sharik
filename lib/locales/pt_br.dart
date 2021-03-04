@@ -17,7 +17,8 @@ Map<String, String> get getPl => {
       'Not connected': 'Não conectado',
       'Now open this link': 'Agora abra este link',
       'in any browser': 'em qualquer navegador',
-      'The recipient needs to be connected': 'O destinatário precisa estar conectado',
+      'The recipient needs to be connected':
+          'O destinatário precisa estar conectado',
       'to the same network': 'para a mesma rede',
       'Select file': 'Selecionar o arquivo',
       'Latest': 'Mais recentes',

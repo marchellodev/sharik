@@ -21,7 +21,6 @@ class NavigationManager {
   set page(NPage page) {
     _page = page;
     _onChange(_page);
-
   }
 }
 
@@ -57,7 +56,6 @@ class SharingPage extends NPage {
   @override
   Widget get widget => SharingScreen();
 }
-
 
 class AboutPage extends NPage {
   @override

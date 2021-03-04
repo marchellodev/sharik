@@ -37,7 +37,8 @@ Map<String, String> get getSk => {
       'Search': 'Hľadať',
       //v2.1
       'Updates': 'Aktualizácie',
-      'The latest version is already installed': 'Máte nainštalovanú najnovšiu verziu',
+      'The latest version is already installed':
+          'Máte nainštalovanú najnovšiu verziu',
       'Current version': 'Aktuálna verzia',
       'The latest version': 'Najnovšia verzia',
       'Changelog': 'Zoznam zmien',

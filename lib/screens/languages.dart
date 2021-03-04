@@ -34,7 +34,10 @@ class LanguageScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        for (var lang in languageList) ...[LanguageButton(lang), const SizedBox(height: 6)],
+        for (var lang in languageList) ...[
+          LanguageButton(lang),
+          const SizedBox(height: 6)
+        ],
       ],
     );
   }
@@ -74,7 +77,10 @@ class LanguageButton extends StatelessWidget {
                     ),
                     Center(
                         child: Text(language.nameLocal,
-                            style: GoogleFonts.getFont(language.localizations.fontAndika, color: Colors.white, fontSize: 24))),
+                            style: GoogleFonts.getFont(
+                                language.localizations.fontAndika,
+                                color: Colors.white,
+                                fontSize: 24))),
                   ],
                 ),
               ),

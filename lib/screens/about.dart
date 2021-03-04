@@ -15,16 +15,20 @@ class AboutScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Current version', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-            const Text('3.0', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+            Text('Current version',
+                style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+            const Text('3.0',
+                style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
           ],
         ),
         SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('The latest version', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-            const Text('3.1', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+            Text('The latest version',
+                style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+            const Text('3.1',
+                style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
           ],
         ),
         SizedBox(height: 18),
@@ -40,9 +44,13 @@ class AboutScreen extends StatelessWidget {
                   onTap: () async {},
                   child: Container(
                       alignment: Alignment.center,
-                      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
                       child: Text('Update',
-                          style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16, color: Colors.white))),
+                          style: TextStyle(
+                              fontFamily: 'JetBrainsMono',
+                              fontSize: 16,
+                              color: Colors.white))),
                 ),
               ),
             ),
@@ -57,10 +65,14 @@ class AboutScreen extends StatelessWidget {
                   onTap: () {},
                   child: Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                     child: Text(
                       'Changelog',
-                      style: TextStyle(fontSize: 16, color: Colors.deepPurple[700], fontFamily: 'JetBrainsMono'),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepPurple[700],
+                          fontFamily: 'JetBrainsMono'),
                     ),
                   ),
                 ),
@@ -69,8 +81,10 @@ class AboutScreen extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 38),
-        Text('Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :)',
-            textAlign: TextAlign.center, style: GoogleFonts.getFont(context.l!.fontComfortaa, fontSize: 16)),
+        Text(
+            'Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :)',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.getFont(context.l!.fontComfortaa, fontSize: 16)),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +101,8 @@ class AboutScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   width: 52,
                   height: 52,
-                  child: SvgPicture.asset('assets/icons/social/github.svg', width: 26),
+                  child: SvgPicture.asset('assets/icons/social/github.svg',
+                      width: 26),
                 ),
               ),
             ),
@@ -104,7 +119,8 @@ class AboutScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   width: 52,
                   height: 52,
-                  child: SvgPicture.asset('assets/icons/social/telegram.svg', width: 26),
+                  child: SvgPicture.asset('assets/icons/social/telegram.svg',
+                      width: 26),
                 ),
               ),
             ),
@@ -113,7 +129,8 @@ class AboutScreen extends StatelessWidget {
         const SizedBox(height: 18),
         Text('Contributors',
             textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(context.l!.fontComfortaa, fontSize: 18, fontWeight: FontWeight.bold)),
+            style: GoogleFonts.getFont(context.l!.fontComfortaa,
+                fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Column(
           children: const [
@@ -179,8 +196,15 @@ class _ContributorCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(fullName,
-                    style: GoogleFonts.poppins(fontSize: 16, color: Colors.deepPurple.shade700, letterSpacing: 0.2)),
-                Text(role, style: GoogleFonts.poppins(fontSize: 16, fontStyle: FontStyle.italic, letterSpacing: 0.4)),
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: Colors.deepPurple.shade700,
+                        letterSpacing: 0.2)),
+                Text(role,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        letterSpacing: 0.4)),
               ],
             ),
           ),

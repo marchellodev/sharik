@@ -7,7 +7,8 @@ Map<String, String> get getMl => {
       'SEND': 'അയക്കുക',
       'Select any file you like': 'ഇഷ്ടമുള്ള ഫയൽ തിരഞ്ഞെടുക്കുക',
       'RECEIVE': 'സ്വീകരിക്കുക',
-      'Open given link on another device in any browser': 'ഈ കണ്ണി മറ്റേ ഡിവൈസിലുള്ള ഏതെങ്കിലും ബ്രൗസറിൽ തുറക്കുക',
+      'Open given link on another device in any browser':
+          'ഈ കണ്ണി മറ്റേ ഡിവൈസിലുള്ള ഏതെങ്കിലും ബ്രൗസറിൽ തുറക്കുക',
       'DONE': 'പൂർത്തീകരിച്ചു',
       'NEXT': 'അടുത്തത്',
       'loading...': 'ലോഡ് ചെയ്തുകൊണ്ടിരിക്കുന്നു...',
@@ -24,7 +25,8 @@ Map<String, String> get getMl => {
       'Latest': 'പുതിയത്',
       'Undefined': 'നിർവ്വചിച്ചിട്ടില്ല',
       'EVERYWHERE': 'എല്ലായിടത്തും',
-      'Sharik is available for Android, Windows, MacOS and Linux!': 'ഷെയറിക് ആൻഡ്രോയിഡിലും, വിൻഡോസിലും, മാക് ഓഎസിലും, ലിനക്സിലും ലഭ്യമാണ്!',
+      'Sharik is available for Android, Windows, MacOS and Linux!':
+          'ഷെയറിക് ആൻഡ്രോയിഡിലും, വിൻഡോസിലും, മാക് ഓഎസിലും, ലിനക്സിലും ലഭ്യമാണ്!',
       'Click here to learn more': 'കൂടുതലറിയാൻ ഇവിടെ ക്ലിക്ക് ചെയ്യുക',
       'Copied to Clipboard': 'ക്ലിപ്പ്ബോർഡിലേക്ക് പകർത്തുക',
       'Type some text': 'എന്തെങ്കിലും ടൈപ്പ് ചെയ്യുക',
@@ -37,7 +39,8 @@ Map<String, String> get getMl => {
       'Search': 'തിരയുക',
       //v2.1
       'Updates': 'അപ്ഡേറ്റുകൾ',
-      'The latest version is already installed': 'ഏറ്റവും പുതിയ പതിപ്പ് ഇൻസ്റ്റാൾ ചെയ്തിരിക്കുന്നു',
+      'The latest version is already installed':
+          'ഏറ്റവും പുതിയ പതിപ്പ് ഇൻസ്റ്റാൾ ചെയ്തിരിക്കുന്നു',
       'Current version': 'നിലവിലെ പതിപ്പ്',
       'The latest version': 'പുതിയ പതിപ്പ്',
       'Changelog': 'മാറ്റങ്ങൾ',

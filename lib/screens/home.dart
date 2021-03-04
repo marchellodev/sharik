@@ -3,6 +3,8 @@ import 'dart:io' show Platform;
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:device_apps/device_apps.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,8 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext c) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-        Widget>[
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
           margin: const EdgeInsets.only(left: 24, right: 24, top: 8),
           height: 104,
@@ -69,10 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () async {
-                // final f = await FilePicker.getFile();
-                // if (f != null && f.path != null && f.path.isNotEmpty) {
-                //   shareFile(FileModel(data: f.path, type: FileTypeModel.file));
-                // }
+                if (Platform.isAndroid || Platform.isIOS) {
+                  final f = await FilePicker.platform.pickFiles();
+
+                  shareFile(FileModel(
+                      data: f.paths.first, type: FileTypeModel.file, name: ''));
+                } else {
+                  final f = await openFile();
+                  if (f != null) {
+                    shareFile(FileModel(
+                        data: f.path, type: FileTypeModel.file, name: ''));
+                  }
+                }
               },
               child: Stack(
                 children: <Widget>[
