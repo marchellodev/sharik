@@ -29,16 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _latest =  Hive.box<FileModel>('history').values.toList();
+    _latest = Hive.box<FileModel>('history').values.toList();
 
     super.initState();
   }
 
-  Future<void> saveLatest()async {
-   await Hive.box<FileModel>('history').clear();
-   await Hive.box<FileModel>('history').addAll(_latest);
-   print('wrote');
-   print(Hive.box<FileModel>('history').values.length);
+  Future<void> saveLatest() async {
+    await Hive.box<FileModel>('history').clear();
+    await Hive.box<FileModel>('history').addAll(_latest);
   }
 
   Future<void> shareFile(FileModel file) async {

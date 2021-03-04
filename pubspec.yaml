@@ -22,37 +22,37 @@ dependencies:
 
   # UI
   flutter_svg: ^0.19.3
-  google_fonts: ^1.1.2
+  google_fonts: ^2.0.0
   intro_slider: ^2.3.4
-  responsive_framework: ^0.0.14
+  responsive_framework: ^0.0.15
 
 
   # UTILS
-  http: ^0.12.0+1
+  http: ^0.13.0
   wifi_iot: ^0.2.2
   ping_discover_network: ^0.2.0+1
   simple_connectivity: ^0.1.1
 
-  path_provider: ^1.6.27
-  url_launcher: ^6.0.1
+  path_provider: ^2.0.1
+  url_launcher: ^6.0.2
   device_apps: ^1.2.0
 
   hive: ^1.4.4+1
-  hive_flutter: ^0.3.1
+  hive_flutter: ^1.0.0-nullsafety.0
 
   package_info: ^2.0.0
 
   usage: ^4.0.0
 
-  intl: ^0.17.0-nullsafety.2
+  intl: ^0.17.0
 
 
-  file_selector: ^0.7.0+2
+  file_selector: ^0.8.2
   file_selector_windows: ^0.0.2
 
 
   # ARCHITECTURE
-  provider: ^4.3.3
+  provider: ^5.0.0
 
 
   # DESKTOP-SPECIFIC
@@ -70,7 +70,7 @@ dev_dependencies:
   hive_generator: ^0.8.2
 
   #  intl_translation: ^0.17.10+1
-  lint: ^1.5.1
+  lint: ^1.5.2
 
 flutter:
   generate: true
