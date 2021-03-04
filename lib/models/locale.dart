@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:sharik/locales/ar.dart';
 
@@ -35,27 +34,19 @@ String locale2name(LocaleModel locale) {
   switch (locale) {
     case LocaleModel.en:
       return 'English';
-      break;
     case LocaleModel.ar:
       return 'عربي';
-      break;
     case LocaleModel.ru:
       return 'Русский';
-      break;
     case LocaleModel.ua:
       return 'Українська';
-      break;
     case LocaleModel.pl:
       return 'Polski';
-      break;
     case LocaleModel.inHi:
       return 'हिन्दी';
-      break;
     case LocaleModel.inGu:
       return 'ગુજરાતી';
-      break;
   }
-  throw Exception('Unknown locale');
 }
 
 class LocaleAdapter {
@@ -69,25 +60,17 @@ LocaleAdapter getLocaleAdapter(LocaleModel locale) {
   switch (locale) {
     case LocaleModel.en:
       return LocaleAdapter(map: {}, locale: locale);
-      break;
     case LocaleModel.ar:
       return LocaleAdapter(map: getAr, locale: locale);
-      break;
     case LocaleModel.ru:
       return LocaleAdapter(map: getRu, locale: locale);
-      break;
     case LocaleModel.ua:
       return LocaleAdapter(map: getUa, locale: locale);
-      break;
     case LocaleModel.pl:
       return LocaleAdapter(map: getPl, locale: locale);
-      break;
     case LocaleModel.inHi:
       return LocaleAdapter(map: getInHi, locale: locale);
-      break;
     case LocaleModel.inGu:
       return LocaleAdapter(map: getInGu, locale: locale);
-      break;
   }
-  throw Exception('no such local!!!');
 }

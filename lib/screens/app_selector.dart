@@ -56,7 +56,7 @@ class _AppSelectorState extends State<AppSelector> {
         width: double.maxFinite,
         child: ListView(
           shrinkWrap: true,
-          children: <Widget>[
+          children: [
             CheckboxListTile(
               title: Text(context.l!.selectAppHideSystem),
               value: _checkSystem,
@@ -80,7 +80,7 @@ class _AppSelectorState extends State<AppSelector> {
                   setState(() => _search = value.toLowerCase()),
               decoration: InputDecoration(hintText: context.l!.selectAppSearch),
             ),
-            if (_apps.isEmpty)
+            if (_apps.isNotEmpty)
               Column(
                 children: _apps
                     .map((e) {

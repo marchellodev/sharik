@@ -35,7 +35,7 @@ class LanguageManager extends ChangeNotifier {
     }
 
     final locales = WidgetsBinding.instance!.window.locales;
-    for (final locale in locales??[]) {
+    for (final locale in locales) {
       final language = languageList.firstWhereOrNull(
           (element) => element.locale == locale);
 

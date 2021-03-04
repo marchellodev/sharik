@@ -6,12 +6,12 @@ part of 'file.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FileTypeModelAdapter extends TypeAdapter<FileTypeModel?> {
+class FileTypeModelAdapter extends TypeAdapter<FileTypeModel> {
   @override
   final int typeId = 2;
 
   @override
-  FileTypeModel? read(BinaryReader reader) {
+  FileTypeModel read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
         return FileTypeModel.file;
@@ -20,12 +20,12 @@ class FileTypeModelAdapter extends TypeAdapter<FileTypeModel?> {
       case 2:
         return FileTypeModel.app;
       default:
-        return null;
+        return FileTypeModel.text;
     }
   }
 
   @override
-  void write(BinaryWriter writer, FileTypeModel? obj) {
+  void write(BinaryWriter writer, FileTypeModel obj) {
     switch (obj) {
       case FileTypeModel.file:
         writer.writeByte(0);
@@ -61,9 +61,9 @@ class FileModelAdapter extends TypeAdapter<FileModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FileModel(
-      type: fields[0] as FileTypeModel?,
-      data: fields[1] as String?,
-      name: fields[2] as String?,
+      type: fields[0] as FileTypeModel,
+      data: fields[1] as String,
+      name: fields[2] as String,
     );
   }
 

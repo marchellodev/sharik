@@ -6,12 +6,12 @@ part of 'locale.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class LocaleModelAdapter extends TypeAdapter<LocaleModel?> {
+class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
   @override
   final int typeId = 0;
 
   @override
-  LocaleModel? read(BinaryReader reader) {
+  LocaleModel read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
         return LocaleModel.en;
@@ -28,12 +28,12 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel?> {
       case 6:
         return LocaleModel.inGu;
       default:
-        return null;
+        return LocaleModel.en;
     }
   }
 
   @override
-  void write(BinaryWriter writer, LocaleModel? obj) {
+  void write(BinaryWriter writer, LocaleModel obj) {
     switch (obj) {
       case LocaleModel.en:
         writer.writeByte(0);

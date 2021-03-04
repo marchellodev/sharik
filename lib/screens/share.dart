@@ -80,7 +80,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
       } else {
         if (_file!.type == FileTypeModel.file ||
             _file!.type == FileTypeModel.app) {
-          final f = File(_file!.data!);
+          final f = File(_file!.data);
           final size = await f.length();
 
           request.response.headers.contentType =
@@ -93,7 +93,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
           request.response.headers.add(
             'Content-disposition',
-            'attachment; filename=${Uri.encodeComponent(_file!.type == FileTypeModel.file ? _file!.name! : '${_file!.name}.apk')}',
+            'attachment; filename=${Uri.encodeComponent(_file!.type == FileTypeModel.file ? _file!.name : '${_file!.name}.apk')}',
           );
           request.response.headers.add(
             'Content-length',
@@ -316,7 +316,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      _file!.name!,
+                      _file!.name,
                       style: GoogleFonts.getFont(
                         'Andika',
                         color: Colors.white,
@@ -374,8 +374,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                                   fontSize: 16,
                                 ),
                                 children: [
-                                  const TextSpan(
-                                      text:'Connect to'),
+                                  const TextSpan(text: 'Connect to'),
                                   if (Platform.isAndroid || Platform.isIOS)
                                     TextSpan(
                                         text: ' Wi-Fi ',
@@ -385,8 +384,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                                                 : Colors.red[100]))
                                   else
                                     const TextSpan(text: ' Wi-Fi '),
-                                  const TextSpan(
-                                      text: 'or set up a'),
+                                  const TextSpan(text: 'or set up a'),
                                   if (Platform.isAndroid || Platform.isIOS)
                                     TextSpan(
                                         text: ' Mobile Hotspot',
@@ -395,8 +393,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                                                 ? Colors.green[100]
                                                 : Colors.red[100]))
                                   else
-                                    const TextSpan(
-                                        text: ' Mobile Hotspot'),
+                                    const TextSpan(text: ' Mobile Hotspot'),
                                 ]),
                           ),
                           const SizedBox(
@@ -423,8 +420,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         animation: _conAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: _conAnimation.value ?? 0 / 1,
-                              child: child);
+                              angle: _conAnimation.value, child: child);
                         },
                         child: SvgPicture.asset(
                           'assets/icon_update.svg',
@@ -442,7 +438,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
           Center(
               child: Text(
             'Now open this link\nin any browser',
-            style: GoogleFonts.getFont('Comfortaa',
+            style: GoogleFonts.getFont(
+              'Comfortaa',
               fontSize: 20,
             ),
             textAlign: TextAlign.center,
@@ -483,7 +480,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         final snackBar = SnackBar(
                           backgroundColor: Colors.deepPurple[500],
                           duration: const Duration(seconds: 1),
-                          content: Text('Copied to Clipboard',
+                          content: Text(
+                            'Copied to Clipboard',
                             style: GoogleFonts.getFont('Andika',
                                 color: Colors.white),
                           ),
@@ -517,8 +515,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         animation: _ipAnimation,
                         builder: (context, child) {
                           return Transform.rotate(
-                              angle: _ipAnimation.value ?? 0 / 1,
-                              child: child);
+                              angle: _ipAnimation.value, child: child);
                         },
                         child: SvgPicture.asset(
                           'assets/icon_update.svg',
