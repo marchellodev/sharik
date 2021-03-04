@@ -11,8 +11,8 @@ import 'package:sharik/screens/share.dart';
 
 class NavigationManager {
   NPage _page = HomePage();
-  Function(NPage page) _onChange;
-  FileModel file;
+  late Function(NPage page) _onChange;
+  FileModel? file;
 
   NPage get page => _page;
 

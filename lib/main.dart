@@ -75,7 +75,7 @@ class SharikApp extends StatelessWidget {
         return ResponsiveWrapper.builder(
             ScrollConfiguration(
               behavior: BouncingScrollBehavior(),
-              child: child,
+              child: child!,
             ),
             maxWidth: 1800,
             minWidth: 420,

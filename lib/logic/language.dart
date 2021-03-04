@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,15 +9,15 @@ class Language {
   final String name;
   final String nameLocal;
   final Locale locale;
-  final String contributorName;
-  final String contributorLink;
+  final String? contributorName;
+  final String? contributorLink;
   final AppLocalizations localizations;
 
   const Language(
-      {@required this.name,
-      @required this.nameLocal,
-      @required this.locale,
-      @required this.localizations,
+      {required this.name,
+      required this.nameLocal,
+      required this.locale,
+      required this.localizations,
       this.contributorName,
       this.contributorLink});
 }
@@ -33,11 +34,10 @@ class LanguageManager extends ChangeNotifier {
       return;
     }
 
-    final locales = WidgetsBinding.instance.window.locales;
-    for (final locale in locales) {
-      final language = languageList.firstWhere(
-          (element) => element.locale == locale,
-          orElse: () => null);
+    final locales = WidgetsBinding.instance!.window.locales;
+    for (final locale in locales??[]) {
+      final language = languageList.firstWhereOrNull(
+          (element) => element.locale == locale);
 
       if (language != null) {
         _language = language;

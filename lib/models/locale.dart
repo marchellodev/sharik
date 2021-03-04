@@ -62,7 +62,7 @@ class LocaleAdapter {
   final Map<String, String> map;
   final LocaleModel locale;
 
-  LocaleAdapter({@required this.map, @required this.locale});
+  LocaleAdapter({required this.map, required this.locale});
 }
 
 LocaleAdapter getLocaleAdapter(LocaleModel locale) {

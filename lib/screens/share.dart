@@ -24,19 +24,19 @@ class SharingScreen extends StatefulWidget {
 }
 
 class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
-  AnimationController _ipController;
-  Animation<double> _ipAnimation;
-  AnimationController _conController;
-  Animation<double> _conAnimation;
+  late AnimationController _ipController;
+  late Animation<double> _ipAnimation;
+  late AnimationController _conController;
+  late Animation<double> _conAnimation;
 
-  FileModel _file;
+  FileModel? _file;
 
-  String ip;
-  String network;
+  String? ip;
+  late String network;
   bool wifi = false;
   bool tether = false;
   int port = 0;
-  HttpServer _server;
+  HttpServer? _server;
 
   Future<bool> _isPortFree(int port) async {
     try {
@@ -62,7 +62,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   // ignore: avoid_void_async
   void serve() async {
-    await for (final request in _server) {
+    await for (final request in _server!) {
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
         final info = await PackageInfo.fromPlatform();
@@ -72,15 +72,15 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
             ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
           'sharik': v,
-          'type': _file.type.toString().split('.').last,
-          'name': _file.name,
+          'type': _file!.type.toString().split('.').last,
+          'name': _file!.name,
           'os': Platform.operatingSystem,
         }));
         await request.response.close();
       } else {
-        if (_file.type == FileTypeModel.file ||
-            _file.type == FileTypeModel.app) {
-          final f = File(_file.data);
+        if (_file!.type == FileTypeModel.file ||
+            _file!.type == FileTypeModel.app) {
+          final f = File(_file!.data!);
           final size = await f.length();
 
           request.response.headers.contentType =
@@ -93,7 +93,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
           request.response.headers.add(
             'Content-disposition',
-            'attachment; filename=${Uri.encodeComponent(_file.type == FileTypeModel.file ? _file.name : '${_file.name}.apk')}',
+            'attachment; filename=${Uri.encodeComponent(_file!.type == FileTypeModel.file ? _file!.name! : '${_file!.name}.apk')}',
           );
           request.response.headers.add(
             'Content-length',
@@ -110,7 +110,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
         } else {
           request.response.headers.contentType =
               ContentType('text', 'plain', charset: 'utf-8');
-          request.response.write(_file.data);
+          request.response.write(_file!.data);
           await request.response.close();
         }
       }
@@ -256,7 +256,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    if (_server != null) _server.close();
+    if (_server != null) _server!.close();
 
     if (_conController.isAnimating) _conController.stop();
 
@@ -304,7 +304,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
             child: Row(
               children: <Widget>[
                 SvgPicture.asset(
-                  _file.icon,
+                  _file!.icon,
                   //todo: add semantics stuff everywhere
                   semanticsLabel: 'file',
                   width: 18,
@@ -316,7 +316,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      _file.name,
+                      _file!.name!,
                       style: GoogleFonts.getFont(
                         'Andika',
                         color: Colors.white,
@@ -463,7 +463,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      ip,
+                      ip!,
                       // todo remove TextStyle
                       style: GoogleFonts.getFont('Andika',
                           color: Colors.white, fontSize: 18),

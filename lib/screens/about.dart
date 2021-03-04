@@ -35,7 +35,7 @@ class AboutScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.deepPurple[400],
                 child: InkWell(
-                  splashColor: Colors.deepPurple[100].withOpacity(0.32),
+                  splashColor: Colors.deepPurple[100]!.withOpacity(0.32),
                   borderRadius: BorderRadius.circular(8),
                   onTap: () async {},
                   child: Container(
@@ -53,7 +53,7 @@ class AboutScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400].withOpacity(0.32),
+                  splashColor: Colors.deepPurple[400]!.withOpacity(0.32),
                   onTap: () {},
                   child: Container(
                     alignment: Alignment.center,
@@ -70,7 +70,7 @@ class AboutScreen extends StatelessWidget {
         ),
         const SizedBox(height: 38),
         Text('Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :)',
-            textAlign: TextAlign.center, style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 16)),
+            textAlign: TextAlign.center, style: GoogleFonts.getFont(context.l!.fontComfortaa, fontSize: 16)),
         const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +80,7 @@ class AboutScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
-                splashColor: Colors.deepPurple[400].withOpacity(0.32),
+                splashColor: Colors.deepPurple[400]!.withOpacity(0.32),
                 hoverColor: Colors.deepPurple.shade50,
                 onTap: () {},
                 child: Container(
@@ -97,7 +97,7 @@ class AboutScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
-                splashColor: Colors.deepPurple[400].withOpacity(0.32),
+                splashColor: Colors.deepPurple[400]!.withOpacity(0.32),
                 hoverColor: Colors.deepPurple.shade50,
                 onTap: () {},
                 child: Container(
@@ -113,7 +113,7 @@ class AboutScreen extends StatelessWidget {
         const SizedBox(height: 18),
         Text('Contributors',
             textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 18, fontWeight: FontWeight.bold)),
+            style: GoogleFonts.getFont(context.l!.fontComfortaa, fontSize: 18, fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         Column(
           children: const [
@@ -170,7 +170,7 @@ class _ContributorCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          splashColor: Colors.deepPurple[400].withOpacity(0.32),
+          splashColor: Colors.deepPurple[400]!.withOpacity(0.32),
           hoverColor: Colors.deepPurple.shade50,
           onTap: () => launch('https://github.com/$nickName'),
           child: Padding(

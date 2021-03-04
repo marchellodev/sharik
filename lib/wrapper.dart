@@ -18,8 +18,8 @@ class AppWrapper extends StatefulWidget {
 }
 
 class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
-  TabController _pagerGlobal;
-  TabController _pagerHome;
+  TabController? _pagerGlobal;
+  TabController? _pagerHome;
   bool showBackButton = false;
 
   @override
@@ -38,35 +38,35 @@ class AppWrapperState extends State<AppWrapper> with TickerProviderStateMixin {
       print('changing page...: $p');
       switch (p.runtimeType) {
         case LoadingPage:
-          _pagerHome.animateTo(0);
-          _pagerGlobal.animateTo(0);
+          _pagerHome!.animateTo(0);
+          _pagerGlobal!.animateTo(0);
 
           break;
         case LanguagePage:
-          _pagerHome.animateTo(0);
-          _pagerGlobal.animateTo(1);
+          _pagerHome!.animateTo(0);
+          _pagerGlobal!.animateTo(1);
           break;
         case IntroPage:
-          _pagerHome.animateTo(0);
-          _pagerGlobal.animateTo(2);
+          _pagerHome!.animateTo(0);
+          _pagerGlobal!.animateTo(2);
           break;
         case HomePage:
-          _pagerHome.animateTo(0);
-          _pagerGlobal.animateTo(3);
+          _pagerHome!.animateTo(0);
+          _pagerGlobal!.animateTo(3);
           setState(() {
             showBackButton = false;
           });
           break;
         case SharingPage:
-          _pagerHome.animateTo(1);
-          _pagerGlobal.animateTo(3);
+          _pagerHome!.animateTo(1);
+          _pagerGlobal!.animateTo(3);
           setState(() {
             showBackButton = true;
           });
           break;
         case AboutPage:
-          _pagerHome.animateTo(2);
-          _pagerGlobal.animateTo(3);
+          _pagerHome!.animateTo(2);
+          _pagerGlobal!.animateTo(3);
           setState(() {
             showBackButton = true;
           });

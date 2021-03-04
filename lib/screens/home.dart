@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -75,8 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Stack(
                 children: <Widget>[
                   Center(
-                      child: Text(c.l.homeSelectFile,
-                          style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 24))),
+                      child: Text(c.l!.homeSelectFile,
+                          style: GoogleFonts.getFont(c.l!.fontAndika, color: Colors.white, fontSize: 24))),
                   Container(
                     margin: const EdgeInsets.all(16),
                     child: Align(
@@ -102,15 +103,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () async {
-                        final data = await showDialog(context: context, builder: (_) => AppSelector()) as String;
+                        final data = await showDialog(context: context, builder: (_) => AppSelector()) as String?;
                         if (data != null && data.isNotEmpty) {
                           final app = await DeviceApps.getApp(data);
                           shareFile(FileModel(type: FileTypeModel.app, data: app.apkFilePath, name: app.appName));
                         }
                       },
                       child: Center(
-                          child: Text(c.l.homeSelectApp,
-                              style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 24))),
+                          child: Text(c.l!.homeSelectApp,
+                              style: GoogleFonts.getFont(c.l!.fontAndika, color: Colors.white, fontSize: 24))),
                     ),
                   )),
             ),
@@ -133,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         // }
                       },
                       child: Center(
-                          child: Text(c.l.homeSelectGallery,
-                              style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 24))),
+                          child: Text(c.l!.homeSelectGallery,
+                              style: GoogleFonts.getFont(c.l!.fontAndika, color: Colors.white, fontSize: 24))),
                     ),
                   )),
             ),
@@ -157,8 +158,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           final controller = TextEditingController();
                           return AlertDialog(
                             title: Text(
-                              c.l.homeSelectTextTypeSomeText,
-                              style: GoogleFonts.getFont(c.l.fontComfortaa, fontWeight: FontWeight.w700),
+                              c.l!.homeSelectTextTypeSomeText,
+                              style: GoogleFonts.getFont(c.l!.fontComfortaa, fontWeight: FontWeight.w700),
                             ),
                             content: TextField(
                               autofocus: true,
@@ -168,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             actions: <Widget>[
                               FlatButton(
                                 onPressed: () => Navigator.of(context).pop(),
-                                child: Text(c.l.generalClose, style: GoogleFonts.getFont(c.l.fontAndika)),
+                                child: Text(c.l!.generalClose, style: GoogleFonts.getFont(c.l!.fontAndika)),
                               ),
                               FlatButton(
                                 onPressed: () {
@@ -178,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     shareFile(FileModel(data: controller.text, type: FileTypeModel.text));
                                   }
                                 },
-                                child: Text(c.l.generalSend, style: GoogleFonts.getFont(c.l.fontAndika)),
+                                child: Text(c.l!.generalSend, style: GoogleFonts.getFont(c.l!.fontAndika)),
                               ),
                             ],
                           );
@@ -186,8 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                     child: Center(
-                        child: Text(c.l.homeSelectText,
-                            style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 24))),
+                        child: Text(c.l!.homeSelectText,
+                            style: GoogleFonts.getFont(c.l!.fontAndika, color: Colors.white, fontSize: 24))),
                   ),
                 )),
           ),
@@ -202,8 +203,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               margin: const EdgeInsets.only(left: 24, right: 24),
               child: Text(
-                c.l.homeLatest,
-                style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
+                c.l!.homeLatest,
+                style: GoogleFonts.getFont(c.l!.fontComfortaa, fontSize: 24),
               ),
             ),
             const Spacer(),
@@ -328,9 +329,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       await Future.delayed(const Duration(seconds: 1));
                     }
 
-                    if (senders.firstWhere((element) => element.n < n ~/ ports.length, orElse: () => null) != null) {
+                    if (senders.firstWhereOrNull((element) => element.n! < n ~/ ports.length) != null) {
                       setState(() {
-                        senders.removeWhere((element) => element.n < n ~/ ports.length);
+                        senders.removeWhere((element) => element.n! < n ~/ ports.length);
                       });
                     }
                     final ip = await getIpMask();
@@ -347,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           //todo: proper deserialization
 
                           try {
-                            final info = jsonDecode(await http.read('http://${addr.ip}:$port/sharik.json'));
+                            final info = jsonDecode(await http.read(Uri.parse('http://${addr.ip}:$port/sharik.json')));
 
                             final sender = Sender(
                                 n: n ~/ ports.length,
@@ -357,10 +358,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 name: cast<String>(info['name']),
                                 os: cast<String>(info['os']),
                                 url: 'http://${addr.ip}:$port');
-                            final inArr = senders.firstWhere(
+                            final inArr = senders.firstWhereOrNull(
                                 (element) =>
-                                    element.ip == sender.ip && element.os == sender.os && element.name == sender.name,
-                                orElse: () => null);
+                                    element.ip == sender.ip && element.os == sender.os && element.name == sender.name);
 
                             if (inArr == null) {
                               setState(() => senders.add(sender));
@@ -381,8 +381,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text(c.l.homeReceiver,
-                              style: GoogleFonts.getFont(c.l.fontComfortaa, fontWeight: FontWeight.w700)),
+                          title: Text(c.l!.homeReceiver,
+                              style: GoogleFonts.getFont(c.l!.fontComfortaa, fontWeight: FontWeight.w700)),
                           content: StatefulBuilder(
                             builder: (_, StateSetter setState) {
                               if (!running) {
@@ -399,12 +399,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             .map((e) {
                                               return ListTile(
                                                 onTap: () async {
-                                                  if (await canLaunch(e.url)) {
-                                                    await launch(e.url);
+                                                  if (await canLaunch(e.url!)) {
+                                                    await launch(e.url!);
                                                   }
                                                 },
-                                                subtitle: Text(e.os),
-                                                title: Text(e.name),
+                                                subtitle: Text(e.os!),
+                                                title: Text(e.name!),
                                                 //todo: what's below looks ugly
 //                                                    leading: SvgPicture.asset(
 //                                                        FileModel(
@@ -438,8 +438,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             FlatButton(
                               onPressed: () => Navigator.of(context).pop(),
                               child: Text(
-                                c.l.generalClose,
-                                style: GoogleFonts.getFont(c.l.fontAndika),
+                                c.l!.generalClose,
+                                style: GoogleFonts.getFont(c.l!.fontAndika),
                               ),
                             )
                           ],
@@ -602,8 +602,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                     width: 160,
                     child: Text(
-                      '${c.l.homeUpdatesCurrentVersion}:',
-                      style: GoogleFonts.getFont(c.l.fontAndika, fontSize: 16),
+                      '${c.l!.homeUpdatesCurrentVersion}:',
+                      style: GoogleFonts.getFont(c.l!.fontAndika, fontSize: 16),
                     )),
                 const SizedBox(
                   width: 4,
@@ -619,8 +619,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                     width: 160,
                     child: Text(
-                      '${c.l.homeUpdatesLatestVersion}:',
-                      style: GoogleFonts.getFont(c.l.fontAndika, fontSize: 16),
+                      '${c.l!.homeUpdatesLatestVersion}:',
+                      style: GoogleFonts.getFont(c.l!.fontAndika, fontSize: 16),
                     )),
                 const SizedBox(
                   width: 4,
@@ -633,8 +633,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Center(
               child: Text(
-                c.l.homeUpdatesChangelog,
-                style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 18),
+                c.l!.homeUpdatesChangelog,
+                style: GoogleFonts.getFont(c.l!.fontComfortaa, fontSize: 18),
               ),
             ),
             Column(
@@ -673,8 +673,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Text(
-                    f.name,
-                    style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18),
+                    f.name!,
+                    style: GoogleFonts.getFont(c.l!.fontAndika, color: Colors.white, fontSize: 18),
                     maxLines: 1,
                   ),
                 ))

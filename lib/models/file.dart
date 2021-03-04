@@ -7,16 +7,16 @@ part 'file.g.dart';
 @HiveType(typeId: 1)
 class FileModel {
   @HiveField(0)
-  final FileTypeModel type;
+  final FileTypeModel? type;
 
   /// path to file if type is file
   /// path to apk if type is app
   /// raw text if type is text
   @HiveField(1)
-  final String data;
+  final String? data;
 
   @HiveField(2)
-  String name;
+  String? name;
 
   String get icon {
     switch (type) {
@@ -37,10 +37,10 @@ class FileModel {
     if (name == null) {
       switch (type) {
         case FileTypeModel.file:
-          name = data.split(Platform.isWindows ? '\\' : '/').last;
+          name = data!.split(Platform.isWindows ? '\\' : '/').last;
           break;
         case FileTypeModel.text:
-          final _ = data.trim().replaceAll('\n', ' ');
+          final _ = data!.trim().replaceAll('\n', ' ');
           name =
               _.length >= 101 ? _.substring(0, 100) : _.replaceAll('\n', ' ');
           break;

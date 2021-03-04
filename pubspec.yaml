@@ -9,7 +9,7 @@ versionCode: 6
 author: marchellodev
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 # todo verify & sync google_fonts files
 dependencies:
@@ -21,7 +21,7 @@ dependencies:
 
 
   # UI
-  flutter_svg: ^0.19.3
+  flutter_svg: ^0.21.0-nullsafety.0
   google_fonts: ^2.0.0
   intro_slider: ^2.3.4
   responsive_framework: ^0.0.15
@@ -61,6 +61,7 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
       ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
+  collection: ^1.15.0-nullsafety.4
 
 
 

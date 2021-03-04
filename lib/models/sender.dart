@@ -1,18 +1,18 @@
 import 'package:sharik/models/file.dart';
 
 class Sender {
-  final String ip;
-  final String version;
-  final String os;
-  final String name;
-  final String url;
+  final String? ip;
+  final String? version;
+  final String? os;
+  final String? name;
+  final String? url;
 
-  FileTypeModel type;
-  int n;
+  FileTypeModel? type;
+  int? n;
 
   Sender(
       {this.version,
-      String type,
+      String? type,
       this.n,
       this.ip,
       this.name,
@@ -34,5 +34,5 @@ class Sender {
   }
 
   @override
-  String toString() => ip;
+  String toString() => ip!;
 }
