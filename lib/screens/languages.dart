@@ -8,6 +8,7 @@ import 'package:sharik/components/page_router.dart';
 import '../conf.dart';
 import '../logic/language.dart';
 
+
 class LanguagePickerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,7 @@ class LanguagePickerScreen extends StatelessWidget {
           for (var lang in languageList) ...[
             LanguageButton(lang, () {
               context.read<LanguageManager>().language = lang;
-              // c.n.page = IntroPage();
-              SharikRouter.navigateTo(context, this, Screens.loading);
+              SharikRouter.navigateTo(context, this, Screens.intro, RouteDirection.right);
             }),
             const SizedBox(height: 6)
           ],

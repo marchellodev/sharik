@@ -103,7 +103,7 @@ class SharikApp extends StatelessWidget {
 
           // sharik top icon color
           cardColor: Colors.deepPurple.shade300),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       home: LoadingScreen(),
     );
   }

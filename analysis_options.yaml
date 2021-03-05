@@ -5,6 +5,7 @@ linter:
     omit_local_variable_types: true
     avoid_classes_with_only_static_members: false
     prefer_single_quotes: true
+
     file_names: false
 
     avoid_setters_without_getters: false

@@ -14,14 +14,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
 import 'package:sharik/logic/language.dart';
+import 'package:sharik/screens/home.dart';
+import 'package:sharik/screens/intro.dart';
 import 'package:sharik/screens/languages.dart';
 import 'package:sharik/screens/loading.dart';
 
 List<int> get ports => [50500, 50050, 56789, 56788];
 
-// add new languages here
-
-enum Screens { loading, languagePicker }
+enum Screens { loading, languagePicker, intro, home }
 
 Widget screen2widget(Screens s) {
   switch (s) {
@@ -29,6 +29,10 @@ Widget screen2widget(Screens s) {
       return LoadingScreen();
     case Screens.languagePicker:
       return LanguagePickerScreen();
+    case Screens.intro:
+      return IntroScreen();
+    case Screens.home:
+      return HomeScreen();
   }
 }
 

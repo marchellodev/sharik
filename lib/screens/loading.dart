@@ -21,7 +21,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await Future.delayed(const Duration(seconds: 1));
 
     if (mounted) {
-      SharikRouter.navigateTo(context, build(context), Screens.languagePicker);
+      SharikRouter.navigateTo(context, build(context), Screens.languagePicker, RouteDirection.right);
     }
     // context.did
   }

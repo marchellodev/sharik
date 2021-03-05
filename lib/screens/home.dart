@@ -12,7 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:ping_discover_network/ping_discover_network.dart';
-import 'package:provider/provider.dart';
+import 'package:sharik/components/logo.dart';
+import 'package:sharik/components/page_router.dart';
 import 'package:sharik/logic/navigation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -60,274 +61,278 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext c) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
-          margin: const EdgeInsets.only(left: 24, right: 24, top: 8),
-          height: 104,
-          child: Material(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.deepPurple[400],
-            child: InkWell(
+    return Scaffold(
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const SizedBox(height: 28),
+        SafeArea(child: SharikLogo()),
+        const SizedBox(height: 18),
+        Container(
+            margin: const EdgeInsets.symmetric(horizontal: 24),
+            height: 104,
+            child: Material(
               borderRadius: BorderRadius.circular(12),
-              onTap: () async {
-                if (Platform.isAndroid || Platform.isIOS) {
-                  final f = await FilePicker.platform.pickFiles();
+              color: Colors.deepPurple[400],
+              child: InkWell(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () async {
+                  if (Platform.isAndroid || Platform.isIOS) {
+                    final f = await FilePicker.platform.pickFiles();
 
-                  if (f != null) {
-                    shareFile(FileModel(
-                        data: (f.paths.first)!,
-                        type: FileTypeModel.file,
-                        name: ''));
+                    if (f != null) {
+                      shareFile(FileModel(
+                          data: (f.paths.first)!,
+                          type: FileTypeModel.file,
+                          name: ''));
+                    }
+                  } else {
+                    final f = await openFile();
+                    if (f != null) {
+                      shareFile(FileModel(
+                          data: f.path, type: FileTypeModel.file, name: ''));
+                    }
                   }
-                } else {
-                  final f = await openFile();
-                  if (f != null) {
-                    shareFile(FileModel(
-                        data: f.path, type: FileTypeModel.file, name: ''));
-                  }
-                }
-              },
-              child: Stack(
-                children: <Widget>[
-                  Center(
-                      child: Text(c.l!.homeSelectFile,
-                          style: GoogleFonts.getFont(c.l!.fontAndika,
-                              color: Colors.white, fontSize: 24))),
-                  Container(
-                    margin: const EdgeInsets.all(16),
-                    child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: SvgPicture.asset(
-                          'assets/icon_file.svg',
-                        )),
-                  )
-                ],
-              ),
-            ),
-          )),
-      Row(
-        children: <Widget>[
-          if (Platform.isAndroid)
-            Expanded(
-              child: Container(
-                  margin: const EdgeInsets.only(left: 24, top: 8),
-                  height: 48,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.deepPurple[400],
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
-                      onTap: () async {
-                        final data = await showDialog(
-                            context: context,
-                            builder: (_) => AppSelector()) as String?;
-                        if (data != null && data.isNotEmpty) {
-                          final app = await DeviceApps.getApp(data);
-                          shareFile(FileModel(
-                              type: FileTypeModel.app,
-                              data: app.apkFilePath,
-                              name: app.appName));
-                        }
-                      },
-                      child: Center(
-                          child: Text(c.l!.homeSelectApp,
-                              style: GoogleFonts.getFont(c.l!.fontAndika,
-                                  color: Colors.white, fontSize: 24))),
-                    ),
-                  )),
-            ),
-          if (Platform.isIOS)
-            Expanded(
-              child: Container(
-                  margin: const EdgeInsets.only(left: 24, top: 8),
-                  height: 48,
-                  child: Material(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.deepPurple[400],
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
-                      onTap: () async {
-                        // final f =
-                        //     await FilePicker.getFile(type: FileType.media);
-                        // if (f != null && f.path != null && f.path.isNotEmpty) {
-                        //   shareFile(FileModel(
-                        //       data: f.path, type: FileTypeModel.file));
-                        // }
-                      },
-                      child: Center(
-                          child: Text(c.l!.homeSelectGallery,
-                              style: GoogleFonts.getFont(c.l!.fontAndika,
-                                  color: Colors.white, fontSize: 24))),
-                    ),
-                  )),
-            ),
-          SizedBox(
-            width: Platform.isAndroid || Platform.isIOS ? 8 : 24,
-          ),
-          Expanded(
-            child: Container(
-                margin: const EdgeInsets.only(right: 24, top: 8),
-                height: 48,
-                child: Material(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.deepPurple[400],
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          final controller = TextEditingController();
-                          return AlertDialog(
-                            title: Text(
-                              c.l!.homeSelectTextTypeSomeText,
-                              style: GoogleFonts.getFont(c.l!.fontComfortaa,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            content: TextField(
-                              autofocus: true,
-                              controller: controller,
-                              maxLines: null,
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text(c.l!.generalClose,
-                                    style:
-                                        GoogleFonts.getFont(c.l!.fontAndika)),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-
-                                  if (controller.text.isNotEmpty) {
-                                    shareFile(FileModel(
-                                        data: controller.text,
-                                        type: FileTypeModel.text,
-                                        name: ''));
-                                  }
-                                },
-                                child: Text(c.l!.generalSend,
-                                    style:
-                                        GoogleFonts.getFont(c.l!.fontAndika)),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Center(
-                        child: Text(c.l!.homeSelectText,
+                },
+                child: Stack(
+                  children: <Widget>[
+                    Center(
+                        child: Text(c.l!.homeSelectFile,
                             style: GoogleFonts.getFont(c.l!.fontAndika,
                                 color: Colors.white, fontSize: 24))),
-                  ),
-                )),
-          ),
-        ],
-      ),
-      const SizedBox(
-        height: 22,
-      ),
-      if (_latest.isNotEmpty)
-        Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 24, right: 24),
-              child: Text(
-                c.l!.homeLatest,
-                style: GoogleFonts.getFont(c.l!.fontComfortaa, fontSize: 24),
+                    Container(
+                      margin: const EdgeInsets.all(16),
+                      child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: SvgPicture.asset(
+                            'assets/icon_file.svg',
+                          )),
+                    )
+                  ],
+                ),
               ),
+            )),
+        Row(
+          children: <Widget>[
+            if (Platform.isAndroid)
+              Expanded(
+                child: Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8),
+                    height: 48,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.deepPurple[400],
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () async {
+                          final data = await showDialog(
+                              context: context,
+                              builder: (_) => AppSelector()) as String?;
+                          if (data != null && data.isNotEmpty) {
+                            final app = await DeviceApps.getApp(data);
+                            shareFile(FileModel(
+                                type: FileTypeModel.app,
+                                data: app.apkFilePath,
+                                name: app.appName));
+                          }
+                        },
+                        child: Center(
+                            child: Text(c.l!.homeSelectApp,
+                                style: GoogleFonts.getFont(c.l!.fontAndika,
+                                    color: Colors.white, fontSize: 24))),
+                      ),
+                    )),
+              ),
+            if (Platform.isIOS)
+              Expanded(
+                child: Container(
+                    margin: const EdgeInsets.only(left: 24, top: 8),
+                    height: 48,
+                    child: Material(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.deepPurple[400],
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () async {
+                          // final f =
+                          //     await FilePicker.getFile(type: FileType.media);
+                          // if (f != null && f.path != null && f.path.isNotEmpty) {
+                          //   shareFile(FileModel(
+                          //       data: f.path, type: FileTypeModel.file));
+                          // }
+                        },
+                        child: Center(
+                            child: Text(c.l!.homeSelectGallery,
+                                style: GoogleFonts.getFont(c.l!.fontAndika,
+                                    color: Colors.white, fontSize: 24))),
+                      ),
+                    )),
+              ),
+            SizedBox(
+              width: Platform.isAndroid || Platform.isIOS ? 8 : 24,
             ),
-            const Spacer(),
-            Container(
-              margin: const EdgeInsets.only(right: 24),
-              child: IconButton(
-                  onPressed: () {
-                    setState(() => _latest.clear());
+            Expanded(
+              child: Container(
+                  margin: const EdgeInsets.only(right: 24, top: 8),
+                  height: 48,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.deepPurple[400],
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            final controller = TextEditingController();
+                            return AlertDialog(
+                              title: Text(
+                                c.l!.homeSelectTextTypeSomeText,
+                                style: GoogleFonts.getFont(c.l!.fontComfortaa,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              content: TextField(
+                                autofocus: true,
+                                controller: controller,
+                                maxLines: null,
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text(c.l!.generalClose,
+                                      style:
+                                          GoogleFonts.getFont(c.l!.fontAndika)),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
 
-                    saveLatest();
-                  },
-                  icon: SvgPicture.asset(
-                    'assets/icon_remove.svg',
-                    semanticsLabel: 'remove',
-                    height: 16,
+                                    if (controller.text.isNotEmpty) {
+                                      shareFile(FileModel(
+                                          data: controller.text,
+                                          type: FileTypeModel.text,
+                                          name: ''));
+                                    }
+                                  },
+                                  child: Text(c.l!.generalSend,
+                                      style:
+                                          GoogleFonts.getFont(c.l!.fontAndika)),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Center(
+                          child: Text(c.l!.homeSelectText,
+                              style: GoogleFonts.getFont(c.l!.fontAndika,
+                                  color: Colors.white, fontSize: 24))),
+                    ),
                   )),
-            )
+            ),
           ],
         ),
-      Expanded(
-        child: Container(
-            padding: const EdgeInsets.only(left: 24, right: 24),
-            child: ListView.builder(
-                padding: const EdgeInsets.only(top: 16),
-                itemCount: _latest.length,
-                itemBuilder: (context, index) =>
-                    card(context, _latest[index]))),
-      ),
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        height: 64,
-        decoration: BoxDecoration(
-            color: Colors.deepPurple[100],
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(24), topRight: Radius.circular(24))),
-        child: Row(
-          children: <Widget>[
-            Material(
-              color: Colors.deepPurple[100],
-              borderRadius: BorderRadius.circular(8),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(8),
-                splashColor: Colors.deepPurple[400],
-                onTap: () =>
-                    context.read<NavigationManager>().page = LanguagePage(),
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    'assets/icon_locale.svg',
-                    semanticsLabel: 'locale',
-                    height: 18,
-                  ),
+        const SizedBox(
+          height: 22,
+        ),
+        if (_latest.isNotEmpty)
+          Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(left: 24, right: 24),
+                child: Text(
+                  c.l!.homeLatest,
+                  style: GoogleFonts.getFont(c.l!.fontComfortaa, fontSize: 24),
                 ),
               ),
-            ),
-            const SizedBox(width: 2),
-            Material(
-              color: Colors.deepPurple[100],
-              borderRadius: BorderRadius.circular(8),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(8),
-                splashColor: Colors.deepPurple[400],
-                onTap: () =>
-                    context.read<NavigationManager>().page = IntroPage(),
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    'assets/icon_help.svg',
-                    semanticsLabel: 'help',
-                    height: 16,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 2),
-            Material(
-              color: Colors.deepPurple[100],
-              borderRadius: BorderRadius.circular(8),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(8),
-                splashColor: Colors.deepPurple[400],
-                onTap: () {
-                  final senders = <Sender>[];
-                  var running = false;
-                  var stop = false;
-                  var n = 0;
+              const Spacer(),
+              Container(
+                margin: const EdgeInsets.only(right: 24),
+                child: IconButton(
+                    onPressed: () {
+                      setState(() => _latest.clear());
 
-                  //todo: check for ip wiser?
-                  Future<String> getIpMask() async {
-                    // final ip = (await SharikWrapper.getLocalIp).split('.');
-                    const ip = 'localhost';
-                    return '${ip[0]}.${ip[1]}.${ip[2]}';
+                      saveLatest();
+                    },
+                    icon: SvgPicture.asset(
+                      'assets/icon_remove.svg',
+                      semanticsLabel: 'remove',
+                      height: 16,
+                    )),
+              )
+            ],
+          ),
+        Expanded(
+          child: Container(
+              padding: const EdgeInsets.only(left: 24, right: 24),
+              child: ListView.builder(
+                  padding: const EdgeInsets.only(top: 16),
+                  itemCount: _latest.length,
+                  itemBuilder: (context, index) =>
+                      card(context, _latest[index]))),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          height: 64,
+          decoration: BoxDecoration(
+              color: Colors.deepPurple[100],
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+          child: Row(
+            children: <Widget>[
+              Material(
+                color: Colors.deepPurple[100],
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Colors.deepPurple[400],
+                  onTap: () => SharikRouter.navigateTo(context, context.widget,
+                      Screens.languagePicker, RouteDirection.left),
+                  child: Container(
+                    margin: const EdgeInsets.all(12),
+                    child: SvgPicture.asset(
+                      'assets/icon_locale.svg',
+                      semanticsLabel: 'locale',
+                      height: 18,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 2),
+              Material(
+                color: Colors.deepPurple[100],
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Colors.deepPurple[400],
+                  onTap: () => SharikRouter.navigateTo(context, context.widget,
+                      Screens.intro, RouteDirection.left),
+                  child: Container(
+                    margin: const EdgeInsets.all(12),
+                    child: SvgPicture.asset(
+                      'assets/icon_help.svg',
+                      semanticsLabel: 'help',
+                      height: 16,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 2),
+              Material(
+                color: Colors.deepPurple[100],
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Colors.deepPurple[400],
+                  onTap: () {
+                    final senders = <Sender>[];
+                    var running = false;
+                    var stop = false;
+                    var n = 0;
+
+                    //todo: check for ip wiser?
+                    Future<String> getIpMask() async {
+                      // final ip = (await SharikWrapper.getLocalIp).split('.');
+                      const ip = 'localhost';
+                      return '${ip[0]}.${ip[1]}.${ip[2]}';
 
 //                        for (var interface in await NetworkInterface.list()) {
 //                          for (var addr in interface.addresses) {
@@ -348,168 +353,170 @@ class _HomeScreenState extends State<HomeScreen> {
 //                        } else {
 //                          return null;
 //                        }
-                  }
-
-                  // ignore: avoid_void_async
-                  void portRunner(StateSetter setState) async {
-                    if (stop) {
-                      return;
                     }
 
-                    running = true;
+                    // ignore: avoid_void_async
+                    void portRunner(StateSetter setState) async {
+                      if (stop) {
+                        return;
+                      }
 
-                    final port = ports[n % ports.length];
+                      running = true;
 
-                    if (n % 4 == 0) {
-                      await Future.delayed(const Duration(seconds: 1));
-                    }
+                      final port = ports[n % ports.length];
 
-                    if (senders.firstWhereOrNull(
-                            (element) => element.n! < n ~/ ports.length) !=
-                        null) {
-                      setState(() {
-                        senders.removeWhere(
-                            (element) => element.n! < n ~/ ports.length);
-                      });
-                    }
-                    final ip = await getIpMask();
-                    print(ip);
+                      if (n % 4 == 0) {
+                        await Future.delayed(const Duration(seconds: 1));
+                      }
 
-                    // todo recode all of that
-                    // ignore: avoid_single_cascade_in_expression_statements
-                    NetworkAnalyzer.discover2(
-                      ip,
-                      port,
-                      timeout: const Duration(milliseconds: 500),
-                    )..listen((addr) async {
-                        if (addr.exists) {
-                          //todo: proper deserialization
+                      if (senders.firstWhereOrNull(
+                              (element) => element.n! < n ~/ ports.length) !=
+                          null) {
+                        setState(() {
+                          senders.removeWhere(
+                              (element) => element.n! < n ~/ ports.length);
+                        });
+                      }
+                      final ip = await getIpMask();
+                      print(ip);
 
-                          try {
-                            final info = jsonDecode(await http.read(Uri.parse(
-                                'http://${addr.ip}:$port/sharik.json')));
+                      // todo recode all of that
+                      // ignore: avoid_single_cascade_in_expression_statements
+                      NetworkAnalyzer.discover2(
+                        ip,
+                        port,
+                        timeout: const Duration(milliseconds: 500),
+                      )..listen((addr) async {
+                          if (addr.exists) {
+                            //todo: proper deserialization
 
-                            final sender = Sender(
-                                n: n ~/ ports.length,
-                                ip: addr.ip,
-                                type: cast<String>(info['type']),
-                                version: cast<String>(info['sharik']),
-                                name: cast<String>(info['name']),
-                                os: cast<String>(info['os']),
-                                url: 'http://${addr.ip}:$port');
-                            final inArr = senders.firstWhereOrNull((element) =>
-                                element.ip == sender.ip &&
-                                element.os == sender.os &&
-                                element.name == sender.name);
+                            try {
+                              final info = jsonDecode(await http.read(Uri.parse(
+                                  'http://${addr.ip}:$port/sharik.json')));
 
-                            if (inArr == null) {
-                              setState(() => senders.add(sender));
-                            } else {
-                              inArr.n = n;
-                            }
-                          } catch (e) {
-                            //todo: catch error
-                          }
-                        }
-                      }).onDone(() {
-                        n++;
-                        portRunner(setState);
-                      });
-                  }
+                              final sender = Sender(
+                                  n: n ~/ ports.length,
+                                  ip: addr.ip,
+                                  type: cast<String>(info['type']),
+                                  version: cast<String>(info['sharik']),
+                                  name: cast<String>(info['name']),
+                                  os: cast<String>(info['os']),
+                                  url: 'http://${addr.ip}:$port');
+                              final inArr = senders.firstWhereOrNull(
+                                  (element) =>
+                                      element.ip == sender.ip &&
+                                      element.os == sender.os &&
+                                      element.name == sender.name);
 
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text(c.l!.homeReceiver,
-                              style: GoogleFonts.getFont(c.l!.fontComfortaa,
-                                  fontWeight: FontWeight.w700)),
-                          content: StatefulBuilder(
-                            builder: (_, StateSetter setState) {
-                              if (!running) {
-                                portRunner(setState);
+                              if (inArr == null) {
+                                setState(() => senders.add(sender));
+                              } else {
+                                inArr.n = n;
                               }
+                            } catch (e) {
+                              //todo: catch error
+                            }
+                          }
+                        }).onDone(() {
+                          n++;
+                          portRunner(setState);
+                        });
+                    }
 
-                              return senders.isNotEmpty
-                                  ? SizedBox(
-                                      height: 320,
-                                      width: 120,
-                                      child: ListView(
-                                        shrinkWrap: true,
-                                        children: senders
-                                            .map((e) {
-                                              return ListTile(
-                                                onTap: () async {
-                                                  if (await canLaunch(e.url!)) {
-                                                    await launch(e.url!);
-                                                  }
-                                                },
-                                                subtitle: Text(e.os!),
-                                                title: Text(e.name!),
-                                                //todo: what's below looks ugly
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(c.l!.homeReceiver,
+                                style: GoogleFonts.getFont(c.l!.fontComfortaa,
+                                    fontWeight: FontWeight.w700)),
+                            content: StatefulBuilder(
+                              builder: (_, StateSetter setState) {
+                                if (!running) {
+                                  portRunner(setState);
+                                }
+
+                                return senders.isNotEmpty
+                                    ? SizedBox(
+                                        height: 320,
+                                        width: 120,
+                                        child: ListView(
+                                          shrinkWrap: true,
+                                          children: senders
+                                              .map((e) {
+                                                return ListTile(
+                                                  onTap: () async {
+                                                    if (await canLaunch(
+                                                        e.url!)) {
+                                                      await launch(e.url!);
+                                                    }
+                                                  },
+                                                  subtitle: Text(e.os!),
+                                                  title: Text(e.name!),
+                                                  //todo: what's below looks ugly
 //                                                    leading: SvgPicture.asset(
 //                                                        FileModel(
 //                                                                type: e.type,
 //                                                                name: e.name)
 //                                                            .icon,
 //                                                        color: Colors.black),
-                                              );
-                                            })
-                                            .toList()
-                                            .cast<Widget>(),
-                                      ),
-                                    )
-                                  : Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Center(
-                                          child: Container(
-                                            height: 28,
-                                            width: 28,
-                                            margin: const EdgeInsets.all(4),
-                                            child:
-                                                const CircularProgressIndicator(),
-                                          ),
+                                                );
+                                              })
+                                              .toList()
+                                              .cast<Widget>(),
                                         ),
-                                      ],
-                                    );
-                            },
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Text(
-                                c.l!.generalClose,
-                                style: GoogleFonts.getFont(c.l!.fontAndika),
-                              ),
-                            )
-                          ],
-                        );
-                      }).then((value) => stop = true);
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  child: SvgPicture.asset(
-                    'assets/icon_receive.svg',
-                    semanticsLabel: 'receive',
-                    height: 16,
+                                      )
+                                    : Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Center(
+                                            child: Container(
+                                              height: 28,
+                                              width: 28,
+                                              margin: const EdgeInsets.all(4),
+                                              child:
+                                                  const CircularProgressIndicator(),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                              },
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: Text(
+                                  c.l!.generalClose,
+                                  style: GoogleFonts.getFont(c.l!.fontAndika),
+                                ),
+                              )
+                            ],
+                          );
+                        }).then((value) => stop = true);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(12),
+                    child: SvgPicture.asset(
+                      'assets/icon_receive.svg',
+                      semanticsLabel: 'receive',
+                      height: 16,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const Spacer(),
-            // todo make it into a component
-            Material(
-              color: Colors.deepPurple[100],
-              borderRadius: BorderRadius.circular(8),
-              child: InkWell(
+              const Spacer(),
+              // todo make it into a component
+              Material(
+                color: Colors.deepPurple[100],
                 borderRadius: BorderRadius.circular(8),
-                splashColor: Colors.deepPurple[400],
-                onTap: () {
-                  context.n.page = AboutPage();
-                  //todo: refactor
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Colors.deepPurple[400],
+                  onTap: () {
+                    context.n.page = AboutPage();
+                    //todo: refactor
 //                   showDialog(
 //                       context: context,
 //                       builder: (BuildContext context) => FutureBuilder(
@@ -588,33 +595,34 @@ class _HomeScreenState extends State<HomeScreen> {
 //                                 ],
 // //                                  scrollable: true,
 //                               )));
-                },
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  child: Text(
-                    'sharik v3.0',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.deepPurple[700],
-                        fontFamily: 'JetBrainsMono'),
+                  },
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                    child: Text(
+                      'sharik v3.0',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.deepPurple[700],
+                          fontFamily: 'JetBrainsMono'),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      Container(
-        color: Colors.deepPurple[100],
-        child: SafeArea(
-          top: false,
-          right: false,
-          left: false,
-          child: Container(),
-        ),
-      )
-    ]);
+        Container(
+          color: Colors.deepPurple[100],
+          child: SafeArea(
+            top: false,
+            right: false,
+            left: false,
+            child: Container(),
+          ),
+        )
+      ]),
+    );
   }
 
   Widget changelog(BuildContext c, Map data) {
