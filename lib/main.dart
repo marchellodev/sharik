@@ -10,26 +10,25 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:sharik/screens/loading.dart';
 import 'package:usage/usage_io.dart';
-import 'package:window_size/window_size.dart' as screen;
 
 import 'conf.dart';
 import 'logic/language.dart';
 import 'logic/navigation.dart';
 import 'models/file.dart';
-import 'wrapper.dart';
 
 // todo move into provider / bloc
 // todo accessibility
 // todo make sure /screens/languages.dart not package:sharik/
 
 Future<void> main() async {
-  if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
-    WidgetsFlutterBinding.ensureInitialized();
-
-    screen.setWindowMinSize(const Size(440, 680));
-    screen.setWindowMaxSize(const Size(440, 680));
-  }
+  // if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //
+  //   screen.setWindowMinSize(const Size(440, 680));
+  //   screen.setWindowMaxSize(const Size(440, 680));
+  // }
 
   Hive.registerAdapter(FileTypeModelAdapter());
   Hive.registerAdapter(FileModelAdapter());
@@ -52,11 +51,9 @@ Future<void> main() async {
     ))));
     return;
   }
+
   await Hive.openBox<String>('strings');
   await Hive.openBox<FileModel>('history');
-
-  // todo improve analytics
-  // _initAnalytics();
 
   runApp(MultiProvider(
     providers: [
@@ -71,6 +68,7 @@ class SharikApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       builder: (_, child) {
         return ResponsiveWrapper.builder(
             ScrollConfiguration(
@@ -94,11 +92,19 @@ class SharikApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: languageList.map((e) => e.locale),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: AppWrapper(),
-      ),
+      title: 'Sharik',
+      theme: ThemeData(
+          brightness: Brightness.light,
+
+          // sharik top icon color
+          cardColor: Colors.deepPurple.shade500),
+      darkTheme: ThemeData(
+          brightness: Brightness.dark,
+
+          // sharik top icon color
+          cardColor: Colors.deepPurple.shade300),
+      themeMode: ThemeMode.light,
+      home: LoadingScreen(),
     );
   }
 }

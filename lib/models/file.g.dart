@@ -20,7 +20,7 @@ class FileTypeModelAdapter extends TypeAdapter<FileTypeModel> {
       case 2:
         return FileTypeModel.app;
       default:
-        return FileTypeModel.text;
+        return FileTypeModel.file;
     }
   }
 

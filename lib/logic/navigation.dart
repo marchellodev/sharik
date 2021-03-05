@@ -39,7 +39,7 @@ class LoadingPage extends NPage {
 
 class LanguagePage extends NPage {
   @override
-  Widget get widget => LanguageScreen();
+  Widget get widget => LanguagePickerScreen();
 }
 
 class IntroPage extends NPage {

@@ -3,50 +3,55 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sharik/components/logo.dart';
-import 'package:sharik/logic/navigation.dart';
+import 'package:sharik/components/page_router.dart';
 
 import '../conf.dart';
 import '../logic/language.dart';
-import '../utils/helper.dart';
 
-class LanguageScreen extends StatelessWidget {
+class LanguagePickerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      // physics: const BouncingScrollPhysics(),
-      children: <Widget>[
-        const SafeArea(
-          child: SizedBox(
+    return Scaffold(
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        children: [
+          const SafeArea(
+            child: SizedBox(
+              height: 24,
+            ),
+          ),
+          SharikLogo(),
+          const SizedBox(
             height: 24,
           ),
-        ),
-        SharikLogo(),
-        const SizedBox(
-          height: 24,
-        ),
-        Text(
-          'Select the language\nyou are familiar\nwith',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.getFont(
-            'Comfortaa',
-            fontSize: 24,
+          Text(
+            'Select the language\nyou are familiar\nwith',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.getFont(
+              'Comfortaa',
+              fontSize: 24,
+            ),
           ),
-        ),
-        const SizedBox(height: 20),
-        for (var lang in languageList) ...[
-          LanguageButton(lang),
-          const SizedBox(height: 6)
+          const SizedBox(height: 20),
+          for (var lang in languageList) ...[
+            LanguageButton(lang, () {
+              context.read<LanguageManager>().language = lang;
+              // c.n.page = IntroPage();
+              SharikRouter.navigateTo(context, this, Screens.loading);
+            }),
+            const SizedBox(height: 6)
+          ],
         ],
-      ],
+      ),
     );
   }
 }
 
 class LanguageButton extends StatelessWidget {
   final Language language;
+  final Function() onClick;
 
-  const LanguageButton(this.language);
+  const LanguageButton(this.language, this.onClick);
 
   @override
   Widget build(BuildContext c) => Padding(
@@ -58,11 +63,7 @@ class LanguageButton extends StatelessWidget {
               color: Colors.deepPurple[400],
               child: InkWell(
                 borderRadius: BorderRadius.circular(12),
-                onTap: () {
-                  // todo use either language or locale
-                  c.read<LanguageManager>().language = language;
-                  c.n.page = IntroPage();
-                },
+                onTap: onClick,
                 child: Stack(
                   children: <Widget>[
                     Align(
@@ -79,7 +80,7 @@ class LanguageButton extends StatelessWidget {
                         child: Text(language.nameLocal,
                             style: GoogleFonts.getFont(
                                 language.localizations.fontAndika,
-                                color: Colors.white,
+                                color: Colors.grey.shade100,
                                 fontSize: 24))),
                   ],
                 ),

@@ -73,8 +73,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (Platform.isAndroid || Platform.isIOS) {
                   final f = await FilePicker.platform.pickFiles();
 
-                  shareFile(FileModel(
-                      data: f.paths.first, type: FileTypeModel.file, name: ''));
+                  if (f != null) {
+                    shareFile(FileModel(
+                        data: (f.paths.first)!,
+                        type: FileTypeModel.file,
+                        name: ''));
+                  }
                 } else {
                   final f = await openFile();
                   if (f != null) {

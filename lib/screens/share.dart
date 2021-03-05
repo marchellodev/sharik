@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:sharik/logic/ip.dart';
 import 'package:simple_connectivity/simple_connectivity.dart' as s;
 import 'package:wifi_iot/wifi_iot.dart';
 
@@ -115,34 +115,6 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
           await request.response.close();
         }
       }
-    }
-  }
-
-  Future getIp() async {
-    final list = await NetworkInterface.list(type: InternetAddressType.IPv4);
-
-    for (final el in list) {
-      print(el);
-    }
-
-    if (Platform.isAndroid) {
-      final ip = list.firstWhereOrNull((element) => element.name == 'wlan0');
-
-      if (ip != null) {
-        return ip.addresses.first.address;
-      }
-    } else if (Platform.isWindows) {
-      final ip = list.firstWhereOrNull((element) => element.name == 'Wi-Fi');
-
-      if (ip != null) {
-        return ip.addresses.first.address;
-      }
-    }
-
-    if (list.isEmpty) {
-      return 'null';
-    } else {
-      return list[0].addresses.first.address;
     }
   }
 

@@ -12,3 +12,7 @@ extension LocaleContext on BuildContext {
 extension NavigatorContext on BuildContext {
   NavigationManager get n => read<NavigationManager>();
 }
+
+extension ThemeContext on BuildContext {
+  ThemeData get t => Theme.of(this);
+}
