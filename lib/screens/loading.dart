@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hive/hive.dart';
 import 'package:sharik/components/page_router.dart';
 
 import '../conf.dart';
@@ -21,7 +22,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await Future.delayed(const Duration(seconds: 1));
 
     if (mounted) {
-      SharikRouter.navigateTo(context, build(context), Screens.languagePicker, RouteDirection.right);
+      SharikRouter.navigateTo(
+          context,
+          build(context),
+          Hive.box<String>('strings').containsKey('language')
+              ? Screens.home
+              : Screens.languagePicker,
+          RouteDirection.right);
     }
     // context.did
   }

@@ -48,7 +48,7 @@ class SharikRouter extends PageRouteBuilder {
                   parent: animation,
                   curve: Curves.fastOutSlowIn,
                 )),
-                child: enterPage,
+                child: child,
               )
             ],
           ),

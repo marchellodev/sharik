@@ -64,7 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const SizedBox(height: 28),
-        SafeArea(child: SharikLogo()),
+        SafeArea(
+          child: Hero(
+            tag: 'icon',
+            child: SharikLogo(),
+          ),
+        ),
         const SizedBox(height: 18),
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
@@ -252,11 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       saveLatest();
                     },
-                    icon: SvgPicture.asset(
-                      'assets/icon_remove.svg',
-                      semanticsLabel: 'remove',
-                      height: 16,
-                    )),
+                    icon: const Icon(Icons.delete)),
               )
             ],
           ),
@@ -515,7 +516,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(8),
                   splashColor: Colors.deepPurple[400],
                   onTap: () {
-                    context.n.page = AboutPage();
+                    SharikRouter.navigateTo(context, context.widget,
+                        Screens.about, RouteDirection.right);
                     //todo: refactor
 //                   showDialog(
 //                       context: context,
