@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:sharik/logic/theme.dart';
 import 'package:sharik/screens/loading.dart';
 import 'package:usage/usage_io.dart';
 
@@ -58,6 +59,7 @@ Future<void> main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => LanguageManager()),
+      ChangeNotifierProvider(create: (_) => ThemeManager()),
       Provider(create: (_) => NavigationManager()),
     ],
     child: SharikApp(),
@@ -97,13 +99,20 @@ class SharikApp extends StatelessWidget {
           brightness: Brightness.light,
 
           // sharik top icon color
-          cardColor: Colors.deepPurple.shade500),
+          cardColor: Colors.deepPurple.shade500,
+
+          // about card color
+          buttonColor: Colors.deepPurple.shade50.withOpacity(0.6)),
       darkTheme: ThemeData(
           brightness: Brightness.dark,
 
           // sharik top icon color
-          cardColor: Colors.deepPurple.shade300),
-      themeMode: ThemeMode.dark,
+          cardColor: Colors.deepPurple.shade300,
+
+          // about card color
+          buttonColor: Colors.deepPurple.shade100.withOpacity(0.8)),
+
+      themeMode: context.watch<ThemeManager>().theme,
       home: LoadingScreen(),
     );
   }

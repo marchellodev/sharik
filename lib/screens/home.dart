@@ -12,9 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:ping_discover_network/ping_discover_network.dart';
+import 'package:provider/provider.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/logic/navigation.dart';
+import 'package:sharik/logic/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
@@ -63,14 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext c) {
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const SizedBox(height: 28),
-        SafeArea(
-          child: Hero(
-            tag: 'icon',
-            child: SharikLogo(),
-          ),
+        const SafeArea(child: SizedBox(height: 28)),
+        Hero(
+          tag: 'icon',
+          child: SharikLogo(),
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 28),
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             height: 104,
@@ -504,6 +504,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       semanticsLabel: 'receive',
                       height: 16,
                     ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 2),
+
+              Material(
+                color: Colors.deepPurple[100],
+                borderRadius: BorderRadius.circular(8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(8),
+                  splashColor: Colors.deepPurple[400],
+                  onTap: () =>  context.read<ThemeManager>().change(),
+                  child: Container(
+                    margin: const EdgeInsets.all(12),
+                    child: Icon(
+                        context.watch<ThemeManager>().icon, color: Colors.deepPurple.shade700, size: 20),
                   ),
                 ),
               ),

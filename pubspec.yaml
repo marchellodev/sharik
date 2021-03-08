@@ -45,7 +45,7 @@ dependencies:
   usage: ^4.0.0
 
   intl: ^0.17.0
-  collection: ^1.15.0-nullsafety.4
+  collection: ^1.15.0
 
 
   file_selector: ^0.8.2
