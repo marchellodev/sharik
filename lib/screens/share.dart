@@ -9,15 +9,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:sharik/components/logo.dart';
+import 'package:sharik/components/page_router.dart';
 import 'package:sharik/logic/ip.dart';
 import 'package:simple_connectivity/simple_connectivity.dart' as s;
 import 'package:wifi_iot/wifi_iot.dart';
 
 import '../conf.dart';
 import '../models/file.dart';
-import '../utils/helper.dart';
 
 class SharingScreen extends StatefulWidget {
+  final FileModel file;
+
+  const SharingScreen(this.file);
+
   @override
   State<StatefulWidget> createState() {
     return ShareState();
@@ -263,8 +268,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   void initState() {
     // _model = Provider.of<AppModel>(context, listen: false);
     // _file = _model.file;
-    _file = context.n.file;
-
+    // _file = context.n.file;
+    _file = widget.file;
     ip = 'loading...';
     network = 'loading...';
 
@@ -283,271 +288,301 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 24, right: 24, top: 8),
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 46,
-            margin: const EdgeInsets.only(bottom: 14),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.deepPurple[400],
-            ),
-            child: Row(
-              children: <Widget>[
-                SvgPicture.asset(
-                  _file!.icon,
-                  //todo: add semantics stuff everywhere
-                  semanticsLabel: 'file',
-                  width: 18,
+    return Scaffold(
+      body: GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if ((details.primaryVelocity ?? 0) > 0) {
+            SharikRouter.navigateTo(
+                context, context.widget, Screens.home, RouteDirection.left);
+          }
+        },
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          children: [
+            const SafeArea(child: SizedBox(height: 28)),
+            Stack(
+              children: [
+                Hero(
+                  tag: 'icon',
+                  child: SharikLogo(),
                 ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      _file!.name,
-                      style: GoogleFonts.getFont(
-                        'Andika',
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                      maxLines: 1,
-                    ),
-                  ),
-                )
+                IconButton(
+                    onPressed: () => SharikRouter.navigateTo(
+                        context, context.widget, Screens.home, RouteDirection.left),
+                    icon: const Icon(Icons.arrow_back_ios))
               ],
             ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.deepPurple[400],
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(left: 16),
-                  margin: const EdgeInsets.only(top: 18),
-                  child: SvgPicture.asset(
-                    'assets/icon_network.svg',
-                    semanticsLabel: 'network ',
+            const SizedBox(height: 34),
+
+            Container(
+              height: 46,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.deepPurple[400],
+              ),
+              child: Row(
+                children: <Widget>[
+                  SvgPicture.asset(
+                    _file!.icon,
+                    //todo: add semantics stuff everywhere
+                    semanticsLabel: 'file',
                     width: 18,
                   ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              network,
-                              style: GoogleFonts.getFont(
-                                'Andika',
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        _file!.name,
+                        style: GoogleFonts.getFont(
+                          'Andika',
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                        maxLines: 1,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.deepPurple[400],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.only(left: 16),
+                    margin: const EdgeInsets.only(top: 18),
+                    child: SvgPicture.asset(
+                      'assets/icon_network.svg',
+                      semanticsLabel: 'network ',
+                      width: 18,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                network,
                                 style: GoogleFonts.getFont(
                                   'Andika',
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 18,
                                 ),
-                                children: [
-                                  const TextSpan(text: 'Connect to'),
-                                  if (Platform.isAndroid || Platform.isIOS)
-                                    TextSpan(
-                                        text: ' Wi-Fi ',
-                                        style: TextStyle(
-                                            color: wifi
-                                                ? Colors.green[100]
-                                                : Colors.red[100]))
-                                  else
-                                    const TextSpan(text: ' Wi-Fi '),
-                                  const TextSpan(text: 'or set up a'),
-                                  if (Platform.isAndroid || Platform.isIOS)
-                                    TextSpan(
-                                        text: ' Mobile Hotspot',
-                                        style: TextStyle(
-                                            color: tether
-                                                ? Colors.green[100]
-                                                : Colors.red[100]))
-                                  else
-                                    const TextSpan(text: ' Mobile Hotspot'),
-                                ]),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                        ]),
+                              ),
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  style: GoogleFonts.getFont(
+                                    'Andika',
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                  children: [
+                                    const TextSpan(text: 'Connect to'),
+                                    if (Platform.isAndroid || Platform.isIOS)
+                                      TextSpan(
+                                          text: ' Wi-Fi ',
+                                          style: TextStyle(
+                                              color: wifi
+                                                  ? Colors.green[100]
+                                                  : Colors.red[100]))
+                                    else
+                                      const TextSpan(text: ' Wi-Fi '),
+                                    const TextSpan(text: 'or set up a'),
+                                    if (Platform.isAndroid || Platform.isIOS)
+                                      TextSpan(
+                                          text: ' Mobile Hotspot',
+                                          style: TextStyle(
+                                              color: tether
+                                                  ? Colors.green[100]
+                                                  : Colors.red[100]))
+                                    else
+                                      const TextSpan(text: ' Mobile Hotspot'),
+                                  ]),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                          ]),
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.deepPurple[400],
-                  child: InkWell(
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Material(
                     borderRadius: BorderRadius.circular(12),
-                    onTap: () {
-                      updCon();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 14),
-                      child: AnimatedBuilder(
-                        animation: _conAnimation,
-                        builder: (context, child) {
-                          return Transform.rotate(
-                              angle: _conAnimation.value, child: child);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icon_update.svg',
-                          semanticsLabel: 'update ',
-                          height: 14,
+                    color: Colors.deepPurple[400],
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        updCon();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 14),
+                        child: AnimatedBuilder(
+                          animation: _conAnimation,
+                          builder: (context, child) {
+                            return Transform.rotate(
+                                angle: _conAnimation.value, child: child);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/icon_update.svg',
+                            semanticsLabel: 'update ',
+                            height: 14,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const Spacer(),
-          Center(
-              child: Text(
-            'Now open this link\nin any browser',
-            style: GoogleFonts.getFont(
-              'Comfortaa',
-              fontSize: 20,
-            ),
-            textAlign: TextAlign.center,
-          )),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.deepPurple[400],
-              borderRadius: BorderRadius.circular(12),
-            ),
-            height: 42,
-            margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 18),
-            child: Row(
-              children: <Widget>[
-                const SizedBox(
-                  width: 14,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      ip!,
-                      // todo remove TextStyle
-                      style: GoogleFonts.getFont('Andika',
-                          color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 6,
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.deepPurple[400],
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () {
-                      Clipboard.setData(ClipboardData(text: ip)).then((result) {
-                        final snackBar = SnackBar(
-                          backgroundColor: Colors.deepPurple[500],
-                          duration: const Duration(seconds: 1),
-                          content: Text(
-                            'Copied to Clipboard',
-                            style: GoogleFonts.getFont('Andika',
-                                color: Colors.white),
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 12),
-                      child: SvgPicture.asset(
-                        'assets/icon_copy.svg',
-                        semanticsLabel: 'update',
-                        width: 16,
-                      ),
-                    ),
-                  ),
-                ),
-                Material(
-                  borderRadius: BorderRadius.circular(12),
-                  color: Colors.deepPurple[400],
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(12),
-                    onTap: () {
-                      updIp(true);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 12),
-                      child: AnimatedBuilder(
-                        animation: _ipAnimation,
-                        builder: (context, child) {
-                          return Transform.rotate(
-                              angle: _ipAnimation.value, child: child);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icon_update.svg',
-                          semanticsLabel: 'update ',
-                          height: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Spacer(),
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.symmetric(vertical: 18),
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.deepPurple[300],
-            ),
-            child: Text(
-              'The recipient needs to be connected\nto the same network',
+            const SizedBox(height: 38),
+            const SizedBox(height: 38),
+            Center(
+                child: Text(
+              'Now open this link\nin any browser',
+              style: GoogleFonts.getFont(
+                'Comfortaa',
+                fontSize: 20,
+              ),
               textAlign: TextAlign.center,
-              style: GoogleFonts.getFont('Andika',
-                  color: Colors.white, fontSize: 18),
+            )),
+            const SizedBox(height: 12),
+
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.deepPurple[400],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              height: 42,
+              margin: const EdgeInsets.symmetric(horizontal: 2),
+              child: Row(
+                children: <Widget>[
+                  const SizedBox(
+                    width: 14,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        ip!,
+                        // todo remove TextStyle
+                        style: GoogleFonts.getFont('Andika',
+                            color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  Material(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.deepPurple[400],
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Clipboard.setData(ClipboardData(text: ip))
+                            .then((result) {
+                          final snackBar = SnackBar(
+                            backgroundColor: Colors.deepPurple[500],
+                            duration: const Duration(seconds: 1),
+                            content: Text(
+                              'Copied to Clipboard',
+                              style: GoogleFonts.getFont('Andika',
+                                  color: Colors.white),
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 12),
+                        child: SvgPicture.asset(
+                          'assets/icon_copy.svg',
+                          semanticsLabel: 'update',
+                          width: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Material(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.deepPurple[400],
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        updIp(true);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 12),
+                        child: AnimatedBuilder(
+                          animation: _ipAnimation,
+                          builder: (context, child) {
+                            return Transform.rotate(
+                                angle: _ipAnimation.value, child: child);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/icon_update.svg',
+                            semanticsLabel: 'update ',
+                            height: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(
-            child: SafeArea(
-              top: false,
-              right: false,
-              left: false,
-              child: Container(),
+            const SizedBox(height: 38),
+            const SizedBox(height: 38),
+
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.deepPurple[300],
+              ),
+              child: Text(
+                'The recipient needs to be connected\nto the same network',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.getFont('Andika',
+                    color: Colors.white, fontSize: 18),
+              ),
             ),
-          )
-        ],
+            SizedBox(
+              child: SafeArea(
+                top: false,
+                right: false,
+                left: false,
+                child: Container(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

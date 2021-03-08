@@ -16,14 +16,8 @@ class AboutScreen extends StatelessWidget {
       body: GestureDetector(
         onHorizontalDragEnd: (DragEndDetails details) {
           if ((details.primaryVelocity ?? 0) > 0) {
-            // User swiped Left
             SharikRouter.navigateTo(
                 context, this, Screens.home, RouteDirection.left);
-            print('swipe left');
-          } else if ((details.primaryVelocity ?? 0) < 0) {
-            print('swipe right');
-
-            // User swiped Right
           }
         },
         child: ListView(
@@ -42,9 +36,8 @@ class AboutScreen extends StatelessWidget {
                     icon: const Icon(Icons.arrow_back_ios))
               ],
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 34),
 
-            const SizedBox(height: 18),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

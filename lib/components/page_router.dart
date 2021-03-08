@@ -26,10 +26,10 @@ class SharikRouter extends PageRouteBuilder {
                 position: Tween<Offset>(
                   begin: direction == RouteDirection.right
                       ? const Offset(0.0, 0.0)
-                      :  Offset.zero,
+                      : Offset.zero,
                   end: direction == RouteDirection.right
                       ? const Offset(-1.0, 0.0)
-                      : const Offset(1.0, 0.0) ,
+                      : const Offset(1.0, 0.0),
                 ).animate(CurvedAnimation(
                   parent: animation,
                   curve: Curves.fastOutSlowIn,
@@ -54,13 +54,14 @@ class SharikRouter extends PageRouteBuilder {
           ),
         );
 
-  static void navigateTo(
-      BuildContext context, Widget screenFrom, Screens screen, RouteDirection direction) {
+  static void navigateTo(BuildContext context, Widget screenFrom,
+      Screens screen, RouteDirection direction,
+      [Object? args]) {
     Navigator.pushReplacement(
         context,
         SharikRouter(
           exitPage: screenFrom,
-          enterPage: screen2widget(screen),
+          enterPage: screen2widget(screen, args),
           direction: direction,
         ));
   }

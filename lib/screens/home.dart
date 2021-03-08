@@ -54,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await saveLatest();
 
-    context.n.file = file;
-    context.n.page = SharingPage();
-
+    // context.n.file = file;
+    // context.n.page = SharingPage();
+    SharikRouter.navigateTo(context, context.widget, Screens.sharing, RouteDirection.right, file);
     // _model.file = file;
     // _model.setState(() => _model.setPage(PageModel.sharing));
   }
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: 'icon',
           child: SharikLogo(),
         ),
-        const SizedBox(height: 28),
+        const SizedBox(height: 34),
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 24),
             height: 104,

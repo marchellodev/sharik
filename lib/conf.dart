@@ -19,12 +19,15 @@ import 'package:sharik/screens/home.dart';
 import 'package:sharik/screens/intro.dart';
 import 'package:sharik/screens/languages.dart';
 import 'package:sharik/screens/loading.dart';
+import 'package:sharik/screens/share.dart';
+
+import 'models/file.dart';
 
 List<int> get ports => [50500, 50050, 56789, 56788];
 
-enum Screens { loading, languagePicker, intro, home, about }
+enum Screens { loading, languagePicker, intro, home, about, sharing }
 
-Widget screen2widget(Screens s) {
+Widget screen2widget(Screens s, [Object? args]) {
   switch (s) {
     case Screens.loading:
       return LoadingScreen();
@@ -36,6 +39,8 @@ Widget screen2widget(Screens s) {
       return HomeScreen();
     case Screens.about:
       return AboutScreen();
+    case Screens.sharing:
+      return SharingScreen(args! as FileModel);
   }
 }
 
