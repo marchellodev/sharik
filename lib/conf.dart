@@ -13,6 +13,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations_ru.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
 import 'package:sharik/logic/language.dart';
 import 'package:sharik/screens/about.dart';
 import 'package:sharik/screens/home.dart';
@@ -46,11 +47,17 @@ Widget screen2widget(Screens s, [Object? args]) {
 
 List<Language> get languageList => [
       Language(
-          // 1.1 billion (400+700)
+          // 1.3 billion (400+700)
           name: 'english',
           nameLocal: 'English',
           locale: const Locale('en'),
           localizations: AppLocalizationsEn()),
+      Language(
+          // 1.3 billion (400+700)
+          name: 'chinese',
+          nameLocal: '汉语',
+          locale: const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+          localizations: AppLocalizationsZh()),
       Language(
           // 592 million (322+270)
           name: 'hindi',
