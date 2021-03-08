@@ -42,6 +42,7 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 - Turkish (Türkçe) by [T. E. Kalaycı](https://github.com/tekrei)
 - Farsi by [behzad-njf](https://github.com/behzad-njf)
 - Malayalam by [zcraber](https://github.com/zcraber)
+- Simplified Chinese by [归零幻想](https://github.com/zerofancy)
 
 ## Platforms
 - Android
