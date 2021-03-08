@@ -7,6 +7,7 @@ import '../locales/in_hi.dart';
 import '../locales/pl.dart';
 import '../locales/ru.dart';
 import '../locales/ua.dart';
+import '../locales/zh_hans.dart';
 
 part 'locale.g.dart';
 
@@ -27,6 +28,8 @@ enum LocaleModel {
   inHi,
   @HiveField(6)
   inGu,
+  @HiveField(7)
+  zhHans,
 }
 
 String locale2sign(LocaleModel locale) => locale.toString().split('.').last;
@@ -53,6 +56,9 @@ String locale2name(LocaleModel locale) {
       break;
     case LocaleModel.inGu:
       return 'ગુજરાતી';
+      break;
+    case LocaleModel.zhHans:
+      return '简体中文';
       break;
   }
   throw Exception('Unknown locale');
@@ -87,6 +93,9 @@ LocaleAdapter getLocaleAdapter(LocaleModel locale) {
       break;
     case LocaleModel.inGu:
       return LocaleAdapter(map: getInGu, locale: locale);
+      break;
+    case LocaleModel.zhHans:
+      return LocaleAdapter(map: getZhHans, locale: locale);
       break;
   }
   throw Exception('no such local!!!');

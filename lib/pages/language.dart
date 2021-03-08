@@ -42,6 +42,8 @@ class LanguagePage extends StatelessWidget {
           const SizedBox(height: 14),
           LanguageButton(LocaleModel.ua, model),
           const SizedBox(height: 14),
+          LanguageButton(LocaleModel.zhHans, model),
+          const SizedBox(height: 14),
         ],
       ),
     );
