@@ -27,6 +27,8 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
         return LocaleModel.inHi;
       case 6:
         return LocaleModel.inGu;
+      case 7:
+        return LocaleModel.zhHans;
       default:
         return LocaleModel.en;
     }
@@ -55,6 +57,9 @@ class LocaleModelAdapter extends TypeAdapter<LocaleModel> {
         break;
       case LocaleModel.inGu:
         writer.writeByte(6);
+        break;
+      case LocaleModel.zhHans:
+        writer.writeByte(7);
         break;
     }
   }
