@@ -6,7 +6,7 @@ import 'package:sharik/logic/navigation.dart';
 T? cast<T>(dynamic x) => x is T ? x : null;
 
 extension LocaleContext on BuildContext {
-  AppLocalizations? get l => AppLocalizations.of(this);
+  AppLocalizations get l => AppLocalizations.of(this)!;
 }
 
 extension NavigatorContext on BuildContext {

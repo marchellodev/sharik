@@ -13,13 +13,13 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext c) {
     return Scaffold(
       body: IntroSlider(
-        nameDoneBtn: c.l!.introGeneralDone,
-        nameNextBtn: c.l!.introGeneralNext,
+        nameDoneBtn: c.l.introGeneralDone,
+        nameNextBtn: c.l.introGeneralNext,
         isShowSkipBtn: false,
         styleNameDoneBtn:
-            GoogleFonts.getFont(c.l!.fontComfortaa, color: Colors.white),
+            GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
         styleNamePrevBtn:
-            GoogleFonts.getFont(c.l!.fontComfortaa, color: Colors.white),
+            GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
         colorDot: Colors.white70,
         colorActiveDot: Colors.white,
         // todo use svgs instead
@@ -27,54 +27,54 @@ class IntroScreen extends StatelessWidget {
         slides: [
           Slide(
             styleTitle: GoogleFonts.getFont(
-              c.l!.fontComfortaa,
+              c.l.fontComfortaa,
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
             ),
-            styleDescription: GoogleFonts.getFont(c.l!.fontAndika,
+            styleDescription: GoogleFonts.getFont(c.l.fontAndika,
                 color: Colors.white, fontSize: 18.0),
-            title: c.l!.intro1ConnectTitle,
-            description: c.l!.intro1ConnectDescription,
+            title: c.l.intro1ConnectTitle,
+            description: c.l.intro1ConnectDescription,
             pathImage: 'assets/slides/1_connect.png',
             backgroundColor: Colors.purple.shade400,
           ),
           Slide(
             styleTitle: GoogleFonts.getFont(
-              c.l!.fontComfortaa,
+              c.l.fontComfortaa,
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
             ),
-            styleDescription: GoogleFonts.getFont(c.l!.fontAndika,
+            styleDescription: GoogleFonts.getFont(c.l.fontAndika,
                 color: Colors.white, fontSize: 18.0),
-            title: c.l!.intro2SendTitle,
-            description: c.l!.intro2SendDescription,
+            title: c.l.intro2SendTitle,
+            description: c.l.intro2SendDescription,
             pathImage: 'assets/slides/2_send.png',
             backgroundColor: Colors.indigo[400]!,
           ),
           Slide(
             styleTitle: GoogleFonts.getFont(
-              c.l!.fontComfortaa,
+              c.l.fontComfortaa,
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
             ),
-            styleDescription: GoogleFonts.getFont(c.l!.fontAndika,
+            styleDescription: GoogleFonts.getFont(c.l.fontAndika,
                 color: Colors.white, fontSize: 18.0),
-            title: c.l!.intro3ReceiveTitle,
-            description: c.l!.intro3ReceiveDescription,
+            title: c.l.intro3ReceiveTitle,
+            description: c.l.intro3ReceiveDescription,
             pathImage: 'assets/slides/3_receive.png',
             backgroundColor: Colors.teal[400]!,
           ),
           Slide(
             styleTitle: GoogleFonts.getFont(
-              c.l!.fontComfortaa,
+              c.l.fontComfortaa,
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 30,
             ),
-            title: c.l!.intro4EverywhereTitle,
+            title: c.l.intro4EverywhereTitle,
             pathImage: 'assets/slides/4_everywhere.png',
             backgroundColor: Colors.blueGrey[400]!,
             widgetDescription: GestureDetector(
@@ -84,8 +84,8 @@ class IntroScreen extends StatelessWidget {
                 }
               },
               child: Text(
-                c.l!.intro4EverywhereDescription,
-                style: GoogleFonts.getFont(c.l!.fontAndika,
+                c.l.intro4EverywhereDescription,
+                style: GoogleFonts.getFont(c.l.fontAndika,
                     color: Colors.white, fontSize: 18.0),
                 textAlign: TextAlign.center,
                 maxLines: 4,

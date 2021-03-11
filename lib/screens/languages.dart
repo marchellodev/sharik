@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 
 import '../conf.dart';
 import '../logic/language.dart';
-
 
 class LanguagePickerScreen extends StatelessWidget {
   @override
@@ -54,37 +54,15 @@ class LanguageButton extends StatelessWidget {
   const LanguageButton(this.language, this.onClick);
 
   @override
-  Widget build(BuildContext c) => Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: SizedBox(
-            height: 78,
-            child: Material(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.deepPurple[400],
-              child: InkWell(
-                borderRadius: BorderRadius.circular(12),
-                onTap: onClick,
-                child: Stack(
-                  children: <Widget>[
-                    Align(
-                      alignment: Alignment.centerRight,
-                      // margin: const EdgeInsets.all(6),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: SvgPicture.asset(
-                          'assets/flags/${language.name}.svg',
-                        ),
-                      ),
-                    ),
-                    Center(
-                        child: Text(language.nameLocal,
-                            style: GoogleFonts.getFont(
-                                language.localizations.fontAndika,
-                                color: Colors.grey.shade100,
-                                fontSize: 24))),
-                  ],
-                ),
-              ),
-            )),
-      );
+  Widget build(BuildContext context) => Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: PrimaryButton(
+        height: 78,
+        onClick: onClick,
+        text: language.nameLocal,
+        secondaryIcon: SvgPicture.asset(
+          'assets/flags/${language.name}.svg',
+        ),
+        font: language.localizations.fontAndika,
+      ));
 }

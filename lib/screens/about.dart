@@ -76,10 +76,10 @@ class AboutScreen extends StatelessWidget {
                   Expanded(
                     child: Material(
                       borderRadius: BorderRadius.circular(8),
-                      color: Colors.deepPurple[400],
+                      color: Colors.deepPurple.shade400,
                       child: InkWell(
-                        splashColor: Colors.deepPurple.shade100.withOpacity(0.32),
-                        hoverColor: Colors.deepPurple.shade50.withOpacity(0.3),
+                        splashColor: Colors.deepPurple.shade200.withOpacity(0.3),
+                        hoverColor: Colors.deepPurple.shade200.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8),
                         onTap: () async {},
                         child: Container(
@@ -97,11 +97,15 @@ class AboutScreen extends StatelessWidget {
                   SizedBox(width: 12),
                   Expanded(
                     child: Material(
-                      color: Colors.deepPurple[100],
+                      color: Colors.deepPurple.shade100,
                       borderRadius: BorderRadius.circular(8),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(8),
-                        splashColor: Colors.deepPurple[400]!.withOpacity(0.32),
+                        // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
+                        // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
+                        // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
+                        splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
+                        hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
                         onTap: () {},
                         child: Container(
                           alignment: Alignment.center,
@@ -124,7 +128,7 @@ class AboutScreen extends StatelessWidget {
               Text(
                   'Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :)',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont(context.l!.fontComfortaa,
+                  style: GoogleFonts.getFont(context.l.fontComfortaa,
                       fontSize: 16)),
               const SizedBox(height: 8),
               Row(
@@ -176,7 +180,7 @@ class AboutScreen extends StatelessWidget {
               const SizedBox(height: 18),
               Text('Contributors',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont(context.l!.fontComfortaa,
+                  style: GoogleFonts.getFont(context.l.fontComfortaa,
                       fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
               Column(

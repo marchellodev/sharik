@@ -58,7 +58,7 @@ class _AppSelectorState extends State<AppSelector> {
           shrinkWrap: true,
           children: [
             CheckboxListTile(
-              title: Text(context.l!.selectAppHideSystem),
+              title: Text(context.l.selectAppHideSystem),
               value: _checkSystem,
               onChanged: (value) => setState(() {
                 _checkSystem = value!;
@@ -67,7 +67,7 @@ class _AppSelectorState extends State<AppSelector> {
               controlAffinity: ListTileControlAffinity.leading,
             ),
             CheckboxListTile(
-              title: Text(context.l!.selectAppHideNonLaunch),
+              title: Text(context.l.selectAppHideNonLaunch),
               value: _checkLaunch,
               onChanged: (value) => setState(() {
                 _checkLaunch = value!;
@@ -78,7 +78,7 @@ class _AppSelectorState extends State<AppSelector> {
             TextField(
               onChanged: (value) =>
                   setState(() => _search = value.toLowerCase()),
-              decoration: InputDecoration(hintText: context.l!.selectAppSearch),
+              decoration: InputDecoration(hintText: context.l.selectAppSearch),
             ),
             if (_apps.isNotEmpty)
               Column(
@@ -116,8 +116,8 @@ class _AppSelectorState extends State<AppSelector> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(context.l!.generalClose,
-              style: GoogleFonts.getFont(context.l!.fontAndika)),
+          child: Text(context.l.generalClose,
+              style: GoogleFonts.getFont(context.l.fontAndika)),
         ),
         TextButton(
           onPressed: _selected == null
@@ -125,8 +125,8 @@ class _AppSelectorState extends State<AppSelector> {
               : () {
                   Navigator.of(context).pop(_selected);
                 },
-          child: Text(context.l!.generalSend,
-              style: GoogleFonts.getFont(context.l!.fontAndika)),
+          child: Text(context.l.generalSend,
+              style: GoogleFonts.getFont(context.l.fontAndika)),
         ),
       ],
     );
