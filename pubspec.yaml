@@ -24,12 +24,12 @@ dependencies:
   flutter_svg: ^0.21.0-nullsafety.0
   google_fonts: ^2.0.0
   intro_slider: ^2.3.4
-  responsive_framework: ^0.0.15
+  responsive_framework: ^0.1.0
 
 
   # UTILS
   http: ^0.13.0
-  wifi_iot: ^0.2.2
+  wifi_iot: ^0.3.0
   ping_discover_network: ^0.2.0+1
   simple_connectivity: ^0.1.1
 

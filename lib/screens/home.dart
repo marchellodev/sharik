@@ -23,7 +23,7 @@ import '../conf.dart';
 import '../models/file.dart';
 import '../models/sender.dart';
 import '../utils/helper.dart';
-import 'app_selector.dart';
+import '../dialogs/app_selector.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
