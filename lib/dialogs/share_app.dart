@@ -123,10 +123,10 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
         ),
       ),
       actions: [
-        TransparentTextButton(context.l.generalClose, () {
+        DialogTextButton(context.l.generalClose, () {
           Navigator.of(context).pop();
         }),
-        TransparentTextButton(
+        DialogTextButton(
             context.l.generalSend,
             selected == null
                 ? null

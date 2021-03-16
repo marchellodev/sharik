@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -71,27 +72,17 @@ class AboutScreen extends StatelessWidget {
               SizedBox(height: 18),
               //    splashColor: Colors.deepPurple.shade500.withOpacity(0.32),
               //           hoverColor: Colors.deepPurple.shade50.withOpacity(0.4),
+
               Row(
+
                 children: [
                   Expanded(
-                    child: Material(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.deepPurple.shade400,
-                      child: InkWell(
-                        splashColor: Colors.deepPurple.shade200.withOpacity(0.3),
-                        hoverColor: Colors.deepPurple.shade200.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(8),
-                        onTap: () async {},
-                        child: Container(
-                            alignment: Alignment.center,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 12),
-                            child: Text('Update',
-                                style: TextStyle(
-                                    fontFamily: 'JetBrainsMono',
-                                    fontSize: 16,
-                                    color: Colors.white))),
-                      ),
+                    child: PrimaryButton(
+                      height: 40,
+                      text: 'Update',
+                      font: 'JetBrainsMono',
+                      onClick: () {},
+                      roundedRadius: 8,
                     ),
                   ),
                   SizedBox(width: 12),
@@ -104,8 +95,9 @@ class AboutScreen extends StatelessWidget {
                         // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
                         // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
                         // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
-                        splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
-                        hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
+                        splashColor:
+                            Colors.deepPurple.shade300.withOpacity(0.2),
+                        hoverColor: Colors.deepPurple.shade300.withOpacity(0.14),
                         onTap: () {},
                         child: Container(
                           alignment: Alignment.center,

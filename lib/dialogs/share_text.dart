@@ -39,10 +39,10 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
         },
       ),
       actions: [
-        TransparentTextButton(context.l.generalClose, () {
+        DialogTextButton(context.l.generalClose, () {
           Navigator.of(context).pop();
         }),
-        TransparentTextButton(
+        DialogTextButton(
             context.l.generalSend,
             text.isEmpty
                 ? null
