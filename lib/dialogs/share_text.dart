@@ -1,0 +1,59 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sharik/components/buttons.dart';
+
+import '../models/file.dart';
+import '../utils/helper.dart';
+
+class ShareTextDialog extends StatefulWidget {
+  @override
+  _ShareTextDialogState createState() => _ShareTextDialogState();
+}
+
+class _ShareTextDialogState extends State<ShareTextDialog> {
+  String text = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = TextEditingController();
+
+    return AlertDialog(
+      elevation: 0,
+      insetPadding: const EdgeInsets.all(24),
+      title: Text(
+        context.l.homeSelectTextTypeSomeText,
+        style: GoogleFonts.getFont(context.l.fontComfortaa,
+            fontWeight: FontWeight.w700),
+      ),
+      content: TextField(
+        autofocus: true,
+        maxLines: null,
+        minLines: 2,
+        onChanged: (str) {
+          setState(() {
+            text = str;
+          });
+        },
+      ),
+      actions: [
+        TransparentTextButton(context.l.generalClose, () {
+          Navigator.of(context).pop();
+        }),
+        TransparentTextButton(
+            context.l.generalSend,
+            text.isEmpty
+                ? null
+                : () {
+                    Navigator.of(context).pop(FileModel(
+                        data: controller.text,
+                        type: FileTypeModel.text,
+                        name: ''));
+                  }),
+        const SizedBox(width: 4),
+      ],
+    );
+  }
+}

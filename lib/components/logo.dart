@@ -11,7 +11,7 @@ class SharikLogo extends StatelessWidget {
           SvgPicture.asset(
             'assets/logo.svg',
             semanticsLabel: 'Sharik app icon',
-            color: context.t.cardColor,
+            color: context.t.accentColor,
           ),
           const SizedBox(
             width: 10,

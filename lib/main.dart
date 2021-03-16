@@ -98,21 +98,51 @@ class SharikApp extends StatelessWidget {
       title: 'Sharik',
       theme: ThemeData(
           brightness: Brightness.light,
+          inputDecorationTheme: InputDecorationTheme(
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.grey.shade900.withOpacity(0.8), width: 2))),
+          textSelectionTheme: TextSelectionThemeData(
+              cursorColor: Colors.grey.shade600,
+              selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
+              selectionColor: Colors.deepPurple.shade100.withOpacity(0.6)),
 
           // sharik top icon color
-          cardColor: Colors.deepPurple.shade500,
+          accentColor: Colors.deepPurple.shade500,
+
+          // right click selection color
+          cardColor: Colors.grey.shade200.withOpacity(0.9),
+
+          // color of the button on the default background
+          dividerColor: Colors.deepPurple.shade400,
 
           // about card color
           buttonColor: Colors.deepPurple.shade50.withOpacity(0.6)),
       darkTheme: ThemeData(
-          brightness: Brightness.dark,
+        brightness: Brightness.dark,
+        inputDecorationTheme: InputDecorationTheme(
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.deepPurple.shade50.withOpacity(0.8),
+                    width: 2))),
 
-          // sharik top icon color
-          cardColor: Colors.deepPurple.shade300,
+        textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.deepPurple.shade50,
+            selectionHandleColor: Colors.deepPurple.shade300.withOpacity(0.9),
+            selectionColor: Colors.deepPurple.shade50.withOpacity(0.4)),
 
-          // about card color
-          buttonColor: Colors.deepPurple.shade100.withOpacity(0.8)),
+        // sharik top icon color
+        accentColor: Colors.deepPurple.shade300,
 
+        // right click selection color
+        cardColor: Colors.deepPurple.shade400.withOpacity(0.9),
+
+        // color of the button on the default background
+        dividerColor: Colors.deepPurple.shade50,
+
+        // about card color
+        buttonColor: Colors.deepPurple.shade100.withOpacity(0.8),
+      ),
       themeMode: context.watch<ThemeManager>().theme,
       home: LoadingScreen(),
     );

@@ -13,7 +13,6 @@ import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/logic/ip.dart';
 import 'package:simple_connectivity/simple_connectivity.dart' as s;
-import 'package:wifi_iot/wifi_iot.dart';
 
 import '../conf.dart';
 import '../models/file.dart';
@@ -225,8 +224,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     var t = false;
 
     if (Platform.isAndroid) {
-      w = await WiFiForIoTPlugin.isConnected();
-      t = await WiFiForIoTPlugin.isWiFiAPEnabled();
+      // w = await WiFiForIoTPlugin.isConnected();
+      // t = await WiFiForIoTPlugin.isWiFiAPEnabled();
     } else if (Platform.isIOS || Platform.isMacOS) {
       final connectivityResult = await s.Connectivity().checkConnectivity();
 
