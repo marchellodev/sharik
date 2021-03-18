@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -58,8 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // context.n.file = file;
     // context.n.page = SharingPage();
-    SharikRouter.navigateTo(
-        context, context.widget, Screens.sharing, RouteDirection.right, file);
+    SharikRouter.navigateTo(context, context.widget, Screens.sharing, RouteDirection.right, file);
     // _model.file = file;
     // _model.setState(() => _model.setPage(PageModel.sharing));
   }
@@ -83,16 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 final f = await FilePicker.platform.pickFiles();
 
                 if (f != null) {
-                  shareFile(FileModel(
-                      data: (f.paths.first)!,
-                      type: FileTypeModel.file,
-                      name: ''));
+                  shareFile(FileModel(data: (f.paths.first)!, type: FileTypeModel.file, name: ''));
                 }
               } else {
                 final f = await openFile();
                 if (f != null) {
-                  shareFile(FileModel(
-                      data: f.path, type: FileTypeModel.file, name: ''));
+                  shareFile(FileModel(data: f.path, type: FileTypeModel.file, name: ''));
                 }
               }
             },
@@ -174,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       saveLatest();
                     },
-                    icon: const Icon(Icons.delete)),
+                    icon: const Icon(FeatherIcons.trash)),
               )
             ],
           ),
@@ -184,73 +180,39 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.builder(
                   padding: const EdgeInsets.only(top: 16),
                   itemCount: _latest.length,
-                  itemBuilder: (context, index) =>
-                      card(context, _latest[index]))),
+                  itemBuilder: (context, index) => card(context, _latest[index]))),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 18),
           height: 64,
           decoration: BoxDecoration(
               color: Colors.deepPurple[100],
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
           child: Row(
-            children: <Widget>[
-              Material(
-                color: Colors.deepPurple[100],
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () => SharikRouter.navigateTo(context, context.widget,
-                      Screens.languagePicker, RouteDirection.left),
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_locale.svg',
-                      semanticsLabel: 'locale',
-                      height: 18,
-                    ),
-                  ),
-                ),
+            children: [
+              TransparentButton(
+                SizedBox(height: 20, width: 20, child: Icon(FeatherIcons.globe, color: Colors.deepPurple.shade700, size: 20)),
+                () => SharikRouter.navigateTo(context, context.widget, Screens.languagePicker, RouteDirection.left),
               ),
               const SizedBox(width: 2),
-              Material(
-                color: Colors.deepPurple[100],
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () => SharikRouter.navigateTo(context, context.widget,
-                      Screens.intro, RouteDirection.left),
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_help.svg',
-                      semanticsLabel: 'help',
-                      height: 16,
-                    ),
-                  ),
-                ),
+              TransparentButton(
+                SizedBox(height: 20, width: 20, child: Icon(FeatherIcons.helpCircle, color: Colors.deepPurple.shade700, size: 20)),
+                () => SharikRouter.navigateTo(context, context.widget, Screens.intro, RouteDirection.left),
               ),
               const SizedBox(width: 2),
-              Material(
-                color: Colors.deepPurple[100],
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () {
-                    final senders = <Sender>[];
-                    var running = false;
-                    var stop = false;
-                    var n = 0;
+              TransparentButton(
+                SizedBox(height: 20, width: 20, child: Icon(FeatherIcons.download, color: Colors.deepPurple.shade700, size: 20)),
+                () {
+                  final senders = <Sender>[];
+                  var running = false;
+                  var stop = false;
+                  var n = 0;
 
-                    //todo: check for ip wiser?
-                    Future<String> getIpMask() async {
-                      // final ip = (await SharikWrapper.getLocalIp).split('.');
-                      const ip = 'localhost';
-                      return '${ip[0]}.${ip[1]}.${ip[2]}';
+                  //todo: check for ip wiser?
+                  Future<String> getIpMask() async {
+                    // final ip = (await SharikWrapper.getLocalIp).split('.');
+                    const ip = 'localhost';
+                    return '${ip[0]}.${ip[1]}.${ip[2]}';
 
 //                        for (var interface in await NetworkInterface.list()) {
 //                          for (var addr in interface.addresses) {
@@ -271,278 +233,151 @@ class _HomeScreenState extends State<HomeScreen> {
 //                        } else {
 //                          return null;
 //                        }
+                  }
+
+                  // ignore: avoid_void_async
+                  void portRunner(StateSetter setState) async {
+                    if (stop) {
+                      return;
                     }
 
-                    // ignore: avoid_void_async
-                    void portRunner(StateSetter setState) async {
-                      if (stop) {
-                        return;
-                      }
+                    running = true;
 
-                      running = true;
+                    final port = ports[n % ports.length];
 
-                      final port = ports[n % ports.length];
+                    if (n % 4 == 0) {
+                      await Future.delayed(const Duration(seconds: 1));
+                    }
 
-                      if (n % 4 == 0) {
-                        await Future.delayed(const Duration(seconds: 1));
-                      }
+                    if (senders.firstWhereOrNull((element) => element.n! < n ~/ ports.length) != null) {
+                      setState(() {
+                        senders.removeWhere((element) => element.n! < n ~/ ports.length);
+                      });
+                    }
+                    final ip = await getIpMask();
+                    print(ip);
 
-                      if (senders.firstWhereOrNull(
-                              (element) => element.n! < n ~/ ports.length) !=
-                          null) {
-                        setState(() {
-                          senders.removeWhere(
-                              (element) => element.n! < n ~/ ports.length);
-                        });
-                      }
-                      final ip = await getIpMask();
-                      print(ip);
+                    // todo recode all of that
+                    // ignore: avoid_single_cascade_in_expression_statements
+                    NetworkAnalyzer.discover2(
+                      ip,
+                      port,
+                      timeout: const Duration(milliseconds: 500),
+                    )..listen((addr) async {
+                        if (addr.exists) {
+                          //todo: proper deserialization
 
-                      // todo recode all of that
-                      // ignore: avoid_single_cascade_in_expression_statements
-                      NetworkAnalyzer.discover2(
-                        ip,
-                        port,
-                        timeout: const Duration(milliseconds: 500),
-                      )..listen((addr) async {
-                          if (addr.exists) {
-                            //todo: proper deserialization
+                          try {
+                            final info = jsonDecode(await http.read(Uri.parse('http://${addr.ip}:$port/sharik.json')));
 
-                            try {
-                              final info = jsonDecode(await http.read(Uri.parse(
-                                  'http://${addr.ip}:$port/sharik.json')));
+                            final sender = Sender(
+                                n: n ~/ ports.length,
+                                ip: addr.ip,
+                                type: cast<String>(info['type']),
+                                version: cast<String>(info['sharik']),
+                                name: cast<String>(info['name']),
+                                os: cast<String>(info['os']),
+                                url: 'http://${addr.ip}:$port');
+                            final inArr = senders.firstWhereOrNull(
+                                (element) => element.ip == sender.ip && element.os == sender.os && element.name == sender.name);
 
-                              final sender = Sender(
-                                  n: n ~/ ports.length,
-                                  ip: addr.ip,
-                                  type: cast<String>(info['type']),
-                                  version: cast<String>(info['sharik']),
-                                  name: cast<String>(info['name']),
-                                  os: cast<String>(info['os']),
-                                  url: 'http://${addr.ip}:$port');
-                              final inArr = senders.firstWhereOrNull(
-                                  (element) =>
-                                      element.ip == sender.ip &&
-                                      element.os == sender.os &&
-                                      element.name == sender.name);
-
-                              if (inArr == null) {
-                                setState(() => senders.add(sender));
-                              } else {
-                                inArr.n = n;
-                              }
-                            } catch (e) {
-                              //todo: catch error
+                            if (inArr == null) {
+                              setState(() => senders.add(sender));
+                            } else {
+                              inArr.n = n;
                             }
+                          } catch (e) {
+                            //todo: catch error
                           }
-                        }).onDone(() {
-                          n++;
-                          portRunner(setState);
-                        });
-                    }
+                        }
+                      }).onDone(() {
+                        n++;
+                        portRunner(setState);
+                      });
+                  }
 
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(c.l.homeReceiver,
-                                style: GoogleFonts.getFont(c.l.fontComfortaa,
-                                    fontWeight: FontWeight.w700)),
-                            content: StatefulBuilder(
-                              builder: (_, StateSetter setState) {
-                                if (!running) {
-                                  portRunner(setState);
-                                }
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(c.l.homeReceiver, style: GoogleFonts.getFont(c.l.fontComfortaa, fontWeight: FontWeight.w700)),
+                          content: StatefulBuilder(
+                            builder: (_, StateSetter setState) {
+                              if (!running) {
+                                portRunner(setState);
+                              }
 
-                                return senders.isNotEmpty
-                                    ? SizedBox(
-                                        height: 320,
-                                        width: 120,
-                                        child: ListView(
-                                          shrinkWrap: true,
-                                          children: senders
-                                              .map((e) {
-                                                return ListTile(
-                                                  onTap: () async {
-                                                    if (await canLaunch(
-                                                        e.url!)) {
-                                                      await launch(e.url!);
-                                                    }
-                                                  },
-                                                  subtitle: Text(e.os!),
-                                                  title: Text(e.name!),
-                                                  //todo: what's below looks ugly
+                              return senders.isNotEmpty
+                                  ? SizedBox(
+                                      height: 320,
+                                      width: 120,
+                                      child: ListView(
+                                        shrinkWrap: true,
+                                        children: senders
+                                            .map((e) {
+                                              return ListTile(
+                                                onTap: () async {
+                                                  if (await canLaunch(e.url!)) {
+                                                    await launch(e.url!);
+                                                  }
+                                                },
+                                                subtitle: Text(e.os!),
+                                                title: Text(e.name!),
+                                                //todo: what's below looks ugly
 //                                                    leading: SvgPicture.asset(
 //                                                        FileModel(
 //                                                                type: e.type,
 //                                                                name: e.name)
 //                                                            .icon,
 //                                                        color: Colors.black),
-                                                );
-                                              })
-                                              .toList()
-                                              .cast<Widget>(),
-                                        ),
-                                      )
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Center(
-                                            child: Container(
-                                              height: 28,
-                                              width: 28,
-                                              margin: const EdgeInsets.all(4),
-                                              child:
-                                                  const CircularProgressIndicator(),
-                                            ),
+                                              );
+                                            })
+                                            .toList()
+                                            .cast<Widget>(),
+                                      ),
+                                    )
+                                  : Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Center(
+                                          child: Container(
+                                            height: 28,
+                                            width: 28,
+                                            margin: const EdgeInsets.all(4),
+                                            child: const CircularProgressIndicator(),
                                           ),
-                                        ],
-                                      );
-                              },
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Text(
-                                  c.l.generalClose,
-                                  style: GoogleFonts.getFont(c.l.fontAndika),
-                                ),
-                              )
-                            ],
-                          );
-                        }).then((value) => stop = true);
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: SvgPicture.asset(
-                      'assets/icon_receive.svg',
-                      semanticsLabel: 'receive',
-                      height: 16,
-                    ),
-                  ),
-                ),
+                                        ),
+                                      ],
+                                    );
+                            },
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text(
+                                c.l.generalClose,
+                                style: GoogleFonts.getFont(c.l.fontAndika),
+                              ),
+                            )
+                          ],
+                        );
+                      }).then((value) => stop = true);
+                },
               ),
               const SizedBox(width: 2),
-
-              Material(
-                color: Colors.deepPurple[100],
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () => context.read<ThemeManager>().change(),
-                  child: Container(
-                    margin: const EdgeInsets.all(12),
-                    child: Icon(context.watch<ThemeManager>().icon,
-                        color: Colors.deepPurple.shade700, size: 20),
-                  ),
-                ),
+              TransparentButton(
+                SizedBox(
+                    height: 20, width: 20, child: Icon(context.watch<ThemeManager>().icon, color: Colors.deepPurple.shade700, size: 20)),
+                () => context.read<ThemeManager>().change(),
               ),
               const Spacer(),
-              // todo make it into a component
-              Material(
-                color: Colors.deepPurple[100],
-                borderRadius: BorderRadius.circular(8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  splashColor: Colors.deepPurple[400],
-                  onTap: () {
-                    SharikRouter.navigateTo(context, context.widget,
-                        Screens.about, RouteDirection.right);
-                    //todo: refactor
-//                   showDialog(
-//                       context: context,
-//                       builder: (BuildContext context) => FutureBuilder(
-//                           future: () async {
-//                             final info = await PackageInfo.fromPlatform();
-//                             final v =
-//                                 '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
-//
-//                             final response = await http.read(
-//                                 'https://marchello.cf/shas/versions?package=${info.packageName}&version=$v&platform=${Platform.operatingSystem}&platform_version=${Uri.encodeComponent(Platform.operatingSystemVersion)}');
-//
-//                             return jsonDecode(response);
-//                           }(),
-//                           builder: (_, AsyncSnapshot snapshot) => AlertDialog(
-//                                 title: Text(
-//                                   c.l.homeUpdates,
-//                                   style: GoogleFonts.getFont(c.l.fontComfortaa,
-//                                       fontWeight: FontWeight.w700),
-//                                 ),
-//                                 // todo create model for this
-//                                 content: Column(
-//                                   mainAxisSize: MainAxisSize.min,
-//                                   mainAxisAlignment: MainAxisAlignment.center,
-//                                   children: [
-//                                     if (!snapshot.hasData)
-//                                       const CircularProgressIndicator()
-//                                     else if (snapshot.data['latest'] == null ||
-//                                         cast<bool>(snapshot.data['latest']) ||
-//                                         !cast<bool>(snapshot.data['ok']))
-//                                       Text(c.l.homeUpdatesTheLatestVersionIsInstalled,
-//                                           style: GoogleFonts.getFont(
-//                                               c.l.fontAndika))
-//                                     else
-//                                       changelog(c, cast<Map>(snapshot.data)),
-//                                   ],
-//                                 ),
-//                                 actions: [
-//                                   if (Platform.isAndroid &&
-//                                       snapshot.hasData &&
-//                                       cast<bool>(snapshot.data['ok']) &&
-//                                       !cast<bool>(snapshot.data['latest']))
-//                                     FlatButton(
-//                                       onPressed: () async {
-//                                         if (await canLaunch(
-//                                             'https://play.google.com/store/apps/details?id=dev.marchello.sharik')) {
-//                                           await launch(
-//                                               'https://play.google.com/store/apps/details?id=dev.marchello.sharik');
-//                                         }
-//                                       },
-//                                       child: Text('Play Store',
-//                                           style: GoogleFonts.andika()),
-//                                     ),
-//                                   if (snapshot.hasData &&
-//                                       cast<bool>(snapshot.data['ok']) &&
-//                                       !cast<bool>(snapshot.data['latest']))
-//                                     FlatButton(
-//                                       onPressed: () async {
-//                                         if (await canLaunch(
-//                                             'https://github.com/marchellodev/sharik')) {
-//                                           await launch(
-//                                               'https://github.com/marchellodev/sharik');
-//                                         }
-//                                       },
-//                                       child: Text('GitHub',
-//                                           style: GoogleFonts.andika()),
-//                                     ),
-//                                   FlatButton(
-//                                     onPressed: () =>
-//                                         Navigator.of(context).pop(),
-//                                     child: Text(
-//                                       c.l.generalClose,
-//                                       style:
-//                                           GoogleFonts.getFont(c.l.fontAndika),
-//                                     ),
-//                                   )
-//                                 ],
-// //                                  scrollable: true,
-//                               )));
-                  },
-                  child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                    child: Text(
-                      'sharik v3.0',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.deepPurple[700],
-                          fontFamily: 'JetBrainsMono'),
-                    ),
-                  ),
+              TransparentButton(
+                Text(
+                  'sharik v3.0',
+                  style: TextStyle(fontSize: 16, color: Colors.deepPurple.shade700, fontFamily: 'JetBrainsMono'),
                 ),
+                () => SharikRouter.navigateTo(context, context.widget, Screens.about, RouteDirection.right),
               ),
             ],
           ),
@@ -572,8 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 4,
       ));
       element['changes'].forEach((change) {
-        changes.add(Text(' • $change',
-            style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14)));
+        changes.add(Text(' • $change', style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14)));
         changes.add(const SizedBox(
           height: 2,
         ));
@@ -616,8 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   width: 4,
                 ),
-                Text('v${data['latest_version']}',
-                    style: const TextStyle(fontFamily: 'JetBrainsMono'))
+                Text('v${data['latest_version']}', style: const TextStyle(fontFamily: 'JetBrainsMono'))
               ],
             ),
             const SizedBox(
@@ -666,8 +499,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Text(
                     f.name,
-                    style: GoogleFonts.getFont(c.l.fontAndika,
-                        color: Colors.white, fontSize: 18),
+                    style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18),
                     maxLines: 1,
                   ),
                 ))

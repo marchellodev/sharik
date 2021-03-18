@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:hive/hive.dart';
 
 class ThemeManager extends ChangeNotifier {
@@ -33,11 +34,11 @@ class ThemeManager extends ChangeNotifier {
     // final theme = manager.theme;
 
     if (theme == ThemeMode.light) {
-      return Icons.brightness_high_rounded;
+      return FeatherIcons.sun;
     } else if (theme == ThemeMode.dark) {
-      return Icons.brightness_low_rounded;
+      return FeatherIcons.moon;
     } else {
-      return Icons.brightness_auto_rounded;
+      return FeatherIcons.tablet;
     }
   }
 

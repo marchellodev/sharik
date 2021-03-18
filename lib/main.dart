@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:androidish_ink_well/material_ink_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,6 +24,7 @@ import 'models/file.dart';
 // todo accessibility
 // todo make sure /screens/languages.dart not package:sharik/
 // todo review language namings
+// todo custom ripple effect
 
 Future<void> main() async {
   // if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
@@ -97,11 +99,11 @@ class SharikApp extends StatelessWidget {
       supportedLocales: languageList.map((e) => e.locale),
       title: 'Sharik',
       theme: ThemeData(
+          splashFactory: MaterialInkSplash.splashFactory,
+
           brightness: Brightness.light,
           inputDecorationTheme: InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.grey.shade900.withOpacity(0.8), width: 2))),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade900.withOpacity(0.8), width: 2))),
           textSelectionTheme: TextSelectionThemeData(
               cursorColor: Colors.grey.shade600,
               selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
@@ -119,12 +121,11 @@ class SharikApp extends StatelessWidget {
           // about card color
           buttonColor: Colors.deepPurple.shade50.withOpacity(0.6)),
       darkTheme: ThemeData(
+        splashFactory: MaterialInkSplash.splashFactory,
+
         brightness: Brightness.dark,
         inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: Colors.deepPurple.shade50.withOpacity(0.8),
-                    width: 2))),
+            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.deepPurple.shade50.withOpacity(0.8), width: 2))),
 
         textSelectionTheme: TextSelectionThemeData(
             cursorColor: Colors.deepPurple.shade50,
@@ -152,16 +153,13 @@ class SharikApp extends StatelessWidget {
 Future<void> _initAnalytics() async {
   Analytics ga;
   if (Platform.isAndroid || Platform.isIOS) {
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
-        documentDirectory: await getApplicationDocumentsDirectory());
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
   } else {
     File('storage/.sharik').create(recursive: true);
 
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5',
-        documentDirectory: Directory('storage'));
+    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
   }
 
   ga.sendEvent('pages', 'app_open');
-  ga.sendEvent('app_open',
-      'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
+  ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 }

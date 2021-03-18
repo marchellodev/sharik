@@ -47,22 +47,15 @@ class PrimaryButton extends StatelessWidget {
                       ),
                       Center(
                           child: Text(text,
-                              style: GoogleFonts.getFont(
-                                  font ?? context.l.fontAndika,
-                                  color: Colors.grey.shade100,
-                                  fontSize: fontSize.toDouble()))),
+                              style: GoogleFonts.getFont(font ?? context.l.fontAndika,
+                                  color: Colors.grey.shade100, fontSize: fontSize.toDouble()))),
                     ],
                   )
                 : Center(
                     child: Text(text,
                         style: font != 'JetBrainsMono'
-                            ? GoogleFonts.getFont(font ?? context.l.fontAndika,
-                                color: Colors.grey.shade100,
-                                fontSize: fontSize.toDouble())
-                            : TextStyle(
-                                fontFamily: 'JetBrainsMono',
-                                fontSize: 16,
-                                color: Colors.grey.shade100)),
+                            ? GoogleFonts.getFont(font ?? context.l.fontAndika, color: Colors.grey.shade100, fontSize: fontSize.toDouble())
+                            : TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16, color: Colors.grey.shade100)),
                   ),
           ),
         ));
@@ -82,7 +75,7 @@ class DialogTextButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(6),
       child: InkWell(
         borderRadius: BorderRadius.circular(6),
-        splashColor: context.t.dividerColor.withOpacity(0.04),
+        splashColor: context.t.dividerColor.withOpacity(0.08),
         hoverColor: context.t.dividerColor.withOpacity(0.04),
         highlightColor: Colors.transparent,
         focusColor: Colors.white.withOpacity(0.2),
@@ -94,11 +87,37 @@ class DialogTextButton extends StatelessWidget {
             style: GoogleFonts.getFont(
               context.l.fontAndika,
               fontSize: 15,
-              color: onClick != null
-                  ? context.t.dividerColor
-                  : context.t.dividerColor.withOpacity(0.6),
+              color: onClick != null ? context.t.dividerColor : context.t.dividerColor.withOpacity(0.6),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class TransparentButton extends StatelessWidget {
+  final Widget child;
+  final Function() onClick;
+  final bool defBackground;
+
+  const TransparentButton(this.child, this.onClick, {this.defBackground = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        splashColor: defBackground ? context.t.dividerColor.withOpacity(0.08) : Colors.deepPurple.shade300.withOpacity(0.16),
+        hoverColor: defBackground ? context.t.dividerColor.withOpacity(0.04) : Colors.deepPurple.shade200.withOpacity(0.6),
+        highlightColor: Colors.transparent,
+        focusColor: Colors.white.withOpacity(0.2),
+        onTap: onClick,
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          child: child,
         ),
       ),
     );

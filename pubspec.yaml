@@ -21,11 +21,14 @@ dependencies:
 
 
   # UI
+  flutter_feather_icons: ^1.0.3
   flutter_svg: ^0.21.0-nullsafety.0
   google_fonts: ^2.0.0
   intro_slider: ^2.3.4
   responsive_framework: ^0.1.0
+  androidish_ink_well: ^2.0.0
 
+  # todo https://pub.dev/packages/flutter_native_splash
 
   # UTILS
   http: ^0.13.0

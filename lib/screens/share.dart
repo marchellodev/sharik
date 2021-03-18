@@ -5,10 +5,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
 import 'package:pedantic/pedantic.dart';
+import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/logic/ip.dart';
@@ -68,13 +70,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   // ignore: avoid_void_async
   void serve() async {
     await for (final request in _server!) {
-      if (request.requestedUri.toString().split('/').length == 4 &&
-          request.requestedUri.toString().split('/').last == 'sharik.json') {
+      if (request.requestedUri.toString().split('/').length == 4 && request.requestedUri.toString().split('/').last == 'sharik.json') {
         final info = await PackageInfo.fromPlatform();
         final v = '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
 
-        request.response.headers.contentType =
-            ContentType('application', 'json', charset: 'utf-8');
+        request.response.headers.contentType = ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
           'sharik': v,
           'type': _file!.type.toString().split('.').last,
@@ -83,13 +83,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
         }));
         await request.response.close();
       } else {
-        if (_file!.type == FileTypeModel.file ||
-            _file!.type == FileTypeModel.app) {
+        if (_file!.type == FileTypeModel.file || _file!.type == FileTypeModel.app) {
           final f = File(_file!.data);
           final size = await f.length();
 
-          request.response.headers.contentType =
-              ContentType('application', 'octet-stream', charset: 'utf-8');
+          request.response.headers.contentType = ContentType('application', 'octet-stream', charset: 'utf-8');
 
           request.response.headers.add(
             'Content-Transfer-Encoding',
@@ -105,16 +103,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
             size,
           );
 
-          await f
-              .openRead()
-              .pipe(request.response)
-              .catchError((e) {})
-              .then((a) {
+          await f.openRead().pipe(request.response).catchError((e) {}).then((a) {
             request.response.close();
           });
         } else {
-          request.response.headers.contentType =
-              ContentType('text', 'plain', charset: 'utf-8');
+          request.response.headers.contentType = ContentType('text', 'plain', charset: 'utf-8');
           request.response.write(_file!.data);
           await request.response.close();
         }
@@ -216,8 +209,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
       tether = false;
     });
     if (!_ipController.isAnimating) {
-      unawaited(
-          _conController.forward().then((value) => _conController.reset()));
+      unawaited(_conController.forward().then((value) => _conController.reset()));
     }
 
     var w = false;
@@ -272,12 +264,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     ip = 'loading...';
     network = 'loading...';
 
-    _ipController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
+    _ipController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
     _ipAnimation = Tween(begin: 0.0, end: pi).animate(_ipController);
 
-    _conController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
+    _conController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
     updCon();
@@ -290,16 +280,14 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          SharikRouter.navigateTo(
-              context, context.widget, Screens.home, RouteDirection.left);
+          SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left);
 
           return Future.value(false);
         },
         child: GestureDetector(
           onHorizontalDragEnd: (DragEndDetails details) {
             if ((details.primaryVelocity ?? 0) > 0) {
-              SharikRouter.navigateTo(
-                  context, context.widget, Screens.home, RouteDirection.left);
+              SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left);
             }
           },
           child: ListView(
@@ -312,10 +300,16 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     tag: 'icon',
                     child: SharikLogo(),
                   ),
-                  IconButton(
-                      onPressed: () => SharikRouter.navigateTo(context,
-                          context.widget, Screens.home, RouteDirection.left),
-                      icon: const Icon(Icons.arrow_back_ios))
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TransparentButton(
+                        const Icon(FeatherIcons.chevronLeft, size: 28),
+                        () => SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left),
+                        defBackground: true,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 34),
@@ -378,54 +372,42 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(top: 10),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Text(
-                                  network,
-                                  style: GoogleFonts.getFont(
-                                    'Andika',
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                  ),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              network,
+                              style: GoogleFonts.getFont(
+                                'Andika',
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          RichText(
+                            text: TextSpan(
+                                style: GoogleFonts.getFont(
+                                  'Andika',
+                                  color: Colors.white,
+                                  fontSize: 16,
                                 ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                    style: GoogleFonts.getFont(
-                                      'Andika',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                    children: [
-                                      const TextSpan(text: 'Connect to'),
-                                      if (Platform.isAndroid || Platform.isIOS)
-                                        TextSpan(
-                                            text: ' Wi-Fi ',
-                                            style: TextStyle(
-                                                color: wifi
-                                                    ? Colors.green[100]
-                                                    : Colors.red[100]))
-                                      else
-                                        const TextSpan(text: ' Wi-Fi '),
-                                      const TextSpan(text: 'or set up a'),
-                                      if (Platform.isAndroid || Platform.isIOS)
-                                        TextSpan(
-                                            text: ' Mobile Hotspot',
-                                            style: TextStyle(
-                                                color: tether
-                                                    ? Colors.green[100]
-                                                    : Colors.red[100]))
-                                      else
-                                        const TextSpan(text: ' Mobile Hotspot'),
-                                    ]),
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                            ]),
+                                children: [
+                                  const TextSpan(text: 'Connect to'),
+                                  if (Platform.isAndroid || Platform.isIOS)
+                                    TextSpan(text: ' Wi-Fi ', style: TextStyle(color: wifi ? Colors.green[100] : Colors.red[100]))
+                                  else
+                                    const TextSpan(text: ' Wi-Fi '),
+                                  const TextSpan(text: 'or set up a'),
+                                  if (Platform.isAndroid || Platform.isIOS)
+                                    TextSpan(text: ' Mobile Hotspot', style: TextStyle(color: tether ? Colors.green[100] : Colors.red[100]))
+                                  else
+                                    const TextSpan(text: ' Mobile Hotspot'),
+                                ]),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                        ]),
                       ),
                     ),
                     const SizedBox(
@@ -440,13 +422,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                           updCon();
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 14),
+                          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
                           child: AnimatedBuilder(
                             animation: _conAnimation,
                             builder: (context, child) {
-                              return Transform.rotate(
-                                  angle: _conAnimation.value, child: child);
+                              return Transform.rotate(angle: _conAnimation.value, child: child);
                             },
                             child: SvgPicture.asset(
                               'assets/icon_update.svg',
@@ -490,71 +470,38 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         child: Text(
                           ip!,
                           // todo remove TextStyle
-                          style: GoogleFonts.getFont('Andika',
-                              color: Colors.white, fontSize: 18),
+                          style: GoogleFonts.getFont('Andika', color: Colors.white, fontSize: 18),
                         ),
                       ),
                     ),
                     const SizedBox(
-                      width: 6,
+                      width: 2,
                     ),
-                    Material(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.deepPurple[400],
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () {
-                          Clipboard.setData(ClipboardData(text: ip))
-                              .then((result) {
-                            final snackBar = SnackBar(
-                              backgroundColor: Colors.deepPurple[500],
-                              duration: const Duration(seconds: 1),
-                              content: Text(
-                                'Copied to Clipboard',
-                                style: GoogleFonts.getFont('Andika',
-                                    color: Colors.white),
-                              ),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 12),
-                          child: SvgPicture.asset(
-                            'assets/icon_copy.svg',
-                            semanticsLabel: 'update',
-                            width: 16,
-                          ),
-                        ),
-                      ),
+                    // todo fix the splash color
+                    TransparentButton(
+                      const Icon(Icons.qr_code_outlined, size: 19.4, color: Colors.white),
+                      () {},
                     ),
-                    Material(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.deepPurple[400],
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () {
-                          updIp(true);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 14, horizontal: 12),
-                          child: AnimatedBuilder(
-                            animation: _ipAnimation,
-                            builder: (context, child) {
-                              return Transform.rotate(
-                                  angle: _ipAnimation.value, child: child);
-                            },
-                            child: SvgPicture.asset(
-                              'assets/icon_update.svg',
-                              semanticsLabel: 'update ',
-                              height: 16,
+
+                    TransparentButton(
+                      const Icon(FeatherIcons.copy, size: 16, color: Colors.white),
+                      () {
+                        Clipboard.setData(ClipboardData(text: ip)).then((result) {
+                          final snackBar = SnackBar(
+                            backgroundColor: Colors.deepPurple[500],
+                            duration: const Duration(seconds: 1),
+                            content: Text(
+                              'Copied to Clipboard',
+                              style: GoogleFonts.getFont('Andika', color: Colors.white),
                             ),
-                          ),
-                        ),
-                      ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        });
+                      },
+                    ),
+                    TransparentButton(
+                      const Icon(FeatherIcons.server, size: 16, color: Colors.white),
+                      () => updIp(true),
                     ),
                   ],
                 ),
@@ -571,8 +518,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 child: Text(
                   'The recipient needs to be connected\nto the same network',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont('Andika',
-                      color: Colors.white, fontSize: 18),
+                  style: GoogleFonts.getFont('Andika', color: Colors.white, fontSize: 18),
                 ),
               ),
               SizedBox(
