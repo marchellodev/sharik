@@ -44,7 +44,7 @@ Map<String, String> get getIt => {
       'Changelog': 'Cronologia delle modifiche',
 
       //v2.2
-      'Receiver': 'Destinatario',
+      'Receiver': 'Ricevi',
 
       //v2.4 (fonts)
       'Andika': 'Andika',
