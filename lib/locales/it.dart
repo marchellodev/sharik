@@ -32,13 +32,13 @@ Map<String, String> get getIt => {
       'Send': 'Invia',
       'Text': 'Testo',
       'App': 'App',
-      'Hide system apps': 'Nascondi applicazioni di sistema,
+      'Hide system apps': 'Nascondi applicazioni di sistema',
       'Hide non-launchable apps': 'Nascondi applicazioni non eseguibili',
       'Search': 'Cerca',
       //v2.1
       'Updates': 'Aggiornamenti',
       'The latest version is already installed':
-          'L'ultima versione risulta essere già installata,
+          'L\'ultima versione risulta essere già installata',
       'Current version': 'Versione attuale',
       'The latest version': 'Ultima versione',
       'Changelog': 'Cronologia delle modifiche',
