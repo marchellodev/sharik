@@ -1,7 +1,7 @@
 Map<String, String> get getIt => {
       'CONNECT': 'COLLEGATI',
       'Connect devices to the same network - use Wi-Fi or Mobile Hotspot':
-          'Collega i dispositivi alla stessa rete - utilizza il Wi-Fi o un Hotspot',
+          'Collega i dispositivi alla stessa rete - utilizza il Wi-Fi o un Hotspot mobile',
       'SEND': 'INVIA',
       'Select any file you like': 'Seleziona i file che desideri',
       'RECEIVE': 'RICEVI',
