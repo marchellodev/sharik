@@ -671,3 +671,58 @@ zh_Hans:
 
 
     立即下载Sharik！
+    
+it:
+  # 50 characters
+  Name: "Sharik - condivisione file via WI-FI"
+  # 60 characters
+  Very short description: "Sharik permette la condivisione di file all'interno della tua rete locale"
+  # 80 characters
+  Short description: "Una soluzione open source e multipiattaforma per la condivisione di file all'interno di una rete locale"
+  # 4000 characters
+  Full description: |
+    Sharik è una soluzione open source e multipiattaforma per la condivisione di file via Wi-Fi o attraverso Hotspot Mobile.
+
+
+    Questa app ti permette di condividere facilmente immagini, app, file, test, letteralmente qualsiasi cosa, verso qualsiasi tipo di dispositivo connesso alla stessa rete. È conveniente e velocissimo.
+
+    Dopo aver selezionato una lingua e aver completato l'introduzione, ti verranno mostrati i pulsanti di condivisione e gli ultimi file condivisi nella schermata principale. A questo punto, puoi inviare immagini, file, app installate o semplicemente testo. Dopo aver selezionato il file, ti verrà mostrata la schermata di condivisione. Qui puoi vedere lo stato della tua connettività (Wi-Fi / Hotspot Mobile) e l'URL che devi aprire sull'altro dispositivo. Dopo aver digitato questo indirizzo nel browser e aver premuto invio, inizierà il download del file. Assicurati che entrambi i dispositivi siano collegati alla stessa rete.
+
+    Supponi di avere Sharik installato su due dispositivi. In questo caso, dopo aver condiviso il file da un computer, puoi semplicemente fare clic sul pulsante "Ricevi" nel pannello inferiore di un altro dispositivo, per esempio il tuo smartphone. Dopo aver fatto clic, verrà visualizzata la schermata Ricevitore. Se Sharik vede un altro dispositivo che condivide qualcosa nella tua rete locale, verrà visualizzato e potrai effettuare il download immediato della risorsa condivisa.
+
+    Sharik è completamente gratuito e non contiene pubblicità. Inoltre, il suo codice sorgente è pubblicato su GitHub, quindi tutti possono contribuire al processo di sviluppo. Se ti piace, lascia una stella sul nostro repository GitHub e considera la possibilità di dare un contributo: aggiungi una nuova lingua o aiutaci con il codice.
+
+    Sharik è sviluppato utilizzando Dart, Flutter, Hover.build e Golang. Sharik è pubblicato sotto licenza MIT.
+
+
+    PUOI INVIARE:
+      1. Immagini (jpg, png, gif, etc)
+      2. Applicazioni (apk)
+      3. File (zip, rar, 7z, pdf, etc)
+      4. Testo
+
+    SHARIK È DISPONIBILE IN QUESTE LINGUE:
+      - Inglese (English)
+      - Persiano (فارسی)
+      - Arabo (عربي)
+      - Hindi (हिन्दी)
+      - Russo (Русский)
+      - Gujarati (ગુજરાતી)
+      - Polacco (Polski)
+      - Ucraino (Українська)
+      - Slovacco (Slovenčina)
+      - Turco (Türkçe)
+      - Cinese semplificato (简体中文)
+      - Italiano (Italiano)
+
+    SHARIK È DISPONIBILE PER:
+      - Windows
+      - macOS
+      - Linux
+      - Android
+      - iOS
+
+    Pagina GitHub: https://github.com/marchellodev/sharik
+
+
+    Scarica Sharik adesso!
