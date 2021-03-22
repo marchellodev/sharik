@@ -38,7 +38,7 @@ class ThemeManager extends ChangeNotifier {
     } else if (theme == ThemeMode.dark) {
       return FeatherIcons.moon;
     } else {
-      return FeatherIcons.tablet;
+      return FeatherIcons.monitor;
     }
   }
 

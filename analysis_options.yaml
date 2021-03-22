@@ -10,5 +10,7 @@ linter:
 
     avoid_setters_without_getters: false
 
+    sort_pub_dependencies: false
+
     # only for debug
     avoid_print: false

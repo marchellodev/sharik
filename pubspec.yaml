@@ -27,17 +27,18 @@ dependencies:
   intro_slider: ^2.3.4
   responsive_framework: ^0.1.0
   androidish_ink_well: ^2.0.0
+  qr_flutter: ^4.0.0
 
   # todo https://pub.dev/packages/flutter_native_splash
 
   # UTILS
-  http: ^0.13.0
+  http: ^0.13.1
   ping_discover_network: ^0.2.0+1
   simple_connectivity: ^0.1.1
 
   path_provider: ^2.0.1
   url_launcher: ^6.0.2
-  device_apps: ^1.3.0
+  device_apps: ^2.0.0
 
   hive: ^2.0.0
   hive_flutter: ^1.0.0
@@ -68,7 +69,7 @@ dependencies:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
-      ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
+      ref: 405e6c5476fbdfd3859cf2f8570b21afb692ea3a
 
 
 

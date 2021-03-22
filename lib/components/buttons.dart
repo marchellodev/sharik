@@ -99,19 +99,38 @@ class DialogTextButton extends StatelessWidget {
 class TransparentButton extends StatelessWidget {
   final Widget child;
   final Function() onClick;
-  final bool defBackground;
+  final TransparentButtonBackground background;
 
-  const TransparentButton(this.child, this.onClick, {this.defBackground = false});
+  const TransparentButton(this.child, this.onClick, this.background);
 
   @override
   Widget build(BuildContext context) {
+
+    Color splashColor;
+    Color hoverColor;
+
+    switch(background){
+      case TransparentButtonBackground.def:
+        splashColor = context.t.dividerColor.withOpacity(0.08);
+        hoverColor = context.t.dividerColor.withOpacity(0.04);
+        break;
+      case TransparentButtonBackground.purpleLight:
+        splashColor = Colors.deepPurple.shade300.withOpacity(0.16);
+        hoverColor = Colors.deepPurple.shade200.withOpacity(0.6);
+        break;
+      case TransparentButtonBackground.purpleDark:
+        splashColor = Colors.deepPurple.shade200.withOpacity(0.2);
+        hoverColor = Colors.deepPurple.shade200.withOpacity(0.4);
+        break;
+    }
+
     return Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        splashColor: defBackground ? context.t.dividerColor.withOpacity(0.08) : Colors.deepPurple.shade300.withOpacity(0.16),
-        hoverColor: defBackground ? context.t.dividerColor.withOpacity(0.04) : Colors.deepPurple.shade200.withOpacity(0.6),
+        splashColor: splashColor,
+        hoverColor: hoverColor,
         highlightColor: Colors.transparent,
         focusColor: Colors.white.withOpacity(0.2),
         onTap: onClick,
@@ -123,3 +142,5 @@ class TransparentButton extends StatelessWidget {
     );
   }
 }
+
+enum TransparentButtonBackground {def, purpleLight, purpleDark}

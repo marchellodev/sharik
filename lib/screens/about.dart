@@ -17,14 +17,16 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left);
+          SharikRouter.navigateTo(
+              context, context.widget, Screens.home, RouteDirection.left);
 
           return Future.value(false);
         },
         child: GestureDetector(
           onHorizontalDragEnd: (DragEndDetails details) {
             if ((details.primaryVelocity ?? 0) > 0) {
-              SharikRouter.navigateTo(context, this, Screens.home, RouteDirection.left);
+              SharikRouter.navigateTo(
+                  context, this, Screens.home, RouteDirection.left);
             }
           },
           child: ListView(
@@ -42,8 +44,9 @@ class AboutScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: TransparentButton(
                         const Icon(FeatherIcons.chevronLeft, size: 28),
-                        () => SharikRouter.navigateTo(context, this, Screens.home, RouteDirection.left),
-                        defBackground: true,
+                        () => SharikRouter.navigateTo(
+                            context, this, Screens.home, RouteDirection.left),
+                        TransparentButtonBackground.def,
                       ),
                     ),
                   ),
@@ -54,16 +57,24 @@ class AboutScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Current version', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-                  const Text('3.0', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+                  Text('Current version',
+                      style:
+                          TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+                  const Text('3.0',
+                      style:
+                          TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
                 ],
               ),
               SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('The latest version', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-                  const Text('3.1', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+                  Text('The latest version',
+                      style:
+                          TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
+                  const Text('3.1',
+                      style:
+                          TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
                 ],
               ),
               SizedBox(height: 18),
@@ -91,15 +102,21 @@ class AboutScreen extends StatelessWidget {
                         // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
                         // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
                         // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
-                        splashColor: Colors.deepPurple.shade300.withOpacity(0.28),
-                        hoverColor: Colors.deepPurple.shade300.withOpacity(0.14),
+                        splashColor:
+                            Colors.deepPurple.shade300.withOpacity(0.28),
+                        hoverColor:
+                            Colors.deepPurple.shade300.withOpacity(0.14),
                         onTap: () {},
                         child: Container(
                           alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 12),
                           child: Text(
                             'Changelog',
-                            style: TextStyle(fontSize: 16, color: Colors.deepPurple[700], fontFamily: 'JetBrainsMono'),
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.deepPurple[700],
+                                fontFamily: 'JetBrainsMono'),
                           ),
                         ),
                       ),
@@ -107,19 +124,22 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 38),
-              Text('Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :)',
-                  textAlign: TextAlign.center, style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 16)),
-              const SizedBox(height: 8),
+              const SizedBox(height: 42),
+              Text(
+                  'Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :)',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.getFont(context.l.fontComfortaa,
+                      fontSize: 16)),
+              const SizedBox(height: 4),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TransparentButton(
-                    Icon(FeatherIcons.github, size: 24, color: context.t.dividerColor),
-                    () {},
-                    defBackground: true,
-                  ),
+                      Icon(FeatherIcons.github,
+                          size: 24, color: context.t.dividerColor),
+                      () {},
+                      TransparentButtonBackground.def),
                   const SizedBox(width: 4),
                   TransparentButton(
                     SvgPicture.asset(
@@ -129,14 +149,15 @@ class AboutScreen extends StatelessWidget {
                       color: context.t.dividerColor,
                     ),
                     () {},
-                    defBackground: true,
+                    TransparentButtonBackground.def,
                   ),
                 ],
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 34),
               Text('Contributors',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.getFont(context.l.fontComfortaa,
+                      fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 12),
               Column(
                 children: const [
@@ -205,9 +226,17 @@ class _ContributorCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(fullName, style: GoogleFonts.poppins(fontSize: 16, color: Colors.deepPurple.shade800, letterSpacing: 0.2)),
+                Text(fullName,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: Colors.deepPurple.shade800,
+                        letterSpacing: 0.2)),
                 Text(role,
-                    style: GoogleFonts.poppins(color: Colors.grey.shade900, fontSize: 16, fontStyle: FontStyle.italic, letterSpacing: 0.4)),
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey.shade900,
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        letterSpacing: 0.4)),
               ],
             ),
           ),
