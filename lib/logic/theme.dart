@@ -42,19 +42,6 @@ class ThemeManager extends ChangeNotifier {
     }
   }
 
-  // }
-  // static IconData getIcon(ThemeManager manager) {
-  //   final theme = manager.theme;
-  //
-  //   if (theme == ThemeMode.light) {
-  //     return Icons.brightness_6;
-  //   } else if (theme == ThemeMode.dark) {
-  //     return Icons.brightness_7;
-  //   } else {
-  //     return Icons.brightness_auto_rounded;
-  //   }
-  // }
-
   ThemeManager() {
     if (Hive.box<String>('strings').containsKey('theme')) {
       final theme = Hive.box<String>('strings').get('theme');

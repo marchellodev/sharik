@@ -38,14 +38,13 @@ dependencies:
 
   path_provider: ^2.0.1
   url_launcher: ^6.0.2
-  device_apps: ^2.0.0
+  device_apps: ^2.0.1
 
   hive: ^2.0.0
   hive_flutter: ^1.0.0
 
   package_info: ^2.0.0
 
-  usage: ^4.0.0
 
   intl: ^0.17.0
   collection: ^1.15.0

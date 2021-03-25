@@ -14,6 +14,8 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
+import 'package:sharik/dialogs/launcher.dart';
+import 'package:sharik/dialogs/networks.dart';
 import 'package:sharik/logic/ip.dart';
 import 'package:simple_connectivity/simple_connectivity.dart' as s;
 
@@ -48,6 +50,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   HttpServer? _server;
 
   bool showQr = false;
+  final LocalIpService ipService = LocalIpService();
 
   Future<bool> _isPortFree(int port) async {
     try {
@@ -274,6 +277,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     // _model = Provider.of<AppModel>(context, listen: false);
     // _file = _model.file;
     // _file = context.n.file;
+    ipService.load();
     _file = widget.file;
     ip = 'loading...';
     network = 'loading...';
@@ -535,7 +539,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     TransparentButton(
                         const Icon(FeatherIcons.server,
                             size: 16, color: Colors.white),
-                        () => updIp(true),
+                        () {
+                          // todo make sure we have loaded the interfaces
+                          openDialog(context, PickNetworkDialog(ipService));
+                        },
                         TransparentButtonBackground.purpleDark),
                   ],
                 ),
@@ -547,7 +554,6 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 child: Center(
                   child: QrImage(
                     data: 'http://168.192.0.101:50500',
-                    size: MediaQuery.of(context).size.width - 24 * 2,
                     foregroundColor: context.t.textTheme.button!.color,
                   ),
                 ),

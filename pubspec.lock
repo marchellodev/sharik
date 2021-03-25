@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "18.0.0"
+    version: "19.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.3.0"
   androidish_ink_well:
     dependency: "direct main"
     description:
@@ -175,7 +175,7 @@ packages:
       name: device_apps
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   ffi:
     dependency: transitive
     description:
@@ -540,7 +540,7 @@ packages:
       name: process
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.1"
+    version: "4.2.0"
   provider:
     dependency: "direct main"
     description:
@@ -714,13 +714,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  usage:
-    dependency: "direct main"
-    description:
-      name: usage
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
   vector_math:
     dependency: transitive
     description:

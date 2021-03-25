@@ -55,6 +55,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
       }
     }
     // todo decrease paddings but maintain style
+    // todo add the dialog title
     return AlertDialog(
       elevation: 0,
       insetPadding: const EdgeInsets.all(24),

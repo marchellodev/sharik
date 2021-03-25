@@ -13,7 +13,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:sharik/logic/theme.dart';
 import 'package:sharik/screens/loading.dart';
-import 'package:usage/usage_io.dart';
 
 import 'conf.dart';
 import 'logic/language.dart';
@@ -100,10 +99,11 @@ class SharikApp extends StatelessWidget {
       title: 'Sharik',
       theme: ThemeData(
           splashFactory: MaterialInkSplash.splashFactory,
-
           brightness: Brightness.light,
           inputDecorationTheme: InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade900.withOpacity(0.8), width: 2))),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.grey.shade900.withOpacity(0.8), width: 2))),
           textSelectionTheme: TextSelectionThemeData(
               cursorColor: Colors.grey.shade600,
               selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
@@ -125,7 +125,10 @@ class SharikApp extends StatelessWidget {
 
         brightness: Brightness.dark,
         inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.deepPurple.shade50.withOpacity(0.8), width: 2))),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: Colors.deepPurple.shade50.withOpacity(0.8),
+                    width: 2))),
 
         textSelectionTheme: TextSelectionThemeData(
             cursorColor: Colors.deepPurple.shade50,
@@ -151,15 +154,15 @@ class SharikApp extends StatelessWidget {
 }
 
 Future<void> _initAnalytics() async {
-  Analytics ga;
-  if (Platform.isAndroid || Platform.isIOS) {
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
-  } else {
-    File('storage/.sharik').create(recursive: true);
-
-    ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
-  }
-
-  ga.sendEvent('pages', 'app_open');
-  ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
+  // Analytics ga;
+  // if (Platform.isAndroid || Platform.isIOS) {
+  //   ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
+  // } else {
+  //   File('storage/.sharik').create(recursive: true);
+  //
+  //   ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
+  // }
+  //
+  // ga.sendEvent('pages', 'app_open');
+  // ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 }
