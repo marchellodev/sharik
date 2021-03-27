@@ -597,13 +597,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.4+1"
-  simple_connectivity:
-    dependency: "direct main"
-    description:
-      name: simple_connectivity
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   sky_engine:
     dependency: transitive
     description: flutter

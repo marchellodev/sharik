@@ -34,7 +34,6 @@ dependencies:
   # UTILS
   http: ^0.13.1
   ping_discover_network: ^0.2.0+1
-  simple_connectivity: ^0.1.1
 
   path_provider: ^2.0.1
   url_launcher: ^6.0.2
