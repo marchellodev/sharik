@@ -14,6 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_it.dart';
 import 'package:sharik/logic/language.dart';
 import 'package:sharik/screens/about.dart';
 import 'package:sharik/screens/home.dart';
@@ -45,6 +46,7 @@ Widget screen2widget(Screens s, [Object? args]) {
   }
 }
 
+//
 List<Language> get languageList => [
       Language(
           // 1.3 billion (400+700)
@@ -56,7 +58,8 @@ List<Language> get languageList => [
           // 1.3 billion (400+700)
           name: 'chinese',
           nameLocal: '汉语',
-          locale: const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
+          locale:
+              const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
           localizations: AppLocalizationsZh()),
       Language(
           // 592 million (322+270)
@@ -89,6 +92,12 @@ List<Language> get languageList => [
           locale: const Locale('pt_br'),
           localizations: AppLocalizationsBr()),
       Language(
+          // 85 million
+          name: 'italian',
+          nameLocal: 'italiano',
+          locale: const Locale('it'),
+          localizations: AppLocalizationsIt()),
+      Language(
           // 80 million
           name: 'turkish',
           nameLocal: 'Türkçe',
@@ -118,6 +127,12 @@ List<Language> get languageList => [
           nameLocal: 'Українська',
           locale: const Locale('uk'),
           localizations: AppLocalizationsUk()),
+      Language(
+          // 20 million
+          name: 'sinhala',
+          nameLocal: 'සිංහල',
+          locale: const Locale('sin'),
+          localizations: AppLocalizationsIt()),
       Language(
           // 5 million
           name: 'slovak',
