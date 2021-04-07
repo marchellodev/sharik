@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharik/components/buttons.dart';
-import 'package:sharik/logic/ip.dart';
+import 'package:sharik/logic/ip_service.dart';
 import 'package:sharik/utils/helper.dart';
 
 class PickNetworkDialog extends StatelessWidget {

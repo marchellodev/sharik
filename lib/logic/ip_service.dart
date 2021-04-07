@@ -9,7 +9,6 @@ class LocalIpService extends ChangeNotifier {
 
   set selectedInterface(String selectedInterface) {
     _selectedInterface = selectedInterface;
-    print('interce set');
     notifyListeners();
   }
 
@@ -70,7 +69,3 @@ class LocalIpService extends ChangeNotifier {
 }
 
 enum Connectivity { wifi, ethernet, hotspot, cellular, none, unknown }
-
-Future<String?> getIp() async {
-  final list = await NetworkInterface.list(type: InternetAddressType.IPv4);
-}
