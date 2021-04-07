@@ -9,7 +9,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info/package_info.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sharik/components/buttons.dart';
@@ -39,28 +38,28 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   late Animation<double> _conAnimation;
 
   late FileModel _file;
-  late int _port;
+  late int _port = 0;
 
-  HttpServer? _server;
+  late HttpServer _server;
 
   bool _stateShowQr = false;
   final LocalIpService _ipService = LocalIpService();
 
-  Future<bool> _isPortFree(int port) async {
-    try {
-      final _ = await HttpServer.bind(InternetAddress.anyIPv4, port);
-      await _.close(force: true);
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
+  // Future<bool> _isPortFree(int port) async {
+  //   try {
+  //     final _ = await HttpServer.bind(InternetAddress.anyIPv4, port);
+  //     await _.close(force: true);
+  //     return true;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
 
   Future<dynamic> _getPort() async {
     for (final port in ports) {
-      if (await _isPortFree(port)) {
+      // if (await _isPortFree(port)) {
         return port;
-      }
+      // }
     }
 
     final _ = await HttpServer.bind(InternetAddress.anyIPv4, 0);
@@ -347,7 +346,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          _file!.name,
+                          _file.data.toString(),
                           style: GoogleFonts.getFont(
                             'Andika',
                             color: Colors.white,

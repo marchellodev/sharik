@@ -132,11 +132,12 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
             selected == null
                 ? null
                 : () {
+
                     // todo pop with the model
                     Navigator.of(context).pop(FileModel(
                         type: FileTypeModel.app,
                         data: _apps[selected!].apkFilePath,
-                        name: _apps[selected!].appName));
+                        fileName: _apps[selected!].appName));
                   }),
       ],
     );

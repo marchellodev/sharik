@@ -63,7 +63,7 @@ class FileModelAdapter extends TypeAdapter<FileModel> {
     return FileModel(
       type: fields[0] as FileTypeModel,
       data: fields[1] as String,
-      name: fields[2] as String,
+      fileName: fields[2] as String,
     );
   }
 

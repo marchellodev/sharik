@@ -15,6 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_si.dart';
 import 'package:sharik/logic/language.dart';
 import 'package:sharik/screens/about.dart';
 import 'package:sharik/screens/home.dart';
@@ -132,7 +133,7 @@ List<Language> get languageList => [
           name: 'sinhala',
           nameLocal: 'සිංහල',
           locale: const Locale('sin'),
-          localizations: AppLocalizationsIt()),
+          localizations: AppLocalizationsSi()),
       Language(
           // 5 million
           name: 'slovak',

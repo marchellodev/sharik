@@ -18,15 +18,12 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
-
     return AlertDialog(
       elevation: 0,
       insetPadding: const EdgeInsets.all(24),
       title: Text(
         context.l.homeSelectTextTypeSomeText,
-        style: GoogleFonts.getFont(context.l.fontComfortaa,
-            fontWeight: FontWeight.w700),
+        style: GoogleFonts.getFont(context.l.fontComfortaa, fontWeight: FontWeight.w700),
       ),
       content: TextField(
         autofocus: true,
@@ -48,9 +45,9 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
                 ? null
                 : () {
                     Navigator.of(context).pop(FileModel(
-                        data: controller.text,
-                        type: FileTypeModel.text,
-                        name: ''));
+                      data: text,
+                      type: FileTypeModel.text,
+                    ));
                   }),
         const SizedBox(width: 4),
       ],

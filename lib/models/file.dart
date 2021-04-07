@@ -16,7 +16,7 @@ class FileModel {
   final String data;
 
   @HiveField(2)
-  String name;
+  late String name;
 
   String get icon {
     switch (type) {
@@ -31,20 +31,21 @@ class FileModel {
     }
   }
 
-  FileModel({required this.type, required this.data, required this.name}) {
-    if (name.isEmpty) {
+  FileModel({required this.type, required this.data, String? fileName}) {
+    if (fileName == null) {
       switch (type) {
         case FileTypeModel.file:
           name = data.split(Platform.isWindows ? '\\' : '/').last;
           break;
         case FileTypeModel.text:
           final _ = data.trim().replaceAll('\n', ' ');
-          name =
-              _.length >= 101 ? _.substring(0, 100) : _.replaceAll('\n', ' ');
+          name = _.length >= 101 ? _.substring(0, 100) : _;
           break;
         case FileTypeModel.app:
           throw Exception('when type is app, name is neccesary');
       }
+    } else {
+      name = fileName;
     }
   }
 }
