@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:androidish_ink_well/material_ink_splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +11,7 @@ import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:sharik/logic/theme.dart';
 import 'package:sharik/screens/loading.dart';
+import 'package:sharik/utils/material_ink_well.dart';
 
 import 'conf.dart';
 import 'logic/language.dart';

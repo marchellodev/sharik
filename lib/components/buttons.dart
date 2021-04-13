@@ -20,6 +20,7 @@ class PrimaryButton extends StatelessWidget {
     this.secondaryIcon,
     this.font,
     this.fontSize = 24,
+    // todo maybe enum for radius and fontSize?
     this.roundedRadius = 12,
   });
 
@@ -105,11 +106,10 @@ class TransparentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Color splashColor;
     Color hoverColor;
 
-    switch(background){
+    switch (background) {
       case TransparentButtonBackground.def:
         splashColor = context.t.dividerColor.withOpacity(0.08);
         hoverColor = context.t.dividerColor.withOpacity(0.04);
@@ -143,4 +143,28 @@ class TransparentButton extends StatelessWidget {
   }
 }
 
-enum TransparentButtonBackground {def, purpleLight, purpleDark}
+class ListButton extends StatelessWidget {
+  final Widget child;
+  final Function() onPressed;
+
+  const ListButton(this.child, this.onPressed);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(12),
+      color: Colors.deepPurple.shade300,
+      child: InkWell(
+        splashColor: Colors.deepPurple.shade100.withOpacity(0.2),
+        hoverColor: Colors.deepPurple.shade100.withOpacity(0.8),
+        highlightColor: Colors.transparent,
+        focusColor: Colors.white.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(12),
+        onTap: onPressed,
+        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), child: child),
+      ),
+    );
+  }
+}
+
+enum TransparentButtonBackground { def, purpleLight, purpleDark }

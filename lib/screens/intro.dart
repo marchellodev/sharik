@@ -4,9 +4,9 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../conf.dart';
 import '../utils/helper.dart';
-
 
 class IntroScreen extends StatelessWidget {
   @override
@@ -15,11 +15,9 @@ class IntroScreen extends StatelessWidget {
       body: IntroSlider(
         nameDoneBtn: c.l.introGeneralDone,
         nameNextBtn: c.l.introGeneralNext,
-        isShowSkipBtn: false,
-        styleNameDoneBtn:
-            GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
-        styleNamePrevBtn:
-            GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
+        showSkipBtn: false,
+        styleDoneBtn: GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
+        stylePrevBtn: GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
         colorDot: Colors.white70,
         colorActiveDot: Colors.white,
         // todo use svgs instead
@@ -32,8 +30,7 @@ class IntroScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
             ),
-            styleDescription: GoogleFonts.getFont(c.l.fontAndika,
-                color: Colors.white, fontSize: 18.0),
+            styleDescription: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18.0),
             title: c.l.intro1ConnectTitle,
             description: c.l.intro1ConnectDescription,
             pathImage: 'assets/slides/1_connect.png',
@@ -46,8 +43,7 @@ class IntroScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
             ),
-            styleDescription: GoogleFonts.getFont(c.l.fontAndika,
-                color: Colors.white, fontSize: 18.0),
+            styleDescription: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18.0),
             title: c.l.intro2SendTitle,
             description: c.l.intro2SendDescription,
             pathImage: 'assets/slides/2_send.png',
@@ -60,8 +56,7 @@ class IntroScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 30.0,
             ),
-            styleDescription: GoogleFonts.getFont(c.l.fontAndika,
-                color: Colors.white, fontSize: 18.0),
+            styleDescription: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18.0),
             title: c.l.intro3ReceiveTitle,
             description: c.l.intro3ReceiveDescription,
             pathImage: 'assets/slides/3_receive.png',
@@ -85,8 +80,7 @@ class IntroScreen extends StatelessWidget {
               },
               child: Text(
                 c.l.intro4EverywhereDescription,
-                style: GoogleFonts.getFont(c.l.fontAndika,
-                    color: Colors.white, fontSize: 18.0),
+                style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18.0),
                 textAlign: TextAlign.center,
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,

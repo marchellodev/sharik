@@ -160,30 +160,29 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 margin: const EdgeInsets.only(left: 24, right: 24),
                 child: Text(
+                  // todo rename to history
                   c.l.homeLatest,
                   style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
                 ),
               ),
               const Spacer(),
               Container(
-                margin: const EdgeInsets.only(right: 24),
-                child: IconButton(
-                    onPressed: () {
-                      setState(() => _latest.clear());
+                  margin: const EdgeInsets.only(right: 24),
+                  child: TransparentButton(
+                      const Icon(FeatherIcons.trash),
+                      () => () {
+                            setState(() => _latest.clear());
 
-                      saveLatest();
-                    },
-                    icon: const Icon(FeatherIcons.trash)),
-              )
+                            saveLatest();
+                          },
+                      TransparentButtonBackground.purpleDark))
             ],
           ),
         Expanded(
-          child: Container(
-              padding: const EdgeInsets.only(left: 24, right: 24),
-              child: ListView.builder(
-                  padding: const EdgeInsets.only(top: 16),
-                  itemCount: _latest.length,
-                  itemBuilder: (context, index) => card(context, _latest[index]))),
+          child: ListView.builder(
+              padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
+              itemCount: _latest.length,
+              itemBuilder: (context, index) => card(context, _latest[index])),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -473,43 +472,31 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget card(BuildContext c, FileModel f) {
-    return Container(
-      height: 44,
-      margin: const EdgeInsets.only(bottom: 12),
-      child: Material(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.deepPurple[300],
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            shareFile(f);
-          },
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: <Widget>[
-                SvgPicture.asset(
-                  f.icon,
-                  semanticsLabel: 'file ',
-                  width: 18,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: ListButton(
+          Row(
+            children: <Widget>[
+              SvgPicture.asset(
+                f.icon,
+                semanticsLabel: 'file',
+                width: 18,
+              ),
+              const SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                  child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  f.name,
+                  style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18),
+                  maxLines: 1,
                 ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                    child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    f.name,
-                    style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18),
-                    maxLines: 1,
-                  ),
-                ))
-              ],
-            ),
+              ))
+            ],
           ),
-        ),
-      ),
+          () => shareFile(f)),
     );
   }
 }
