@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:package_info/package_info.dart';
+import 'package:sharik/conf.dart';
 import 'package:sharik/models/file.dart';
 
 class SharingService extends ChangeNotifier {
@@ -16,14 +17,35 @@ class SharingService extends ChangeNotifier {
 
   SharingService(this._file);
 
-  Future<void> start() async {
-    // todo define port properly
+  Future<bool> _isPortFree(int port) async {
+    try {
+      final _ = await HttpServer.bind(InternetAddress.anyIPv4, port);
+      await _.close(force: true);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
-    _server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
+  Future<int> _getPrettyPort() async {
+    for (final el in ports) {
+      if (await _isPortFree(el)) {
+        return el;
+      }
+    }
+
+    final _ = await HttpServer.bind(InternetAddress.anyIPv4, 0);
+    final port = _.port;
+    await _.close(force: true);
+    return port;
+  }
+
+  Future<void> start() async {
+    _port = await _getPrettyPort();
+
+    _server = await HttpServer.bind(InternetAddress.anyIPv4, _port!);
 
     _serve();
-
-    _port = 8080;
 
     notifyListeners();
   }
@@ -34,11 +56,13 @@ class SharingService extends ChangeNotifier {
     }
 
     await for (final request in _server!) {
-      if (request.requestedUri.toString().split('/').length == 4 && request.requestedUri.toString().split('/').last == 'sharik.json') {
+      if (request.requestedUri.toString().split('/').length == 4 &&
+          request.requestedUri.toString().split('/').last == 'sharik.json') {
         final info = await PackageInfo.fromPlatform();
         final v = '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
 
-        request.response.headers.contentType = ContentType('application', 'json', charset: 'utf-8');
+        request.response.headers.contentType =
+            ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
           'sharik': v,
           'type': _file.type.toString().split('.').last,
@@ -47,11 +71,13 @@ class SharingService extends ChangeNotifier {
         }));
         await request.response.close();
       } else {
-        if (_file.type == FileTypeModel.file || _file.type == FileTypeModel.app) {
+        if (_file.type == FileTypeModel.file ||
+            _file.type == FileTypeModel.app) {
           final f = File(_file.data);
           final size = await f.length();
 
-          request.response.headers.contentType = ContentType('application', 'octet-stream', charset: 'utf-8');
+          request.response.headers.contentType =
+              ContentType('application', 'octet-stream', charset: 'utf-8');
 
           request.response.headers.add(
             'Content-Transfer-Encoding',
@@ -67,11 +93,16 @@ class SharingService extends ChangeNotifier {
             size,
           );
 
-          await f.openRead().pipe(request.response).catchError((e) {}).then((a) {
+          await f
+              .openRead()
+              .pipe(request.response)
+              .catchError((e) {})
+              .then((a) {
             request.response.close();
           });
         } else {
-          request.response.headers.contentType = ContentType('text', 'plain', charset: 'utf-8');
+          request.response.headers.contentType =
+              ContentType('text', 'plain', charset: 'utf-8');
           request.response.write(_file.data);
           await request.response.close();
         }

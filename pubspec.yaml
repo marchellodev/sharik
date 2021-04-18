@@ -37,7 +37,7 @@ dependencies:
 
   path_provider: ^2.0.1
   url_launcher: ^6.0.3
-  device_apps: ^2.0.2
+  device_apps: ^2.1.0
 
   hive: ^2.0.3
   hive_flutter: ^1.0.0
@@ -60,16 +60,6 @@ dependencies:
 
   # ARCHITECTURE
   provider: ^5.0.0
-
-
-  # DESKTOP-SPECIFIC
-  window_size:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
-      ref: 405e6c5476fbdfd3859cf2f8570b21afb692ea3a
-
-
 
 
 

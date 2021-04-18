@@ -28,26 +28,30 @@ class PickNetworkDialog extends StatelessWidget {
           // shrinkWrap: true,
           children: [
             SizedBox(
-              height: ipService.interfaces!.length*72,
+              height: ipService.interfaces!.length * 72,
               child: ListView.builder(
                   itemCount: ipService.interfaces!.length,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (_, e) => ListTile(
-                    // contentPadding: EdgeInsets.zero,
-                    title: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(ipService.interfaces![e].name)),
-                    subtitle: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(
-                            ipService.interfaces![e].addresses.first.address),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                    onTap:(){
-                      ipService.selectedInterface = ipService.interfaces![e].name;
-                      // ipService.load();
-                      Navigator.of(context).pop();
-                    },
-                  )),
+                        // todo style colors
+                        title: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(ipService.interfaces![e].name)),
+                        subtitle: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                              ipService.interfaces![e].addresses.first.address),
+                        ),
+                        onTap: () {
+                          ipService.selectedInterface =
+                              ipService.interfaces![e].name;
+                          // ipService.load();
+                          Navigator.of(context).pop();
+                        },
+                      )),
             ),
           ],
         ),
@@ -56,7 +60,6 @@ class PickNetworkDialog extends StatelessWidget {
         DialogTextButton(context.l.generalClose, () {
           Navigator.of(context).pop();
         }),
-
       ],
     );
   }

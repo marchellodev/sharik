@@ -26,6 +26,7 @@ import 'package:sharik/screens/share.dart';
 
 import 'models/file.dart';
 
+// todo think of more ports that are cute :>
 List<int> get ports => [50500, 50050, 56789, 56788];
 
 enum Screens { loading, languagePicker, intro, home, about, sharing }
