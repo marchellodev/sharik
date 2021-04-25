@@ -22,7 +22,7 @@ dependencies:
 
   # UI
   flutter_feather_icons: ^2.0.0+1
-  flutter_svg: ^0.21.0+1
+  flutter_svg: ^0.22.0
   google_fonts: ^2.0.0
   intro_slider: ^2.4.0
   responsive_framework: ^0.1.0
@@ -33,13 +33,13 @@ dependencies:
 
   # UTILS
   http: ^0.13.1
-  ping_discover_network: ^0.2.0+1
+  ping_discover_network: ^0.2.0+1 # not migrated :(
 
   path_provider: ^2.0.1
   url_launcher: ^6.0.3
-  device_apps: ^2.1.0
+  device_apps: ^2.1.1
 
-  hive: ^2.0.3
+  hive: ^2.0.4
   hive_flutter: ^1.0.0
 
   package_info: ^2.0.0
@@ -65,8 +65,8 @@ dependencies:
 
 
 dev_dependencies:
-  build_runner: ^1.12.2
-  hive_generator: ^1.0.1
+  build_runner: ^2.0.1
+  hive_generator: ^1.1.0
 
   #  intl_translation: ^0.17.10+1
   lint: ^1.5.3

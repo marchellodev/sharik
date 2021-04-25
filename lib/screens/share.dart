@@ -131,7 +131,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     //     duration: const Duration(milliseconds: 200), vsync: this);
     // _ipAnimation = Tween(begin: 0.0, end: pi).animate(_ipController);
 
-    _conController = AnimationController(duration: const Duration(milliseconds: 200), vsync: this);
+    _conController = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
     updCon();
@@ -144,14 +145,16 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left);
+          SharikRouter.navigateTo(
+              context, context.widget, Screens.home, RouteDirection.left);
 
           return Future.value(false);
         },
         child: GestureDetector(
           onHorizontalDragEnd: (DragEndDetails details) {
             if ((details.primaryVelocity ?? 0) > 0) {
-              SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left);
+              SharikRouter.navigateTo(
+                  context, context.widget, Screens.home, RouteDirection.left);
             }
           },
           child: ListView(
@@ -169,7 +172,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       alignment: Alignment.centerLeft,
                       child: TransparentButton(
                           const Icon(FeatherIcons.chevronLeft, size: 28),
-                          () => SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left),
+                          () => SharikRouter.navigateTo(context, context.widget,
+                              Screens.home, RouteDirection.left),
                           TransparentButtonBackground.purpleDark),
                     ),
                   ),
@@ -222,49 +226,76 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   children: [
                     Padding(
                         padding: const EdgeInsets.only(left: 16, top: 16),
-                        child: Icon(FeatherIcons.wifi, color: Colors.grey.shade50, size: 16)),
+                        child: Icon(FeatherIcons.wifi,
+                            color: Colors.grey.shade50, size: 16)),
                     const SizedBox(
                       width: 12,
                     ),
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(top: 10),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              '*network state *',
-                              style: GoogleFonts.getFont(
-                                'Andika',
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                style: GoogleFonts.getFont(
-                                  'Andika',
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
+                        child: MultiProvider(
+                          providers: [
+                            ChangeNotifierProvider.value(value: _ipService),
+                          ],
+                          // todo use Provider instead of Builder ?
+                          child: Builder(builder: (context) {
+                            context.watch<LocalIpService>();
+
+                            return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const TextSpan(text: 'Connect to'),
-                                  if (Platform.isAndroid || Platform.isIOS)
-                                    TextSpan(text: ' Wi-Fi ', style: TextStyle(color: false ? Colors.green[100] : Colors.red[100]))
-                                  else
-                                    const TextSpan(text: ' Wi-Fi '),
-                                  const TextSpan(text: 'or set up a'),
-                                  if (Platform.isAndroid || Platform.isIOS)
-                                    TextSpan(text: ' Mobile Hotspot', style: TextStyle(color: false ? Colors.green[100] : Colors.red[100]))
-                                  else
-                                    const TextSpan(text: ' Mobile Hotspot'),
-                                ]),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                        ]),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Text(
+                                      connectivity2string(
+                                          _ipService.getConnectivityType()),
+                                      style: GoogleFonts.getFont(
+                                        'Andika',
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                        style: GoogleFonts.getFont(
+                                          'Andika',
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                        children: [
+                                          const TextSpan(text: 'Connect to'),
+                                          if (Platform.isAndroid ||
+                                              Platform.isIOS)
+                                            TextSpan(
+                                                text: ' Wi-Fi ',
+                                                style: TextStyle(
+                                                    color: false
+                                                        ? Colors.green[100]
+                                                        : Colors.red[100]))
+                                          else
+                                            const TextSpan(text: ' Wi-Fi '),
+                                          const TextSpan(text: 'or set up a'),
+                                          if (Platform.isAndroid ||
+                                              Platform.isIOS)
+                                            TextSpan(
+                                                text: ' Mobile Hotspot',
+                                                style: TextStyle(
+                                                    color: false
+                                                        ? Colors.green[100]
+                                                        : Colors.red[100]))
+                                          else
+                                            const TextSpan(
+                                                text: ' Mobile Hotspot'),
+                                        ]),
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                ]);
+                          }),
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -275,11 +306,13 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         AnimatedBuilder(
                             animation: _conAnimation,
                             builder: (context, child) {
-                              return Transform.rotate(angle: _conAnimation.value, child: child);
+                              return Transform.rotate(
+                                  angle: _conAnimation.value, child: child);
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(1),
-                              child: Icon(FeatherIcons.refreshCw, size: 14, color: Colors.grey.shade100),
+                              child: Icon(FeatherIcons.refreshCw,
+                                  size: 14, color: Colors.grey.shade100),
                             )),
                         () => updIp(true),
                         TransparentButtonBackground.purpleDark),
@@ -344,7 +377,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                                 // todo translate loading
 
                                 // todo remove TextStyle
-                                style: GoogleFonts.getFont('Andika', color: Colors.white, fontSize: 18),
+                                style: GoogleFonts.getFont('Andika',
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ),
                           ),
@@ -352,23 +386,35 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                             width: 2,
                           ),
                           // todo fix the splash color
-                          TransparentButton(const Icon(Icons.qr_code_outlined, size: 17, color: Colors.white),
-                              () => setState(() => _stateShowQr = !_stateShowQr), TransparentButtonBackground.purpleDark),
+                          TransparentButton(
+                              const Icon(Icons.qr_code_outlined,
+                                  size: 17, color: Colors.white),
+                              () =>
+                                  setState(() => _stateShowQr = !_stateShowQr),
+                              TransparentButtonBackground.purpleDark),
 
-                          TransparentButton(const Icon(FeatherIcons.copy, size: 16, color: Colors.white), () {
-                            Clipboard.setData(ClipboardData(text: _ipService.getIp())).then((result) {
+                          TransparentButton(
+                              const Icon(FeatherIcons.copy,
+                                  size: 16, color: Colors.white), () {
+                            Clipboard.setData(
+                                    ClipboardData(text: _ipService.getIp()))
+                                .then((result) {
                               final snackBar = SnackBar(
                                 backgroundColor: Colors.deepPurple[500],
                                 duration: const Duration(seconds: 1),
                                 content: Text(
                                   'Copied to Clipboard',
-                                  style: GoogleFonts.getFont('Andika', color: Colors.white),
+                                  style: GoogleFonts.getFont('Andika',
+                                      color: Colors.white),
                                 ),
                               );
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             });
                           }, TransparentButtonBackground.purpleDark),
-                          TransparentButton(const Icon(FeatherIcons.server, size: 16, color: Colors.white), () {
+                          TransparentButton(
+                              const Icon(FeatherIcons.server,
+                                  size: 16, color: Colors.white), () {
                             // todo make sure we have loaded the interfaces
                             openDialog(context, PickNetworkDialog(_ipService));
                           }, TransparentButtonBackground.purpleDark),
@@ -381,7 +427,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               const SizedBox(height: 38),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                height: _stateShowQr ? MediaQuery.of(context).size.width - 24 * 2 : 0,
+                height: _stateShowQr
+                    ? MediaQuery.of(context).size.width - 24 * 2
+                    : 0,
                 child: Center(
                   child: QrImage(
                     data: 'http://168.192.0.101:50500',
@@ -401,7 +449,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 child: Text(
                   'The recipient needs to be connected\nto the same network',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont('Andika', color: Colors.white, fontSize: 18),
+                  style: GoogleFonts.getFont('Andika',
+                      color: Colors.white, fontSize: 18),
                 ),
               ),
               const SizedBox(height: 38),

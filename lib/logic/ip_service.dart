@@ -17,17 +17,12 @@ class LocalIpService extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? _getIpByName(String name) => interfaces
-      ?.firstWhereOrNull((element) => element.name == 'wlan0')
-      ?.addresses
-      .first
-      .address;
-
   String getIp() {
+    // todo refactor for different oses
     if (interfaces == null) {
       return 'loading';
-      throw Exception('The local ip service was not initialized');
     }
+
     if (_selectedInterface != null) {
       for (final el in interfaces!) {
         if (el.name == _selectedInterface) {
@@ -36,20 +31,21 @@ class LocalIpService extends ChangeNotifier {
       }
     }
 
-    // todo research other numbers than 0, i.e. wlan1, Wi-Fi 2
-    // Local Area Connection* 1 - Hotspot on windows
-    // bridgexxx - Hotspot on Mac
     final names = [
-      // linux wifi
-      _getIpByName('wlan0'),
-      // linux ethernet
-      _getIpByName('eth0'),
+      // windows hotspot
+      _getIpByName('Local Area Connection'),
+      // ios/macos hotspot
+      _getIpByName('bridge'),
       // linux hotspot
       _getIpByName('hotspot'),
       // windows wifi
       _getIpByName('Wi-Fi'),
+      // linux ethernet
+      _getIpByName('eth'),
+      // linux wifi
+      _getIpByName('wl'),
       // ios/macos wifi
-      _getIpByName('en0')
+      _getIpByName('en'),
     ];
 
     for (final el in names) {
@@ -61,11 +57,101 @@ class LocalIpService extends ChangeNotifier {
     return interfaces![0].addresses.first.address;
   }
 
+  String? _getIpByName(String name) => interfaces
+      ?.firstWhereOrNull((element) => element.name.toLowerCase().contains(name))
+      ?.addresses
+      .first
+      .address;
+
   Connectivity getConnectivityType() {
-    // todo find connectivity type based on the network interfaces
+    switch (Platform.operatingSystem) {
+      case 'windows':
+        return _connectivityWindows();
+      case 'linux':
+        return _connectivityLinux();
+      case 'android':
+        return _connectivityLinux();
+      case 'macos':
+        return _connectivityMacos();
+      case 'ios':
+        return _connectivityMacos();
+    }
+
+    throw Exception('unknown platform: ${Platform.operatingSystem}');
+  }
+
+  Connectivity _connectivityMacos() {
+    // todo eth - ?
+    if (_interfaceExists('bridge')) {
+      return Connectivity.hotspot;
+    } else if (_interfaceExists('en')) {
+      return Connectivity.wifi;
+    }
 
     return Connectivity.unknown;
+  }
+
+  Connectivity _connectivityWindows() {
+    if (_interfaceExists('Local Area Connection')) {
+      return Connectivity.hotspot;
+    } else if (_interfaceExists('Wi-Fi')) {
+      return Connectivity.wifi;
+    } else if (_interfaceExists('Ethernet')) {
+      return Connectivity.ethernet;
+    }
+
+    return Connectivity.unknown;
+  }
+
+  Connectivity _connectivityLinux() {
+    // todo for linux, use `lshw -class network` instead:
+    if (_interfaceExists('hotspot')) {
+      return Connectivity.hotspot;
+    } else if (_interfaceExists('wl')) {
+      return Connectivity.wifi;
+    } else if (_interfaceExists('eth')) {
+      return Connectivity.ethernet;
+    }
+
+    return Connectivity.unknown;
+  }
+
+  bool _interfaceExists(String name) {
+    if (interfaces == null) {
+      return false;
+    }
+
+    return interfaces!
+        .where((element) => element.name.toLowerCase().contains(name))
+        .isNotEmpty;
   }
 }
 
 enum Connectivity { wifi, ethernet, hotspot, cellular, none, unknown }
+
+
+String connectivity2string(Connectivity c){
+// todo translate
+  switch(c){
+
+    case Connectivity.wifi:
+      return 'Wi-Fi';
+    case Connectivity.ethernet:
+      return 'Ethernet';
+    case Connectivity.hotspot:
+      return 'Hotspot';
+    case Connectivity.cellular:
+      return 'Cellular';
+    case Connectivity.none:
+      return 'None';
+    case Connectivity.unknown:
+      return 'Unknown';
+  }
+}
+
+// class Connection {
+//   final String ip;
+//   final Connectivity connectivity;
+//
+//   const Connection({required this.ip, required this.connectivity});
+// }

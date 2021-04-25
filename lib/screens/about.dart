@@ -108,7 +108,7 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 42),
-              Text('Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute ̚  ( ဖဖ)',
+              Text('Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :>',
                   textAlign: TextAlign.center, style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 16)),
               const SizedBox(height: 4),
 
@@ -121,8 +121,8 @@ class AboutScreen extends StatelessWidget {
                   TransparentButton(
                     SvgPicture.asset(
                       'assets/icons/social/telegram.svg',
-                      width: 24,
-                      height: 24,
+                      width: 23,
+                      height: 23,
                       color: context.t.dividerColor,
                     ),
                     () {},
