@@ -21,9 +21,11 @@ class PickNetworkDialog extends StatelessWidget {
         style: GoogleFonts.getFont(context.l.fontComfortaa,
             fontWeight: FontWeight.w700),
       ),
+      // todo probably redundant
       content: SizedBox(
         // height: double.maxFinite,
         width: double.maxFinite,
+        // todo use listview instead
         child: Column(
           // shrinkWrap: true,
           children: [

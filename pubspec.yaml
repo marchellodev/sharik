@@ -24,15 +24,17 @@ dependencies:
   flutter_feather_icons: ^2.0.0+1
   flutter_svg: ^0.22.0
   google_fonts: ^2.0.0
-  intro_slider: ^2.4.0
+  intro_slider: ^2.4.1
   responsive_framework: ^0.1.0
 
   qr_flutter: ^4.0.0
+  flutter_markdown: ^0.6.1
+
 
   # todo https://pub.dev/packages/flutter_native_splash
 
   # UTILS
-  http: ^0.13.1
+  http: ^0.13.2
   ping_discover_network: ^0.2.0+1 # not migrated :(
 
   path_provider: ^2.0.1

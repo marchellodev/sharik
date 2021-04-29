@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
+import 'package:sharik/dialogs/changelog.dart';
+import 'package:sharik/dialogs/launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
@@ -93,7 +95,9 @@ class AboutScreen extends StatelessWidget {
                         // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
                         splashColor: Colors.deepPurple.shade300.withOpacity(0.28),
                         hoverColor: Colors.deepPurple.shade300.withOpacity(0.14),
-                        onTap: () {},
+                        onTap: () {
+                          openDialog(context, ChangelogDialog());
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
