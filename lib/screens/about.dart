@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/dialogs/changelog.dart';
 import 'package:sharik/dialogs/launcher.dart';
+import 'package:sharik/logic/update_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
@@ -14,19 +16,23 @@ import '../utils/helper.dart';
 
 // todo check fonts for consistence
 class AboutScreen extends StatelessWidget {
+  final updateService = UpdateService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () {
-          SharikRouter.navigateTo(context, context.widget, Screens.home, RouteDirection.left);
+          SharikRouter.navigateTo(
+              context, context.widget, Screens.home, RouteDirection.left);
 
           return Future.value(false);
         },
         child: GestureDetector(
           onHorizontalDragEnd: (DragEndDetails details) {
             if ((details.primaryVelocity ?? 0) > 0) {
-              SharikRouter.navigateTo(context, this, Screens.home, RouteDirection.left);
+              SharikRouter.navigateTo(
+                  context, this, Screens.home, RouteDirection.left);
             }
           },
           child: ListView(
@@ -44,7 +50,8 @@ class AboutScreen extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: TransparentButton(
                         const Icon(FeatherIcons.chevronLeft, size: 28),
-                        () => SharikRouter.navigateTo(context, this, Screens.home, RouteDirection.left),
+                        () => SharikRouter.navigateTo(
+                            context, this, Screens.home, RouteDirection.left),
                         TransparentButtonBackground.def,
                       ),
                     ),
@@ -52,75 +59,130 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 34),
+              ChangeNotifierProvider.value(
+                value: updateService,
+                builder: (ctx, _) {
+                  ctx.watch<UpdateService>();
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Current version', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-                  const Text('3.0', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-                ],
-              ),
-              SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('The latest version', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-                  const Text('3.1', style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16)),
-                ],
-              ),
-              SizedBox(height: 18),
-              //    splashColor: Colors.deepPurple.shade500.withOpacity(0.32),
-              //           hoverColor: Colors.deepPurple.shade50.withOpacity(0.4),
-
-              Row(
-                children: [
-                  Expanded(
-                    child: PrimaryButton(
-                      height: 40,
-                      text: 'Update',
-                      font: 'JetBrainsMono',
-                      onClick: () {},
-                      roundedRadius: 8,
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Material(
-                      color: Colors.deepPurple.shade100,
-                      borderRadius: BorderRadius.circular(8),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(8),
-                        // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
-                        // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
-                        // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
-                        splashColor: Colors.deepPurple.shade300.withOpacity(0.28),
-                        hoverColor: Colors.deepPurple.shade300.withOpacity(0.14),
-                        onTap: () {
-                          openDialog(context, ChangelogDialog());
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                          child: Text(
-                            'Changelog',
-                            style: TextStyle(fontSize: 16, color: Colors.deepPurple[700], fontFamily: 'JetBrainsMono'),
-                          ),
-                        ),
+                  print('upd');
+                  return Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Current version',
+                              style: TextStyle(
+                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
+                          const Text(currentVersion,
+                              style: TextStyle(
+                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
+                        ],
                       ),
-                    ),
-                  ),
-                ],
+                      SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('The latest version',
+                              style: TextStyle(
+                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
+                          Text(updateService.latestVersion ?? 'unknown',
+                              style: TextStyle(
+                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
+                        ],
+                      ),
+                      SizedBox(height: 18),
+                      //    splashColor: Colors.deepPurple.shade500.withOpacity(0.32),
+                      //           hoverColor: Colors.deepPurple.shade50.withOpacity(0.4),
+
+                      Row(
+                        children: [
+                          Expanded(
+                            child: PrimaryButton(
+                              height: 40,
+                              loading: updateService.state ==
+                                  UpdateServiceState.loading,
+                              text:
+                                  updateService.state == UpdateServiceState.none
+                                      ? 'Check updates'
+                                      : (updateService.state ==
+                                              UpdateServiceState.upgradable
+                                          ? 'Update'
+                                          : 'No updates'),
+                              font: 'JetBrainsMono',
+                              onClick: updateService.state !=
+                                      UpdateServiceState.loading
+                                  ? () {
+                                      // todo open play store / snap store / whatever depending on the installation source
+                                      updateService.fetch();
+                                    }
+                                  : null,
+                              roundedRadius: 8,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          // todo as a component
+                          // todo display when the button is disabled
+                          Expanded(
+                            child: Material(
+                              color: Colors.deepPurple.shade100,
+                              borderRadius: BorderRadius.circular(8),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(8),
+                                // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
+                                // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
+                                // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
+                                splashColor: Colors.deepPurple.shade300
+                                    .withOpacity(0.28),
+                                hoverColor: Colors.deepPurple.shade300
+                                    .withOpacity(0.14),
+
+                                onTap: (updateService.state ==
+                                            UpdateServiceState.upgradable ||
+                                        updateService.state ==
+                                            UpdateServiceState.latest)
+                                    ? () {
+                                        openDialog(
+                                            context,
+                                            ChangelogDialog(
+                                                updateService.markdown!));
+                                      }
+                                    : null,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 12),
+                                  child: Text(
+                                    'Changelog',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.deepPurple[700],
+                                        fontFamily: 'JetBrainsMono'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
               const SizedBox(height: 42),
-              Text('Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :>',
-                  textAlign: TextAlign.center, style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 16)),
+              Text(
+                  'Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :>',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.getFont(context.l.fontComfortaa,
+                      fontSize: 16)),
               const SizedBox(height: 4),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TransparentButton(
-                      Icon(FeatherIcons.github, size: 24, color: context.t.dividerColor), () {}, TransparentButtonBackground.def),
+                      Icon(FeatherIcons.github,
+                          size: 24, color: context.t.dividerColor),
+                      () {},
+                      TransparentButtonBackground.def),
                   const SizedBox(width: 4),
                   TransparentButton(
                     SvgPicture.asset(
@@ -137,7 +199,8 @@ class AboutScreen extends StatelessWidget {
               const SizedBox(height: 34),
               Text('Contributors',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont(context.l.fontComfortaa, fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: GoogleFonts.getFont(context.l.fontComfortaa,
+                      fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 14),
               Column(
                 children: const [
@@ -197,10 +260,18 @@ class _ContributorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(fullName, style: TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16, color: Colors.grey.shade50, letterSpacing: 0.1)),
+                Text(fullName,
+                    style: TextStyle(
+                        fontFamily: 'JetBrainsMono',
+                        fontSize: 16,
+                        color: Colors.grey.shade50,
+                        letterSpacing: 0.1)),
                 Text(role,
                     style: GoogleFonts.poppins(
-                        color: Colors.deepPurple.shade50, fontSize: 16, fontStyle: FontStyle.italic, letterSpacing: 0.4)),
+                        color: Colors.deepPurple.shade50,
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        letterSpacing: 0.4)),
               ],
             ),
             () => launch('https://github.com/$nickName')));
@@ -219,9 +290,17 @@ class _ContributorCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(fullName, style: GoogleFonts.poppins(fontSize: 16, color: Colors.deepPurple.shade800, letterSpacing: 0.2)),
+                Text(fullName,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: Colors.deepPurple.shade800,
+                        letterSpacing: 0.2)),
                 Text(role,
-                    style: GoogleFonts.poppins(color: Colors.grey.shade900, fontSize: 16, fontStyle: FontStyle.italic, letterSpacing: 0.4)),
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey.shade900,
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        letterSpacing: 0.4)),
               ],
             ),
           ),

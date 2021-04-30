@@ -4,11 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utils/helper.dart';
 
 class PrimaryButton extends StatelessWidget {
-  final Function() onClick;
+  final Function()? onClick;
   final String text;
   final int height;
   final int fontSize;
   final int roundedRadius;
+  final bool loading;
 
   final Widget? secondaryIcon;
   final String? font;
@@ -18,6 +19,7 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     required this.height,
     this.secondaryIcon,
+    this.loading = false,
     this.font,
     this.fontSize = 24,
     // todo maybe enum for radius and fontSize?
@@ -48,15 +50,33 @@ class PrimaryButton extends StatelessWidget {
                       ),
                       Center(
                           child: Text(text,
-                              style: GoogleFonts.getFont(font ?? context.l.fontAndika,
-                                  color: Colors.grey.shade100, fontSize: fontSize.toDouble()))),
+                              style: GoogleFonts.getFont(
+                                  font ?? context.l.fontAndika,
+                                  color: Colors.grey.shade100,
+                                  fontSize: fontSize.toDouble()))),
                     ],
                   )
                 : Center(
-                    child: Text(text,
-                        style: font != 'JetBrainsMono'
-                            ? GoogleFonts.getFont(font ?? context.l.fontAndika, color: Colors.grey.shade100, fontSize: fontSize.toDouble())
-                            : TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16, color: Colors.grey.shade100)),
+                    child: loading
+                        ? SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.4,
+                              valueColor: AlwaysStoppedAnimation<Color?>(
+                                  Colors.grey.shade100),
+                            ),
+                          )
+                        : Text(text,
+                            style: font != 'JetBrainsMono'
+                                ? GoogleFonts.getFont(
+                                    font ?? context.l.fontAndika,
+                                    color: Colors.grey.shade100,
+                                    fontSize: fontSize.toDouble())
+                                : TextStyle(
+                                    fontFamily: 'JetBrainsMono',
+                                    fontSize: 16,
+                                    color: Colors.grey.shade100)),
                   ),
           ),
         ));
@@ -88,7 +108,9 @@ class DialogTextButton extends StatelessWidget {
             style: GoogleFonts.getFont(
               context.l.fontAndika,
               fontSize: 15,
-              color: onClick != null ? context.t.dividerColor : context.t.dividerColor.withOpacity(0.6),
+              color: onClick != null
+                  ? context.t.dividerColor
+                  : context.t.dividerColor.withOpacity(0.6),
             ),
           ),
         ),
@@ -161,7 +183,9 @@ class ListButton extends StatelessWidget {
         focusColor: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
-        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), child: child),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: child),
       ),
     );
   }
