@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:sharik/logic/services/receiver_service.dart';
 import 'package:sharik/logic/theme.dart';
 import 'package:sharik/screens/loading.dart';
 import 'package:sharik/utils/material_ink_well.dart';
@@ -18,12 +20,16 @@ import 'logic/language.dart';
 import 'logic/navigation.dart';
 import 'models/file.dart';
 
-// todo move into provider / bloc
-// todo accessibility
-// todo make sure /screens/languages.dart not package:sharik/
-// todo review language namings
-// todo custom ripple effect
-
+// todo before migrating locales:
+// - design review (colors, spacing, animations, etc)
+// - landscape mode support
+// - calibrating responsive framework
+// - accessibility
+// - receiver
+// - create sharing intent (android, ios, maybe desktop?)
+// - code cleanup & to-do review
+// - review usages of class LocalIpService extends ChangeNotifier {
+// - review imports (cupertino, material, etc -> use only foundation or widgets)
 Future<void> main() async {
   // if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
   //   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +37,7 @@ Future<void> main() async {
   //   screen.setWindowMinSize(const Size(440, 680));
   //   screen.setWindowMaxSize(const Size(440, 680));
   // }
+  ReceiverService().check();
 
   Hive.registerAdapter(FileTypeModelAdapter());
   Hive.registerAdapter(FileModelAdapter());

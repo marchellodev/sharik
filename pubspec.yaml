@@ -35,7 +35,9 @@ dependencies:
 
   # UTILS
   http: ^0.13.2
-  ping_discover_network: ^0.2.0+1 # not migrated :(
+  dart_ping: ^6.0.0
+
+
 
   path_provider: ^2.0.1
   url_launcher: ^6.0.3

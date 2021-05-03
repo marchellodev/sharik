@@ -44,6 +44,7 @@ class UpdateService extends ChangeNotifier {
         var val = el.replaceFirst('## ', '');
         val = val.split(' ')[0];
         val = val.replaceFirst('v', '');
+        val = val.trim();
         return val;
       }
     }

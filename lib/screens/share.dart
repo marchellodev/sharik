@@ -12,10 +12,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
-import 'package:sharik/dialogs/launcher.dart';
-import 'package:sharik/dialogs/networks.dart';
-import 'package:sharik/logic/ip_service.dart';
-import 'package:sharik/logic/sharing_service.dart';
+import 'package:sharik/dialogs/open_dialog.dart';
+import 'package:sharik/dialogs/select_network.dart';
+import 'package:sharik/logic/services/ip_service.dart';
+import 'package:sharik/logic/services/sharing_service.dart';
 
 import '../conf.dart';
 import '../models/file.dart';
@@ -38,70 +38,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   late FileModel _file;
 
-  bool _stateShowQr = false;
-
   final LocalIpService _ipService = LocalIpService();
   late SharingService _sharingService;
 
-  // ignore: avoid_void_async, avoid_positional_boolean_parameters
-  void updIp([bool hard = false]) async {
-    // // setState(() => ip = 'loading...');
-    //
-    // final _ip = await getIp();
-    //
-    // if (_port == 0 && _ip != null) {
-    //   // port = await _getPort();
-    //   _port = 50500;
-    //   _server = await HttpServer.bind(InternetAddress.anyIPv4, _port);
-    //   serve();
-    // }
-    // setState(() => ip = 'http://$_ip:$port');
-    // todo restart sharing service i guess ?
-  }
+  bool _stateShowQr = false;
 
-  // ignore: avoid_void_async
-  void updCon() async {
-    setState(() {
-      // network = 'loading...';
-      // wifi = false;
-      // tether = false;
-    });
-    // if (!_ipController.isAnimating) {
-    //   unawaited(
-    //       _conController.forward().then((value) => _conController.reset()));
-    // }
-
-    // var w = false;
-    // var t = false;
-
-    // if (Platform.isAndroid) {
-    //   // w = await WiFiForIoTPlugin.isConnected();
-    //   // t = await WiFiForIoTPlugin.isWiFiAPEnabled();
-    // } else if (Platform.isIOS || Platform.isMacOS) {
-    //   final connectivityResult = await s.Connectivity().checkConnectivity();
-    //
-    //   if (connectivityResult == s.ConnectivityResult.wifi) {
-    //     w = true;
-    //   } else if (await iosHotspot()) {
-    //     t = true;
-    //   }
-    // }
-
-    // setState(() {
-    //   wifi = w;
-    //   tether = t;
-    //   if (!Platform.isAndroid && !Platform.isIOS && !Platform.isMacOS) {
-    //     network = 'Undefined';
-    //   } else if (w) {
-    //     network = 'Wi-Fi';
-    //   } else if (t) {
-    //     network = 'Mobile Hotspot';
-    //   } else {
-    //     network = 'Not connected';
-    //   }
-    // });
-    updIp();
-  }
 
   @override
   void dispose() {
@@ -114,9 +55,6 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // _model = Provider.of<AppModel>(context, listen: false);
-    // _file = _model.file;
-    // _file = context.n.file;
     // todo init stuff in a separate method
     _file = widget.file;
 
@@ -124,18 +62,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
     _sharingService = SharingService(_file);
     _sharingService.start();
-    // ip = 'loading...';
-    // network = 'loading...';
-
-    // _ipController = AnimationController(
-    //     duration: const Duration(milliseconds: 200), vsync: this);
-    // _ipAnimation = Tween(begin: 0.0, end: pi).animate(_ipController);
 
     _conController = AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
-
-    updCon();
 
     super.initState();
   }
@@ -313,24 +243,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                               padding: const EdgeInsets.all(1),
                               child: Icon(FeatherIcons.refreshCw,
                                   size: 14, color: Colors.grey.shade100),
-                            )),
-                        () => updIp(true),
-                        TransparentButtonBackground.purpleDark),
-                    // Material(
-                    //   borderRadius: BorderRadius.circular(12),
-                    //   color: Colors.deepPurple[400],
-                    //   child: InkWell(
-                    //     borderRadius: BorderRadius.circular(12),
-                    //     onTap: () {
-                    //       updCon();
-                    //     },
-                    //     child: Container(
-                    //       padding: const EdgeInsets.symmetric(
-                    //           vertical: 14, horizontal: 14),
-                    //       child:
-                    //     ),
-                    //   ),
-                    // ),
+                            )), () {
+                      _conController.forward(from: 0);
+                      _ipService.load();
+                    }, TransparentButtonBackground.purpleDark),
                   ],
                 ),
               ),

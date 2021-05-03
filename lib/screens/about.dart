@@ -7,8 +7,8 @@ import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/dialogs/changelog.dart';
-import 'package:sharik/dialogs/launcher.dart';
-import 'package:sharik/logic/update_service.dart';
+import 'package:sharik/dialogs/open_dialog.dart';
+import 'package:sharik/logic/services/update_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
@@ -112,7 +112,11 @@ class AboutScreen extends StatelessWidget {
                               onClick: updateService.state !=
                                       UpdateServiceState.loading
                                   ? () {
-                                      // todo open play store / snap store / whatever depending on the installation source
+                                      if (updateService.state ==
+                                          UpdateServiceState.upgradable) {
+                                        launch(source2url(source));
+                                        return;
+                                      }
                                       updateService.fetch();
                                     }
                                   : null,
@@ -203,39 +207,8 @@ class AboutScreen extends StatelessWidget {
                       fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 14),
               Column(
-                children: const [
-                  _ContributorCard(
-                    'Mark Motliuk',
-                    'marchellodev',
-                    'Maintainer',
-                  ),
-                  _ContributorCard(
-                    'Behzad Najafzadeh',
-                    'behzad-njf',
-                    'Translator',
-                  ),
-                  _ContributorCard(
-                    'Atrate',
-                    'atrate',
-                    'Translator',
-                  ),
-                  _ContributorCard(
-                    '...',
-                    '...',
-                    '...',
-                  ),
-                  _ContributorCard(
-                    '...',
-                    '...',
-                    '...',
-                  ),
-                  _ContributorCard(
-                    '归零幻想',
-                    '...',
-                    '...',
-                  ),
-                ],
-              ),
+                  children:
+                      contributors.map((e) => _ContributorCard(e)).toList()),
               const SizedBox(height: 22),
             ],
           ),
@@ -246,27 +219,25 @@ class AboutScreen extends StatelessWidget {
 }
 
 class _ContributorCard extends StatelessWidget {
-  final String fullName;
-  final String nickName;
-  final String role;
+  final Contributor obj;
 
-  const _ContributorCard(this.fullName, this.nickName, this.role);
+  const _ContributorCard(this.obj);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.only(bottom: 12),
         child: ListButton(
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(fullName,
+                Text(obj.name,
                     style: TextStyle(
                         fontFamily: 'JetBrainsMono',
                         fontSize: 16,
                         color: Colors.grey.shade50,
                         letterSpacing: 0.1)),
-                Text(role,
+                Text(contributorType2string(obj.type),
                     style: GoogleFonts.poppins(
                         color: Colors.deepPurple.shade50,
                         fontSize: 16,
@@ -274,38 +245,6 @@ class _ContributorCard extends StatelessWidget {
                         letterSpacing: 0.4)),
               ],
             ),
-            () => launch('https://github.com/$nickName')));
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Material(
-        color: context.t.buttonColor,
-        borderRadius: BorderRadius.circular(12),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          splashColor: Colors.deepPurple.shade500.withOpacity(0.32),
-          hoverColor: Colors.deepPurple.shade50.withOpacity(0.4),
-          onTap: () => launch('https://github.com/$nickName'),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(fullName,
-                    style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        color: Colors.deepPurple.shade800,
-                        letterSpacing: 0.2)),
-                Text(role,
-                    style: GoogleFonts.poppins(
-                        color: Colors.grey.shade900,
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        letterSpacing: 0.4)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+            () => launch('https://github.com/${obj.githubNickname}')));
   }
 }

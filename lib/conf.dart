@@ -29,35 +29,106 @@ import 'models/file.dart';
 // todo think of more ports that are cute :>
 const List<int> ports = [50500, 50050, 56789, 56788];
 
+// only for fetching update
+const String currentVersion = '3.0';
 
 const Sources source = Sources.none;
 enum Sources { playStore, fDroid, gitHub, snap, none }
 
-// only for fetching update
-const String currentVersion = '3.0';
-
-
-
-enum Screens { loading, languagePicker, intro, home, about, sharing }
-
-Widget screen2widget(Screens s, [Object? args]) {
-  switch (s) {
-    case Screens.loading:
-      return LoadingScreen();
-    case Screens.languagePicker:
-      return LanguagePickerScreen();
-    case Screens.intro:
-      return IntroScreen();
-    case Screens.home:
-      return HomeScreen();
-    case Screens.about:
-      return AboutScreen();
-    case Screens.sharing:
-      return SharingScreen(args! as FileModel);
+// todo fix urls & add another distributions methods
+String source2url(Sources source) {
+  switch (source) {
+    case Sources.playStore:
+      return 'https://google.com';
+    case Sources.fDroid:
+      return 'https://fdroid.com';
+    case Sources.gitHub:
+      return 'https://fdroid.com';
+    case Sources.snap:
+      return 'https://snap.com';
+    case Sources.none:
+      return 'https://github.com';
   }
 }
 
-//
+const contributors = <Contributor>[
+  Contributor(
+    name: 'Mark Motliuk',
+    githubNickname: 'marchellodev',
+    type: ContributorTypes.maintainer,
+  ),
+  Contributor(
+    name: 'Behzad Najafzadeh',
+    githubNickname: 'behzad-njf',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'Atrate',
+    githubNickname: 'Atrate',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'Mr. Blogger',
+    githubNickname: 'mrfoxie',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'Yazeed AlKhalaf',
+    githubNickname: 'YazeedAlKhalaf',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'mezysinc',
+    githubNickname: 'mezysinc',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'Tibor Repček',
+    githubNickname: 'tiborepcek',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'T. E. Kalaycı',
+    githubNickname: 'tekrei',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'zcraber',
+    githubNickname: 'zcraber',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: '归零幻想',
+    githubNickname: 'zerofancy',
+    type: ContributorTypes.translator,
+  ),
+];
+
+class Contributor {
+  final String name;
+  final String githubNickname;
+  final ContributorTypes type;
+
+  const Contributor({
+    required this.name,
+    required this.githubNickname,
+    required this.type,
+  });
+}
+
+enum ContributorTypes { maintainer, coder, translator }
+
+String contributorType2string(ContributorTypes type) {
+  switch (type) {
+    case ContributorTypes.maintainer:
+      return 'Maintainer';
+    case ContributorTypes.coder:
+      return 'Coder';
+    case ContributorTypes.translator:
+      return 'Translator';
+  }
+}
+
 List<Language> get languageList => [
       Language(
           // 1.3 billion (400+700)
@@ -151,3 +222,22 @@ List<Language> get languageList => [
           locale: const Locale('sk'),
           localizations: AppLocalizationsSk())
     ];
+
+enum Screens { loading, languagePicker, intro, home, about, sharing }
+
+Widget screen2widget(Screens s, [Object? args]) {
+  switch (s) {
+    case Screens.loading:
+      return LoadingScreen();
+    case Screens.languagePicker:
+      return LanguagePickerScreen();
+    case Screens.intro:
+      return IntroScreen();
+    case Screens.home:
+      return HomeScreen();
+    case Screens.about:
+      return AboutScreen();
+    case Screens.sharing:
+      return SharingScreen(args! as FileModel);
+  }
+}

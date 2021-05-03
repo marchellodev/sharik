@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io' show Platform;
 import 'dart:ui';
 
@@ -11,13 +10,11 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
-import 'package:http/http.dart' as http;
-import 'package:ping_discover_network/ping_discover_network.dart';
 import 'package:provider/provider.dart';
 import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
-import 'package:sharik/dialogs/launcher.dart';
+import 'package:sharik/dialogs/open_dialog.dart';
 import 'package:sharik/dialogs/share_text.dart';
 import 'package:sharik/logic/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -59,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // context.n.file = file;
     // context.n.page = SharingPage();
-    SharikRouter.navigateTo(context, context.widget, Screens.sharing, RouteDirection.right, file);
+    SharikRouter.navigateTo(
+        context, context.widget, Screens.sharing, RouteDirection.right, file);
     // _model.file = file;
     // _model.setState(() => _model.setPage(PageModel.sharing));
   }
@@ -189,22 +187,37 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 64,
           decoration: BoxDecoration(
               color: Colors.deepPurple[100],
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
           child: Row(
             children: [
               TransparentButton(
-                  SizedBox(height: 20, width: 20, child: Icon(FeatherIcons.globe, color: Colors.deepPurple.shade700, size: 20)),
-                  () => SharikRouter.navigateTo(context, context.widget, Screens.languagePicker, RouteDirection.left),
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(FeatherIcons.globe,
+                          color: Colors.deepPurple.shade700, size: 20)),
+                  () => SharikRouter.navigateTo(context, context.widget,
+                      Screens.languagePicker, RouteDirection.left),
                   TransparentButtonBackground.purpleLight),
               const SizedBox(width: 2),
               TransparentButton(
-                SizedBox(height: 20, width: 20, child: Icon(FeatherIcons.helpCircle, color: Colors.deepPurple.shade700, size: 20)),
-                () => SharikRouter.navigateTo(context, context.widget, Screens.intro, RouteDirection.left),
+                SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: Icon(FeatherIcons.helpCircle,
+                        color: Colors.deepPurple.shade700, size: 20)),
+                () => SharikRouter.navigateTo(context, context.widget,
+                    Screens.intro, RouteDirection.left),
                 TransparentButtonBackground.purpleLight,
               ),
               const SizedBox(width: 2),
               TransparentButton(
-                  SizedBox(height: 20, width: 20, child: Icon(FeatherIcons.download, color: Colors.deepPurple.shade700, size: 20)), () {
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(FeatherIcons.download,
+                          color: Colors.deepPurple.shade700, size: 20)), () {
                 final senders = <Sender>[];
                 var running = false;
                 var stop = false;
@@ -251,9 +264,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     await Future.delayed(const Duration(seconds: 1));
                   }
 
-                  if (senders.firstWhereOrNull((element) => element.n! < n ~/ ports.length) != null) {
+                  if (senders.firstWhereOrNull(
+                          (element) => element.n! < n ~/ ports.length) !=
+                      null) {
                     setState(() {
-                      senders.removeWhere((element) => element.n! < n ~/ ports.length);
+                      senders.removeWhere(
+                          (element) => element.n! < n ~/ ports.length);
                     });
                   }
                   final ip = await getIpMask();
@@ -261,48 +277,50 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // todo recode all of that
                   // ignore: avoid_single_cascade_in_expression_statements
-                  NetworkAnalyzer.discover2(
-                    ip,
-                    port,
-                    timeout: const Duration(milliseconds: 500),
-                  )..listen((addr) async {
-                      if (addr.exists) {
-                        //todo: proper deserialization
-
-                        try {
-                          final info = jsonDecode(await http.read(Uri.parse('http://${addr.ip}:$port/sharik.json')));
-
-                          final sender = Sender(
-                              n: n ~/ ports.length,
-                              ip: addr.ip,
-                              type: cast<String>(info['type']),
-                              version: cast<String>(info['sharik']),
-                              name: cast<String>(info['name']),
-                              os: cast<String>(info['os']),
-                              url: 'http://${addr.ip}:$port');
-                          final inArr = senders.firstWhereOrNull(
-                              (element) => element.ip == sender.ip && element.os == sender.os && element.name == sender.name);
-
-                          if (inArr == null) {
-                            setState(() => senders.add(sender));
-                          } else {
-                            inArr.n = n;
-                          }
-                        } catch (e) {
-                          //todo: catch error
-                        }
-                      }
-                    }).onDone(() {
-                      n++;
-                      portRunner(setState);
-                    });
+                  // NetworkAnalyzer.discover2(
+                  //   ip,
+                  //   port,
+                  //   timeout: const Duration(milliseconds: 500),
+                  // )..listen((addr) async {
+                  //     if (addr.exists) {
+                  //       //todo: proper deserialization
+                  //
+                  //       try {
+                  //         final info = jsonDecode(await http.read(Uri.parse('http://${addr.ip}:$port/sharik.json')));
+                  //
+                  //         final sender = Sender(
+                  //             n: n ~/ ports.length,
+                  //             ip: addr.ip,
+                  //             type: cast<String>(info['type']),
+                  //             version: cast<String>(info['sharik']),
+                  //             name: cast<String>(info['name']),
+                  //             os: cast<String>(info['os']),
+                  //             url: 'http://${addr.ip}:$port');
+                  //         final inArr = senders.firstWhereOrNull(
+                  //             (element) => element.ip == sender.ip && element.os == sender.os && element.name == sender.name);
+                  //
+                  //         if (inArr == null) {
+                  //           setState(() => senders.add(sender));
+                  //         } else {
+                  //           inArr.n = n;
+                  //         }
+                  //       } catch (e) {
+                  //         //todo: catch error
+                  //       }
+                  //     }
+                  //   }).onDone(() {
+                  //     n++;
+                  //     portRunner(setState);
+                  //   });
                 }
 
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text(c.l.homeReceiver, style: GoogleFonts.getFont(c.l.fontComfortaa, fontWeight: FontWeight.w700)),
+                        title: Text(c.l.homeReceiver,
+                            style: GoogleFonts.getFont(c.l.fontComfortaa,
+                                fontWeight: FontWeight.w700)),
                         content: StatefulBuilder(
                           builder: (_, StateSetter setState) {
                             if (!running) {
@@ -347,7 +365,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 28,
                                           width: 28,
                                           margin: const EdgeInsets.all(4),
-                                          child: const CircularProgressIndicator(),
+                                          child:
+                                              const CircularProgressIndicator(),
                                         ),
                                       ),
                                     ],
@@ -369,16 +388,23 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(width: 2),
               TransparentButton(
                   SizedBox(
-                      height: 20, width: 20, child: Icon(context.watch<ThemeManager>().icon, color: Colors.deepPurple.shade700, size: 20)),
+                      height: 20,
+                      width: 20,
+                      child: Icon(context.watch<ThemeManager>().icon,
+                          color: Colors.deepPurple.shade700, size: 20)),
                   () => context.read<ThemeManager>().change(),
                   TransparentButtonBackground.purpleLight),
               const Spacer(),
               TransparentButton(
                   Text(
                     'sharik v3.0',
-                    style: TextStyle(fontSize: 16, color: Colors.deepPurple.shade700, fontFamily: 'JetBrainsMono'),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.deepPurple.shade700,
+                        fontFamily: 'JetBrainsMono'),
                   ),
-                  () => SharikRouter.navigateTo(context, context.widget, Screens.about, RouteDirection.right),
+                  () => SharikRouter.navigateTo(context, context.widget,
+                      Screens.about, RouteDirection.right),
                   TransparentButtonBackground.purpleLight),
             ],
           ),
@@ -408,7 +434,8 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 4,
       ));
       element['changes'].forEach((change) {
-        changes.add(Text(' • $change', style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14)));
+        changes.add(Text(' • $change',
+            style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14)));
         changes.add(const SizedBox(
           height: 2,
         ));
@@ -451,7 +478,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   width: 4,
                 ),
-                Text('v${data['latest_version']}', style: const TextStyle(fontFamily: 'JetBrainsMono'))
+                Text('v${data['latest_version']}',
+                    style: const TextStyle(fontFamily: 'JetBrainsMono'))
               ],
             ),
             const SizedBox(
@@ -490,7 +518,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Text(
                   f.name,
-                  style: GoogleFonts.getFont(c.l.fontAndika, color: Colors.white, fontSize: 18),
+                  style: GoogleFonts.getFont(c.l.fontAndika,
+                      color: Colors.white, fontSize: 18),
                   maxLines: 1,
                 ),
               ))
