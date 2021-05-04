@@ -7,6 +7,7 @@ import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/dialogs/changelog.dart';
+import 'package:sharik/dialogs/licenses.dart';
 import 'package:sharik/dialogs/open_dialog.dart';
 import 'package:sharik/logic/services/update_service.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -201,6 +202,17 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 34),
+              ListButton(
+                  Text('Open Source Licenses',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'JetBrainsMono',
+                          fontSize: 15,
+                          color: Colors.grey.shade50,
+                          letterSpacing: 0.1)), () {
+                openDialog(context, LicensesDialog());
+              }),
+              const SizedBox(height: 22),
               Text('Contributors',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.getFont(context.l.fontComfortaa,

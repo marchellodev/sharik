@@ -57,6 +57,8 @@ dependencies:
   file_selector_linux: ^0.0.2
   file_selector_macos: ^0.0.4
 
+
+
   # Android and IOS
   file_picker: ^3.0.1
 
@@ -71,7 +73,10 @@ dev_dependencies:
   build_runner: ^2.0.2
   hive_generator: ^1.1.0
 
-  #  intl_translation: ^0.17.10+1
+  flutter_oss_licenses: ^1.0.1
+
+
+#  intl_translation: ^0.17.10+1
   lint: ^1.5.3
 
 flutter:
