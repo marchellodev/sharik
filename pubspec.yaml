@@ -36,6 +36,7 @@ dependencies:
   # UTILS
   http: ^0.13.2
   dart_ping: ^6.0.0
+  multicast_dns: ^0.3.0
 
 
 

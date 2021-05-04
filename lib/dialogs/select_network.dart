@@ -29,31 +29,48 @@ class PickNetworkDialog extends StatelessWidget {
         child: Column(
           // shrinkWrap: true,
           children: [
-            SizedBox(
-              height: ipService.interfaces!.length * 72,
-              child: ListView.builder(
-                  itemCount: ipService.interfaces!.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (_, e) => ListTile(
-                        shape: RoundedRectangleBorder(
+            Theme(
+              data: ThemeData(
+                  brightness: Brightness.dark,
+                  accentColor: context.t.textTheme.bodyText1!.color),
+              child: SizedBox(
+                height: ipService.interfaces!.length * 72,
+                child: ListView.builder(
+                    itemCount: ipService.interfaces!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, e) => ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                        ),
-                        // todo style colors
-                        title: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(ipService.interfaces![e].name)),
-                        subtitle: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Text(
-                              ipService.interfaces![e].addresses.first.address),
-                        ),
-                        onTap: () {
-                          ipService.selectedInterface =
-                              ipService.interfaces![e].name;
-                          // ipService.load();
-                          Navigator.of(context).pop();
-                        },
-                      )),
+                          child: ListTile(
+                            selected: ipService.getIp() ==
+                                ipService
+                                    .interfaces![e].addresses.first.address,
+                            selectedTileColor:
+                                context.t.dividerColor.withOpacity(0.08),
+
+                            // todo text styling
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            // todo style colors
+                            title: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(ipService.interfaces![e].name)),
+                            subtitle: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                ipService
+                                    .interfaces![e].addresses.first.address,
+                              ),
+                            ),
+                            onTap: () {
+                              ipService.selectedInterface =
+                                  ipService.interfaces![e].name;
+                              // ipService.load();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        )),
+              ),
             ),
           ],
         ),

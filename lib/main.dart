@@ -30,6 +30,9 @@ import 'models/file.dart';
 // - code cleanup & to-do review
 // - review usages of class LocalIpService extends ChangeNotifier {
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
+// - share json file when sharing
+// - do not go to sleep when sharing
+
 Future<void> main() async {
   // if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
   //   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +40,6 @@ Future<void> main() async {
   //   screen.setWindowMinSize(const Size(440, 680));
   //   screen.setWindowMaxSize(const Size(440, 680));
   // }
-  ReceiverService().check();
 
   Hive.registerAdapter(FileTypeModelAdapter());
   Hive.registerAdapter(FileModelAdapter());

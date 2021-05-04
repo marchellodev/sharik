@@ -15,6 +15,7 @@ import 'package:sharik/components/buttons.dart';
 import 'package:sharik/components/logo.dart';
 import 'package:sharik/components/page_router.dart';
 import 'package:sharik/dialogs/open_dialog.dart';
+import 'package:sharik/dialogs/receiver.dart';
 import 'package:sharik/dialogs/share_text.dart';
 import 'package:sharik/logic/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -22,7 +23,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../conf.dart';
 import '../dialogs/share_app.dart';
 import '../models/file.dart';
-import '../models/sender.dart';
 import '../utils/helper.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -218,172 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 20,
                       child: Icon(FeatherIcons.download,
                           color: Colors.deepPurple.shade700, size: 20)), () {
-                final senders = <Sender>[];
-                var running = false;
-                var stop = false;
-                var n = 0;
-
-                //todo: check for ip wiser?
-                Future<String> getIpMask() async {
-                  // final ip = (await SharikWrapper.getLocalIp).split('.');
-                  const ip = 'localhost';
-                  return '${ip[0]}.${ip[1]}.${ip[2]}';
-
-//                        for (var interface in await NetworkInterface.list()) {
-//                          for (var addr in interface.addresses) {
-//                            if (addr.address.startsWith('192.168.')) {
-//                              return '192.168.0';
-//                            }
-//                            if (addr.address.startsWith('172.16.')) {
-//                              return '172.16.0';
-//                            }
-//                            if (addr.address.startsWith('10.')) {
-//                              return '10.0.0';
-//                            }
-//                          }
-//                        }
-//                        if (!stop) {
-//                          await Future.delayed(Duration(seconds: 1));
-//                          return getIpMask();
-//                        } else {
-//                          return null;
-//                        }
-                }
-
-                // ignore: avoid_void_async
-                void portRunner(StateSetter setState) async {
-                  if (stop) {
-                    return;
-                  }
-
-                  running = true;
-
-                  final port = ports[n % ports.length];
-
-                  if (n % 4 == 0) {
-                    await Future.delayed(const Duration(seconds: 1));
-                  }
-
-                  if (senders.firstWhereOrNull(
-                          (element) => element.n! < n ~/ ports.length) !=
-                      null) {
-                    setState(() {
-                      senders.removeWhere(
-                          (element) => element.n! < n ~/ ports.length);
-                    });
-                  }
-                  final ip = await getIpMask();
-                  print(ip);
-
-                  // todo recode all of that
-                  // ignore: avoid_single_cascade_in_expression_statements
-                  // NetworkAnalyzer.discover2(
-                  //   ip,
-                  //   port,
-                  //   timeout: const Duration(milliseconds: 500),
-                  // )..listen((addr) async {
-                  //     if (addr.exists) {
-                  //       //todo: proper deserialization
-                  //
-                  //       try {
-                  //         final info = jsonDecode(await http.read(Uri.parse('http://${addr.ip}:$port/sharik.json')));
-                  //
-                  //         final sender = Sender(
-                  //             n: n ~/ ports.length,
-                  //             ip: addr.ip,
-                  //             type: cast<String>(info['type']),
-                  //             version: cast<String>(info['sharik']),
-                  //             name: cast<String>(info['name']),
-                  //             os: cast<String>(info['os']),
-                  //             url: 'http://${addr.ip}:$port');
-                  //         final inArr = senders.firstWhereOrNull(
-                  //             (element) => element.ip == sender.ip && element.os == sender.os && element.name == sender.name);
-                  //
-                  //         if (inArr == null) {
-                  //           setState(() => senders.add(sender));
-                  //         } else {
-                  //           inArr.n = n;
-                  //         }
-                  //       } catch (e) {
-                  //         //todo: catch error
-                  //       }
-                  //     }
-                  //   }).onDone(() {
-                  //     n++;
-                  //     portRunner(setState);
-                  //   });
-                }
-
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(c.l.homeReceiver,
-                            style: GoogleFonts.getFont(c.l.fontComfortaa,
-                                fontWeight: FontWeight.w700)),
-                        content: StatefulBuilder(
-                          builder: (_, StateSetter setState) {
-                            if (!running) {
-                              portRunner(setState);
-                            }
-
-                            return senders.isNotEmpty
-                                ? SizedBox(
-                                    height: 320,
-                                    width: 120,
-                                    child: ListView(
-                                      shrinkWrap: true,
-                                      children: senders
-                                          .map((e) {
-                                            return ListTile(
-                                              onTap: () async {
-                                                if (await canLaunch(e.url!)) {
-                                                  await launch(e.url!);
-                                                }
-                                              },
-                                              subtitle: Text(e.os!),
-                                              title: Text(e.name!),
-                                              //todo: what's below looks ugly
-//                                                    leading: SvgPicture.asset(
-//                                                        FileModel(
-//                                                                type: e.type,
-//                                                                name: e.name)
-//                                                            .icon,
-//                                                        color: Colors.black),
-                                            );
-                                          })
-                                          .toList()
-                                          .cast<Widget>(),
-                                    ),
-                                  )
-                                : Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Center(
-                                        child: Container(
-                                          height: 28,
-                                          width: 28,
-                                          margin: const EdgeInsets.all(4),
-                                          child:
-                                              const CircularProgressIndicator(),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                          },
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text(
-                              c.l.generalClose,
-                              style: GoogleFonts.getFont(c.l.fontAndika),
-                            ),
-                          )
-                        ],
-                      );
-                    }).then((value) => stop = true);
+                openDialog(context, ReceiverDialog());
               }, TransparentButtonBackground.purpleLight),
               const SizedBox(width: 2),
               TransparentButton(

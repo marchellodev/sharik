@@ -59,3 +59,17 @@ enum FileTypeModel {
   @HiveField(2)
   app
 }
+
+FileTypeModel string2fileType(String type){
+  switch(type){
+    case 'file':
+      return FileTypeModel.file;
+
+    case 'text':
+      return FileTypeModel.text;
+
+    case 'app':
+      return FileTypeModel.app;
+  }
+  throw UnimplementedError('Type $type does not exist');
+}
