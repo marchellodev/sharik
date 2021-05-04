@@ -34,7 +34,8 @@ class PickNetworkDialog extends StatelessWidget {
                   brightness: Brightness.dark,
                   accentColor: context.t.textTheme.bodyText1!.color),
               child: SizedBox(
-                height: ipService.interfaces!.length * 72,
+                // todo probably not 72
+                height: ipService.interfaces!.length * 60,
                 child: ListView.builder(
                     itemCount: ipService.interfaces!.length,
                     physics: const NeverScrollableScrollPhysics(),

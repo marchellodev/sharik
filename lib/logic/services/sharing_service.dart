@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:package_info/package_info.dart';
 import 'package:sharik/conf.dart';
 import 'package:sharik/models/file.dart';
 
@@ -58,13 +57,14 @@ class SharingService extends ChangeNotifier {
     await for (final request in _server!) {
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
-        final info = await PackageInfo.fromPlatform();
-        final v = '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
+        // final info = await PackageInfo.fromPlatform();
+        // final v = '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
 
+        // todo output sharik version
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
-          'sharik': v,
+          'sharik': '3.0',
           'type': _file.type.toString().split('.').last,
           'name': _file.name,
           'os': Platform.operatingSystem,

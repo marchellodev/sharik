@@ -4,8 +4,8 @@ homepage: https://github.com/marchellodev/sharik
 repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
-version: 2.5.0
-versionCode: 6
+version: 3.0.0
+versionCode: 8
 author: marchellodev
 
 environment:
@@ -30,13 +30,13 @@ dependencies:
   qr_flutter: ^4.0.0
   flutter_markdown: ^0.6.1
 
+  wakelock: ^0.5.1
+
 
   # todo https://pub.dev/packages/flutter_native_splash
 
   # UTILS
-  http: ^0.13.2
-  dart_ping: ^6.0.0
-  multicast_dns: ^0.3.0
+  http: ^0.13.3
 
 
 
@@ -46,8 +46,6 @@ dependencies:
 
   hive: ^2.0.4
   hive_flutter: ^1.0.0
-
-  package_info: ^2.0.0
 
 
   intl: ^0.17.0
@@ -70,7 +68,7 @@ dependencies:
 
 
 dev_dependencies:
-  build_runner: ^2.0.1
+  build_runner: ^2.0.2
   hive_generator: ^1.1.0
 
   #  intl_translation: ^0.17.10+1
@@ -93,8 +91,8 @@ flutter:
         - asset: fonts/JetBrainsMono-Regular.ttf
         - asset: fonts/JetBrainsMono-Medium.ttf
           weight: 500
-#        - asset: fonts/JetBrainsMono-SemiBold.ttf
-#          weight: 600
+        #        - asset: fonts/JetBrainsMono-SemiBold.ttf
+        #          weight: 600
         - asset: fonts/JetBrainsMono-Bold.ttf
           weight: 700
         - asset: fonts/JetBrainsMono-ExtraBold.ttf

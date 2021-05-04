@@ -16,6 +16,7 @@ import 'package:sharik/dialogs/open_dialog.dart';
 import 'package:sharik/dialogs/select_network.dart';
 import 'package:sharik/logic/services/ip_service.dart';
 import 'package:sharik/logic/services/sharing_service.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../conf.dart';
 import '../models/file.dart';
@@ -50,6 +51,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
     if (_conController.isAnimating) _conController.stop();
 
+    Wakelock.disable();
+
+
     super.dispose();
   }
 
@@ -66,6 +70,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     _conController = AnimationController(
         duration: const Duration(milliseconds: 200), vsync: this);
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
+
+
+    Wakelock.enable();
 
     super.initState();
   }

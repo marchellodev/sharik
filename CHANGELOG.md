@@ -11,11 +11,13 @@
 - Button that shows the link QR code
 - todo new languages
 - Support for different screen sizes & dynamic resizing
+- Now screen won't go to sleep when sharing or receiving files
 
 ### Changed
 - New design of the app
 - Big performance optimizations
 - Improved the size of Sharik
+- Updated receiver
 
 ### Fixed
 - Completely new method of getting the local ip & network connectivity status

@@ -1,9 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:multicast_dns/multicast_dns.dart';
 import 'package:sharik/models/file.dart';
 
 import '../../conf.dart';
@@ -16,159 +16,136 @@ class ReceiverService extends ChangeNotifier {
   bool loaded = false;
   int loop = 0;
 
+  void kill() {
+    loaded = false;
+  }
+
   Future<void> init() async {
     await ipService.load();
     loaded = true;
     notifyListeners();
-    //
-    // final devices = <String>[];
-    //
-    //
-    // while (true) {
-    //
-    //   if(loop == 0){
-    //     devices.clear();
-    //     devices.addAll(await compute(_getAliveDevices, ipService));
-    //   }
-    //
-    //   await compute(_run, devices);
-    //   loop++;
-    //   notifyListeners();
-    //   print(loop);
-    //   await Future.delayed(const Duration(seconds: 2));
-    // }
 
-    // Parse the command line arguments.
-
-    const String name = '_dartobservatory._tcp.local';
-    final MDnsClient client = MDnsClient();
-    // Start the client with default options.
-    await client.start();
-
-    // Get the PTR record for the service.
-    await for (final PtrResourceRecord ptr in client
-        .lookup<PtrResourceRecord>(ResourceRecordQuery.serverPointer(name))) {
-      // Use the domainName from the PTR record to get the SRV record,
-      // which will have the port and local hostname.
-      // Note that duplicate messages may come through, especially if any
-      // other mDNS queries are running elsewhere on the machine.
-      await for (final SrvResourceRecord srv
-          in client.lookup<SrvResourceRecord>(
-              ResourceRecordQuery.service(ptr.domainName))) {
-        // Domain name will be something like "io.flutter.example@some-iphone.local._dartobservatory._tcp.local"
-        final String bundleId =
-            ptr.domainName; //.substring(0, ptr.domainName.indexOf('@'));
-        print('Dart observatory instance found at '
-            '${srv.target}:${srv.port} for "$bundleId".');
+    while (true) {
+      if (!loaded) {
+        return;
       }
-    }
-    client.stop();
 
-    print('Done.');
+      final res = await compute(_run, ipService);
+      receivers.clear();
+      receivers.addAll(res);
+
+      loop++;
+      notifyListeners();
+      print(loop);
+      await Future.delayed(const Duration(seconds: 1));
+    }
   }
 
-  static Future<List<Receiver>> _run(List<String> devices) async {
-    final receiverObjects = <Future<Receiver?>>[];
+  static Future<List<Receiver>> _run(LocalIpService ipService) async {
+    var ip = ipService.getIp();
+    final _ = ip.split('.');
+    final thisDevice = int.parse(_.removeLast());
 
+    ip = _.join('.');
+
+    final devices = [
+      for (var e in List.generate(254, (index) => index + 1))
+        if (e != thisDevice) '$ip.$e'
+    ];
+
+    final futuresPing = <NetworkAddr, Future<bool>>{};
+
+    // todo run first port every time, second every second time, etc
     for (final device in devices) {
       for (final port in ports) {
-        receiverObjects.add(_hasSharik(device, port));
+        final n = NetworkAddr(ip: device, port: port);
+        futuresPing[n] = _ping(n);
       }
     }
+
+    final futuresSharik = <Future<Receiver?>>[];
+
+    for (final ping in futuresPing.entries) {
+      final p = await ping.value;
+
+      if (p) {
+        futuresSharik.add(_hasSharik(ping.key));
+      }
+    }
+
+    print('ping done');
 
     final result = <Receiver>[];
 
-    for (final obj in receiverObjects) {
-      final awaited = await obj;
-
-      if (awaited != null) {
-        result.add(awaited);
+    for (final sharik in futuresSharik) {
+      final r = await sharik;
+      if (r != null) {
+        result.add(r);
       }
     }
 
-    return result;
-    // receivers.clear();
+    print('sharik done');
+    print(result);
 
-    // receivers.addAll(result);
+    return result;
   }
 
-  static Future<Receiver?> _hasSharik(String ip, int port) async {
+  static Future<Receiver?> _hasSharik(NetworkAddr addr) async {
     try {
       final result = await http
-          .get(Uri.parse('http://$ip:$port/sharik.json'))
-          .timeout(const Duration(seconds: 1));
+          .get(Uri.parse('http://${addr.ip}:${addr.port}/sharik.json'))
+          .timeout(const Duration(milliseconds: 600));
 
-      return Receiver.fromJson(ip: ip, port: port, json: result.body);
+      return Receiver.fromJson(addr: addr, json: result.body);
     } catch (_) {
       return null;
     }
   }
 
-  static Future<List<String>> _getAliveDevices(LocalIpService ipService) async {
-    var ip = ipService.getIp();
-
-    final _ = ip.split('.');
-    final thisDevice = _.removeLast();
-
-    ip = _.join('.');
-
-    final result = {
-      for (var e in List.generate(254, (index) => index + 1))
-        e: e != int.parse(thisDevice) ? _isAlive('$ip.$e') : Future.value(false)
-    };
-
-    final list = <String>[];
-    for (final val in result.entries) {
-      if (await val.value) {
-        list.add('$ip.${val.key}');
-      }
-    }
-
-    return list;
-  }
-
-  static Future<bool> _isAlive(String ip) async {
-    await Future.delayed(Duration.zero);
-    final ping = await Ping(ip, count: 1, timeout: 1, ttl: 10).stream.first;
-
-    if (ping.error != null) {
+  // todo check if this works when sharing extra large files
+  static Future<bool> _ping(NetworkAddr addr) async {
+    try {
+      final s = await Socket.connect(addr.ip, addr.port,
+          timeout: const Duration(milliseconds: 600));
+      s.destroy();
+      return true;
+    } catch (_) {
       return false;
     }
-
-    if (ping.summary != null && ping.summary!.received == 0) {
-      return false;
-    }
-
-    return true;
   }
 }
 
-class Receiver {
+class NetworkAddr {
   final String ip;
   final int port;
+
+  const NetworkAddr({
+    required this.ip,
+    required this.port,
+  });
+}
+
+class Receiver {
+  final NetworkAddr addr;
 
   final String os;
   final String name;
   final FileTypeModel type;
 
   const Receiver({
-    required this.ip,
-    required this.port,
+    required this.addr,
     required this.os,
     required this.name,
     required this.type,
   });
 
-  factory Receiver.fromJson(
-      {required String ip, required int port, required String json}) {
+  factory Receiver.fromJson({required NetworkAddr addr, required String json}) {
     final parsed = jsonDecode(json);
 
     return Receiver(
-      ip: ip,
-      port: port,
+      addr: addr,
       os: parsed['os'] as String,
       name: parsed['name'] as String,
-      // type: FileTypeModel.app
       type: string2fileType(parsed['type'] as String),
     );
   }

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dart_ping/dart_ping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,7 +9,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:sharik/logic/services/receiver_service.dart';
 import 'package:sharik/logic/theme.dart';
 import 'package:sharik/screens/loading.dart';
 import 'package:sharik/utils/material_ink_well.dart';
@@ -25,22 +23,17 @@ import 'models/file.dart';
 // - landscape mode support
 // - calibrating responsive framework
 // - accessibility
-// - receiver
 // - create sharing intent (android, ios, maybe desktop?)
 // - code cleanup & to-do review
 // - review usages of class LocalIpService extends ChangeNotifier {
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
 // - share json file when sharing
 // - do not go to sleep when sharing
+// - review everything
+// - cleanup assets & fonts
+// - oss licenses
 
 Future<void> main() async {
-  // if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //
-  //   screen.setWindowMinSize(const Size(440, 680));
-  //   screen.setWindowMaxSize(const Size(440, 680));
-  // }
-
   Hive.registerAdapter(FileTypeModelAdapter());
   Hive.registerAdapter(FileModelAdapter());
 
