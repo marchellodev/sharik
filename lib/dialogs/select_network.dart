@@ -11,7 +11,6 @@ class PickNetworkDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-// todo show selected one
     return AlertDialog(
       elevation: 0,
       insetPadding: const EdgeInsets.all(24),
@@ -22,57 +21,37 @@ class PickNetworkDialog extends StatelessWidget {
             fontWeight: FontWeight.w700),
       ),
       // todo probably redundant
-      content: SizedBox(
-        // height: double.maxFinite,
-        width: double.maxFinite,
-        // todo use listview instead
+      content: Theme(
+        data: ThemeData(
+            brightness: Brightness.dark,
+            accentColor: context.t.textTheme.bodyText1!.color),
         child: Column(
-          // shrinkWrap: true,
           children: [
-            Theme(
-              data: ThemeData(
-                  brightness: Brightness.dark,
-                  accentColor: context.t.textTheme.bodyText1!.color),
-              child: SizedBox(
-                // todo probably not 72
-                height: ipService.interfaces!.length * 60,
-                child: ListView.builder(
-                    itemCount: ipService.interfaces!.length,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (_, e) => ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: ListTile(
-                            selected: ipService.getIp() ==
-                                ipService
-                                    .interfaces![e].addresses.first.address,
-                            selectedTileColor:
-                                context.t.dividerColor.withOpacity(0.08),
-
-                            // todo text styling
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            // todo style colors
-                            title: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Text(ipService.interfaces![e].name)),
-                            subtitle: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Text(
-                                ipService
-                                    .interfaces![e].addresses.first.address,
-                              ),
-                            ),
-                            onTap: () {
-                              ipService.selectedInterface =
-                                  ipService.interfaces![e].name;
-                              // ipService.load();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        )),
-              ),
-            ),
+            for (final el in ipService.interfaces!)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: ListTile(
+                  selected: ipService.getIp() == el.addresses.first.address,
+                  selectedTileColor: context.t.dividerColor.withOpacity(0.08),
+                  // todo text styling
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  // todo style colors
+                  title: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal, child: Text(el.name)),
+                  subtitle: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      el.addresses.first.address,
+                    ),
+                  ),
+                  onTap: () {
+                    ipService.selectedInterface = el.name;
+                    Navigator.of(context).pop();
+                  },
+                ),
+              )
           ],
         ),
       ),

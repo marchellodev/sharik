@@ -30,7 +30,7 @@ class ReceiverService extends ChangeNotifier {
         return;
       }
 
-      final res = await compute(_run, ipService);
+      final res = await compute(_run, ipService.getIp());
       receivers.clear();
       receivers.addAll(res);
 
@@ -41,8 +41,7 @@ class ReceiverService extends ChangeNotifier {
     }
   }
 
-  static Future<List<Receiver>> _run(LocalIpService ipService) async {
-    var ip = ipService.getIp();
+  static Future<List<Receiver>> _run(String ip) async {
     final _ = ip.split('.');
     final thisDevice = int.parse(_.removeLast());
 
@@ -94,7 +93,7 @@ class ReceiverService extends ChangeNotifier {
     try {
       final result = await http
           .get(Uri.parse('http://${addr.ip}:${addr.port}/sharik.json'))
-          .timeout(const Duration(milliseconds: 600));
+          .timeout(const Duration(milliseconds: 800));
 
       return Receiver.fromJson(addr: addr, json: result.body);
     } catch (_) {
@@ -106,7 +105,7 @@ class ReceiverService extends ChangeNotifier {
   static Future<bool> _ping(NetworkAddr addr) async {
     try {
       final s = await Socket.connect(addr.ip, addr.port,
-          timeout: const Duration(milliseconds: 600));
+          timeout: const Duration(milliseconds: 800));
       s.destroy();
       return true;
     } catch (_) {

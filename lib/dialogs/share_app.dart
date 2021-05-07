@@ -56,6 +56,8 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
     }
     // todo decrease paddings but maintain style
     // todo add the dialog title
+    // todo review widget structure (remove listviews)
+
     return AlertDialog(
       elevation: 0,
       insetPadding: const EdgeInsets.all(24),
@@ -64,7 +66,6 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
         // height: double.maxFinite,
         width: double.maxFinite,
         child: Column(
-          // shrinkWrap: true,
           children: [
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
@@ -132,7 +133,6 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
             selected == null
                 ? null
                 : () {
-
                     // todo pop with the model
                     Navigator.of(context).pop(FileModel(
                         type: FileTypeModel.app,

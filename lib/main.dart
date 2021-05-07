@@ -28,7 +28,6 @@ import 'models/file.dart';
 // - review usages of class LocalIpService extends ChangeNotifier {
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
 // - share json file when sharing
-// - do not go to sleep when sharing
 // - review everything
 // - cleanup assets & fonts
 // - oss licenses
@@ -51,7 +50,7 @@ Future<void> main() async {
     runApp(const MaterialApp(
         home: Scaffold(
             body: Center(
-      child: Text('Sharik is already running. Error copied to clipboard'),
+      child: Text('Sharik is already running. Error was copied to the clipboard'),
     ))));
     return;
   }

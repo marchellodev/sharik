@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -23,7 +24,9 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
 
   @override
   void initState() {
-    Wakelock.enable();
+    if (!Platform.isLinux) {
+      Wakelock.enable();
+    }
 
     super.initState();
   }
@@ -31,7 +34,9 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
   @override
   void dispose() {
     receiverService.kill();
-    Wakelock.disable();
+    if (!Platform.isLinux) {
+      Wakelock.disable();
+    }
 
     super.dispose();
   }

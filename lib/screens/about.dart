@@ -211,6 +211,7 @@ class AboutScreen extends StatelessWidget {
                           color: Colors.grey.shade50,
                           letterSpacing: 0.1)), () {
                 openDialog(context, LicensesDialog());
+                // showLicensePage(context: context, applicationName: 'Sharik');
               }),
               const SizedBox(height: 22),
               Text('Contributors',

@@ -51,7 +51,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
     if (_conController.isAnimating) _conController.stop();
 
-    Wakelock.disable();
+    if(!Platform.isLinux){
+      Wakelock.disable();
+    }
 
 
     super.dispose();
@@ -72,7 +74,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
 
-    Wakelock.enable();
+    if(!Platform.isLinux){
+      Wakelock.enable();
+    }
+
 
     super.initState();
   }

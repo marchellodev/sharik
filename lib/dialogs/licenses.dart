@@ -1,36 +1,45 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharik/components/buttons.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sharik/dialogs/open_dialog.dart';
 
-import '../oss_licenses.dart';
 import '../utils/helper.dart';
 
 // todo restyle
 
-class LicensesDialog extends StatelessWidget {
-  static Future<List<String>> loadLicenses() async {
-    // merging non-dart based dependency list using LicenseRegistry.
-    final ossKeys = ossLicenses.keys.toList();
-    final lm = <String, List<String>>{};
-    await for (final l in LicenseRegistry.licenses) {
-      for (final p in l.packages) {
-        if (!ossKeys.contains(p)) {
-          final lp = lm.putIfAbsent(p, () => []);
-          lp.addAll(l.paragraphs.map((p) => p.text));
-          ossKeys.add(p);
+class LicensesDialog extends StatefulWidget {
+  @override
+  _LicensesDialogState createState() => _LicensesDialogState();
+}
+
+class _LicensesDialogState extends State<LicensesDialog> {
+  final Map<String, List<LicenseEntry>> list = {};
+
+  Future<void> listener() async {
+    final stream = LicenseRegistry.licenses;
+
+    await for (final license in stream) {
+      setState(() {
+        for (final package in license.packages) {
+          if (!list.keys.contains(package)) {
+            list[package] = [];
+          }
+
+          list[package]!.add(license);
         }
-      }
+      });
     }
-    for (final key in lm.keys) {
-      ossLicenses[key] = {'license': lm[key]!.join('\n')};
-    }
-    return ossKeys..sort();
   }
 
-  static final _licenses = loadLicenses();
+  @override
+  void initState() {
+    listener();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,94 +57,85 @@ class LicensesDialog extends StatelessWidget {
             Navigator.of(context).pop();
           }),
         ],
-        content: FutureBuilder<List<String>>(
-            future: _licenses,
-            builder: (context, snapshot) {
-              return SizedBox(
-                height: 900,
-                width: double.maxFinite,
-                child: ListView.separated(
-                    padding: const EdgeInsets.all(0),
-                    itemCount: snapshot.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      final key = snapshot.data![index];
-                      final licenseJson =
-                          ossLicenses[key] as Map<String, dynamic>;
-                      final version = licenseJson['version'];
-                      final desc = licenseJson['description'] as String?;
-                      return ListTile(
-                          title: Text('$key ${version ?? ''}'),
-                          subtitle: desc != null ? Text(desc) : null,
-                          trailing: const Icon(Icons.chevron_right),
-                          onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => MiscOssLicenseSingle(
-                                      name: key, json: licenseJson))));
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(height: 18)
-                ),
-              );
-            }));
+        scrollable: true,
+        content: Column(
+            children: list.entries
+                .map((license) => ListTile(
+                      title: Text(license.key),
+                      // todo secondary color
+                      trailing: Text(license.value.length.toString()),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      onTap: () {
+                        openDialog(context,
+                            _LicensesDetailDialog(license.key, license.value));
+                      },
+                    ))
+                .toList()));
   }
 }
 
-class MiscOssLicenseSingle extends StatelessWidget {
+class _LicensesDetailDialog extends StatelessWidget {
   final String name;
-  final Map<String, dynamic> json;
+  final List<LicenseEntry> licenses;
 
-  String? get version => json['version'] as String?;
-
-  String? get description => json['description'] as String?;
-
-  String get licenseText => json['license'] as String;
-
-  String? get homepage => json['homepage'] as String?;
-
-  const MiscOssLicenseSingle({required this.name, required this.json});
-
-  String _bodyText() {
-    return licenseText.split('\n').map((line) {
-      if (line.startsWith('//')) line = line.substring(2);
-      line = line.trim();
-      return line;
-    }).join('\n');
-  }
+  const _LicensesDetailDialog(this.name, this.licenses);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('$name ${version ?? ''}')),
-      body: Container(
-          color: Theme.of(context).canvasColor,
-          child: ListView(children: <Widget>[
-            if (description != null)
-              Padding(
-                  padding:
-                      const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-                  child: Text(description!,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(fontWeight: FontWeight.bold))),
-            if (homepage != null)
-              Padding(
-                  padding:
-                      const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-                  child: InkWell(
-                    onTap: () => launch(homepage!),
-                    child: Text(homepage!,
-                        style: const TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline)),
-                  )),
-            if (description != null || homepage != null) const Divider(),
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-              child: Text(_bodyText(),
-                  style: Theme.of(context).textTheme.bodyText2),
+    final widgets = <Widget>[];
+
+    for (final license in licenses) {
+      for (final par in license.paragraphs) {
+        if (par.indent == LicenseParagraph.centeredIndent) {
+          widgets.add(Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Text(
+              par.text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontFamily: 'JetBrainsMono',
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
             ),
-          ])),
-    );
+          ));
+        }
+        widgets.add(Padding(
+          padding: EdgeInsets.only(top: 8, left: 16.0 * max(par.indent, 0)),
+          child: Text(
+            par.text,
+            style: const TextStyle(
+              fontFamily: 'JetBrainsMono',
+              fontSize: 12,
+            ),
+          ),
+        ));
+      }
+
+      widgets.add(const Padding(
+        padding: EdgeInsets.all(18),
+        child: Divider(),
+      ));
+    }
+
+    // todo alertdialog as a template
+    return AlertDialog(
+        elevation: 0,
+        insetPadding: const EdgeInsets.all(24),
+        title: Text(
+          // todo translate
+          name,
+          style: GoogleFonts.getFont(context.l.fontComfortaa,
+              fontWeight: FontWeight.w700),
+        ),
+        actions: [
+          DialogTextButton(context.l.generalClose, () {
+            Navigator.of(context).pop();
+          }),
+        ],
+        scrollable: true,
+        content: Column(children: widgets));
   }
 }

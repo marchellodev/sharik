@@ -16,6 +16,7 @@ class ShareTextDialog extends StatefulWidget {
 class _ShareTextDialogState extends State<ShareTextDialog> {
   String text = '';
 
+  // todo cancel instead close
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -25,6 +26,7 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
         context.l.homeSelectTextTypeSomeText,
         style: GoogleFonts.getFont(context.l.fontComfortaa, fontWeight: FontWeight.w700),
       ),
+      scrollable: true,
       content: TextField(
         autofocus: true,
         maxLines: null,
