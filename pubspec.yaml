@@ -28,13 +28,13 @@ dependencies:
   flutter_feather_icons: ^2.0.0+1
   flutter_svg: ^0.22.0
   google_fonts: ^2.0.0
-  intro_slider: ^2.4.1
+  intro_slider: ^2.4.3
   responsive_framework: ^0.1.0
 
   qr_flutter: ^4.0.0
   flutter_markdown: ^0.6.1
 
-  wakelock: ^0.5.1
+  wakelock: ^0.5.1+1
 
 
   # todo https://pub.dev/packages/flutter_native_splash

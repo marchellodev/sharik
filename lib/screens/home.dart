@@ -164,14 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const Spacer(),
               Container(
                   margin: const EdgeInsets.only(right: 24),
-                  child: TransparentButton(
-                      const Icon(FeatherIcons.trash),
-                      () => () {
-                            setState(() => _latest.clear());
+                  child: TransparentButton(const Icon(FeatherIcons.trash), () {
+                    setState(() => _latest.clear());
 
-                            saveLatest();
-                          },
-                      TransparentButtonBackground.purpleDark))
+                    saveLatest();
+                  }, TransparentButtonBackground.purpleDark))
             ],
           ),
         Expanded(
@@ -230,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const Spacer(),
               TransparentButton(
                   Text(
-                    'sharik v3.0',
+                    'sharik v$currentVersion',
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.deepPurple.shade700,

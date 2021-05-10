@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:sharik/conf.dart';
 import 'package:sharik/models/file.dart';
 
+// todo fix sharing of dot files
 class SharingService extends ChangeNotifier {
   final FileModel _file;
   int? _port;
@@ -49,6 +50,10 @@ class SharingService extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> end() async {
+    await _server!.close();
+  }
+
   Future<void> _serve() async {
     if (_server == null) {
       throw Exception('Server was not initialized');
@@ -57,19 +62,16 @@ class SharingService extends ChangeNotifier {
     await for (final request in _server!) {
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
-        // final info = await PackageInfo.fromPlatform();
-        // final v = '${info.version.split('.')[0]}.${info.version.split('.')[1]}';
-
         // todo output sharik version
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
-          'sharik': '3.0',
+          'sharik': currentVersion,
           'type': _file.type.toString().split('.').last,
           'name': _file.name,
           'os': Platform.operatingSystem,
         }));
-        await request.response.close();
+        request.response.close();
       } else {
         if (_file.type == FileTypeModel.file ||
             _file.type == FileTypeModel.app) {
@@ -104,7 +106,7 @@ class SharingService extends ChangeNotifier {
           request.response.headers.contentType =
               ContentType('text', 'plain', charset: 'utf-8');
           request.response.write(_file.data);
-          await request.response.close();
+          request.response.close();
         }
       }
     }

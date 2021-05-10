@@ -46,7 +46,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    // todo dispose services on exit
+    _sharingService.end();
 
     if (_conController.isAnimating) _conController.stop();
 
@@ -266,92 +266,114 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 textAlign: TextAlign.center,
               )),
               const SizedBox(height: 12),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.deepPurple[400],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                child: MultiProvider(
-                  providers: [
-                    ChangeNotifierProvider.value(value: _ipService),
-                    ChangeNotifierProvider.value(value: _sharingService),
-                  ],
-                  builder: (context, _) {
-                    context.watch<LocalIpService>();
-                    context.watch<SharingService>();
+              MultiProvider(
+                providers: [
+                  ChangeNotifierProvider.value(value: _ipService),
+                  ChangeNotifierProvider.value(value: _sharingService),
+                ],
+                builder: (context, _) {
+                  context.watch<LocalIpService>();
+                  context.watch<SharingService>();
 
-                    return Row(
-                      children: <Widget>[
-                        const SizedBox(
-                          width: 14,
+                  final displayAddress =
+                      'http://${_ipService.getIp()}:${_sharingService.port ?? 'loading'}';
+                  return Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple[400],
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              'http://${_ipService.getIp()}:${_sharingService.port ?? 'loading'}',
-                              // todo translate loading
-
-                              // todo remove TextStyle
-                              style: GoogleFonts.getFont('Andika',
-                                  color: Colors.white, fontSize: 18),
+                        height: 42,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 14,
                             ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'http://',
+                                      // todo translate loading
+
+                                      // todo remove TextStyle
+                                      style: GoogleFonts.getFont('Andika',
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                    Text(
+                                      displayAddress.replaceFirst(
+                                          'http://', ''),
+                                      // todo translate loading
+
+                                      // todo remove TextStyle
+                                      style: GoogleFonts.getFont('Andika',
+                                          color: Colors.white, fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            // todo fix the splash color
+                            TransparentButton(
+                                const Icon(Icons.qr_code_outlined,
+                                    size: 17, color: Colors.white),
+                                () => setState(
+                                    () => _stateShowQr = !_stateShowQr),
+                                TransparentButtonBackground.purpleDark),
+
+                            TransparentButton(
+                                const Icon(FeatherIcons.copy,
+                                    size: 16, color: Colors.white), () {
+                              Clipboard.setData(
+                                      ClipboardData(text: displayAddress))
+                                  .then((result) {
+                                final snackBar = SnackBar(
+                                  backgroundColor: Colors.deepPurple[500],
+                                  duration: const Duration(seconds: 1),
+                                  // todo translate
+                                  content: Text(
+                                    'Copied to Clipboard',
+                                    style: GoogleFonts.getFont('Andika',
+                                        color: Colors.white),
+                                  ),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              });
+                            }, TransparentButtonBackground.purpleDark),
+                            TransparentButton(
+                                const Icon(FeatherIcons.server,
+                                    size: 16, color: Colors.white), () {
+                              // todo make sure we have loaded the interfaces
+                              openDialog(
+                                  context, PickNetworkDialog(_ipService));
+                            }, TransparentButtonBackground.purpleDark),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 38),
+                      AnimatedContainer(
+                        duration: const Duration(milliseconds: 200),
+                        height: _stateShowQr
+                            ? MediaQuery.of(context).size.width - 24 * 2
+                            : 0,
+                        child: Center(
+                          child: QrImage(
+                            data: displayAddress,
+                            foregroundColor: context.t.textTheme.button!.color,
                           ),
                         ),
-                        const SizedBox(
-                          width: 2,
-                        ),
-                        // todo fix the splash color
-                        TransparentButton(
-                            const Icon(Icons.qr_code_outlined,
-                                size: 17, color: Colors.white),
-                            () => setState(() => _stateShowQr = !_stateShowQr),
-                            TransparentButtonBackground.purpleDark),
-
-                        TransparentButton(
-                            const Icon(FeatherIcons.copy,
-                                size: 16, color: Colors.white), () {
-                          Clipboard.setData(
-                                  ClipboardData(text: _ipService.getIp()))
-                              .then((result) {
-                            final snackBar = SnackBar(
-                              backgroundColor: Colors.deepPurple[500],
-                              duration: const Duration(seconds: 1),
-                              content: Text(
-                                'Copied to Clipboard',
-                                style: GoogleFonts.getFont('Andika',
-                                    color: Colors.white),
-                              ),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          });
-                        }, TransparentButtonBackground.purpleDark),
-                        TransparentButton(
-                            const Icon(FeatherIcons.server,
-                                size: 16, color: Colors.white), () {
-                          // todo make sure we have loaded the interfaces
-                          openDialog(context, PickNetworkDialog(_ipService));
-                        }, TransparentButtonBackground.purpleDark),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 38),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: _stateShowQr
-                    ? MediaQuery.of(context).size.width - 24 * 2
-                    : 0,
-                child: Center(
-                  child: QrImage(
-                    data: 'http://168.192.0.101:50500',
-                    foregroundColor: context.t.textTheme.button!.color,
-                  ),
-                ),
+                      ),
+                    ],
+                  );
+                },
               ),
               const SizedBox(height: 38),
               const SizedBox(height: 38),

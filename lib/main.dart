@@ -25,7 +25,6 @@ import 'models/file.dart';
 // - accessibility
 // - create sharing intent (android, ios, maybe desktop?)
 // - code cleanup & to-do review
-// - review usages of class LocalIpService extends ChangeNotifier {
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
 // - share json file when sharing
 // - review everything
