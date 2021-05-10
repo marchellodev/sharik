@@ -129,11 +129,9 @@ class LocalIpService extends ChangeNotifier {
 
 enum Connectivity { wifi, ethernet, hotspot, cellular, none, unknown }
 
-
-String connectivity2string(Connectivity c){
+String connectivity2string(Connectivity c) {
 // todo translate
-  switch(c){
-
+  switch (c) {
     case Connectivity.wifi:
       return 'Wi-Fi';
     case Connectivity.ethernet:

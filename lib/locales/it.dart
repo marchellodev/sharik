@@ -17,7 +17,8 @@ Map<String, String> get getIt => {
       'Not connected': 'Non collegato',
       'Now open this link': 'Ora apri questo link',
       'in any browser': 'in qualsiasi browser',
-      'The recipient needs to be connected': 'Il destinatario deve essere collegato',
+      'The recipient needs to be connected':
+          'Il destinatario deve essere collegato',
       'to the same network': 'alla stessa rete',
       'Select file': 'Seleziona file',
       'Latest': 'Trasferimenti recenti',

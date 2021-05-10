@@ -60,8 +60,8 @@ enum FileTypeModel {
   app
 }
 
-FileTypeModel string2fileType(String type){
-  switch(type){
+FileTypeModel string2fileType(String type) {
+  switch (type) {
     case 'file':
       return FileTypeModel.file;
 

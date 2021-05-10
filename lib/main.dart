@@ -50,7 +50,8 @@ Future<void> main() async {
     runApp(const MaterialApp(
         home: Scaffold(
             body: Center(
-      child: Text('Sharik is already running. Error was copied to the clipboard'),
+      child:
+          Text('Sharik is already running. Error was copied to the clipboard'),
     ))));
     return;
   }

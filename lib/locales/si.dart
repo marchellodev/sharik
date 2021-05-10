@@ -37,7 +37,8 @@ Map<String, String> get getSk => {
       'Search': 'සොයන්න',
       //v2.1
       'Updates': 'යාවත්කාල',
-      'The latest version is already installed': 'නවතම අනුවාදය දැනටමත් ස්ථාපිතයි',
+      'The latest version is already installed':
+          'නවතම අනුවාදය දැනටමත් ස්ථාපිතයි',
       'Current version': 'වත්මන් අනුවාදය',
       'The latest version': 'නවතම අනුවාදය',
       'Changelog': 'Changelog',

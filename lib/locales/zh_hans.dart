@@ -37,8 +37,7 @@ Map<String, String> get getZhHans => {
       'Search': '搜索',
       //v2.1
       'Updates': '检查更新',
-      'The latest version is already installed':
-          '已安装最新版本',
+      'The latest version is already installed': '已安装最新版本',
       'Current version': '当前版本号',
       'The latest version': '最新版本号',
       'Changelog': '修改日志',

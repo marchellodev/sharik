@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 import 'dart:ui';
 
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ import 'package:sharik/dialogs/open_dialog.dart';
 import 'package:sharik/dialogs/receiver.dart';
 import 'package:sharik/dialogs/share_text.dart';
 import 'package:sharik/logic/theme.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../conf.dart';
 import '../dialogs/share_app.dart';

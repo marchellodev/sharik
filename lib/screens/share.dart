@@ -44,17 +44,15 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   bool _stateShowQr = false;
 
-
   @override
   void dispose() {
     // todo dispose services on exit
 
     if (_conController.isAnimating) _conController.stop();
 
-    if(!Platform.isLinux){
+    if (!Platform.isLinux) {
       Wakelock.disable();
     }
-
 
     super.dispose();
   }
@@ -73,11 +71,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
         duration: const Duration(milliseconds: 200), vsync: this);
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
-
-    if(!Platform.isLinux){
+    if (!Platform.isLinux) {
       Wakelock.enable();
     }
-
 
     super.initState();
   }
@@ -176,14 +172,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(top: 10),
-                        child: MultiProvider(
-                          providers: [
-                            ChangeNotifierProvider.value(value: _ipService),
-                          ],
-                          // todo use Provider instead of Builder ?
-                          child: Builder(builder: (context) {
+                        child: ChangeNotifierProvider.value(
+                          value: _ipService,
+                          builder: (context, _) {
                             context.watch<LocalIpService>();
-
                             return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -236,7 +228,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                                     height: 12,
                                   ),
                                 ]);
-                          }),
+                          },
                         ),
                       ),
                     ),
@@ -286,70 +278,66 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     ChangeNotifierProvider.value(value: _ipService),
                     ChangeNotifierProvider.value(value: _sharingService),
                   ],
-                  child: Builder(
-                    builder: (context) {
-                      context.watch<LocalIpService>();
-                      context.watch<SharingService>();
-                      print('rebuild');
+                  builder: (context, _) {
+                    context.watch<LocalIpService>();
+                    context.watch<SharingService>();
 
-                      return Row(
-                        children: <Widget>[
-                          const SizedBox(
-                            width: 14,
-                          ),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Text(
-                                'http://${_ipService.getIp()}:${_sharingService.port ?? 'loading'}',
-                                // todo translate loading
+                    return Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 14,
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              'http://${_ipService.getIp()}:${_sharingService.port ?? 'loading'}',
+                              // todo translate loading
 
-                                // todo remove TextStyle
-                                style: GoogleFonts.getFont('Andika',
-                                    color: Colors.white, fontSize: 18),
-                              ),
+                              // todo remove TextStyle
+                              style: GoogleFonts.getFont('Andika',
+                                  color: Colors.white, fontSize: 18),
                             ),
                           ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          // todo fix the splash color
-                          TransparentButton(
-                              const Icon(Icons.qr_code_outlined,
-                                  size: 17, color: Colors.white),
-                              () =>
-                                  setState(() => _stateShowQr = !_stateShowQr),
-                              TransparentButtonBackground.purpleDark),
+                        ),
+                        const SizedBox(
+                          width: 2,
+                        ),
+                        // todo fix the splash color
+                        TransparentButton(
+                            const Icon(Icons.qr_code_outlined,
+                                size: 17, color: Colors.white),
+                            () => setState(() => _stateShowQr = !_stateShowQr),
+                            TransparentButtonBackground.purpleDark),
 
-                          TransparentButton(
-                              const Icon(FeatherIcons.copy,
-                                  size: 16, color: Colors.white), () {
-                            Clipboard.setData(
-                                    ClipboardData(text: _ipService.getIp()))
-                                .then((result) {
-                              final snackBar = SnackBar(
-                                backgroundColor: Colors.deepPurple[500],
-                                duration: const Duration(seconds: 1),
-                                content: Text(
-                                  'Copied to Clipboard',
-                                  style: GoogleFonts.getFont('Andika',
-                                      color: Colors.white),
-                                ),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            });
-                          }, TransparentButtonBackground.purpleDark),
-                          TransparentButton(
-                              const Icon(FeatherIcons.server,
-                                  size: 16, color: Colors.white), () {
-                            // todo make sure we have loaded the interfaces
-                            openDialog(context, PickNetworkDialog(_ipService));
-                          }, TransparentButtonBackground.purpleDark),
-                        ],
-                      );
-                    },
-                  ),
+                        TransparentButton(
+                            const Icon(FeatherIcons.copy,
+                                size: 16, color: Colors.white), () {
+                          Clipboard.setData(
+                                  ClipboardData(text: _ipService.getIp()))
+                              .then((result) {
+                            final snackBar = SnackBar(
+                              backgroundColor: Colors.deepPurple[500],
+                              duration: const Duration(seconds: 1),
+                              content: Text(
+                                'Copied to Clipboard',
+                                style: GoogleFonts.getFont('Andika',
+                                    color: Colors.white),
+                              ),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          });
+                        }, TransparentButtonBackground.purpleDark),
+                        TransparentButton(
+                            const Icon(FeatherIcons.server,
+                                size: 16, color: Colors.white), () {
+                          // todo make sure we have loaded the interfaces
+                          openDialog(context, PickNetworkDialog(_ipService));
+                        }, TransparentButtonBackground.purpleDark),
+                      ],
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 38),

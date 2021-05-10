@@ -24,7 +24,8 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
       insetPadding: const EdgeInsets.all(24),
       title: Text(
         context.l.homeSelectTextTypeSomeText,
-        style: GoogleFonts.getFont(context.l.fontComfortaa, fontWeight: FontWeight.w700),
+        style: GoogleFonts.getFont(context.l.fontComfortaa,
+            fontWeight: FontWeight.w700),
       ),
       scrollable: true,
       content: TextField(
