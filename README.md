@@ -5,7 +5,6 @@
 [![f-droid](https://img.shields.io/f-droid/v/dev.marchello.sharik)](https://f-droid.org/en/packages/dev.marchello.sharik)
 [![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
-[![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
 
 ![Android](https://img.shields.io/badge/OS-Android-informational?logo=Android)
 ![iOS](https://img.shields.io/badge/OS-IOS-informational?logo=apple)
