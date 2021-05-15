@@ -70,6 +70,156 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SharikLogo(),
         ),
         const SizedBox(height: 34),
+        Expanded(
+          child: LayoutBuilder(builder: (context, constraints) {
+            if (constraints.maxWidth < 800) {
+              return Column(
+                children: [
+                  sharingPart(c),
+                  const SizedBox(
+                    height: 22,
+                  ),
+                  latestHeaderPart(c),
+                  Expanded(
+                    child: latestListPart(c),
+                  ),
+                ],
+              );
+            } else {
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(child: sharingPart(c)),
+                  // const SizedBox(
+                  //   height: 12,
+                  // ),
+                  Expanded(
+                      child: Column(
+                    children: [
+                      latestHeaderPart(c),
+                      Expanded(
+                        child: latestListPart(c),
+                      ),
+                    ],
+                  ))
+                ],
+              );
+            }
+          }),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          height: 64,
+          decoration: BoxDecoration(
+              color: Colors.deepPurple.shade100,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+          child: Row(
+            children: [
+              TransparentButton(
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(FeatherIcons.globe,
+                          color: Colors.deepPurple.shade700, size: 20)),
+                  () => SharikRouter.navigateTo(context, context.widget,
+                      Screens.languagePicker, RouteDirection.left),
+                  TransparentButtonBackground.purpleLight),
+              const SizedBox(width: 2),
+              TransparentButton(
+                SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: Icon(FeatherIcons.helpCircle,
+                        color: Colors.deepPurple.shade700, size: 20)),
+                () => SharikRouter.navigateTo(context, context.widget,
+                    Screens.intro, RouteDirection.left),
+                TransparentButtonBackground.purpleLight,
+              ),
+              const SizedBox(width: 2),
+              TransparentButton(
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(FeatherIcons.download,
+                          color: Colors.deepPurple.shade700, size: 20)), () {
+                openDialog(context, ReceiverDialog());
+              }, TransparentButtonBackground.purpleLight),
+              const SizedBox(width: 2),
+              TransparentButton(
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(context.watch<ThemeManager>().icon,
+                          color: Colors.deepPurple.shade700, size: 20)),
+                  () => context.read<ThemeManager>().change(),
+                  TransparentButtonBackground.purpleLight),
+              const Spacer(),
+              TransparentButton(
+                  Text(
+                    'sharik v$currentVersion',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.deepPurple.shade700,
+                        fontFamily: 'JetBrainsMono'),
+                  ),
+                  () => SharikRouter.navigateTo(context, context.widget,
+                      Screens.about, RouteDirection.right),
+                  TransparentButtonBackground.purpleLight),
+            ],
+          ),
+        ),
+        Container(
+          color: Colors.deepPurple[100],
+          child: SafeArea(
+            top: false,
+            right: false,
+            left: false,
+            child: Container(),
+          ),
+        )
+      ]),
+    );
+  }
+
+  Widget latestListPart(BuildContext c) {
+    return ListView.builder(
+        shrinkWrap: true,
+        padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
+        itemCount: _latest.length,
+        itemBuilder: (context, index) => card(context, _latest[index]));
+  }
+
+  Widget latestHeaderPart(BuildContext c) {
+    if (_latest.isNotEmpty) {
+      return Row(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(left: 24, right: 24),
+            child: Text(
+              // todo rename to history
+              c.l.homeLatest,
+              style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
+            ),
+          ),
+          const Spacer(),
+          Container(
+              margin: const EdgeInsets.only(right: 24),
+              child: TransparentButton(const Icon(FeatherIcons.trash), () {
+                setState(() => _latest.clear());
+
+                saveLatest();
+              }, TransparentButtonBackground.purpleDark))
+        ],
+      );
+    } else {
+      return const SizedBox();
+    }
+  }
+
+  Widget sharingPart(BuildContext c) {
+    return Column(
+      children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: PrimaryButton(
@@ -147,188 +297,11 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 24),
           ],
         ),
-        const SizedBox(
-          height: 22,
-        ),
-        if (_latest.isNotEmpty)
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 24, right: 24),
-                child: Text(
-                  // todo rename to history
-                  c.l.homeLatest,
-                  style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
-                ),
-              ),
-              const Spacer(),
-              Container(
-                  margin: const EdgeInsets.only(right: 24),
-                  child: TransparentButton(const Icon(FeatherIcons.trash), () {
-                    setState(() => _latest.clear());
-
-                    saveLatest();
-                  }, TransparentButtonBackground.purpleDark))
-            ],
-          ),
-        Expanded(
-          child: ListView.builder(
-              padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
-              itemCount: _latest.length,
-              itemBuilder: (context, index) => card(context, _latest[index])),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          height: 64,
-          decoration: BoxDecoration(
-              color: Colors.deepPurple[100],
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
-          child: Row(
-            children: [
-              TransparentButton(
-                  SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Icon(FeatherIcons.globe,
-                          color: Colors.deepPurple.shade700, size: 20)),
-                  () => SharikRouter.navigateTo(context, context.widget,
-                      Screens.languagePicker, RouteDirection.left),
-                  TransparentButtonBackground.purpleLight),
-              const SizedBox(width: 2),
-              TransparentButton(
-                SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: Icon(FeatherIcons.helpCircle,
-                        color: Colors.deepPurple.shade700, size: 20)),
-                () => SharikRouter.navigateTo(context, context.widget,
-                    Screens.intro, RouteDirection.left),
-                TransparentButtonBackground.purpleLight,
-              ),
-              const SizedBox(width: 2),
-              TransparentButton(
-                  SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Icon(FeatherIcons.download,
-                          color: Colors.deepPurple.shade700, size: 20)), () {
-                openDialog(context, ReceiverDialog());
-              }, TransparentButtonBackground.purpleLight),
-              const SizedBox(width: 2),
-              TransparentButton(
-                  SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Icon(context.watch<ThemeManager>().icon,
-                          color: Colors.deepPurple.shade700, size: 20)),
-                  () => context.read<ThemeManager>().change(),
-                  TransparentButtonBackground.purpleLight),
-              const Spacer(),
-              TransparentButton(
-                  Text(
-                    'sharik v$currentVersion',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.deepPurple.shade700,
-                        fontFamily: 'JetBrainsMono'),
-                  ),
-                  () => SharikRouter.navigateTo(context, context.widget,
-                      Screens.about, RouteDirection.right),
-                  TransparentButtonBackground.purpleLight),
-            ],
-          ),
-        ),
-        Container(
-          color: Colors.deepPurple[100],
-          child: SafeArea(
-            top: false,
-            right: false,
-            left: false,
-            child: Container(),
-          ),
-        )
-      ]),
+      ],
     );
   }
 
-  Widget changelog(BuildContext c, Map data) {
-    final changes = <Widget>[];
-
-    data['changelog'].forEach((element) {
-      changes.add(Text(
-        'v${element['version']}',
-        style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 16),
-      ));
-      changes.add(const SizedBox(
-        height: 4,
-      ));
-      element['changes'].forEach((change) {
-        changes.add(Text(' • $change',
-            style: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14)));
-        changes.add(const SizedBox(
-          height: 2,
-        ));
-      });
-      changes.add(const SizedBox(
-        height: 10,
-      ));
-    });
-    return SizedBox(
-        height: 360,
-        width: double.maxFinite,
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                    width: 160,
-                    child: Text(
-                      '${c.l.homeUpdatesCurrentVersion}:',
-                      style: GoogleFonts.getFont(c.l.fontAndika, fontSize: 16),
-                    )),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text(
-                  'v${data['current_version']}',
-                  style: const TextStyle(fontFamily: 'JetBrainsMono'),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                SizedBox(
-                    width: 160,
-                    child: Text(
-                      '${c.l.homeUpdatesLatestVersion}:',
-                      style: GoogleFonts.getFont(c.l.fontAndika, fontSize: 16),
-                    )),
-                const SizedBox(
-                  width: 4,
-                ),
-                Text('v${data['latest_version']}',
-                    style: const TextStyle(fontFamily: 'JetBrainsMono'))
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Center(
-              child: Text(
-                c.l.homeUpdatesChangelog,
-                style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 18),
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: changes,
-            ),
-          ],
-        ));
-  }
-
+  // todo as a component
   Widget card(BuildContext c, FileModel f) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),

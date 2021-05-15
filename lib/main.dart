@@ -26,10 +26,7 @@ import 'models/file.dart';
 // - create sharing intent (android, ios, maybe desktop?)
 // - code cleanup & to-do review
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
-// - share json file when sharing
-// - review everything
 // - cleanup assets & fonts
-// - oss licenses
 
 Future<void> main() async {
   Hive.registerAdapter(FileTypeModelAdapter());
@@ -73,21 +70,45 @@ class SharikApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      builder: (_, child) {
-        return ResponsiveWrapper.builder(
-            ScrollConfiguration(
-              behavior: BouncingScrollBehavior(),
-              child: child!,
-            ),
-            maxWidth: 1800,
-            minWidth: 420,
-            defaultScale: true,
-            breakpoints: [
-              const ResponsiveBreakpoint.resize(400, name: MOBILE),
-              const ResponsiveBreakpoint.autoScale(680, name: TABLET),
-              const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP),
-            ]);
+      builder: (context, child) {
+        // todo https://github.com/Codelessly/ResponsiveFramework/issues/38
+        print('${MediaQuery.of(context).orientation} !!!!!!!!!!');
+        const portraitBrakepoints = [
+          ResponsiveBreakpoint.resize(480, name: MOBILE),
+          ResponsiveBreakpoint.resize(520, name: MOBILE, scaleFactor: 1.4),
+          ResponsiveBreakpoint.resize(600, name: TABLET, scaleFactor: 1.2),
+          ResponsiveBreakpoint.autoScale(800, name: TABLET, scaleFactor: 1.4),
+          ResponsiveBreakpoint.resize(1000, name: DESKTOP, scaleFactor: 1.8),
+          ResponsiveBreakpoint.autoScale(2460, name: '4K', scaleFactor: 2.2),
+        ];
+
+        const landscapeBrakepoints = [
+          ResponsiveBreakpoint.resize(480, name: MOBILE, scaleFactor: 0.6),
+          ResponsiveBreakpoint.resize(520, name: MOBILE, scaleFactor: 0.6),
+          ResponsiveBreakpoint.resize(600, name: TABLET, scaleFactor: 0.8),
+          ResponsiveBreakpoint.autoScale(800, name: TABLET, scaleFactor: 0.8),
+          ResponsiveBreakpoint.resize(1000, name: DESKTOP, scaleFactor: 1.1),
+          ResponsiveBreakpoint.autoScale(1200, name: DESKTOP, scaleFactor: 1.1),
+          ResponsiveBreakpoint.autoScale(2460, name: '4K', scaleFactor: 1.7),
+        ];
+
+        return Container(
+          key: UniqueKey(),
+          child: ResponsiveWrapper.builder(
+              ScrollConfiguration(
+                behavior: BouncingScrollBehavior(),
+                child: child!,
+              ),
+
+              minWidth: 480,
+              defaultScale: true,
+              breakpoints:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? portraitBrakepoints
+                      : landscapeBrakepoints),
+        );
       },
+      // builder: DevicePreview.appBuilder, //
       locale: context.watch<LanguageManager>().language.locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,

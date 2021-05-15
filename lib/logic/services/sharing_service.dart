@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:sharik/conf.dart';
 import 'package:sharik/models/file.dart';
 
-// todo fix sharing of dot files
+// todo fix sharing dot files
 class SharingService extends ChangeNotifier {
   final FileModel _file;
   int? _port;
