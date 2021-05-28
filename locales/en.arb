@@ -20,13 +20,13 @@
   "generalClose": "Close",
   "generalSend": "Send",
   "intro1ConnectTitle": "CONNECT",
-  "intro1ConnectDescription": "Connect devices to the same network - use Wi-Fi or Mobile Hotspot",
+  "intro1ConnectDescription": "Connect devices to the same Wi-Fi network. You can also use Mobile Hotspot",
   "intro2SendTitle": "SEND",
-  "intro2SendDescription": "Select any file you like",
+  "intro2SendDescription": "You can share images, videos, files, and text",
   "intro3ReceiveTitle": "RECEIVE",
-  "intro3ReceiveDescription": "Open given link on another device in any browser",
+  "intro3ReceiveDescription": "Open the link on another device in any web browser. If you have Sharik of both devices, you can also use the receiver function",
   "intro4EverywhereTitle": "EVERYWHERE",
-  "intro4EverywhereDescription": "Sharik is completely free and available for all major platforms. Click here to learn more",
+  "intro4EverywhereDescription": "Sharik is available for all major mobile and desktop platforms. Also, it is free, it has no ads, and its code is published online.\nClick here to learn more",
 
   "fontAndika": "Andika",
   "fontComfortaa": "Comfortaa"

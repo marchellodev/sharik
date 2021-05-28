@@ -13,17 +13,34 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext c) {
     return Scaffold(
       body: IntroSlider(
-        nameDoneBtn: c.l.introGeneralDone,
-        nameNextBtn: c.l.introGeneralNext,
-        showSkipBtn: false,
-        styleDoneBtn:
-            GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
-        stylePrevBtn:
-            GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white),
+
         colorDot: Colors.white70,
         colorActiveDot: Colors.white,
+
+        borderRadiusDoneBtn: 8,
+
+        showSkipBtn: false,
+        renderNextBtn: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+          child: Text(c.l.introGeneralNext,
+              style:
+              GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white)),
+        ),
+
+        renderDoneBtn: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+          child: Text(c.l.introGeneralDone,
+              style:
+              GoogleFonts.getFont(c.l.fontComfortaa, color: Colors.white)),
+        ),
+
+        onDonePress: () => SharikRouter.navigateTo(
+            c, this, Screens.home, RouteDirection.right),
+
         // todo use svgs instead
         // todo work on slides & descriptions
+        // todo compress all images
+
         slides: [
           Slide(
             styleTitle: GoogleFonts.getFont(
@@ -51,7 +68,7 @@ class IntroScreen extends StatelessWidget {
             title: c.l.intro2SendTitle,
             description: c.l.intro2SendDescription,
             pathImage: 'assets/slides/2_send.png',
-            backgroundColor: Colors.indigo[400]!,
+            backgroundColor: Colors.indigo.shade400,
           ),
           Slide(
             styleTitle: GoogleFonts.getFont(
@@ -65,7 +82,7 @@ class IntroScreen extends StatelessWidget {
             title: c.l.intro3ReceiveTitle,
             description: c.l.intro3ReceiveDescription,
             pathImage: 'assets/slides/3_receive.png',
-            backgroundColor: Colors.teal[400]!,
+            backgroundColor: Colors.teal.shade400,
           ),
           Slide(
             styleTitle: GoogleFonts.getFont(
@@ -76,7 +93,7 @@ class IntroScreen extends StatelessWidget {
             ),
             title: c.l.intro4EverywhereTitle,
             pathImage: 'assets/slides/4_everywhere.png',
-            backgroundColor: Colors.blueGrey[400]!,
+            backgroundColor: Colors.blueGrey.shade400,
             widgetDescription: GestureDetector(
               onTap: () async {
                 if (await canLaunch('https://github.com/marchellodev/sharik')) {
@@ -88,14 +105,12 @@ class IntroScreen extends StatelessWidget {
                 style: GoogleFonts.getFont(c.l.fontAndika,
                     color: Colors.white, fontSize: 18.0),
                 textAlign: TextAlign.center,
-                maxLines: 4,
+                maxLines: 12,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
         ],
-        onDonePress: () => SharikRouter.navigateTo(
-            c, this, Screens.home, RouteDirection.right),
       ),
     );
   }
