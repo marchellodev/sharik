@@ -104,7 +104,7 @@ class AboutScreen extends StatelessWidget {
                                   UpdateServiceState.loading,
                               text:
                                   updateService.state == UpdateServiceState.none
-                                      ? 'Check updates'
+                                      ? 'Check for updates'
                                       : (updateService.state ==
                                               UpdateServiceState.upgradable
                                           ? 'Update'
@@ -128,40 +128,58 @@ class AboutScreen extends StatelessWidget {
                           // todo as a component
                           // todo display when the button is disabled
                           Expanded(
-                            child: Material(
-                              color: Colors.deepPurple.shade100,
-                              borderRadius: BorderRadius.circular(8),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(8),
-                                // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
-                                // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
-                                // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
-                                splashColor: Colors.deepPurple.shade300
-                                    .withOpacity(0.28),
-                                hoverColor: Colors.deepPurple.shade300
-                                    .withOpacity(0.14),
-
-                                onTap: (updateService.state ==
+                            child: SizedBox(
+                              height: 40,
+                              child: Material(
+                                color: (updateService.state ==
                                             UpdateServiceState.upgradable ||
                                         updateService.state ==
                                             UpdateServiceState.latest)
-                                    ? () {
-                                        openDialog(
-                                            context,
-                                            ChangelogDialog(
-                                                updateService.markdown!));
-                                      }
-                                    : null,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 12),
-                                  child: Text(
-                                    'Changelog',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.deepPurple[700],
-                                        fontFamily: 'JetBrainsMono'),
+                                    ? Colors.deepPurple.shade100
+                                    : Colors.deepPurple.shade100
+                                        .withOpacity(0.8),
+
+                                // color: Colors.deepPurple.shade200,
+                                borderRadius: BorderRadius.circular(8),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(8),
+                                  // splashColor: Colors.deepPurple.shade400.withOpacity(0.32),
+                                  // splashColor: Colors.deepPurple.shade300.withOpacity(0.3),
+                                  // hoverColor: Colors.deepPurple.shade300.withOpacity(0.2),
+                                  splashColor: Colors.deepPurple.shade300
+                                      .withOpacity(0.28),
+                                  hoverColor: Colors.deepPurple.shade300
+                                      .withOpacity(0.14),
+
+                                  onTap: (updateService.state ==
+                                              UpdateServiceState.upgradable ||
+                                          updateService.state ==
+                                              UpdateServiceState.latest)
+                                      ? () {
+                                          openDialog(
+                                              context,
+                                              ChangelogDialog(
+                                                  updateService.markdown!));
+                                        }
+                                      : null,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 12),
+                                    child: Text(
+                                      'Changelog',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: (updateService.state ==
+                                                      UpdateServiceState
+                                                          .upgradable ||
+                                                  updateService.state ==
+                                                      UpdateServiceState.latest)
+                                              ? Colors.deepPurple.shade700
+                                              : Colors.deepPurple.shade700
+                                                  .withOpacity(0.8),
+                                          fontFamily: 'JetBrainsMono'),
+                                    ),
                                   ),
                                 ),
                               ),

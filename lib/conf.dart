@@ -241,3 +241,12 @@ Widget screen2widget(Screens s, [Object? args]) {
       return SharingScreen(args! as FileModel);
   }
 }
+
+//
+// class SharikColors {
+//   static final Color buttonTransparentOnDarkSplash = Colors.deepPurple.shade400.withOpacity(0.08);
+//
+//
+//   // final const
+//   // todo define all colors here for consistency
+// }

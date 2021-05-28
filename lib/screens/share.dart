@@ -236,21 +236,24 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       width: 12,
                     ),
                     // todo do not use pure white
-                    TransparentButton(
-                        AnimatedBuilder(
-                            animation: _conAnimation,
-                            builder: (context, child) {
-                              return Transform.rotate(
-                                  angle: _conAnimation.value, child: child);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(1),
-                              child: Icon(FeatherIcons.refreshCw,
-                                  size: 14, color: Colors.grey.shade100),
-                            )), () {
-                      _conController.forward(from: 0);
-                      _ipService.load();
-                    }, TransparentButtonBackground.purpleDark),
+                    Padding(
+                      padding: const EdgeInsets.all(3),
+                      child: TransparentButton(
+                          AnimatedBuilder(
+                              animation: _conAnimation,
+                              builder: (context, child) {
+                                return Transform.rotate(
+                                    angle: _conAnimation.value, child: child);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(1),
+                                child: Icon(FeatherIcons.refreshCw,
+                                    size: 14, color: Colors.grey.shade100),
+                              )), () {
+                        _conController.forward(from: 0);
+                        _ipService.load();
+                      }, TransparentButtonBackground.purpleDark),
+                    ),
                   ],
                 ),
               ),
@@ -355,6 +358,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                               openDialog(
                                   context, PickNetworkDialog(_ipService));
                             }, TransparentButtonBackground.purpleDark),
+                            const SizedBox(width: 3),
                           ],
                         ),
                       ),

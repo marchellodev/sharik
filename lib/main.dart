@@ -27,6 +27,7 @@ import 'models/file.dart';
 // - code cleanup & to-do review
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
 // - cleanup assets & fonts
+// - check fonts for usage
 
 Future<void> main() async {
   Hive.registerAdapter(FileTypeModelAdapter());
@@ -49,6 +50,7 @@ Future<void> main() async {
       child:
           Text('Sharik is already running. Error was copied to the clipboard'),
     ))));
+
     return;
   }
 
@@ -72,40 +74,22 @@ class SharikApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         // todo https://github.com/Codelessly/ResponsiveFramework/issues/38
-        print('${MediaQuery.of(context).orientation} !!!!!!!!!!');
-        const portraitBrakepoints = [
-          ResponsiveBreakpoint.resize(480, name: MOBILE),
-          ResponsiveBreakpoint.resize(520, name: MOBILE, scaleFactor: 1.4),
-          ResponsiveBreakpoint.resize(600, name: TABLET, scaleFactor: 1.2),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET, scaleFactor: 1.4),
-          ResponsiveBreakpoint.resize(1000, name: DESKTOP, scaleFactor: 1.8),
-          ResponsiveBreakpoint.autoScale(2460, name: '4K', scaleFactor: 2.2),
-        ];
-
-        const landscapeBrakepoints = [
-          ResponsiveBreakpoint.resize(480, name: MOBILE, scaleFactor: 0.6),
-          ResponsiveBreakpoint.resize(520, name: MOBILE, scaleFactor: 0.6),
-          ResponsiveBreakpoint.resize(600, name: TABLET, scaleFactor: 0.8),
-          ResponsiveBreakpoint.autoScale(800, name: TABLET, scaleFactor: 0.8),
-          ResponsiveBreakpoint.resize(1000, name: DESKTOP, scaleFactor: 1.1),
-          ResponsiveBreakpoint.autoScale(1200, name: DESKTOP, scaleFactor: 1.1),
-          ResponsiveBreakpoint.autoScale(2460, name: '4K', scaleFactor: 1.7),
-        ];
 
         return Container(
-          key: UniqueKey(),
+          // key: UniqueKey(),
           child: ResponsiveWrapper.builder(
-              ScrollConfiguration(
-                behavior: BouncingScrollBehavior(),
-                child: child!,
-              ),
+            ScrollConfiguration(
+              behavior: BouncingScrollBehavior(),
+              child: child!,
+            ),
 
-              minWidth: 480,
-              defaultScale: true,
-              breakpoints:
-                  MediaQuery.of(context).orientation == Orientation.portrait
-                      ? portraitBrakepoints
-                      : landscapeBrakepoints),
+            minWidth: 480,
+            defaultScale: true,
+            // breakpoints:
+            //     MediaQuery.of(context).orientation == Orientation.portrait
+            //         ? portraitBrakepoints
+            //         : landscapeBrakepoints
+          ),
         );
       },
       // builder: DevicePreview.appBuilder, //

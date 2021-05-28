@@ -21,35 +21,51 @@ class PickNetworkDialog extends StatelessWidget {
             fontWeight: FontWeight.w700),
       ),
       // todo probably redundant
+      //   splashColor = context.t.dividerColor.withOpacity(0.08);
+      //   hoverColor = context.t.dividerColor.withOpacity(0.04);
       content: Theme(
         data: ThemeData(
-            brightness: Brightness.dark,
-            accentColor: context.t.textTheme.bodyText1!.color),
+          brightness: context.t.brightness,
+          splashColor: context.t.dividerColor.withOpacity(0.08),
+          highlightColor: Colors.transparent,
+        ),
         child: Column(
           children: [
             for (final el in ipService.interfaces!)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: ListTile(
-                  selected: ipService.getIp() == el.addresses.first.address,
-                  selectedTileColor: context.t.dividerColor.withOpacity(0.08),
-                  // todo text styling
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  // todo style colors
-                  title: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal, child: Text(el.name)),
-                  subtitle: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Text(
-                      el.addresses.first.address,
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: ListTile(
+                    hoverColor: context.t.dividerColor.withOpacity(0.04),
+                    // hoverColor: Colors.red,
+                    selected: ipService.getIp() == el.addresses.first.address,
+                    selectedTileColor: context.t.dividerColor.withOpacity(0.08),
+                    // todo text styling
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    // todo style colors
+                    title: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(
+                          el.name,
+                          style: TextStyle(
+                              color: context.t.textTheme.bodyText1!.color),
+                        )),
+                    subtitle: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        el.addresses.first.address,
+                        style: TextStyle(
+                            color: context.t.textTheme.caption!.color),
+                      ),
+                    ),
+                    onTap: () {
+                      ipService.selectedInterface = el.name;
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  onTap: () {
-                    ipService.selectedInterface = el.name;
-                    Navigator.of(context).pop();
-                  },
                 ),
               )
           ],
