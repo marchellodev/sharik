@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../conf.dart';
 import '../sharing_object.dart';
@@ -53,6 +54,19 @@ class SharingService extends ChangeNotifier {
 
   Future<void> end() async {
     await _server!.close();
+
+    // todo research this issue on ios & desktop OSes
+    if (Platform.isAndroid) {
+      getTemporaryDirectory().then((dir) {
+        dir.exists().then((_) {
+          try {
+            dir.delete(recursive: true);
+          } catch (e) {
+            print(e);
+          }
+        });
+      });
+    }
   }
 
   Future<void> _serve() async {

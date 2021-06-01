@@ -32,7 +32,7 @@ dependencies:
 
   wakelock: ^0.5.2
 
-#  device_preview: ^0.7.1
+  #  device_preview: ^0.7.1
 
 
   # todo https://pub.dev/packages/flutter_native_splash
@@ -52,15 +52,16 @@ dependencies:
   collection: ^1.15.0
 
 
+  # Android and IOS
+  file_picker: ^3.0.2+2
+
+
+  # Desktop
   file_selector: ^0.8.2
   file_selector_windows: ^0.0.2
   file_selector_linux: ^0.0.2
   file_selector_macos: ^0.0.4
 
-
-
-  # Android and IOS
-  file_picker: ^3.0.2+2
 
 
   # ARCHITECTURE
@@ -75,6 +76,13 @@ dev_dependencies:
 
   lint: ^1.5.3
 
+  flutter_native_splash: ^1.1.8+4
+
+
+flutter_native_splash:
+  # [Colors.deepPurple.shade400]
+  color: "#7E57C2"
+  web: false
 
 flutter:
   generate: true

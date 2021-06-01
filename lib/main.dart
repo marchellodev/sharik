@@ -8,7 +8,6 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'conf.dart';
 import 'logic/language.dart';
-import 'logic/navigation.dart';
 import 'logic/theme.dart';
 import 'screens/loading.dart';
 import 'utils/material_ink_well.dart';
@@ -29,7 +28,6 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (_) => LanguageManager()),
       ChangeNotifierProvider(create: (_) => ThemeManager()),
-      Provider(create: (_) => NavigationManager()),
     ],
     child: SharikApp(),
   ));
