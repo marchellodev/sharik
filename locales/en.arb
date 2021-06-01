@@ -19,6 +19,8 @@
   "introGeneralNext": "NEXT",
   "generalClose": "Close",
   "generalSend": "Send",
+
+  "@_INTRO_PAGE": {},
   "intro1ConnectTitle": "CONNECT",
   "intro1ConnectDescription": "Connect devices to the same Wi-Fi network. You can also use Mobile Hotspot",
   "intro2SendTitle": "SEND",

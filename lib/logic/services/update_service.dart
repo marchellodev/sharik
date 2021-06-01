@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:sharik/conf.dart';
+
+import '../../conf.dart';
 
 class UpdateService extends ChangeNotifier {
   // todo change to master

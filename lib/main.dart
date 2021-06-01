@@ -9,14 +9,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
-import 'package:sharik/logic/theme.dart';
-import 'package:sharik/screens/loading.dart';
-import 'package:sharik/utils/material_ink_well.dart';
 
 import 'conf.dart';
 import 'logic/language.dart';
 import 'logic/navigation.dart';
-import 'models/file.dart';
+import 'logic/sharing_object.dart';
+import 'logic/theme.dart';
+import 'screens/loading.dart';
+import 'utils/material_ink_well.dart';
 
 // todo before migrating locales:
 // - design review (colors, spacing, animations, etc)
@@ -55,10 +55,11 @@ Future<void> main() async {
   }
 
   await Hive.openBox<String>('strings');
-  await Hive.openBox<FileModel>('history');
+  await Hive.openBox<SharingObject>('history');
 
   runApp(MultiProvider(
     providers: [
+      // todo refactor, instead, load language & theme dynamically
       ChangeNotifierProvider(create: (_) => LanguageManager()),
       ChangeNotifierProvider(create: (_) => ThemeManager()),
       Provider(create: (_) => NavigationManager()),

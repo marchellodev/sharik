@@ -1,39 +1,39 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'file.dart';
+part of 'sharing_object.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FileTypeModelAdapter extends TypeAdapter<FileTypeModel> {
+class FileTypeModelAdapter extends TypeAdapter<SharingObjectType> {
   @override
   final int typeId = 2;
 
   @override
-  FileTypeModel read(BinaryReader reader) {
+  SharingObjectType read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return FileTypeModel.file;
+        return SharingObjectType.file;
       case 1:
-        return FileTypeModel.text;
+        return SharingObjectType.text;
       case 2:
-        return FileTypeModel.app;
+        return SharingObjectType.app;
       default:
-        return FileTypeModel.file;
+        return SharingObjectType.file;
     }
   }
 
   @override
-  void write(BinaryWriter writer, FileTypeModel obj) {
+  void write(BinaryWriter writer, SharingObjectType obj) {
     switch (obj) {
-      case FileTypeModel.file:
+      case SharingObjectType.file:
         writer.writeByte(0);
         break;
-      case FileTypeModel.text:
+      case SharingObjectType.text:
         writer.writeByte(1);
         break;
-      case FileTypeModel.app:
+      case SharingObjectType.app:
         writer.writeByte(2);
         break;
     }
@@ -50,25 +50,25 @@ class FileTypeModelAdapter extends TypeAdapter<FileTypeModel> {
           typeId == other.typeId;
 }
 
-class FileModelAdapter extends TypeAdapter<FileModel> {
+class FileModelAdapter extends TypeAdapter<SharingObject> {
   @override
   final int typeId = 1;
 
   @override
-  FileModel read(BinaryReader reader) {
+  SharingObject read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return FileModel(
-      type: fields[0] as FileTypeModel,
+    return SharingObject(
+      type: fields[0] as SharingObjectType,
       data: fields[1] as String,
       fileName: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, FileModel obj) {
+  void write(BinaryWriter writer, SharingObject obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)

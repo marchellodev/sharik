@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/dialogs/open_dialog.dart';
 
+import '../components/buttons.dart';
 import '../utils/helper.dart';
+import 'open_dialog.dart';
 
 // todo restyle
 

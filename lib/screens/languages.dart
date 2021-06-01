@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/components/logo.dart';
-import 'package:sharik/components/page_router.dart';
 
+import '../components/buttons.dart';
+import '../components/logo.dart';
+import '../components/page_router.dart';
 import '../conf.dart';
 import '../logic/language.dart';
+
+// review: done
 
 class LanguagePickerScreen extends StatelessWidget {
   @override
@@ -26,14 +28,14 @@ class LanguagePickerScreen extends StatelessWidget {
             height: 24,
           ),
           Text(
-            'Select the language\nyou are familiar\nwith',
+            'Select the language\nyou are familiar with',
             textAlign: TextAlign.center,
             style: GoogleFonts.getFont(
               'Comfortaa',
               fontSize: 24,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
           for (var lang in languageList) ...[
             LanguageButton(lang, () {
               context.read<LanguageManager>().language = lang;

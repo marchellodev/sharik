@@ -1,8 +1,8 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/models/file.dart';
 
+import '../components/buttons.dart';
+import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
 class ShareAppDialog extends StatefulWidget {
@@ -134,8 +134,8 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                 ? null
                 : () {
                     // todo pop with the model
-                    Navigator.of(context).pop(FileModel(
-                        type: FileTypeModel.app,
+                    Navigator.of(context).pop(SharingObject(
+                        type: SharingObjectType.app,
                         data: _apps[selected!].apkFilePath,
                         fileName: _apps[selected!].appName));
                   }),

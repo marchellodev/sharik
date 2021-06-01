@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
-import 'package:sharik/components/page_router.dart';
 
+import '../components/page_router.dart';
 import '../conf.dart';
 import '../utils/helper.dart';
 

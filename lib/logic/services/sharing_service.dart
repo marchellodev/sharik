@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:sharik/conf.dart';
-import 'package:sharik/models/file.dart';
+
+import '../../conf.dart';
+import '../sharing_object.dart';
 
 // todo fix sharing dot files
 class SharingService extends ChangeNotifier {
-  final FileModel _file;
+  final SharingObject _file;
   int? _port;
   HttpServer? _server;
 
@@ -73,8 +74,8 @@ class SharingService extends ChangeNotifier {
         }));
         request.response.close();
       } else {
-        if (_file.type == FileTypeModel.file ||
-            _file.type == FileTypeModel.app) {
+        if (_file.type == SharingObjectType.file ||
+            _file.type == SharingObjectType.app) {
           final f = File(_file.data);
           final size = await f.length();
 
@@ -88,7 +89,7 @@ class SharingService extends ChangeNotifier {
 
           request.response.headers.add(
             'Content-disposition',
-            'attachment; filename=${Uri.encodeComponent(_file.type == FileTypeModel.file ? _file.name : '${_file.name}.apk')}',
+            'attachment; filename=${Uri.encodeComponent(_file.type == SharingObjectType.file ? _file.name : '${_file.name}.apk')}',
           );
           request.response.headers.add(
             'Content-length',

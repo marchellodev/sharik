@@ -1,11 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sharik/models/file.dart';
+
+import '../logic/sharing_object.dart';
 
 // todo not only file model but also the interface
-Future<FileModel?> openDialog(BuildContext context, Widget dialog) {
-  return showGeneralDialog<FileModel>(
+Future<SharingObject?> openDialog(BuildContext context, Widget dialog) {
+  return showGeneralDialog<SharingObject>(
       context: context,
       barrierLabel: '',
       barrierDismissible: true,

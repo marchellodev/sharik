@@ -4,9 +4,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:sharik/models/file.dart';
 
 import '../../conf.dart';
+import '../sharing_object.dart';
 import 'ip_service.dart';
 
 class ReceiverService extends ChangeNotifier {
@@ -129,7 +129,7 @@ class Receiver {
 
   final String os;
   final String name;
-  final FileTypeModel type;
+  final SharingObjectType type;
 
   const Receiver({
     required this.addr,

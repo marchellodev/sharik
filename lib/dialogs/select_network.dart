@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/logic/services/ip_service.dart';
-import 'package:sharik/utils/helper.dart';
+
+import '../components/buttons.dart';
+import '../logic/services/ip_service.dart';
+import '../utils/helper.dart';
 
 class PickNetworkDialog extends StatelessWidget {
   final LocalIpService ipService;

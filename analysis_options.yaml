@@ -12,5 +12,7 @@ linter:
 
     sort_pub_dependencies: false
 
+    prefer_relative_imports: true
+
     # only for debug
     avoid_print: false

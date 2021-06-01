@@ -9,21 +9,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/components/logo.dart';
-import 'package:sharik/components/page_router.dart';
-import 'package:sharik/dialogs/open_dialog.dart';
-import 'package:sharik/dialogs/select_network.dart';
-import 'package:sharik/logic/services/ip_service.dart';
-import 'package:sharik/logic/services/sharing_service.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../components/buttons.dart';
+import '../components/logo.dart';
+import '../components/page_router.dart';
 import '../conf.dart';
-import '../models/file.dart';
+import '../dialogs/open_dialog.dart';
+import '../dialogs/select_network.dart';
+import '../logic/services/ip_service.dart';
+import '../logic/services/sharing_service.dart';
+import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
 class SharingScreen extends StatefulWidget {
-  final FileModel file;
+  final SharingObject file;
 
   const SharingScreen(this.file);
 
@@ -37,7 +37,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   late AnimationController _conController;
   late Animation<double> _conAnimation;
 
-  late FileModel _file;
+  late SharingObject _file;
 
   final LocalIpService _ipService = LocalIpService();
   late SharingService _sharingService;

@@ -3,16 +3,16 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/components/logo.dart';
-import 'package:sharik/components/page_router.dart';
-import 'package:sharik/dialogs/changelog.dart';
-import 'package:sharik/dialogs/licenses.dart';
-import 'package:sharik/dialogs/open_dialog.dart';
-import 'package:sharik/logic/services/update_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../components/buttons.dart';
+import '../components/logo.dart';
+import '../components/page_router.dart';
 import '../conf.dart';
+import '../dialogs/changelog.dart';
+import '../dialogs/licenses.dart';
+import '../dialogs/open_dialog.dart';
+import '../logic/services/update_service.dart';
 import '../utils/helper.dart';
 
 // todo check fonts for consistence

@@ -10,17 +10,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/components/logo.dart';
-import 'package:sharik/components/page_router.dart';
-import 'package:sharik/dialogs/open_dialog.dart';
-import 'package:sharik/dialogs/receiver.dart';
-import 'package:sharik/dialogs/share_text.dart';
-import 'package:sharik/logic/theme.dart';
 
+import '../components/buttons.dart';
+import '../components/logo.dart';
+import '../components/page_router.dart';
 import '../conf.dart';
+import '../dialogs/open_dialog.dart';
+import '../dialogs/receiver.dart';
 import '../dialogs/share_app.dart';
-import '../models/file.dart';
+import '../dialogs/share_text.dart';
+import '../logic/sharing_object.dart';
+import '../logic/theme.dart';
 import '../utils/helper.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -29,21 +29,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<FileModel> _latest = <FileModel>[];
+  List<SharingObject> _latest = <SharingObject>[];
 
   @override
   void initState() {
-    _latest = Hive.box<FileModel>('history').values.toList();
+    _latest = Hive.box<SharingObject>('history').values.toList();
 
     super.initState();
   }
 
   Future<void> saveLatest() async {
-    await Hive.box<FileModel>('history').clear();
-    await Hive.box<FileModel>('history').addAll(_latest);
+    await Hive.box<SharingObject>('history').clear();
+    await Hive.box<SharingObject>('history').addAll(_latest);
   }
 
-  Future<void> shareFile(FileModel file) async {
+  Future<void> shareFile(SharingObject file) async {
     setState(() {
       if (_latest.contains(file)) _latest.remove(file);
 
@@ -87,7 +87,6 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             } else {
               return Row(
-                mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(child: sharingPart(c)),
                   // const SizedBox(
@@ -229,15 +228,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 final f = await FilePicker.platform.pickFiles();
 
                 if (f != null) {
-                  shareFile(FileModel(
+                  shareFile(SharingObject(
                     data: (f.paths.first)!,
-                    type: FileTypeModel.file,
+                    type: SharingObjectType.file,
                   ));
                 }
               } else {
                 final f = await openFile();
                 if (f != null) {
-                  shareFile(FileModel(data: f.path, type: FileTypeModel.file));
+                  shareFile(SharingObject(
+                      data: f.path, type: SharingObjectType.file));
                 }
               }
             },
@@ -302,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // todo as a component
-  Widget card(BuildContext c, FileModel f) {
+  Widget card(BuildContext c, SharingObject f) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: ListButton(

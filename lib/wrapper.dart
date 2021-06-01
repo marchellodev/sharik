@@ -6,10 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/screens/about.dart';
 
 import 'components/logo.dart';
 import 'logic/navigation.dart';
+import 'screens/about.dart';
 import 'utils/helper.dart';
 
 class AppWrapper extends StatefulWidget {

@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sharik/components/buttons.dart';
-import 'package:sharik/utils/helper.dart';
+
+import '../components/buttons.dart';
+import '../utils/helper.dart';
 
 class ChangelogDialog extends StatelessWidget {
   final String markdown;

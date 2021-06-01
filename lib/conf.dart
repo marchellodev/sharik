@@ -16,15 +16,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
-import 'package:sharik/logic/language.dart';
-import 'package:sharik/screens/about.dart';
-import 'package:sharik/screens/home.dart';
-import 'package:sharik/screens/intro.dart';
-import 'package:sharik/screens/languages.dart';
-import 'package:sharik/screens/loading.dart';
-import 'package:sharik/screens/share.dart';
 
-import 'models/file.dart';
+import 'logic/language.dart';
+import 'logic/sharing_object.dart';
+import 'screens/about.dart';
+import 'screens/home.dart';
+import 'screens/intro.dart';
+import 'screens/languages.dart';
+import 'screens/loading.dart';
+import 'screens/share.dart';
 
 // todo think of more ports that are cute :>
 const List<int> ports = [50500, 50050, 56789, 56788];
@@ -238,7 +238,7 @@ Widget screen2widget(Screens s, [Object? args]) {
     case Screens.about:
       return AboutScreen();
     case Screens.sharing:
-      return SharingScreen(args! as FileModel);
+      return SharingScreen(args! as SharingObject);
   }
 }
 

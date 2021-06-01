@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sharik/components/buttons.dart';
 
-import '../models/file.dart';
+import '../components/buttons.dart';
+import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
 class ShareTextDialog extends StatefulWidget {
@@ -47,9 +47,9 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
             text.isEmpty
                 ? null
                 : () {
-                    Navigator.of(context).pop(FileModel(
+                    Navigator.of(context).pop(SharingObject(
                       data: text,
-                      type: FileTypeModel.text,
+                      type: SharingObjectType.text,
                     ));
                   }),
         const SizedBox(width: 4),

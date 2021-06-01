@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:sharik/models/file.dart';
-import 'package:sharik/screens/about.dart';
-import 'package:sharik/screens/home.dart';
-import 'package:sharik/screens/intro.dart';
-import 'package:sharik/screens/languages.dart';
-import 'package:sharik/screens/loading.dart';
+
+import '../screens/about.dart';
+import '../screens/home.dart';
+import '../screens/intro.dart';
+import '../screens/languages.dart';
+import '../screens/loading.dart';
+import 'sharing_object.dart';
 
 // todo think about this organization once again
 
 class NavigationManager {
   NPage _page = HomePage();
   late Function(NPage page) _onChange;
-  FileModel? file;
+  SharingObject? file;
 
   NPage get page => _page;
 
