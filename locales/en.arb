@@ -30,6 +30,10 @@
   "intro4EverywhereTitle": "EVERYWHERE",
   "intro4EverywhereDescription": "Sharik is available for all major mobile and desktop platforms. Also, it is free, it has no ads, and its code is published online.\nClick here to learn more",
 
+  "@_ABOUT_PAGE": {},
+  "aboutChangelog": "Changelog",
+
+
   "fontAndika": "Andika",
   "fontComfortaa": "Comfortaa"
 }

@@ -10,6 +10,7 @@ import '../utils/helper.dart';
 
 // review: done
 
+// todo minor: manage colors when clicking on buttons
 class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

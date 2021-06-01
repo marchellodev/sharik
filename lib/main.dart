@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
@@ -13,7 +9,6 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'conf.dart';
 import 'logic/language.dart';
 import 'logic/navigation.dart';
-import 'logic/sharing_object.dart';
 import 'logic/theme.dart';
 import 'screens/loading.dart';
 import 'utils/material_ink_well.dart';
@@ -29,37 +24,9 @@ import 'utils/material_ink_well.dart';
 // - cleanup assets & fonts
 // - check fonts for usage
 
-Future<void> main() async {
-  Hive.registerAdapter(FileTypeModelAdapter());
-  Hive.registerAdapter(FileModelAdapter());
-
-  try {
-    if (Platform.isAndroid || Platform.isIOS) {
-      await Hive.initFlutter();
-    } else {
-      Hive.init('storage');
-    }
-  } on Exception catch (_, e) {
-    print(e);
-
-    Clipboard.setData(ClipboardData(text: e.toString()));
-
-    runApp(const MaterialApp(
-        home: Scaffold(
-            body: Center(
-      child:
-          Text('Sharik is already running. Error was copied to the clipboard'),
-    ))));
-
-    return;
-  }
-
-  await Hive.openBox<String>('strings');
-  await Hive.openBox<SharingObject>('history');
-
+void main() {
   runApp(MultiProvider(
     providers: [
-      // todo refactor, instead, load language & theme dynamically
       ChangeNotifierProvider(create: (_) => LanguageManager()),
       ChangeNotifierProvider(create: (_) => ThemeManager()),
       Provider(create: (_) => NavigationManager()),

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:sharik/logic/theme.dart';
 
 import '../components/page_router.dart';
 import '../conf.dart';
-import '../utils/helper.dart';
+import '../logic/language.dart';
+import '../logic/sharing_object.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -14,14 +18,31 @@ class LoadingScreen extends StatefulWidget {
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
-    init();
     super.initState();
+
+    init();
   }
 
   Future<void> init() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(Duration.zero);
 
-    if (mounted) {
+    if (context.read<LanguageManager>().initialized ||
+        context.read<ThemeManager>().initialized) {
+      return;
+    }
+
+    try {
+      Hive.registerAdapter(SharingObjectTypeAdapter());
+      Hive.registerAdapter(SharingObjectAdapter());
+
+      await Hive.initFlutter();
+
+      await Hive.openBox<String>('strings');
+      await Hive.openBox<SharingObject>('history');
+
+      context.read<LanguageManager>().init();
+      context.read<ThemeManager>().init();
+
       SharikRouter.navigateTo(
           context,
           build(context),
@@ -29,19 +50,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
               ? Screens.home
               : Screens.languagePicker,
           RouteDirection.right);
+    } catch (error, trace) {
+      SharikRouter.navigateTo(context, build(context), Screens.error,
+          RouteDirection.right, '$error \n\n $trace');
     }
-    // context.did
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      backgroundColor: context.t.brightness == Brightness.light
-          ? Colors.deepPurple.shade500
-          : context.t.scaffoldBackgroundColor,
+      backgroundColor: Colors.deepPurple.shade400,
       body: Center(
         child: SvgPicture.asset('assets/logo_inverse.svg',
             height: 60,
             semanticsLabel: 'Sharik app icon',
-            color: Colors.grey.shade200),
+            color: Colors.grey.shade300),
       ));
 }

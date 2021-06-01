@@ -7,6 +7,7 @@ class ThemeManager extends ChangeNotifier {
   ThemeMode _theme = ThemeMode.system;
 
   ThemeMode get theme => _theme;
+  bool initialized = false;
 
   set theme(ThemeMode val) {
     _theme = val;
@@ -42,7 +43,9 @@ class ThemeManager extends ChangeNotifier {
     }
   }
 
-  ThemeManager() {
+  void init() {
+    initialized = true;
+
     if (Hive.box<String>('strings').containsKey('theme')) {
       final theme = Hive.box<String>('strings').get('theme');
       if (theme == 'light') {
@@ -51,5 +54,6 @@ class ThemeManager extends ChangeNotifier {
         _theme = ThemeMode.dark;
       }
     }
+    notifyListeners();
   }
 }

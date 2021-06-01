@@ -230,9 +230,10 @@ class MaterialInkSplash extends InteractiveInkFeature {
     final paint = Paint()
       ..color = color.withAlpha(_alpha.value - _alphaFadeIn.value);
     var center = _position;
-    if (_repositionToReferenceBox)
+    if (_repositionToReferenceBox) {
       center = Offset.lerp(center, referenceBox.size.center(Offset.zero),
           _radiusController.value);
+    }
     final originOffset = MatrixUtils.getAsTranslation(transform);
     canvas.save();
     if (originOffset == null) {

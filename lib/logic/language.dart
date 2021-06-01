@@ -22,15 +22,21 @@ class Language {
       this.contributorLink});
 }
 
+// todo review ChangeNotifier
 class LanguageManager extends ChangeNotifier {
   Language _language =
       languageList.firstWhere((element) => element.name == 'english');
 
-  LanguageManager() {
+  bool initialized = false;
+
+  void init() {
+    initialized = true;
+
     final l = Hive.box<String>('strings').get('language', defaultValue: null);
 
     if (l != null) {
       _language = languageList.firstWhere((element) => element.name == l);
+      notifyListeners();
       return;
     }
 
@@ -44,6 +50,8 @@ class LanguageManager extends ChangeNotifier {
         break;
       }
     }
+
+    notifyListeners();
   }
 
   Language get language => _language;

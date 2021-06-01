@@ -20,6 +20,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
 import 'logic/language.dart';
 import 'logic/sharing_object.dart';
 import 'screens/about.dart';
+import 'screens/error.dart';
 import 'screens/home.dart';
 import 'screens/intro.dart';
 import 'screens/languages.dart';
@@ -223,7 +224,7 @@ List<Language> get languageList => [
           localizations: AppLocalizationsSk())
     ];
 
-enum Screens { loading, languagePicker, intro, home, about, sharing }
+enum Screens { loading, languagePicker, intro, home, about, sharing, error }
 
 Widget screen2widget(Screens s, [Object? args]) {
   switch (s) {
@@ -239,6 +240,8 @@ Widget screen2widget(Screens s, [Object? args]) {
       return AboutScreen();
     case Screens.sharing:
       return SharingScreen(args! as SharingObject);
+    case Screens.error:
+      return ErrorScreen(args! as String);
   }
 }
 

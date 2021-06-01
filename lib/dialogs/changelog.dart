@@ -6,6 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../components/buttons.dart';
 import '../utils/helper.dart';
 
+
+// review: done
+
 class ChangelogDialog extends StatelessWidget {
   final String markdown;
 
@@ -17,8 +20,7 @@ class ChangelogDialog extends StatelessWidget {
       elevation: 0,
       insetPadding: const EdgeInsets.all(24),
       title: Text(
-        // todo translate
-        'Changelog',
+        context.l.aboutChangelog,
         style: GoogleFonts.getFont(context.l.fontComfortaa,
             fontWeight: FontWeight.w700),
       ),
@@ -26,16 +28,10 @@ class ChangelogDialog extends StatelessWidget {
       content: MarkdownBody(
         data: markdown,
         styleSheet: MarkdownStyleSheet(
-          p: const TextStyle(
-            fontFamily: 'JetBrainsMono',
-            fontSize: 12,
-          ),
-          h3: const TextStyle(fontFamily: 'JetBrainsMono', fontSize: 14),
-          h2: const TextStyle(
-              height: 3,
-              fontFamily: 'JetBrainsMono',
-              fontSize: 16,
-              fontWeight: FontWeight.w500),
+          p: GoogleFonts.jetBrainsMono(fontSize: 12),
+          h3: GoogleFonts.jetBrainsMono(fontSize: 14),
+          h2: GoogleFonts.jetBrainsMono(
+              height: 3, fontSize: 16, fontWeight: FontWeight.w500),
         ),
         listItemCrossAxisAlignment: MarkdownListItemCrossAxisAlignment.start,
       ),
