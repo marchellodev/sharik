@@ -32,6 +32,13 @@
 
   "@_ABOUT_PAGE": {},
   "aboutChangelog": "Changelog",
+  "aboutLicenses": "Licenses",
+
+
+  "@_SHARING_PAGE": {},
+  "sharingReceiver": "Receiver",
+  "sharingNetworkInterfaces": "Network interfaces",
+  "sharingSelectNetworkInterface": "Select network interface",
 
 
   "fontAndika": "Andika",

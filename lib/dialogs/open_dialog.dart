@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../logic/sharing_object.dart';
 
-// todo not only file model but also the interface
+// todo not only file model but generic interface
 Future<SharingObject?> openDialog(BuildContext context, Widget dialog) {
-  return showGeneralDialog<SharingObject>(
+  return showGeneralDialog<SharingObject?>(
       context: context,
       barrierLabel: '',
       barrierDismissible: true,

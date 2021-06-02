@@ -4,6 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../components/buttons.dart';
 import '../logic/services/ip_service.dart';
 import '../utils/helper.dart';
+import '../utils/material_ink_well.dart';
+
+// todo styling
+
+// review: done
 
 class PickNetworkDialog extends StatelessWidget {
   final LocalIpService ipService;
@@ -17,7 +22,7 @@ class PickNetworkDialog extends StatelessWidget {
       insetPadding: const EdgeInsets.all(24),
       scrollable: true,
       title: Text(
-        'Preferred network interface',
+        context.l.sharingSelectNetworkInterface,
         style: GoogleFonts.getFont(context.l.fontComfortaa,
             fontWeight: FontWeight.w700),
       ),
@@ -26,6 +31,8 @@ class PickNetworkDialog extends StatelessWidget {
       //   hoverColor = context.t.dividerColor.withOpacity(0.04);
       content: Theme(
         data: ThemeData(
+          splashFactory: MaterialInkSplash.splashFactory,
+
           brightness: context.t.brightness,
           splashColor: context.t.dividerColor.withOpacity(0.08),
           highlightColor: Colors.transparent,

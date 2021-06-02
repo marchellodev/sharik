@@ -18,16 +18,17 @@ class IntroScreen extends StatelessWidget {
       body: IntroSlider(
         colorDot: Colors.white70,
         colorActiveDot: Colors.white,
+        // todo check border radius compared to the bottom bar
         borderRadiusDoneBtn: 8,
         showSkipBtn: false,
         renderNextBtn: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 14),
           child: Text(context.l.introGeneralNext,
               style: GoogleFonts.getFont(context.l.fontComfortaa,
                   color: Colors.white)),
         ),
         renderDoneBtn: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 14),
           child: Text(context.l.introGeneralDone,
               style: GoogleFonts.getFont(context.l.fontComfortaa,
                   color: Colors.white)),

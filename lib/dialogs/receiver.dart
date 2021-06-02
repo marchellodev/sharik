@@ -14,6 +14,12 @@ import '../utils/helper.dart';
 import 'open_dialog.dart';
 import 'select_network.dart';
 
+// todo restart the timer when changing the network interface
+
+// todo only styling is left
+
+// review: done
+
 class ReceiverDialog extends StatefulWidget {
   @override
   _ReceiverDialogState createState() => _ReceiverDialogState();
@@ -53,7 +59,7 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
             elevation: 0,
             insetPadding: const EdgeInsets.all(24),
             title: Text(
-              'Receiver',
+              context.l.sharingReceiver,
               style: GoogleFonts.getFont(context.l.fontComfortaa,
                   fontWeight: FontWeight.w700),
             ),
@@ -63,16 +69,18 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
                     child: Center(
                       child: Stack(
                         children: [
-                          const Center(
+                          Center(
                             child: SizedBox(
                                 height: 42,
                                 width: 42,
-                                child: CircularProgressIndicator()),
+                                child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation(context
+                                        .t.accentColor
+                                        .withOpacity(0.8)))),
                           ),
-                          // todo text font
                           Center(
                             child: Text(receiverService.loop.toString(),
-                                style: const TextStyle(fontSize: 12)),
+                                style: GoogleFonts.poppins(fontSize: 14)),
                           )
                         ],
                       ),
@@ -115,7 +123,7 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
                   ),
             actions: [
               DialogTextButton(
-                  'Network interfaces',
+                  context.l.sharingNetworkInterfaces,
                   receiverService.loaded
                       ? () {
                           openDialog(context,

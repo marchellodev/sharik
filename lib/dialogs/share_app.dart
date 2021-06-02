@@ -13,9 +13,9 @@ class ShareAppDialog extends StatefulWidget {
 class _ShareAppDialogState extends State<ShareAppDialog> {
   bool _hideSystem = true;
   bool _hideLaunchLess = true;
-  List<Application> apps = <Application>[];
+  List<ApplicationWithIcon> apps = <ApplicationWithIcon>[];
   String _search = '';
-  int? selected;
+  ApplicationWithIcon? selected;
 
   @override
   void initState() {
@@ -33,16 +33,17 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
     final arr = await DeviceApps.getInstalledApplications(
         onlyAppsWithLaunchIntent: _hideLaunchLess,
         includeSystemApps: !_hideSystem,
-        includeAppIcons: true);
+        includeAppIcons: true,
+    );
 
     setState(() {
-      apps = arr;
+      apps = arr.cast<ApplicationWithIcon>();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    var _apps = <Application>[];
+    var _apps = <ApplicationWithIcon>[];
     if (_search.isEmpty) {
       _apps = apps;
     } else {
@@ -95,32 +96,28 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
               decoration: InputDecoration(hintText: context.l.selectAppSearch),
             ),
             const SizedBox(height: 14),
-            SizedBox(
-              height: _apps.length * 72,
-              child: ListView.builder(
-                  itemCount: _apps.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (_, e) => ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: Image.memory(
-                            (_apps[e] as ApplicationWithIcon).icon),
-                        title: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(_apps[e].appName)),
-                        subtitle: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              _apps[e].packageName,
-                            )),
-                        onTap: () => setState(() => selected = e),
-                        selected: selected == e,
-                      )),
-            ),
+            for (final app in _apps)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Image.memory(app.icon),
+                title: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(app.appName)),
+                subtitle: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      app.packageName,
+                    )),
+                onTap: () => setState(() => selected = app),
+                selected: selected == app,
+              ),
             if (_apps.isEmpty && _search.isEmpty)
               Center(
                   child: Container(
                       padding: const EdgeInsets.all(24),
-                      child: const CircularProgressIndicator()))
+                      child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(
+                              context.t.accentColor.withOpacity(0.8)))))
           ],
         ),
       ),
@@ -136,8 +133,8 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                     // todo pop with the model
                     Navigator.of(context).pop(SharingObject(
                         type: SharingObjectType.app,
-                        data: _apps[selected!].apkFilePath,
-                        fileName: _apps[selected!].appName));
+                        data: selected!.apkFilePath,
+                        fileName: selected!.appName));
                   }),
       ],
     );

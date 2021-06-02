@@ -14,7 +14,7 @@ import 'utils/material_ink_well.dart';
 
 // todo before migrating locales:
 // - design review (colors, spacing, animations, etc)
-// - landscape mode support
+// - landscape mode support (home & about & sharing)
 // - calibrating responsive framework
 // - accessibility
 // - create sharing intent (android, ios, maybe desktop?)
@@ -22,6 +22,8 @@ import 'utils/material_ink_well.dart';
 // - review imports (cupertino, material, etc -> use only foundation or widgets)
 // - cleanup assets & fonts
 // - check fonts for usage
+// - font licenses
+// - get rid of all prints
 
 void main() {
   runApp(MultiProvider(
@@ -83,6 +85,8 @@ class SharikApp extends StatelessWidget {
           // sharik top icon color
           accentColor: Colors.deepPurple.shade500,
 
+          // primarySwatch: Colors.deepPurple,
+
           // right click selection color
           cardColor: Colors.grey.shade200.withOpacity(0.9),
 
@@ -100,6 +104,8 @@ class SharikApp extends StatelessWidget {
                 borderSide: BorderSide(
                     color: Colors.deepPurple.shade50.withOpacity(0.8),
                     width: 2))),
+
+        // primarySwatch: Colors.grey,
 
         textSelectionTheme: TextSelectionThemeData(
             cursorColor: Colors.deepPurple.shade50,

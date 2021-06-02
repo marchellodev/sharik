@@ -10,6 +10,7 @@ import '../utils/helper.dart';
 import 'open_dialog.dart';
 
 // todo restyle
+// review: done
 
 class LicensesDialog extends StatefulWidget {
   @override
@@ -47,10 +48,11 @@ class _LicensesDialogState extends State<LicensesDialog> {
         elevation: 0,
         insetPadding: const EdgeInsets.all(24),
         title: Text(
-          // todo translate
-          'Licenses',
-          style: GoogleFonts.getFont(context.l.fontComfortaa,
-              fontWeight: FontWeight.w700),
+          context.l.aboutLicenses,
+          style: GoogleFonts.getFont(
+            context.l.fontComfortaa,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         actions: [
           DialogTextButton(context.l.generalClose, () {
@@ -62,7 +64,7 @@ class _LicensesDialogState extends State<LicensesDialog> {
             children: list.entries
                 .map((license) => ListTile(
                       title: Text(license.key),
-                      // todo secondary color
+                      // todo design secondary color
                       trailing: Text(license.value.length.toString()),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -120,12 +122,11 @@ class _LicensesDetailDialog extends StatelessWidget {
       ));
     }
 
-    // todo alertdialog as a template
+    // todo minor: alertdialog as a template
     return AlertDialog(
         elevation: 0,
         insetPadding: const EdgeInsets.all(24),
         title: Text(
-          // todo translate
           name,
           style: GoogleFonts.getFont(context.l.fontComfortaa,
               fontWeight: FontWeight.w700),
