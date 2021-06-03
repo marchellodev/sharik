@@ -24,6 +24,7 @@ import 'utils/material_ink_well.dart';
 // - check fonts for usage
 // - font licenses
 // - get rid of all prints
+// - add an icon to the android notifications bar
 
 void main() {
   runApp(MultiProvider(
@@ -39,8 +40,7 @@ class SharikApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) {
+      debugShowCheckedModeBanner: false, builder: (context, child) {
         // todo https://github.com/Codelessly/ResponsiveFramework/issues/38
 
         return Container(
