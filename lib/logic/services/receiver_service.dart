@@ -41,11 +41,11 @@ class ReceiverService extends ChangeNotifier {
     }
   }
 
-  static Future<List<Receiver>> _run(String ip) async {
-    final _ = ip.split('.');
+  static Future<List<Receiver>> _run(String _ip) async {
+    final _ = _ip.split('.');
     final thisDevice = int.parse(_.removeLast());
 
-    ip = _.join('.');
+    final ip = _.join('.');
 
     final devices = [
       for (var e in List.generate(254, (index) => index + 1))

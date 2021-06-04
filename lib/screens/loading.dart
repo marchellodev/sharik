@@ -3,12 +3,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/logic/theme.dart';
 
 import '../components/page_router.dart';
 import '../conf.dart';
 import '../logic/language.dart';
 import '../logic/sharing_object.dart';
+import '../logic/theme.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override

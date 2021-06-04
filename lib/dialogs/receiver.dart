@@ -14,8 +14,6 @@ import '../utils/helper.dart';
 import 'open_dialog.dart';
 import 'select_network.dart';
 
-// todo restart the timer when changing the network interface
-
 // todo only styling is left
 
 // review: done
@@ -125,9 +123,14 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
               DialogTextButton(
                   context.l.sharingNetworkInterfaces,
                   receiverService.loaded
-                      ? () {
-                          openDialog(context,
+                      ? () async {
+                          final s = receiverService.ipService.selectedInterface;
+                          await openDialog(context,
                               PickNetworkDialog(receiverService.ipService));
+                          if (receiverService.ipService.selectedInterface !=
+                              s) {
+                            receiverService.loop = 0;
+                          }
                         }
                       : null),
               DialogTextButton(context.l.generalClose, () {

@@ -8,6 +8,8 @@ import '../components/buttons.dart';
 import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
+// review: done
+
 class ShareTextDialog extends StatefulWidget {
   @override
   _ShareTextDialogState createState() => _ShareTextDialogState();

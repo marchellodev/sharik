@@ -196,8 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             margin: const EdgeInsets.only(left: 24, right: 24),
             child: Text(
-              // todo rename to history
-              c.l.homeLatest,
+              c.l.homeHistory,
               style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
             ),
           ),
@@ -285,7 +284,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: PrimaryButton(
                 height: 50,
                 onClick: () async {
-                  // todo return the file model instead for consistency
                   final f = await openDialog(context, ShareTextDialog());
                   if (f != null) {
                     shareFile(f);
@@ -301,7 +299,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // todo as a component
   Widget card(BuildContext c, SharingObject f) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),

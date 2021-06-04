@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,7 +14,10 @@ import '../dialogs/open_dialog.dart';
 import '../logic/services/update_service.dart';
 import '../utils/helper.dart';
 
-// todo check fonts for consistence
+// todo styles
+// todo check fonts for consistency
+
+// review: done
 class AboutScreen extends StatelessWidget {
   final updateService = UpdateService();
 
@@ -65,36 +67,30 @@ class AboutScreen extends StatelessWidget {
                 builder: (ctx, _) {
                   ctx.watch<UpdateService>();
 
-                  print('upd');
                   return Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Current version',
-                              style: TextStyle(
-                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
-                          const Text(currentVersion,
-                              style: TextStyle(
-                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
+                          Text(context.l.aboutInstalledVersion,
+                              style: GoogleFonts.jetBrainsMono(fontSize: 16)),
+                          Text(currentVersion,
+                              style: GoogleFonts.jetBrainsMono(fontSize: 16)),
                         ],
                       ),
-                      SizedBox(height: 12),
+                      const SizedBox(height: 12),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('The latest version',
-                              style: TextStyle(
-                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
-                          Text(updateService.latestVersion ?? 'unknown',
-                              style: TextStyle(
-                                  fontFamily: 'JetBrainsMono', fontSize: 16)),
+                          Text(context.l.aboutLatestVersion,
+                              style: GoogleFonts.jetBrainsMono(fontSize: 16)),
+                          Text(
+                              updateService.latestVersion ??
+                                  context.l.aboutLatestVersionUnknown,
+                              style: GoogleFonts.jetBrainsMono(fontSize: 16)),
                         ],
                       ),
-                      SizedBox(height: 18),
-                      //    splashColor: Colors.deepPurple.shade500.withOpacity(0.32),
-                      //           hoverColor: Colors.deepPurple.shade50.withOpacity(0.4),
-
+                      const SizedBox(height: 18),
                       Row(
                         children: [
                           Expanded(
@@ -104,12 +100,13 @@ class AboutScreen extends StatelessWidget {
                                   UpdateServiceState.loading,
                               text:
                                   updateService.state == UpdateServiceState.none
-                                      ? 'Check for updates'
+                                      ? context.l.aboutCheckForUpdates
                                       : (updateService.state ==
                                               UpdateServiceState.upgradable
-                                          ? 'Update'
-                                          : 'No updates'),
-                              font: 'JetBrainsMono',
+                                          ? context.l.aboutUpdate
+                                          : context.l.aboutNoUpdates),
+                              font: 'JetBrains Mono',
+                              fontSize: 16,
                               onClick: updateService.state !=
                                       UpdateServiceState.loading
                                   ? () {
@@ -126,7 +123,7 @@ class AboutScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 12),
                           // todo as a component
-                          // todo display when the button is disabled
+                          // todo styling
                           Expanded(
                             child: SizedBox(
                               height: 40,
@@ -167,18 +164,18 @@ class AboutScreen extends StatelessWidget {
                                     margin: const EdgeInsets.symmetric(
                                         vertical: 8, horizontal: 12),
                                     child: Text(
-                                      'Changelog',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: (updateService.state ==
-                                                      UpdateServiceState
-                                                          .upgradable ||
-                                                  updateService.state ==
-                                                      UpdateServiceState.latest)
-                                              ? Colors.deepPurple.shade700
-                                              : Colors.deepPurple.shade700
-                                                  .withOpacity(0.8),
-                                          fontFamily: 'JetBrainsMono'),
+                                      context.l.aboutChangelog,
+                                      style: GoogleFonts.jetBrainsMono(
+                                        fontSize: 16,
+                                        color: (updateService.state ==
+                                                    UpdateServiceState
+                                                        .upgradable ||
+                                                updateService.state ==
+                                                    UpdateServiceState.latest)
+                                            ? Colors.deepPurple.shade700
+                                            : Colors.deepPurple.shade700
+                                                .withOpacity(0.8),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -192,8 +189,7 @@ class AboutScreen extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 42),
-              Text(
-                  'Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :>',
+              Text(context.l.aboutSharikText,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.getFont(context.l.fontComfortaa,
                       fontSize: 16)),
@@ -203,36 +199,44 @@ class AboutScreen extends StatelessWidget {
                 children: [
                   TransparentButton(
                       Icon(FeatherIcons.github,
-                          size: 24, color: context.t.dividerColor),
-                      () {},
-                      TransparentButtonBackground.def),
+                          size: 24, color: context.t.dividerColor), () {
+                    launch('https://github.com/marchellodev/sharik');
+                  }, TransparentButtonBackground.def),
                   const SizedBox(width: 4),
                   TransparentButton(
-                    SvgPicture.asset(
-                      'assets/icons/social/telegram.svg',
-                      width: 23,
-                      height: 23,
-                      color: context.t.dividerColor,
-                    ),
-                    () {},
+                    Icon(FeatherIcons.twitter,
+                        size: 24, color: context.t.dividerColor),
+                    () {
+                      launch('https://twitter.com/sharik_foss');
+                    },
                     TransparentButtonBackground.def,
                   ),
                 ],
               ),
-              const SizedBox(height: 34),
+              const SizedBox(height: 26),
               ListButton(
-                  Text('Open Source Licenses',
+                  Text(context.l.aboutOpenSourceLicenses,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'JetBrainsMono',
+                      style: GoogleFonts.jetBrainsMono(
                           fontSize: 15,
                           color: Colors.grey.shade50,
                           letterSpacing: 0.1)), () {
                 openDialog(context, LicensesDialog());
                 // showLicensePage(context: context, applicationName: 'Sharik');
               }),
-              const SizedBox(height: 22),
-              Text('Contributors',
+              const SizedBox(height: 12),
+              ListButton(
+                  Text(context.l.aboutTrackingPolicy,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.jetBrainsMono(
+                          fontSize: 15,
+                          color: Colors.grey.shade50,
+                          letterSpacing: 0.1)), () {
+                openDialog(context, LicensesDialog());
+                // showLicensePage(context: context, applicationName: 'Sharik');
+              }),
+              const SizedBox(height: 32),
+              Text(context.l.aboutContributors,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.getFont(context.l.fontComfortaa,
                       fontSize: 18, fontWeight: FontWeight.bold)),
@@ -263,8 +267,7 @@ class _ContributorCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(obj.name,
-                    style: TextStyle(
-                        fontFamily: 'JetBrainsMono',
+                    style: GoogleFonts.jetBrainsMono(
                         fontSize: 16,
                         color: Colors.grey.shade50,
                         letterSpacing: 0.1)),

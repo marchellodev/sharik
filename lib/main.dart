@@ -40,25 +40,22 @@ class SharikApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, builder: (context, child) {
-        // todo https://github.com/Codelessly/ResponsiveFramework/issues/38
+      debugShowCheckedModeBanner: false,
+      builder: (context, child) {
+        // todo add support for landscape mode https://github.com/Codelessly/ResponsiveFramework/issues/38
 
-        return Container(
-          // key: UniqueKey(),
-          child: ResponsiveWrapper.builder(
+        return ResponsiveWrapper.builder(
             ScrollConfiguration(
               behavior: BouncingScrollBehavior(),
               child: child!,
             ),
-
-            minWidth: 480,
+            minWidth: 420,
             defaultScale: true,
-            // breakpoints:
-            //     MediaQuery.of(context).orientation == Orientation.portrait
-            //         ? portraitBrakepoints
-            //         : landscapeBrakepoints
-          ),
-        );
+            breakpoints: [
+              const ResponsiveBreakpoint.resize(400, name: MOBILE),
+              const ResponsiveBreakpoint.autoScale(680, name: TABLET),
+              const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP),
+            ]);
       },
       // builder: DevicePreview.appBuilder, //
       locale: context.watch<LanguageManager>().language.locale,

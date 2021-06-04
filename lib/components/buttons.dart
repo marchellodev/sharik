@@ -68,15 +68,10 @@ class PrimaryButton extends StatelessWidget {
                             ),
                           )
                         : Text(text,
-                            style: font != 'JetBrainsMono'
-                                ? GoogleFonts.getFont(
-                                    font ?? context.l.fontAndika,
-                                    color: Colors.grey.shade100,
-                                    fontSize: fontSize.toDouble())
-                                : TextStyle(
-                                    fontFamily: 'JetBrainsMono',
-                                    fontSize: 16,
-                                    color: Colors.grey.shade100)),
+                            style: GoogleFonts.getFont(
+                                font ?? context.l.fontAndika,
+                                color: Colors.grey.shade100,
+                                fontSize: fontSize.toDouble())),
                   ),
           ),
         ));

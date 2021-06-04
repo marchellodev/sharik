@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
 
+// todo review the process of defining the current connectivity method
 class LocalIpService extends ChangeNotifier {
   List<NetworkInterface>? interfaces;
   String? _selectedInterface;
 
-  set selectedInterface(String selectedInterface) {
+  set selectedInterface(String? selectedInterface) {
     _selectedInterface = selectedInterface;
     notifyListeners();
   }
+
+  String? get selectedInterface => _selectedInterface;
 
   Future<void> load() async {
     interfaces = await NetworkInterface.list(type: InternetAddressType.IPv4);

@@ -35,7 +35,6 @@ dependencies:
   #  device_preview: ^0.7.1
 
 
-  # todo https://pub.dev/packages/flutter_native_splash
 
   # UTILS
   http: ^0.13.3
@@ -51,6 +50,7 @@ dependencies:
   intl: ^0.17.0
   collection: ^1.15.0
 
+  # todo implement
   receive_sharing_intent: ^1.4.5
 
 

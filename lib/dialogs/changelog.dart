@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../components/buttons.dart';
 import '../utils/helper.dart';
 
-
 // review: done
 
 class ChangelogDialog extends StatelessWidget {

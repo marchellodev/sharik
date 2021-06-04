@@ -57,7 +57,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
           _apps.add(el);
         }
       }
-      if(selected != null && !_apps.contains(selected)){
+      if (selected != null && !_apps.contains(selected)) {
         selected = null;
       }
     }
