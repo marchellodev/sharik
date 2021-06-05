@@ -20,7 +20,7 @@ Map<String, String> get getPl => {
       'The recipient needs to be connected': 'Penerima harus tersambung',
       'to the same network': 'ke jaringan yang sama',
       'Select file': 'Pilih berkas',
-      'Latest': 'Akhir-akhir ini',
+      'Latest': 'Baru-baru ini',
       'Undefined': 'Tidak ditetapkan',
       'EVERYWHERE': 'DIMANAPUN',
       'Sharik is available for Android, Windows, MacOS and Linux!':
