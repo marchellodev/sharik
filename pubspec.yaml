@@ -22,6 +22,8 @@ dependencies:
 
   # UI
   flutter_feather_icons: ^2.0.0+1
+  glyphicon: ^0.2.0
+
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
   intro_slider: ^2.4.3
@@ -30,6 +32,7 @@ dependencies:
   qr_flutter: ^4.0.0
   flutter_markdown: ^0.6.2
 
+  # todo linux support
   wakelock: ^0.5.2
 
   #  device_preview: ^0.7.1
@@ -94,6 +97,7 @@ flutter:
   assets:
     - assets/slides/
     - assets/flags/
+    - assets/files/
     - assets/icons/social/
     - assets/
     - google_fonts/

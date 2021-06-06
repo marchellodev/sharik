@@ -127,11 +127,13 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 ),
                 child: Row(
                   children: <Widget>[
-                    SvgPicture.asset(
+                    Icon(
                       _file.icon,
+                      size: 24,
+                      color: Colors.grey.shade200,
                       //todo: add semantics stuff everywhere
-                      semanticsLabel: 'file',
-                      width: 18,
+                      // semanticsLabel: 'file',
+                      // width: 18,
                     ),
                     const SizedBox(
                       width: 12,

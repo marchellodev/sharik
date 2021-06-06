@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:glyphicon/glyphicon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
@@ -52,14 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await saveLatest();
 
-    // context.n.file = file;
-    // context.n.page = SharingPage();
     SharikRouter.navigateTo(
         context, context.widget, Screens.sharing, RouteDirection.right, file);
-    // _model.file = file;
-    // _model.setState(() => _model.setPage(PageModel.sharing));
   }
 
+  // todo scroll history header with listview builder
+  // todo review paddings
   @override
   Widget build(BuildContext c) {
     return Scaffold(
@@ -72,32 +71,33 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 34),
         Expanded(
           child: LayoutBuilder(builder: (context, constraints) {
+            // todo review constraints
             if (constraints.maxWidth < 800) {
               return Column(
                 children: [
-                  sharingPart(c),
+                  sharingButtons(c),
                   const SizedBox(
                     height: 22,
                   ),
-                  latestHeaderPart(c),
+                  sharingHistoryHeader(c),
                   Expanded(
-                    child: latestListPart(c),
+                    child: sharingHistoryList(c),
                   ),
                 ],
               );
             } else {
               return Row(
                 children: [
-                  Expanded(child: sharingPart(c)),
+                  Expanded(child: sharingButtons(c)),
                   // const SizedBox(
                   //   height: 12,
                   // ),
                   Expanded(
                       child: Column(
                     children: [
-                      latestHeaderPart(c),
+                      sharingHistoryHeader(c),
                       Expanded(
-                        child: latestListPart(c),
+                        child: sharingHistoryList(c),
                       ),
                     ],
                   ))
@@ -157,10 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
               TransparentButton(
                   Text(
                     'sharik v$currentVersion',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.deepPurple.shade700,
-                        fontFamily: 'JetBrainsMono'),
+                    style: GoogleFonts.jetBrainsMono(
+                        fontSize: 16, color: Colors.deepPurple.shade700),
                   ),
                   () => SharikRouter.navigateTo(context, context.widget,
                       Screens.about, RouteDirection.right),
@@ -181,15 +179,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget latestListPart(BuildContext c) {
+  Widget sharingHistoryList(BuildContext c) {
     return ListView.builder(
         shrinkWrap: true,
+        // todo review paddings
         padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
         itemCount: _latest.length,
         itemBuilder: (context, index) => card(context, _latest[index]));
   }
 
-  Widget latestHeaderPart(BuildContext c) {
+  Widget sharingHistoryHeader(BuildContext c) {
     if (_latest.isNotEmpty) {
       return Row(
         children: [
@@ -215,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Widget sharingPart(BuildContext c) {
+  Widget sharingButtons(BuildContext c) {
     return Column(
       children: [
         Padding(
@@ -241,8 +240,10 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
             text: c.l.homeSelectFile,
-            secondaryIcon: SvgPicture.asset(
-              'assets/icon_file.svg',
+            secondaryIcon: Icon(
+              Glyphicon.file_earmark,
+              size: 48,
+              color: Colors.deepPurple.shade200.withOpacity(0.9),
             ),
           ),
         ),
@@ -304,11 +305,14 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: ListButton(
           Row(
+            // todo remove those
             children: <Widget>[
-              SvgPicture.asset(
+              Icon(
                 f.icon,
-                semanticsLabel: 'file',
-                width: 18,
+                size: 22,
+                color: Colors.grey.shade100,
+                // semanticsLabel: 'file',
+                // width: 18,
               ),
               const SizedBox(
                 width: 12,
