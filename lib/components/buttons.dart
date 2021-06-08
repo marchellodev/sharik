@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -50,6 +51,7 @@ class PrimaryButton extends StatelessWidget {
                       ),
                       Center(
                           child: Text(text,
+                              textAlign: TextAlign.center,
                               style: GoogleFonts.getFont(
                                   font ?? context.l.fontAndika,
                                   color: Colors.grey.shade100,
@@ -68,6 +70,7 @@ class PrimaryButton extends StatelessWidget {
                             ),
                           )
                         : Text(text,
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.getFont(
                                 font ?? context.l.fontAndika,
                                 color: Colors.grey.shade100,

@@ -82,10 +82,9 @@ class SharingObject {
       ['jfproj', 'woff', 'ttf', 'otf']: Glyphicon.file_earmark_font,
       ['png', 'jpg', 'gif', 'svg', 'ai', 'psd']: Glyphicon.file_earmark_image,
       ['mp3', 'odd']: Glyphicon.file_earmark_music,
-      // todo pdf
-      // []: Glyphicon.file_earmark_pdf,
-      ['mp4', 'avi', 'webm', 'sub', 'srt', 'mpv']:
-          Glyphicon.file_earmark_play,
+
+      ['pdf']: Glyphicon.file_earmark_pdf,
+      ['mp4', 'avi', 'webm', 'sub', 'srt', 'mpv']: Glyphicon.file_earmark_play,
       // https://support.microsoft.com/en-us/office/file-formats-that-are-supported-in-powerpoint-252c6fa0-a4bc-41be-ac82-b77c9773f9dc
       ['pptx', 'pptm', 'ppt', 'potx', 'potm', 'pot']:
           Glyphicon.file_earmark_ppt,

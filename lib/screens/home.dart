@@ -6,7 +6,6 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:glyphicon/glyphicon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
@@ -57,13 +56,21 @@ class _HomeScreenState extends State<HomeScreen> {
         context, context.widget, Screens.sharing, RouteDirection.right, file);
   }
 
+  // todo fix hoverdb files in the Documents dir on Linux
   // todo scroll history header with listview builder
   // todo review paddings
   @override
   Widget build(BuildContext c) {
     return Scaffold(
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const SafeArea(child: SizedBox(height: 28)),
+        const SafeArea(
+          bottom: false,
+          left: false,
+          right: false,
+          child: SizedBox(
+            height: 16,
+          ),
+        ),
         Hero(
           tag: 'icon',
           child: SharikLogo(),
@@ -72,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Expanded(
           child: LayoutBuilder(builder: (context, constraints) {
             // todo review constraints
-            if (constraints.maxWidth < 800) {
+            if (constraints.maxWidth < 720) {
               return Column(
                 children: [
                   sharingButtons(c),

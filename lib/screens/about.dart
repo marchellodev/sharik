@@ -41,7 +41,14 @@ class AboutScreen extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             children: [
-              const SafeArea(child: SizedBox(height: 28)),
+              const SafeArea(
+                bottom: false,
+                left: false,
+                right: false,
+                child: SizedBox(
+                  height: 16,
+                ),
+              ),
               Stack(
                 children: [
                   Hero(
@@ -63,7 +70,7 @@ class AboutScreen extends StatelessWidget {
               ),
               const SizedBox(height: 34),
               LayoutBuilder(builder: (context, constraints) {
-                if (constraints.maxWidth < 800) {
+                if (constraints.maxWidth < 720) {
                   return Column(
                     children: [
                       updatingLinksButtonsSection(context),

@@ -25,6 +25,7 @@ import 'utils/material_ink_well.dart';
 // - font licenses
 // - get rid of all prints
 // - add an icon to the android notifications bar
+const responsivenessDebug = true;
 
 void main() {
   runApp(MultiProvider(
@@ -43,18 +44,26 @@ class SharikApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         // todo add support for landscape mode https://github.com/Codelessly/ResponsiveFramework/issues/38
-
+        // DevicePreview.appBuilder
         return ResponsiveWrapper.builder(
             ScrollConfiguration(
               behavior: BouncingScrollBehavior(),
               child: child!,
             ),
-            minWidth: 420,
+            minWidth: 400,
             defaultScale: true,
             breakpoints: [
               const ResponsiveBreakpoint.resize(400, name: MOBILE),
               const ResponsiveBreakpoint.autoScale(680, name: TABLET),
-              const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP),
+              const ResponsiveBreakpoint.autoScale(1100,
+                  name: DESKTOP, scaleFactor: 1.2),
+            ],
+            landscapeBreakpoints: [
+              const ResponsiveBreakpoint.resize(400,
+                  name: MOBILE, scaleFactor: 0.7),
+              const ResponsiveBreakpoint.autoScale(680,
+                  name: TABLET, scaleFactor: 0.7),
+              // const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP, scaleFactor: 0.5),
             ]);
       },
       // builder: DevicePreview.appBuilder, //

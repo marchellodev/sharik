@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sharik/components/grid_view.dart';
 
 import '../components/buttons.dart';
 import '../components/logo.dart';
@@ -16,36 +17,50 @@ class LanguagePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        children: [
-          const SafeArea(
-            child: SizedBox(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          children: [
+            const SafeArea(
+              bottom: false,
+              left: false,
+              right: false,
+              child: SizedBox(
+                height: 24,
+              ),
+            ),
+            SharikLogo(),
+            const SizedBox(
               height: 24,
             ),
-          ),
-          SharikLogo(),
-          const SizedBox(
-            height: 24,
-          ),
-          Text(
-            'Select the language\nyou are familiar with',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(
-              'Comfortaa',
-              fontSize: 24,
+            Text(
+              'Select the language\nyou are familiar with',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.getFont(
+                'Comfortaa',
+                fontSize: 24,
+              ),
             ),
-          ),
-          const SizedBox(height: 24),
-          for (var lang in languageList) ...[
-            LanguageButton(lang, () {
-              context.read<LanguageManager>().language = lang;
-              SharikRouter.navigateTo(
-                  context, this, Screens.intro, RouteDirection.right);
-            }),
-            const SizedBox(height: 6)
-          ],
-        ],
-      ),
+            const SizedBox(height: 24),
+            LayoutBuilder(builder: (context, constraints) {
+              return GridView.builder(
+                gridDelegate:
+                    SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                  crossAxisCount: constraints.maxWidth < 720 ? 1 : 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 8,
+                  height: 80,
+                ),
+                shrinkWrap: true,
+                itemCount: languageList.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    LanguageButton(languageList[index], () {
+                  context.read<LanguageManager>().language =
+                      languageList[index];
+                  SharikRouter.navigateTo(
+                      context, this, Screens.intro, RouteDirection.right);
+                }),
+              );
+            })
+          ]),
     );
   }
 }
@@ -60,7 +75,7 @@ class LanguageButton extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: PrimaryButton(
-        height: 78,
+        height: 80,
         onClick: onClick,
         text: language.nameLocal,
         secondaryIcon: SvgPicture.asset(
