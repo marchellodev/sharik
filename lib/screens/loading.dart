@@ -122,7 +122,7 @@ Future<void> _initAnalytics(BuildContext context) async {
       browserWidth: MediaQuery.of(context).size.width,
       browserHeight: MediaQuery.of(context).size.height,
       browserName:
-          'Sharik ${context.read<LanguageManager>().language.name} $currentVersion',
+          'Sharik ${context.read<LanguageManager>().language.name}',
       browserVersion: currentVersion,
       deviceName: Platform.localHostname,
       deviceManufacturer: Platform.operatingSystem,
