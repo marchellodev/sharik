@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -102,7 +103,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 left: false,
                 right: false,
                 child: SizedBox(
-                  height: 16,
+                  height: 22,
                 ),
               ),
               Stack(
@@ -163,6 +164,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   }
 
   Widget fileConnectivitySection(BuildContext context) {
+    final fileNameScroller = ScrollController();
+
     return Column(
       children: [
         Container(
@@ -170,9 +173,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-
-            // todo replace with .shade400
-            color: Colors.deepPurple[400],
+            color: Colors.deepPurple.shade400,
           ),
           child: Row(
             children: [
@@ -182,22 +183,26 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 color: Colors.grey.shade200,
                 //todo: add semantics stuff everywhere
                 // semanticsLabel: 'file',
-                // width: 18,
               ),
               const SizedBox(
                 width: 12,
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    _file.data.toString(),
-                    style: GoogleFonts.getFont(
-                      'Andika',
-                      color: Colors.white,
-                      fontSize: 18,
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  controller: fileNameScroller,
+                  child: SingleChildScrollView(
+                    controller: fileNameScroller,
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      _file.data.toString(),
+                      style: GoogleFonts.getFont(
+                        'Andika',
+                        color: Colors.grey.shade50,
+                        fontSize: 18,
+                      ),
+                      maxLines: 1,
                     ),
-                    maxLines: 1,
                   ),
                 ),
               )
@@ -208,7 +213,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: Colors.deepPurple[400],
+            color: Colors.deepPurple.shade400,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,10 +221,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               Padding(
                   padding: const EdgeInsets.only(left: 16, top: 16),
                   child: Icon(FeatherIcons.wifi,
-                      color: Colors.grey.shade50, size: 16)),
-              const SizedBox(
-                width: 12,
-              ),
+                      color: Colors.grey.shade50, size: 20)),
+              const SizedBox(width: 12),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(top: 10),
@@ -234,43 +237,22 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                               scrollDirection: Axis.horizontal,
                               child: Text(
                                 connectivity2string(
+                                    // todo do language inside too
                                     _ipService.getConnectivityType()),
                                 style: GoogleFonts.getFont(
-                                  'Andika',
-                                  color: Colors.white,
+                                  context.l.fontAndika,
+                                  color: Colors.grey.shade50,
                                   fontSize: 18,
                                 ),
                               ),
                             ),
-                            RichText(
-                              text: TextSpan(
-                                  style: GoogleFonts.getFont(
-                                    'Andika',
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                  children: [
-                                    const TextSpan(text: 'Connect to'),
-                                    if (Platform.isAndroid || Platform.isIOS)
-                                      TextSpan(
-                                          text: ' Wi-Fi ',
-                                          style: TextStyle(
-                                              color: false
-                                                  ? Colors.green[100]
-                                                  : Colors.red[100]))
-                                    else
-                                      const TextSpan(text: ' Wi-Fi '),
-                                    const TextSpan(text: 'or set up a'),
-                                    if (Platform.isAndroid || Platform.isIOS)
-                                      TextSpan(
-                                          text: ' Mobile Hotspot',
-                                          style: TextStyle(
-                                              color: false
-                                                  ? Colors.green[100]
-                                                  : Colors.red[100]))
-                                    else
-                                      const TextSpan(text: ' Mobile Hotspot'),
-                                  ]),
+                            Text(
+                              context.l.sharingConnectToWiFiOrHotspot,
+                              style: GoogleFonts.getFont(
+                                context.l.fontAndika,
+                                fontSize: 16,
+                                color: Colors.grey.shade100,
+                              ),
                             ),
                             const SizedBox(
                               height: 12,
@@ -283,7 +265,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               const SizedBox(
                 width: 12,
               ),
-              // todo do not use pure white
+              // todo do not use pure white (about screen)
               Padding(
                 padding: const EdgeInsets.all(3),
                 child: TransparentButton(
@@ -295,8 +277,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(1),
-                          child: Icon(FeatherIcons.refreshCw,
-                              size: 14, color: Colors.grey.shade100),
+                          child: Icon(
+                            FeatherIcons.refreshCw,
+                            size: 14,
+                            color: Colors.grey.shade100,
+                          ),
                         )), () {
                   _conController.forward(from: 0);
                   _ipService.load();
@@ -310,13 +295,15 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   }
 
   Widget linkSection(BuildContext context) {
+    final urlScroller = ScrollController();
+
     return Column(
       children: [
         Center(
             child: Text(
-          'Now open this link\nin any browser',
+          context.l.sharingOpenInBrowser,
           style: GoogleFonts.getFont(
-            'Comfortaa',
+            context.l.fontComfortaa,
             fontSize: 20,
           ),
           textAlign: TextAlign.center,
@@ -332,43 +319,43 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
             context.watch<SharingService>();
 
             final displayAddress =
-                'http://${_ipService.getIp()}:${_sharingService.port ?? 'loading'}';
+                'http://${_ipService.getIp()}:${_sharingService.port ?? context.l.generalLoading}';
             return Column(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple[400],
+                    color: Colors.deepPurple.shade400,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   height: 42,
                   margin: const EdgeInsets.symmetric(horizontal: 2),
                   child: Row(
                     children: [
+                      // todo review paddings
                       const SizedBox(
                         width: 14,
                       ),
                       Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Text(
-                                'http://',
-                                // todo translate loading
-
-                                // todo remove TextStyle
-                                style: GoogleFonts.getFont('Andika',
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                              Text(
-                                displayAddress.replaceFirst('http://', ''),
-                                // todo translate loading
-
-                                // todo remove TextStyle
-                                style: GoogleFonts.getFont('Andika',
-                                    color: Colors.white, fontSize: 18),
-                              ),
-                            ],
+                        child: Scrollbar(
+                          controller: urlScroller,
+                          isAlwaysShown: true,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            controller: urlScroller,
+                            child: Row(
+                              children: [
+                                Text(
+                                  'http://',
+                                  style: GoogleFonts.getFont('Andika',
+                                      color: Colors.grey.shade50, fontSize: 12),
+                                ),
+                                Text(
+                                  displayAddress.replaceFirst('http://', ''),
+                                  style: GoogleFonts.getFont('Andika',
+                                      color: Colors.grey.shade50, fontSize: 18),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -377,32 +364,31 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       ),
                       // todo fix the splash color
                       TransparentButton(
-                          const Icon(Icons.qr_code_outlined,
-                              size: 17, color: Colors.white),
+                          Icon(Icons.qr_code_outlined,
+                              size: 17, color: Colors.grey.shade50),
                           () => setState(() => _stateShowQr = !_stateShowQr),
                           TransparentButtonBackground.purpleDark),
 
                       TransparentButton(
-                          const Icon(FeatherIcons.copy,
-                              size: 16, color: Colors.white), () {
+                          Icon(FeatherIcons.copy,
+                              size: 16, color: Colors.grey.shade50), () {
                         Clipboard.setData(ClipboardData(text: displayAddress))
                             .then((result) {
                           final snackBar = SnackBar(
-                            backgroundColor: Colors.deepPurple[500],
+                            backgroundColor: Colors.deepPurple.shade500,
                             duration: const Duration(seconds: 1),
-                            // todo translate
                             content: Text(
-                              'Copied to Clipboard',
-                              style: GoogleFonts.getFont('Andika',
-                                  color: Colors.white),
+                              context.l.sharingCopiedToClipboard,
+                              style: GoogleFonts.getFont(context.l.fontAndika,
+                                  color: Colors.grey.shade50),
                             ),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
                       }, TransparentButtonBackground.purpleDark),
                       TransparentButton(
-                          const Icon(FeatherIcons.server,
-                              size: 16, color: Colors.white), () {
+                          Icon(FeatherIcons.server,
+                              size: 16, color: Colors.grey.shade50), () {
                         // todo make sure we have loaded the interfaces
                         openDialog(context, PickNetworkDialog(_ipService));
                       }, TransparentButtonBackground.purpleDark),
@@ -412,9 +398,13 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 38),
                 AnimatedContainer(
+                  padding: EdgeInsets.zero,
                   duration: const Duration(milliseconds: 200),
                   height: _stateShowQr
-                      ? MediaQuery.of(context).size.width - 24 * 2
+                      // todo wrap into LayoutBuilder and use constraints instead
+                      ? (MediaQuery.of(context).size.width < 720
+                          ? MediaQuery.of(context).size.width - 24 * 2
+                          : (MediaQuery.of(context).size.width / 2) - 24 * 2)
                       : 0,
                   child: Center(
                     child: QrImage(
@@ -437,9 +427,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
             color: Colors.deepPurple.shade300,
           ),
           child: Text(
-            'The recipient needs to be connected\nto the same network',
+            context.l.sharingRecipientNeedsToBeConnected,
             textAlign: TextAlign.center,
-            style: GoogleFonts.getFont('Andika',
+            style: GoogleFonts.getFont(context.l.fontAndika,
                 color: Colors.white, fontSize: 18),
           ),
         ),

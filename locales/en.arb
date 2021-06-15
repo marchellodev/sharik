@@ -19,6 +19,8 @@
   "introGeneralNext": "NEXT",
   "generalClose": "Close",
   "generalSend": "Send",
+  "generalOpenInGithub": "Open in GitHub",
+  "generalLoading": "Loading",
 
   "@_INTRO_PAGE": {},
   "intro1ConnectTitle": "CONNECT",
@@ -43,12 +45,17 @@
   "aboutSharikText": "Sharik is completely free with its code published on GitHub.\nEveryone is welcomed to contribute :>",
   "aboutChangelog": "Changelog",
   "aboutLicenses": "Licenses",
+  "aboutPrivacyPolicy": "Privacy policy",
 
 
   "@_SHARING_PAGE": {},
   "sharingReceiver": "Receiver",
   "sharingNetworkInterfaces": "Network interfaces",
   "sharingSelectNetworkInterface": "Select network interface",
+  "sharingCopiedToClipboard": "Copied to Clipboard",
+  "sharingRecipientNeedsToBeConnected": "The recipient needs to be connected\nto the same network",
+  "sharingOpenInBrowser": "Now open this link\nin any browser",
+  "sharingConnectToWiFiOrHotspot": "Connect to Wi-Fi or set up a Mobile Hotspot",
 
 
   "fontAndika": "Andika",

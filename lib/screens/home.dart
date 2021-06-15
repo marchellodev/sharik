@@ -29,25 +29,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<SharingObject> _latest = <SharingObject>[];
+  List<SharingObject> _history = <SharingObject>[];
 
   @override
   void initState() {
-    _latest = Hive.box<SharingObject>('history').values.toList();
+    _history = Hive.box<SharingObject>('history').values.toList();
 
     super.initState();
   }
 
   Future<void> saveLatest() async {
     await Hive.box<SharingObject>('history').clear();
-    await Hive.box<SharingObject>('history').addAll(_latest);
+    await Hive.box<SharingObject>('history').addAll(_history);
   }
 
   Future<void> shareFile(SharingObject file) async {
     setState(() {
-      if (_latest.contains(file)) _latest.remove(file);
+      if (_history.contains(file)) _history.remove(file);
 
-      _latest.insert(0, file);
+      _history.insert(0, file);
     });
 
     await saveLatest();
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           left: false,
           right: false,
           child: SizedBox(
-            height: 16,
+            height: 22,
           ),
         ),
         Hero(
@@ -163,9 +163,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const Spacer(),
               TransparentButton(
                   Text(
-                    'sharik v$currentVersion',
+                    'sharik v$currentVersion →',
                     style: GoogleFonts.jetBrainsMono(
-                        fontSize: 16, color: Colors.deepPurple.shade700),
+                      fontSize: 16,
+                      color: Colors.deepPurple.shade700,
+                    ),
                   ),
                   () => SharikRouter.navigateTo(context, context.widget,
                       Screens.about, RouteDirection.right),
@@ -174,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         Container(
-          color: Colors.deepPurple[100],
+          color: Colors.deepPurple.shade100,
           child: SafeArea(
             top: false,
             right: false,
@@ -191,12 +193,12 @@ class _HomeScreenState extends State<HomeScreen> {
         shrinkWrap: true,
         // todo review paddings
         padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
-        itemCount: _latest.length,
-        itemBuilder: (context, index) => card(context, _latest[index]));
+        itemCount: _history.length,
+        itemBuilder: (context, index) => card(context, _history[index]));
   }
 
   Widget sharingHistoryHeader(BuildContext c) {
-    if (_latest.isNotEmpty) {
+    if (_history.isNotEmpty) {
       return Row(
         children: [
           Container(
@@ -210,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
               margin: const EdgeInsets.only(right: 24),
               child: TransparentButton(const Icon(FeatherIcons.trash), () {
-                setState(() => _latest.clear());
+                setState(() => _history.clear());
 
                 saveLatest();
               }, TransparentButtonBackground.purpleDark))
@@ -234,15 +236,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 if (f != null) {
                   shareFile(SharingObject(
-                    data: (f.paths.first)!,
-                    type: SharingObjectType.file,
-                  ));
+                      data: (f.paths.first)!,
+                      type: SharingObjectType.file,
+                      name: SharingObject.getSharingName(
+                          SharingObjectType.file, (f.paths.first)!)));
                 }
               } else {
                 final f = await openFile();
                 if (f != null) {
                   shareFile(SharingObject(
-                      data: f.path, type: SharingObjectType.file));
+                    data: f.path,
+                    type: SharingObjectType.file,
+                    name: SharingObject.getSharingName(
+                        SharingObjectType.file, f.path),
+                  ));
                 }
               }
             },
@@ -312,8 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: ListButton(
           Row(
-            // todo remove those
-            children: <Widget>[
+            children: [
               Icon(
                 f.icon,
                 size: 22,

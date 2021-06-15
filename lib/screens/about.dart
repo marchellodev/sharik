@@ -24,6 +24,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // todo implement VisibilityDetector to close the app when back button is pressed on the home screen
       body: WillPopScope(
         onWillPop: () {
           SharikRouter.navigateTo(
@@ -46,7 +47,7 @@ class AboutScreen extends StatelessWidget {
                 left: false,
                 right: false,
                 child: SizedBox(
-                  height: 16,
+                  height: 22,
                 ),
               ),
               Stack(
@@ -263,6 +264,17 @@ class AboutScreen extends StatelessWidget {
         const SizedBox(height: 12),
         ListButton(
             Text(context.l.aboutTrackingPolicy,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.jetBrainsMono(
+                    fontSize: 15,
+                    color: Colors.grey.shade50,
+                    letterSpacing: 0.1)), () {
+          openDialog(context, LicensesDialog());
+          // showLicensePage(context: context, applicationName: 'Sharik');
+        }),
+        const SizedBox(height: 12),
+        ListButton(
+            Text(context.l.aboutPrivacyPolicy,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.jetBrainsMono(
                     fontSize: 15,

@@ -24,7 +24,7 @@ class LanguagePickerScreen extends StatelessWidget {
               left: false,
               right: false,
               child: SizedBox(
-                height: 24,
+                height: 22,
               ),
             ),
             SharikLogo(),
@@ -36,7 +36,7 @@ class LanguagePickerScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: GoogleFonts.getFont(
                 'Comfortaa',
-                fontSize: 24,
+                fontSize: 22,
               ),
             ),
             const SizedBox(height: 24),
@@ -49,6 +49,7 @@ class LanguagePickerScreen extends StatelessWidget {
                   mainAxisSpacing: 8,
                   height: 80,
                 ),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: languageList.length,
                 itemBuilder: (BuildContext context, int index) =>

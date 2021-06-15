@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,8 +15,6 @@ import 'utils/material_ink_well.dart';
 
 // todo before migrating locales:
 // - design review (colors, spacing, animations, etc)
-// - landscape mode support (home & about & sharing)
-// - calibrating responsive framework
 // - accessibility
 // - create sharing intent (android, ios, maybe desktop?)
 // - code cleanup & to-do review
@@ -25,7 +24,6 @@ import 'utils/material_ink_well.dart';
 // - font licenses
 // - get rid of all prints
 // - add an icon to the android notifications bar
-const responsivenessDebug = true;
 
 void main() {
   runApp(MultiProvider(
@@ -58,8 +56,13 @@ class SharikApp extends StatelessWidget {
               const ResponsiveBreakpoint.autoScale(1100,
                   name: DESKTOP, scaleFactor: 1.2),
             ],
-            landscapeBreakpoints: [
-              const ResponsiveBreakpoint.resize(400,
+            // landscapePlatforms: [
+            //   TargetPlatform.android,
+            //   TargetPlatform.iOS,
+            //   TargetPlatform.fuchsia
+            // ],
+            breakpointsLandscape: [
+              const ResponsiveBreakpoint.autoScaleDown(400,
                   name: MOBILE, scaleFactor: 0.7),
               const ResponsiveBreakpoint.autoScale(680,
                   name: TABLET, scaleFactor: 0.7),
@@ -134,18 +137,4 @@ class SharikApp extends StatelessWidget {
       home: LoadingScreen(),
     );
   }
-}
-
-Future<void> _initAnalytics() async {
-  // Analytics ga;
-  // if (Platform.isAndroid || Platform.isIOS) {
-  //   ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
-  // } else {
-  //   File('storage/.sharik').create(recursive: true);
-  //
-  //   ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
-  // }
-  //
-  // ga.sendEvent('pages', 'app_open');
-  // ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 }

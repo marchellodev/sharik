@@ -52,6 +52,8 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
                     Navigator.of(context).pop(SharingObject(
                       data: text,
                       type: SharingObjectType.text,
+                      name: SharingObject.getSharingName(
+                          SharingObjectType.text, text),
                     ));
                   }),
         const SizedBox(width: 4),

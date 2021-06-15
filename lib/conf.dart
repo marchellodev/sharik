@@ -52,6 +52,7 @@ String source2url(Sources source) {
   }
 }
 
+// todo mention code contributors too
 const contributors = <Contributor>[
   Contributor(
     name: 'Mark Motliuk',

@@ -18,7 +18,7 @@ class SharingObject {
   final String data;
 
   @HiveField(2)
-  late String name;
+  final String name;
 
   IconData get icon {
     switch (type) {
@@ -106,21 +106,17 @@ class SharingObject {
     return Glyphicon.file_earmark;
   }
 
-  SharingObject({required this.type, required this.data, String? fileName}) {
-    if (fileName == null) {
-      switch (type) {
-        case SharingObjectType.file:
-          name = data.split(Platform.isWindows ? '\\' : '/').last;
-          break;
-        case SharingObjectType.text:
-          final _ = data.trim().replaceAll('\n', ' ');
-          name = _.length >= 101 ? _.substring(0, 100) : _;
-          break;
-        case SharingObjectType.app:
-          throw Exception('when type is app, name is neccesary');
-      }
-    } else {
-      name = fileName;
+  SharingObject({required this.type, required this.data, required this.name});
+
+  static String getSharingName(SharingObjectType type, String data) {
+    switch (type) {
+      case SharingObjectType.file:
+        return data.split(Platform.isWindows ? '\\' : '/').last;
+      case SharingObjectType.text:
+        final _ = data.trim().replaceAll('\n', ' ');
+        return _.length >= 101 ? _.substring(0, 100) : _;
+      case SharingObjectType.app:
+        throw Exception('when type is app, name is neccesary');
     }
   }
 }

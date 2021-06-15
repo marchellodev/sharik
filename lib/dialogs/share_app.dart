@@ -164,7 +164,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                     Navigator.of(context).pop(SharingObject(
                         type: SharingObjectType.app,
                         data: selected!.apkFilePath,
-                        fileName: selected!.appName));
+                        name: selected!.appName));
                   }),
       ],
     );

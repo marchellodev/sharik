@@ -35,6 +35,9 @@ class ChangelogDialog extends StatelessWidget {
         listItemCrossAxisAlignment: MarkdownListItemCrossAxisAlignment.start,
       ),
       actions: [
+        DialogTextButton(context.l.generalOpenInGithub, () {
+          // todo
+        }),
         DialogTextButton(context.l.generalClose, () {
           Navigator.of(context).pop();
         }),

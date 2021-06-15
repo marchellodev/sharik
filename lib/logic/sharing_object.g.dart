@@ -63,7 +63,8 @@ class SharingObjectAdapter extends TypeAdapter<SharingObject> {
     return SharingObject(
       type: fields[0] as SharingObjectType,
       data: fields[1] as String,
-    )..name = fields[2] as String;
+      name: fields[2] as String,
+    );
   }
 
   @override
