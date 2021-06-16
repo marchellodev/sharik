@@ -72,11 +72,7 @@ dependencies:
   provider: ^5.0.0
 
   # ANALYTICS
-  # todo publish on pub.dev
-  ackee_dart:
-    git:
-      url: git://github.com/marchellodev/ackee_dart.git
-      ref: master
+  ackee_dart: ^0.0.1
 
 
 
@@ -106,6 +102,8 @@ flutter:
     - assets/flags/
     - assets/
     - google_fonts/
+    - privacy_policy.md
+    - tracking_policy.md
 
   fonts:
     - family: JetBrainsMono

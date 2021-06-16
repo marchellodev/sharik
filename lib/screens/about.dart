@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sharik/dialogs/policy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components/buttons.dart';
@@ -268,9 +270,16 @@ class AboutScreen extends StatelessWidget {
                 style: GoogleFonts.jetBrainsMono(
                     fontSize: 15,
                     color: Colors.grey.shade50,
-                    letterSpacing: 0.1)), () {
-          openDialog(context, LicensesDialog());
-          // showLicensePage(context: context, applicationName: 'Sharik');
+                    letterSpacing: 0.1)), () async {
+          final file = await rootBundle.loadString('tracking_policy.md');
+
+          openDialog(
+              context,
+              // todo url
+              PolicyDialog(
+                  markdown: file,
+                  name: context.l.aboutTrackingPolicy,
+                  url: ''));
         }),
         const SizedBox(height: 12),
         ListButton(
@@ -279,9 +288,13 @@ class AboutScreen extends StatelessWidget {
                 style: GoogleFonts.jetBrainsMono(
                     fontSize: 15,
                     color: Colors.grey.shade50,
-                    letterSpacing: 0.1)), () {
-          openDialog(context, LicensesDialog());
-          // showLicensePage(context: context, applicationName: 'Sharik');
+                    letterSpacing: 0.1)), () async {
+          final file = await rootBundle.loadString('privacy_policy.md');
+
+          openDialog(
+              context,
+              PolicyDialog(
+                  markdown: file, name: context.l.aboutPrivacyPolicy, url: ''));
         }),
       ],
     );

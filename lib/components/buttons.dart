@@ -176,7 +176,7 @@ class ListButton extends StatelessWidget {
       color: Colors.deepPurple.shade300,
       child: InkWell(
         splashColor: Colors.deepPurple.shade100.withOpacity(0.2),
-        hoverColor: Colors.deepPurple.shade100.withOpacity(0.8),
+        hoverColor: Colors.deepPurple.shade100.withOpacity(0.4),
         highlightColor: Colors.transparent,
         focusColor: Colors.white.withOpacity(0.2),
         borderRadius: BorderRadius.circular(12),

@@ -11,11 +11,9 @@ packages:
   ackee_dart:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: "65896403ab7e7eb7c675ce0d2e484b38b738ba69"
-      url: "git://github.com/marchellodev/ackee_dart.git"
-    source: git
+      name: ackee_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   analyzer:
     dependency: transitive
