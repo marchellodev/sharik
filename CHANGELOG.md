@@ -12,12 +12,13 @@
 - todo new languages
 - Support for different screen sizes & dynamic resizing
 - Now screen won't go to sleep when sharing or receiving files
+- You can now share files from any application via system 'Share via' feature (only Android and iOS)
 
 ### Changed
 - New design of the app
 - Big performance optimizations
 - Improved the size of Sharik
-- Updated receiver
+- Receiver was recreated from scratch
 
 ### Fixed
 - Completely new method of getting the local ip & network connectivity status
