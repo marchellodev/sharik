@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../components/buttons.dart';
 import '../utils/helper.dart';
@@ -36,7 +37,8 @@ class ChangelogDialog extends StatelessWidget {
       ),
       actions: [
         DialogTextButton(context.l.generalOpenInGithub, () {
-          // todo
+          launch(
+              'https://github.com/marchellodev/sharik/blob/master/CHANGELOG.md');
         }),
         DialogTextButton(context.l.generalClose, () {
           Navigator.of(context).pop();

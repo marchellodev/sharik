@@ -275,11 +275,11 @@ class AboutScreen extends StatelessWidget {
 
           openDialog(
               context,
-              // todo url
               PolicyDialog(
                   markdown: file,
                   name: context.l.aboutTrackingPolicy,
-                  url: ''));
+                  url:
+                      'https://github.com/marchellodev/sharik/blob/master/tracking_policy.md'));
         }),
         const SizedBox(height: 12),
         ListButton(
@@ -294,7 +294,10 @@ class AboutScreen extends StatelessWidget {
           openDialog(
               context,
               PolicyDialog(
-                  markdown: file, name: context.l.aboutPrivacyPolicy, url: ''));
+                  markdown: file,
+                  name: context.l.aboutPrivacyPolicy,
+                  url:
+                      'https://github.com/marchellodev/sharik/blob/master/privacy_policy.md'));
         }),
       ],
     );
