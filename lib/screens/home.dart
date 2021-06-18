@@ -75,39 +75,33 @@ class _HomeScreenState extends State<HomeScreen> {
           tag: 'icon',
           child: SharikLogo(),
         ),
-        const SizedBox(height: 34),
+        const SizedBox(height: 24),
         Expanded(
           child: LayoutBuilder(builder: (context, constraints) {
             // todo review constraints
             if (constraints.maxWidth < 720) {
-              return Column(
-                children: [
-                  sharingButtons(c),
-                  const SizedBox(
-                    height: 22,
-                  ),
-                  sharingHistoryHeader(c),
-                  Expanded(
-                    child: sharingHistoryList(c),
-                  ),
-                ],
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    sharingButtons(c),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Expanded(
+                      child: sharingHistoryList(c),
+                    ),
+                  ],
+                ),
               );
             } else {
               return Row(
                 children: [
+                  const SizedBox(width: 24),
                   Expanded(child: sharingButtons(c)),
-                  // const SizedBox(
-                  //   height: 12,
-                  // ),
-                  Expanded(
-                      child: Column(
-                    children: [
-                      sharingHistoryHeader(c),
-                      Expanded(
-                        child: sharingHistoryList(c),
-                      ),
-                    ],
-                  ))
+                  const SizedBox(width: 24),
+                  Expanded(child: sharingHistoryList(c)),
+                  const SizedBox(width: 24),
                 ],
               );
             }
@@ -191,32 +185,31 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget sharingHistoryList(BuildContext c) {
     return ListView.builder(
         shrinkWrap: true,
-        // todo review paddings
-        padding: const EdgeInsets.only(top: 16, left: 24, right: 24),
-        itemCount: _history.length,
-        itemBuilder: (context, index) => card(context, _history[index]));
+        // todo there's probably a more elegant way to do this
+        itemCount: _history.length + 1,
+        itemBuilder: (context, index) => index == 0
+            ? _sharingHistoryHeader(c)
+            : card(context, _history[index - 1]));
   }
 
-  Widget sharingHistoryHeader(BuildContext c) {
+  Widget _sharingHistoryHeader(BuildContext c) {
     if (_history.isNotEmpty) {
-      return Row(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 24, right: 24),
-            child: Text(
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: Row(
+          children: [
+            Text(
               c.l.homeHistory,
               style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
             ),
-          ),
-          const Spacer(),
-          Container(
-              margin: const EdgeInsets.only(right: 24),
-              child: TransparentButton(const Icon(FeatherIcons.trash), () {
-                setState(() => _history.clear());
+            const Spacer(),
+            TransparentButton(const Icon(FeatherIcons.trash), () {
+              setState(() => _history.clear());
 
-                saveLatest();
-              }, TransparentButtonBackground.purpleDark))
-        ],
+              saveLatest();
+            }, TransparentButtonBackground.purpleDark)
+          ],
+        ),
       );
     } else {
       return const SizedBox();
@@ -226,45 +219,41 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget sharingButtons(BuildContext c) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: PrimaryButton(
-            height: 110,
-            onClick: () async {
-              if (Platform.isAndroid || Platform.isIOS) {
-                final f = await FilePicker.platform.pickFiles();
+        PrimaryButton(
+          height: 110,
+          onClick: () async {
+            if (Platform.isAndroid || Platform.isIOS) {
+              final f = await FilePicker.platform.pickFiles();
 
-                if (f != null) {
-                  shareFile(SharingObject(
-                      data: (f.paths.first)!,
-                      type: SharingObjectType.file,
-                      name: SharingObject.getSharingName(
-                          SharingObjectType.file, (f.paths.first)!)));
-                }
-              } else {
-                final f = await openFile();
-                if (f != null) {
-                  shareFile(SharingObject(
-                    data: f.path,
+              if (f != null) {
+                shareFile(SharingObject(
+                    data: (f.paths.first)!,
                     type: SharingObjectType.file,
                     name: SharingObject.getSharingName(
-                        SharingObjectType.file, f.path),
-                  ));
-                }
+                        SharingObjectType.file, (f.paths.first)!)));
               }
-            },
-            text: c.l.homeSelectFile,
-            secondaryIcon: Icon(
-              Glyphicon.file_earmark,
-              size: 48,
-              color: Colors.deepPurple.shade200.withOpacity(0.9),
-            ),
+            } else {
+              final f = await openFile();
+              if (f != null) {
+                shareFile(SharingObject(
+                  data: f.path,
+                  type: SharingObjectType.file,
+                  name: SharingObject.getSharingName(
+                      SharingObjectType.file, f.path),
+                ));
+              }
+            }
+          },
+          text: c.l.homeSelectFile,
+          secondaryIcon: Icon(
+            Glyphicon.file_earmark,
+            size: 48,
+            color: Colors.deepPurple.shade200.withOpacity(0.9),
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         Row(
           children: [
-            const SizedBox(width: 24),
             if (Platform.isAndroid)
               Expanded(
                 child: PrimaryButton(
@@ -294,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   text: c.l.homeSelectGallery,
                 ),
               ),
-            if (Platform.isIOS || Platform.isAndroid) const SizedBox(width: 10),
+            if (Platform.isIOS || Platform.isAndroid) const SizedBox(width: 12),
             Expanded(
               child: PrimaryButton(
                 height: 50,
@@ -307,7 +296,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 text: c.l.homeSelectText,
               ),
             ),
-            const SizedBox(width: 24),
           ],
         ),
       ],

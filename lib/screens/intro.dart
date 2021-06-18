@@ -16,6 +16,7 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IntroSlider(
+        isScrollable: true,
         colorDot: Colors.white70,
         colorActiveDot: Colors.white,
         // todo check border radius compared to the bottom bar

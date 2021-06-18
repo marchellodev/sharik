@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/dialogs/policy.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components/buttons.dart';
@@ -13,6 +12,7 @@ import '../conf.dart';
 import '../dialogs/changelog.dart';
 import '../dialogs/licenses.dart';
 import '../dialogs/open_dialog.dart';
+import '../dialogs/policy.dart';
 import '../logic/services/update_service.dart';
 import '../utils/helper.dart';
 
@@ -71,13 +71,13 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 34),
+              const SizedBox(height: 24),
               LayoutBuilder(builder: (context, constraints) {
                 if (constraints.maxWidth < 720) {
                   return Column(
                     children: [
                       updatingLinksButtonsSection(context),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 24),
                       contributorsSection(context),
                     ],
                   );

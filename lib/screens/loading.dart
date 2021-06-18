@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:ackee_dart/ackee_dart.dart';
-import 'package:ackee_dart/attrs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
@@ -121,8 +120,7 @@ Future<void> _initAnalytics(BuildContext context) async {
       screenHeight: MediaQuery.of(context).size.height,
       browserWidth: MediaQuery.of(context).size.width,
       browserHeight: MediaQuery.of(context).size.height,
-      browserName:
-          'Sharik ${context.read<LanguageManager>().language.name}',
+      browserName: 'Sharik ${context.read<LanguageManager>().language.name}',
       browserVersion: currentVersion,
       deviceName: Platform.localHostname,
       deviceManufacturer: Platform.operatingSystem,

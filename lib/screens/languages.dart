@@ -27,7 +27,7 @@ class LanguagePickerScreen extends StatelessWidget {
                 height: 22,
               ),
             ),
-            SharikLogo(),
+            Hero(tag: 'icon', child: SharikLogo()),
             const SizedBox(
               height: 24,
             ),
@@ -45,8 +45,8 @@ class LanguagePickerScreen extends StatelessWidget {
                 gridDelegate:
                     SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                   crossAxisCount: constraints.maxWidth < 720 ? 1 : 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 18,
+                  mainAxisSpacing: 18,
                   height: 80,
                 ),
                 physics: const NeverScrollableScrollPhysics(),
@@ -60,7 +60,8 @@ class LanguagePickerScreen extends StatelessWidget {
                       context, this, Screens.intro, RouteDirection.right);
                 }),
               );
-            })
+            }),
+            const SizedBox(height: 24),
           ]),
     );
   }
@@ -73,9 +74,7 @@ class LanguageButton extends StatelessWidget {
   const LanguageButton(this.language, this.onClick);
 
   @override
-  Widget build(BuildContext context) => Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: PrimaryButton(
+  Widget build(BuildContext context) => PrimaryButton(
         height: 80,
         onClick: onClick,
         text: language.nameLocal,
@@ -83,5 +82,5 @@ class LanguageButton extends StatelessWidget {
           'assets/flags/${language.name}.svg',
         ),
         font: language.localizations.fontAndika,
-      ));
+      );
 }
