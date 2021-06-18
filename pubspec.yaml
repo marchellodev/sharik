@@ -72,7 +72,7 @@ dependencies:
   provider: ^5.0.0
 
   # ANALYTICS
-  ackee_dart: ^0.0.1
+  ackee_dart: ^0.0.2
 
 
 
@@ -104,16 +104,3 @@ flutter:
     - google_fonts/
     - privacy_policy.md
     - tracking_policy.md
-
-  fonts:
-    - family: JetBrainsMono
-      fonts:
-        - asset: fonts/JetBrainsMono-Regular.ttf
-        - asset: fonts/JetBrainsMono-Medium.ttf
-          weight: 500
-        #        - asset: fonts/JetBrainsMono-SemiBold.ttf
-        #          weight: 600
-        - asset: fonts/JetBrainsMono-Bold.ttf
-          weight: 700
-        - asset: fonts/JetBrainsMono-ExtraBold.ttf
-          weight: 800

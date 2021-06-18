@@ -14,7 +14,7 @@ packages:
       name: ackee_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.2"
   analyzer:
     dependency: transitive
     description:
@@ -540,7 +540,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.0"
+    version: "1.11.1"
   petitparser:
     dependency: transitive
     description:
