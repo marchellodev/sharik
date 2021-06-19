@@ -28,8 +28,7 @@ It's available for Linux, Windows, MacOS, or you can use it as a library!
 ## Contributing
 Feel free to leave an issue or create a pull request.
 
-If you want to help with translations, create a fork of this repo, add or change file `lib/locales/<Your language>.dart` and submit a pull request.
-If you are adding a new language, please edit `media/store.yaml`, so I can add this language to Play Store too.
+Please submit your translation at [crowdin.com/project/sharik](https://crowdin.com/project/sharik). If your language does not yet exist, create an issue or start a discussion on crowdin.
 
 ### Translators
 
@@ -43,6 +42,9 @@ If you are adding a new language, please edit `media/store.yaml`, so I can add t
 - Farsi by [behzad-njf](https://github.com/behzad-njf)
 - Malayalam by [zcraber](https://github.com/zcraber)
 - Simplified Chinese by [归零幻想](https://github.com/zerofancy)
+- Sinhala by [Aikatsui](https://github.com/Aikatsui)
+- Italian by [Davide Bottasso](https://github.com/DavideBottasso)
+- Indonesian by [liimee](https://github.com/liimee)
 
 ## Platforms
 - Android
