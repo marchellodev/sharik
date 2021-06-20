@@ -1,17 +1,17 @@
-en:
+pt-br:
   # 50 characters
   Name: "Sharik - compartilhe arquivos via Wi-Fi"
   # 60 characters
-  Very short description: "Sharik possibilita compartimento de arquivos via rede local"
+  Very short description: "Sharik possibilita compartilhamento de arquivos via rede local"
   # 80 characters
-  Short description: "Uma solução multiplataforma de software livre de compartimento de arquivos"
+  Short description: "Uma solução multiplataforma de software livre de compartilhamento de arquivos"
   # 4000 characters
   Full description: |
-    Sharik é uma solução multiplataforma de software livre de compartimento de arquivos via Wi-Fi ou Hotspot. 
+    Sharik é uma solução multiplataforma de software livre de compartilhamento de arquivos via Wi-Fi ou Hotspot. 
 
     Este App possibilita envio de fotos, apps, arquivos, textos ou literalmente qualquer outra coisa para todos os tipos de dispositivos conectados à mesma rede. É conveniente, rápido e fácil de usar.
 
-    Após selecionar um idioma e passar pela introdução, você verá na tela principal os botões de compartilhamento e os últimos arquivos que compartilhou. Neste momento, você poderá compartilhar imagens, arquivos, apps instalados ou texto. Após selecionar o arquivo, você verá a tela de Compartimento. Aí aparecerá seu status de conectividade (Wi-Fi/Hotspot) e a URL que você precisará abrir no outro dispositivo. Após digitar esta URL no navegador e clicar Enter no outro dispositivo o arquivo começará a ser baixado. Por favor, certifique-se de que ambos os dispositivos estejam conectados à mesma rede.
+    Após selecionar um idioma e passar pela introdução, você verá na tela principal os botões de compartilhamento e os últimos arquivos que compartilhou. Neste momento, você poderá compartilhar imagens, arquivos, apps instalados ou texto. Após selecionar o arquivo, você verá a tela de Compartilhamento. Aí aparecerá seu status de conectividade (Wi-Fi/Hotspot) e a URL que você precisará abrir no outro dispositivo. Após digitar esta URL no navegador e clicar Enter no outro dispositivo o arquivo começará a ser baixado. Por favor, certifique-se de que ambos os dispositivos estejam conectados à mesma rede.
 
     Assumido que você tenha instalado o Sharik em ambos dispositivos. Após compartilhar um arquivo de um computador você pode simplesmente clicar no botão "Receber" na parte inferior de outro Sharik. Depois de clicar, a tela com Destinatário será mostrada. Se o Sharik descobrir que o outro dispositivo quer compartilhar algo na sua rede local, isto será exibido. Você pode simplesmente clicar aí e o navegador abrirá e o download começará.
 
