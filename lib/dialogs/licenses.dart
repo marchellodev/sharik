@@ -96,8 +96,7 @@ class _LicensesDetailDialog extends StatelessWidget {
             child: Text(
               par.text,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontFamily: 'JetBrainsMono',
+              style: GoogleFonts.jetBrainsMono(
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
@@ -108,8 +107,7 @@ class _LicensesDetailDialog extends StatelessWidget {
           padding: EdgeInsets.only(top: 8, left: 16.0 * max(par.indent, 0)),
           child: Text(
             par.text,
-            style: const TextStyle(
-              fontFamily: 'JetBrainsMono',
+            style: GoogleFonts.jetBrainsMono(
               fontSize: 12,
             ),
           ),

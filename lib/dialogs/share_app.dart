@@ -1,5 +1,6 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../components/buttons.dart';
 import '../logic/sharing_object.dart';
@@ -80,7 +81,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 contentPadding: EdgeInsets.zero,
-                title: Text(context.l.selectAppHideSystem),
+                title: Text(context.l.selectAppHideSystem, style: GoogleFonts.getFont('Andika'),),
                 value: _hideSystem,
                 onChanged: (value) => setState(() {
                   _hideSystem = value!;
@@ -94,7 +95,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 contentPadding: EdgeInsets.zero,
-                title: Text(context.l.selectAppHideNonLaunch),
+                title: Text(context.l.selectAppHideNonLaunch, style: GoogleFonts.getFont('Andika'),),
                 value: _hideLaunchLess,
                 onChanged: (value) => setState(() {
                   _hideLaunchLess = value!;
@@ -127,7 +128,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                     title: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(app.appName,
-                            style: TextStyle(
+                            style: GoogleFonts.getFont('Andika',
                                 fontWeight: selected == app
                                     ? FontWeight.w500
                                     : FontWeight.normal,
@@ -135,7 +136,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                     subtitle: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(app.packageName,
-                            style: TextStyle(
+                            style: GoogleFonts.getFont('Andika',
                                 color: context.t.textTheme.bodyText1!.color))),
                     onTap: () => setState(() => selected = app),
                     selected: selected == app,

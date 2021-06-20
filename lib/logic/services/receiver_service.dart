@@ -36,7 +36,6 @@ class ReceiverService extends ChangeNotifier {
 
       loop++;
       notifyListeners();
-      print(loop);
       await Future.delayed(const Duration(seconds: 1));
     }
   }
@@ -72,7 +71,6 @@ class ReceiverService extends ChangeNotifier {
       }
     }
 
-    print('ping done');
 
     final result = <Receiver>[];
 
@@ -82,9 +80,6 @@ class ReceiverService extends ChangeNotifier {
         result.add(r);
       }
     }
-
-    print('sharik done');
-    print(result);
 
     return result;
   }

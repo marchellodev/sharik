@@ -67,7 +67,7 @@ const contributors = <Contributor>[
   Contributor(
     name: 'Atrate',
     githubNickname: 'Atrate',
-    type: ContributorTypes.translator,
+    type: ContributorTypes.translatorCoder,
   ),
   Contributor(
     name: 'Mr. Blogger',
@@ -104,6 +104,21 @@ const contributors = <Contributor>[
     githubNickname: 'zerofancy',
     type: ContributorTypes.translator,
   ),
+  Contributor(
+    name: 'Aikatsui',
+    githubNickname: 'Aikatsui',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'Davide Bottasso',
+    githubNickname: 'DavideBottasso',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+    name: 'liimee',
+    githubNickname: 'liimee',
+    type: ContributorTypes.translator,
+  ),
 ];
 
 class Contributor {
@@ -118,7 +133,7 @@ class Contributor {
   });
 }
 
-enum ContributorTypes { maintainer, coder, translator }
+enum ContributorTypes { maintainer, coder, translator, translatorCoder }
 
 String contributorType2string(ContributorTypes type) {
   switch (type) {
@@ -128,9 +143,12 @@ String contributorType2string(ContributorTypes type) {
       return 'Coder';
     case ContributorTypes.translator:
       return 'Translator';
+    case ContributorTypes.translatorCoder:
+      return 'Coder & Translator';
   }
 }
 
+// todo indonesian
 List<Language> get languageList => [
       Language(
           // 1.3 billion (400+700)

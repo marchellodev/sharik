@@ -98,9 +98,13 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/
     - assets/slides/
     - assets/flags/
-    - assets/
-    - google_fonts/
+    - google_fonts/Andika/
+    - google_fonts/Comfortaa/
+    - google_fonts/JetBrains/
+    - google_fonts/Poppins/
     - privacy_policy.md
     - tracking_policy.md
+

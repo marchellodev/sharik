@@ -49,6 +49,7 @@ class LanguagePickerScreen extends StatelessWidget {
                   mainAxisSpacing: 18,
                   height: 80,
                 ),
+                primary: false,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: languageList.length,

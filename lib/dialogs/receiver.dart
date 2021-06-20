@@ -78,7 +78,9 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
                           ),
                           Center(
                             child: Text(receiverService.loop.toString(),
-                                style: GoogleFonts.poppins(fontSize: 14)),
+                                style: GoogleFonts.getFont(
+                                    context.l.fontComfortaa,
+                                    fontSize: 13)),
                           )
                         ],
                       ),
@@ -102,12 +104,15 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
                                     title: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Text(
-                                            receiverService.receivers[e].name)),
+                                          receiverService.receivers[e].name,
+                                          style: GoogleFonts.getFont('Andika'),
+                                        )),
                                     subtitle: SingleChildScrollView(
                                       // todo display file type as a logo
                                       scrollDirection: Axis.horizontal,
                                       child: Text(
                                         '${receiverService.receivers[e].os}  •  ${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}',
+                                        style: GoogleFonts.getFont('Andika'),
                                       ),
                                     ),
                                     onTap: () {

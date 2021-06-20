@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:ackee_dart/ackee_dart.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -48,6 +50,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
       context.read<ThemeManager>().init();
 
       _initAnalytics(context);
+
+      LicenseRegistry.addLicense(() async* {
+        final fonts = ['Andika', 'Comfortaa', 'JetBrains', 'Poppins'];
+
+        for (final el in fonts) {
+          final license =
+              await rootBundle.loadString('google_fonts/$el/OFL.txt');
+          yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+        }
+      });
 
       if (Platform.isAndroid || Platform.isIOS) {
         final sharedData = await ReceiveSharingIntent.getInitialMedia();
