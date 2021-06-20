@@ -1,0 +1,1 @@
+Uma solução multiplataforma de compartimento de arquivos via rede local
