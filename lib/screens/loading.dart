@@ -41,7 +41,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
       Hive.registerAdapter(SharingObjectTypeAdapter());
       Hive.registerAdapter(SharingObjectAdapter());
 
-      await Hive.initFlutter();
+      if (Platform.isIOS || Platform.isAndroid) {
+        await Hive.initFlutter();
+      } else {
+        Hive.init('sharik_storage');
+      }
 
       await Hive.openBox<String>('strings');
       await Hive.openBox<SharingObject>('history');
@@ -116,8 +120,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 }
 
 Future<void> _initAnalytics(BuildContext context) async {
-  // todo check if debug
-  // if()
 
 // Hive.box<String>('strings').get('language', defaultValue: null);
   startAckee(

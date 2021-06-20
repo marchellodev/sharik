@@ -43,7 +43,6 @@ class PickNetworkDialog extends StatelessWidget {
                   // hoverColor: Colors.red,
                   selected: ipService.getIp() == el.addresses.first.address,
                   selectedTileColor: context.t.dividerColor.withOpacity(0.08),
-                  // todo text styling
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

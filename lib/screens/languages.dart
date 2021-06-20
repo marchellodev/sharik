@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/components/grid_view.dart';
 
 import '../components/buttons.dart';
+import '../components/grid_view.dart';
 import '../components/logo.dart';
 import '../components/page_router.dart';
 import '../conf.dart';

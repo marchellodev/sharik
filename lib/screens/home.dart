@@ -56,9 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
         context, context.widget, Screens.sharing, RouteDirection.right, file);
   }
 
-  // todo fix hoverdb files in the Documents dir on Linux
-  // todo scroll history header with listview builder
-  // todo review paddings
   @override
   Widget build(BuildContext c) {
     return Scaffold(

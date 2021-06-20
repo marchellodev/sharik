@@ -9,7 +9,6 @@ import '../components/buttons.dart';
 import '../utils/helper.dart';
 import 'open_dialog.dart';
 
-// todo restyle
 // review: done
 
 class LicensesDialog extends StatefulWidget {

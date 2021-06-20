@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import '../../conf.dart';
 
 class UpdateService extends ChangeNotifier {
-  // todo change to master
   // todo set in the config file
   static const String url =
       'https://raw.githubusercontent.com/marchellodev/sharik/master/CHANGELOG.md';

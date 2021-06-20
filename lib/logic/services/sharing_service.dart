@@ -77,7 +77,6 @@ class SharingService extends ChangeNotifier {
     await for (final request in _server!) {
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
-        // todo output sharik version
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
@@ -103,7 +102,7 @@ class SharingService extends ChangeNotifier {
 
           request.response.headers.add(
             'Content-disposition',
-            'attachment; filename=${Uri.encodeComponent(_file.type == SharingObjectType.file ? _file.name : '${_file.name}.apk')}',
+            'attachment; filename="${Uri.encodeComponent(_file.type == SharingObjectType.file ? _file.name : '${_file.name}.apk')}"',
           );
           request.response.headers.add(
             'Content-length',

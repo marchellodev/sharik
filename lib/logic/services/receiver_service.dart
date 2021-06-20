@@ -11,6 +11,7 @@ import 'ip_service.dart';
 
 class ReceiverService extends ChangeNotifier {
   final ipService = LocalIpService();
+  // todo SharingObject instead
   final List<Receiver> receivers = [];
 
   bool loaded = false;

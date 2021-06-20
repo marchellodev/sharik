@@ -41,8 +41,6 @@ class SharikApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
-        // todo add support for landscape mode https://github.com/Codelessly/ResponsiveFramework/issues/38
-        // DevicePreview.appBuilder
         return ResponsiveWrapper.builder(
             ScrollConfiguration(
               behavior: BouncingScrollBehavior(),
@@ -56,11 +54,6 @@ class SharikApp extends StatelessWidget {
               const ResponsiveBreakpoint.autoScale(1100,
                   name: DESKTOP, scaleFactor: 1.2),
             ],
-            // landscapePlatforms: [
-            //   TargetPlatform.android,
-            //   TargetPlatform.iOS,
-            //   TargetPlatform.fuchsia
-            // ],
             breakpointsLandscape: [
               const ResponsiveBreakpoint.autoScaleDown(400,
                   name: MOBILE, scaleFactor: 0.7),
