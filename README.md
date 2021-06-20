@@ -39,7 +39,6 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 - Brazilian Portuguese by [mezysinc](https://github.com/mezysinc)
 - Slovak (slovenčina) by [Tibor Repček](https://github.com/tiborepcek)
 - Turkish (Türkçe) by [T. E. Kalaycı](https://github.com/tekrei)
-- Farsi by [behzad-njf](https://github.com/behzad-njf)
 - Malayalam by [zcraber](https://github.com/zcraber)
 - Simplified Chinese by [归零幻想](https://github.com/zerofancy)
 - Sinhala by [Aikatsui](https://github.com/Aikatsui)
