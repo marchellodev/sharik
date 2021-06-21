@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
@@ -20,6 +21,10 @@ class ThemeManager extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Brightness get brightness => _theme == ThemeMode.system
+      ? SchedulerBinding.instance!.window.platformBrightness
+      : (_theme == ThemeMode.dark ? Brightness.dark : Brightness.light);
 
   void change() {
     if (theme == ThemeMode.system) {

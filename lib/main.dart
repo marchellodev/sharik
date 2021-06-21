@@ -40,96 +40,102 @@ void main() {
 class SharikApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      builder: (context, child) {
-        return ResponsiveWrapper.builder(
-            ScrollConfiguration(
-              behavior: BouncingScrollBehavior(),
-              child: child!,
-            ),
-            minWidth: 400,
-            defaultScale: true,
-            breakpoints: [
-              const ResponsiveBreakpoint.resize(400, name: MOBILE),
-              const ResponsiveBreakpoint.autoScale(680, name: TABLET),
-              const ResponsiveBreakpoint.autoScale(1100,
-                  name: DESKTOP, scaleFactor: 1.2),
-            ],
-            breakpointsLandscape: [
-              const ResponsiveBreakpoint.autoScaleDown(400,
-                  name: MOBILE, scaleFactor: 0.7),
-              const ResponsiveBreakpoint.autoScale(680,
-                  name: TABLET, scaleFactor: 0.7),
-              // const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP, scaleFactor: 0.5),
-            ]);
-      },
-      // builder: DevicePreview.appBuilder, //
-      locale: context.watch<LanguageManager>().language.locale,
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: languageList.map((e) => e.locale),
-      title: 'Sharik',
-      theme: ThemeData(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: context.watch<ThemeManager>().brightness == Brightness.dark
+          ? SystemUiOverlayStyle.light
+          : SystemUiOverlayStyle.dark,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (context, child) {
+          return ResponsiveWrapper.builder(
+              ScrollConfiguration(
+                behavior: BouncingScrollBehavior(),
+                child: child!,
+              ),
+              minWidth: 400,
+              defaultScale: true,
+              breakpoints: [
+                const ResponsiveBreakpoint.resize(400, name: MOBILE),
+                const ResponsiveBreakpoint.autoScale(680, name: TABLET),
+                const ResponsiveBreakpoint.autoScale(1100,
+                    name: DESKTOP, scaleFactor: 1.2),
+              ],
+              breakpointsLandscape: [
+                const ResponsiveBreakpoint.autoScaleDown(400,
+                    name: MOBILE, scaleFactor: 0.7),
+                const ResponsiveBreakpoint.autoScale(680,
+                    name: TABLET, scaleFactor: 0.7),
+                // const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP, scaleFactor: 0.5),
+              ]);
+        },
+        // builder: DevicePreview.appBuilder, //
+        locale: context.watch<LanguageManager>().language.locale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: languageList.map((e) => e.locale),
+        title: 'Sharik',
+        theme: ThemeData(
+            splashFactory: MaterialInkSplash.splashFactory,
+            brightness: Brightness.light,
+            inputDecorationTheme: InputDecorationTheme(
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.grey.shade900.withOpacity(0.8),
+                        width: 2))),
+            textSelectionTheme: TextSelectionThemeData(
+                cursorColor: Colors.grey.shade600,
+                selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
+                selectionColor: Colors.deepPurple.shade100.withOpacity(0.6)),
+
+            // sharik top icon color
+            accentColor: Colors.deepPurple.shade500,
+
+            // primarySwatch: Colors.deepPurple,
+
+            // right click selection color
+            cardColor: Colors.grey.shade200.withOpacity(0.9),
+
+            // color of the button on the default background
+            dividerColor: Colors.deepPurple.shade400,
+
+            // about card color
+            buttonColor: Colors.deepPurple.shade50.withOpacity(0.6)),
+        darkTheme: ThemeData(
           splashFactory: MaterialInkSplash.splashFactory,
-          brightness: Brightness.light,
+
+          brightness: Brightness.dark,
           inputDecorationTheme: InputDecorationTheme(
               focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                      color: Colors.grey.shade900.withOpacity(0.8), width: 2))),
+                      color: Colors.deepPurple.shade50.withOpacity(0.8),
+                      width: 2))),
+
+          // primarySwatch: Colors.grey,
+
           textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.grey.shade600,
-              selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
-              selectionColor: Colors.deepPurple.shade100.withOpacity(0.6)),
+              cursorColor: Colors.deepPurple.shade50,
+              selectionHandleColor: Colors.deepPurple.shade300.withOpacity(0.9),
+              selectionColor: Colors.deepPurple.shade50.withOpacity(0.4)),
 
           // sharik top icon color
-          accentColor: Colors.deepPurple.shade500,
-
-          // primarySwatch: Colors.deepPurple,
+          accentColor: Colors.deepPurple.shade300,
 
           // right click selection color
-          cardColor: Colors.grey.shade200.withOpacity(0.9),
+          cardColor: Colors.deepPurple.shade400.withOpacity(0.9),
 
           // color of the button on the default background
-          dividerColor: Colors.deepPurple.shade400,
+          dividerColor: Colors.deepPurple.shade50,
 
           // about card color
-          buttonColor: Colors.deepPurple.shade50.withOpacity(0.6)),
-      darkTheme: ThemeData(
-        splashFactory: MaterialInkSplash.splashFactory,
-
-        brightness: Brightness.dark,
-        inputDecorationTheme: InputDecorationTheme(
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: Colors.deepPurple.shade50.withOpacity(0.8),
-                    width: 2))),
-
-        // primarySwatch: Colors.grey,
-
-        textSelectionTheme: TextSelectionThemeData(
-            cursorColor: Colors.deepPurple.shade50,
-            selectionHandleColor: Colors.deepPurple.shade300.withOpacity(0.9),
-            selectionColor: Colors.deepPurple.shade50.withOpacity(0.4)),
-
-        // sharik top icon color
-        accentColor: Colors.deepPurple.shade300,
-
-        // right click selection color
-        cardColor: Colors.deepPurple.shade400.withOpacity(0.9),
-
-        // color of the button on the default background
-        dividerColor: Colors.deepPurple.shade50,
-
-        // about card color
-        buttonColor: Colors.deepPurple.shade100.withOpacity(0.8),
+          buttonColor: Colors.deepPurple.shade100.withOpacity(0.8),
+        ),
+        themeMode: context.watch<ThemeManager>().theme,
+        home: LoadingScreen(),
       ),
-      themeMode: context.watch<ThemeManager>().theme,
-      home: LoadingScreen(),
     );
   }
 }

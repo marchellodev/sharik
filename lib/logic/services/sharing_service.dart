@@ -57,7 +57,7 @@ class SharingService extends ChangeNotifier {
     await _server!.close(force: true);
 
     // todo research this issue on ios & desktop OSes
-    if (Platform.isAndroid) {
+    // if (Platform.isAndroid) {
       getTemporaryDirectory().then((dir) {
         dir.exists().then((_) {
           try {
@@ -67,7 +67,7 @@ class SharingService extends ChangeNotifier {
           }
         });
       });
-    }
+    // }
   }
 
   Future<void> _serve() async {
