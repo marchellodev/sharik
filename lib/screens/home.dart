@@ -96,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               } else {
                 return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(width: 24),
                     Expanded(child: sharingButtons(c)),
