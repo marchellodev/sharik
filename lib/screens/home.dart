@@ -114,7 +114,8 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
                 color: Colors.deepPurple.shade100,
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24))),
             child: Row(
               children: [
                 TransparentButton(
@@ -133,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 20,
                       child: Icon(LucideIcons.helpCircle,
                           color: Colors.deepPurple.shade700, size: 20)),
-                  () => SharikRouter.navigateTo(context, _globalKey,
-                      Screens.intro, RouteDirection.left),
+                  () => SharikRouter.navigateTo(
+                      context, _globalKey, Screens.intro, RouteDirection.left),
                   TransparentButtonBackground.purpleLight,
                 ),
                 const SizedBox(width: 2),
@@ -275,12 +276,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 50,
                   onClick: () async {
                     // todo ios gallery
-                    // final f =
-                    //     await FilePicker.getFile(type: FileType.media);
-                    // if (f != null && f.path != null && f.path.isNotEmpty) {
-                    //   shareFile(FileModel(
-                    //       data: f.path, type: FileTypeModel.file));
-                    // }
+
+                    final f = await FilePicker.platform
+                        .pickFiles(type: FileType.media);
+
+
+                    if (f != null) {
+                      shareFile(SharingObject(
+                          data: (f.paths.first)!,
+                          type: SharingObjectType.file,
+                          name: SharingObject.getSharingName(
+                              SharingObjectType.file, (f.names.first)!)));
+                    }
                   },
                   text: c.l.homeSelectGallery,
                 ),
