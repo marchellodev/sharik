@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sharik/logic/sharing_object.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../components/buttons.dart';
 import '../logic/services/receiver_service.dart';
+import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 import 'open_dialog.dart';
 import 'select_network.dart';

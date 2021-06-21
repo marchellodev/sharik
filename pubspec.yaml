@@ -20,8 +20,9 @@ dependencies:
 
 
   # UI
-  flutter_feather_icons: ^2.0.0+1
-  glyphicon: ^0.2.2
+  bootstrap_icons: ^1.5.0
+
+  lucide_icons: ^0.15.22
 
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
@@ -43,8 +44,8 @@ dependencies:
   url_launcher: ^6.0.6
   device_apps: ^2.1.1
 
-  hive: ^2.0.4
-  hive_flutter: ^1.0.0
+#  hive: ^2.0.4
+  hive_flutter: ^1.1.0
 
 
   intl: ^0.17.0

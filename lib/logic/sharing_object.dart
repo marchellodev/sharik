@@ -1,7 +1,7 @@
 import 'dart:io' show Platform;
 
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/widgets.dart';
-import 'package:glyphicon/glyphicon.dart';
 import 'package:hive/hive.dart';
 
 part 'sharing_object.g.dart';
@@ -26,10 +26,10 @@ class SharingObject {
         return _fileIcon;
 
       case SharingObjectType.text:
-        return Glyphicon.file_text;
+        return BootstrapIcons.file_text;
 
       case SharingObjectType.app:
-        return Glyphicon.file_binary;
+        return BootstrapIcons.file_binary;
     }
   }
 
@@ -37,7 +37,7 @@ class SharingObject {
   // todo publish that as a package
   IconData get _fileIcon {
     const fileMap = {
-      ['exe', 'so']: Glyphicon.file_earmark_binary,
+      ['exe', 'so']: BootstrapIcons.file_earmark_binary,
       // https://insights.stackoverflow.com/survey/2020#technology-programming-scripting-and-markup-languages-all-respondents
       [
         'js',
@@ -63,8 +63,8 @@ class SharingObject {
         'xml',
         'yaml',
         'toml'
-      ]: Glyphicon.file_earmark_code,
-      ['diff']: Glyphicon.file_earmark_diff,
+      ]: BootstrapIcons.file_earmark_code,
+      ['diff']: BootstrapIcons.file_earmark_diff,
       // https://support.microsoft.com/en-us/office/file-formats-that-are-supported-in-excel-0943ff2c-6014-4e8d-aaea-b83d51d46247
       [
         'xlsx',
@@ -77,22 +77,22 @@ class SharingObject {
         'xla',
         'xlw',
         'xlam'
-      ]: Glyphicon.file_excel,
+      ]: BootstrapIcons.file_excel,
       // https://fileinfo.com/filetypes/font#:~:text=Font%20Files&text=Most%20modern%20fonts%20are%20stored,TTF%2C%20and%20.
-      ['jfproj', 'woff', 'ttf', 'otf']: Glyphicon.file_earmark_font,
-      ['png', 'jpg', 'gif', 'svg', 'ai', 'psd']: Glyphicon.file_earmark_image,
-      ['mp3', 'odd']: Glyphicon.file_earmark_music,
+      ['jfproj', 'woff', 'ttf', 'otf']: BootstrapIcons.file_earmark_font,
+      ['png', 'jpg', 'gif', 'svg', 'ai', 'psd']: BootstrapIcons.file_earmark_image,
+      ['mp3', 'odd']: BootstrapIcons.file_earmark_music,
 
-      ['pdf']: Glyphicon.file_earmark_pdf,
-      ['mp4', 'avi', 'webm', 'sub', 'srt', 'mpv']: Glyphicon.file_earmark_play,
+      ['pdf']: BootstrapIcons.file_earmark_pdf,
+      ['mp4', 'avi', 'webm', 'sub', 'srt', 'mpv']: BootstrapIcons.file_earmark_play,
       // https://support.microsoft.com/en-us/office/file-formats-that-are-supported-in-powerpoint-252c6fa0-a4bc-41be-ac82-b77c9773f9dc
       ['pptx', 'pptm', 'ppt', 'potx', 'potm', 'pot']:
-          Glyphicon.file_earmark_ppt,
-      ['md', 'rmd', 'ltx', 'tex']: Glyphicon.file_earmark_richtext,
-      ['xps', 'odp']: Glyphicon.file_earmark_slides,
-      ['csv']: Glyphicon.file_earmark_spreadsheet,
-      ['doc', 'docm', 'docx', 'rtf']: Glyphicon.file_earmark_word,
-      ['zip', 'rar', '7z', 'tar', 'xf']: Glyphicon.file_earmark_zip
+          BootstrapIcons.file_earmark_ppt,
+      ['md', 'rmd', 'ltx', 'tex']: BootstrapIcons.file_earmark_richtext,
+      ['xps', 'odp']: BootstrapIcons.file_earmark_slides,
+      ['csv']: BootstrapIcons.file_earmark_spreadsheet,
+      ['doc', 'docm', 'docx', 'rtf']: BootstrapIcons.file_earmark_word,
+      ['zip', 'rar', '7z', 'tar', 'xf']: BootstrapIcons.file_earmark_zip
     };
 
     for (final icon in fileMap.entries) {
@@ -103,7 +103,7 @@ class SharingObject {
       }
     }
 
-    return Glyphicon.file_earmark;
+    return BootstrapIcons.file_earmark;
   }
 
   SharingObject({required this.type, required this.data, required this.name});

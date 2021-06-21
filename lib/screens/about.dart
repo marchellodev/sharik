@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/buttons.dart';
 import '../components/logo.dart';
@@ -62,7 +62,7 @@ class AboutScreen extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: TransparentButton(
-                        const Icon(FeatherIcons.chevronLeft, size: 28),
+                        const Icon(LucideIcons.chevronLeft, size: 28),
                         () => SharikRouter.navigateTo(
                             context, this, Screens.home, RouteDirection.left),
                         TransparentButtonBackground.def,
@@ -237,16 +237,25 @@ class AboutScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TransparentButton(
-                Icon(FeatherIcons.github,
+                Icon(LucideIcons.github,
                     size: 24, color: context.t.dividerColor), () {
               launch('https://github.com/marchellodev/sharik');
             }, TransparentButtonBackground.def),
             const SizedBox(width: 4),
             TransparentButton(
-              Icon(FeatherIcons.twitter,
+              Icon(LucideIcons.twitter,
                   size: 24, color: context.t.dividerColor),
               () {
                 launch('https://twitter.com/sharik_foss');
+              },
+              TransparentButtonBackground.def,
+            ),
+            const SizedBox(width: 4),
+            TransparentButton(
+              Icon(LucideIcons.languages,
+                  size: 24, color: context.t.dividerColor),
+                  () {
+                launch('https://crowdin.com/project/sharik');
               },
               TransparentButtonBackground.def,
             ),

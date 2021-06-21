@@ -5,8 +5,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wakelock/wakelock.dart';
@@ -116,7 +116,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: TransparentButton(
-                          const Icon(FeatherIcons.chevronLeft, size: 28),
+                          const Icon(LucideIcons.chevronLeft, size: 28),
                           () => SharikRouter.navigateTo(context, context.widget,
                               Screens.home, RouteDirection.left),
                           TransparentButtonBackground.purpleDark),
@@ -216,8 +216,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Row(
             children: [
-              Icon(FeatherIcons.wifi,
-                  color: Colors.grey.shade50, size: 20),
+              Icon(LucideIcons.wifi, color: Colors.grey.shade50, size: 20),
               const SizedBox(width: 12),
               Expanded(
                 child: ChangeNotifierProvider.value(
@@ -269,7 +268,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         child: Padding(
                           padding: const EdgeInsets.all(1),
                           child: Icon(
-                            FeatherIcons.refreshCw,
+                            LucideIcons.refreshCw,
                             size: 14,
                             color: Colors.grey.shade100,
                           ),
@@ -319,7 +318,8 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   // height: 48,
-                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
 
                   child: Row(
                     children: [
@@ -351,12 +351,12 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         width: 2,
                       ),
                       TransparentButton(
-                          Icon(Icons.qr_code_outlined,
+                          Icon(LucideIcons.qrCode,
                               size: 17, color: Colors.grey.shade50),
                           () => setState(() => _stateShowQr = !_stateShowQr),
                           TransparentButtonBackground.purpleDark),
                       TransparentButton(
-                          Icon(FeatherIcons.copy,
+                          Icon(LucideIcons.copy,
                               size: 16, color: Colors.grey.shade50), () {
                         Clipboard.setData(ClipboardData(text: displayAddress))
                             .then((result) {
@@ -373,7 +373,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         });
                       }, TransparentButtonBackground.purpleDark),
                       TransparentButton(
-                          Icon(FeatherIcons.server,
+                          Icon(LucideIcons.server,
                               size: 16, color: Colors.grey.shade50), () {
                         // todo make sure we have loaded the interfaces
                         openDialog(context, PickNetworkDialog(_ipService));

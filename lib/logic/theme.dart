@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:hive/hive.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ThemeManager extends ChangeNotifier {
   ThemeMode _theme = ThemeMode.system;
@@ -35,11 +35,11 @@ class ThemeManager extends ChangeNotifier {
     // final theme = manager.theme;
 
     if (theme == ThemeMode.light) {
-      return FeatherIcons.sun;
+      return LucideIcons.sun;
     } else if (theme == ThemeMode.dark) {
-      return FeatherIcons.moon;
+      return LucideIcons.moon;
     } else {
-      return FeatherIcons.monitor;
+      return LucideIcons.monitor;
     }
   }
 

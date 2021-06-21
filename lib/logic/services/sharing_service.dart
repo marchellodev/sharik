@@ -43,6 +43,7 @@ class SharingService extends ChangeNotifier {
   }
 
   Future<void> start() async {
+
     _port = await _getPrettyPort();
 
     _server = await HttpServer.bind(InternetAddress.anyIPv4, _port!);
@@ -53,7 +54,7 @@ class SharingService extends ChangeNotifier {
   }
 
   Future<void> end() async {
-    await _server!.close();
+    await _server!.close(force: true);
 
     // todo research this issue on ios & desktop OSes
     if (Platform.isAndroid) {

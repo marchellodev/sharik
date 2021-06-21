@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.7.0"
+  bootstrap_icons:
+    dependency: "direct main"
+    description:
+      name: bootstrap_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.0"
   build:
     dependency: transitive
     description:
@@ -258,13 +265,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_feather_icons:
-    dependency: "direct main"
-    description:
-      name: flutter_feather_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0+1"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -317,13 +317,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
-  glyphicon:
-    dependency: "direct main"
-    description:
-      name: glyphicon
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   google_fonts:
     dependency: "direct main"
     description:
@@ -339,7 +332,7 @@ packages:
     source: hosted
     version: "2.0.0"
   hive:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: hive
       url: "https://pub.dartlang.org"
@@ -351,7 +344,7 @@ packages:
       name: hive_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   hive_generator:
     dependency: "direct dev"
     description:
@@ -436,6 +429,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  lucide_icons:
+    dependency: "direct main"
+    description:
+      name: lucide_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.22"
   markdown:
     dependency: transitive
     description:
@@ -825,7 +825,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   xdg_directories:
     dependency: transitive
     description:

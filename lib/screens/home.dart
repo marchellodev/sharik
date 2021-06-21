@@ -1,14 +1,14 @@
 import 'dart:io' show Platform;
 import 'dart:ui';
 
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:glyphicon/glyphicon.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../components/buttons.dart';
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                       height: 20,
                       width: 20,
-                      child: Icon(FeatherIcons.globe,
+                      child: Icon(LucideIcons.languages,
                           color: Colors.deepPurple.shade700, size: 20)),
                   () => SharikRouter.navigateTo(context, context.widget,
                       Screens.languagePicker, RouteDirection.left),
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                     height: 20,
                     width: 20,
-                    child: Icon(FeatherIcons.helpCircle,
+                    child: Icon(LucideIcons.helpCircle,
                         color: Colors.deepPurple.shade700, size: 20)),
                 () => SharikRouter.navigateTo(context, context.widget,
                     Screens.intro, RouteDirection.left),
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                       height: 20,
                       width: 20,
-                      child: Icon(FeatherIcons.download,
+                      child: Icon(LucideIcons.download,
                           color: Colors.deepPurple.shade700, size: 20)), () {
                 openDialog(context, ReceiverDialog());
               }, TransparentButtonBackground.purpleLight),
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
             ),
             const Spacer(),
-            TransparentButton(const Icon(FeatherIcons.trash), () {
+            TransparentButton(const Icon(LucideIcons.trash), () {
               setState(() => _history.clear());
 
               saveLatest();
@@ -243,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           text: c.l.homeSelectFile,
           secondaryIcon: Icon(
-            Glyphicon.file_earmark,
+            BootstrapIcons.file_earmark,
             size: 48,
             color: Colors.deepPurple.shade200.withOpacity(0.9),
           ),
