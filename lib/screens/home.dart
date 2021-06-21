@@ -30,6 +30,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<SharingObject> _history = <SharingObject>[];
+  final _globalKey = GlobalKey();
 
   @override
   void initState() {
@@ -53,129 +54,132 @@ class _HomeScreenState extends State<HomeScreen> {
     await saveLatest();
 
     SharikRouter.navigateTo(
-        context, context.widget, Screens.sharing, RouteDirection.right, file);
+        context, _globalKey, Screens.sharing, RouteDirection.right, file);
   }
 
   @override
   Widget build(BuildContext c) {
-    return Scaffold(
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const SafeArea(
-          bottom: false,
-          left: false,
-          right: false,
-          child: SizedBox(
-            height: 22,
-          ),
-        ),
-        Hero(
-          tag: 'icon',
-          child: SharikLogo(),
-        ),
-        const SizedBox(height: 24),
-        Expanded(
-          child: LayoutBuilder(builder: (context, constraints) {
-            // todo review constraints
-            if (constraints.maxWidth < 720) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  children: [
-                    sharingButtons(c),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Expanded(
-                      child: sharingHistoryList(c),
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return Row(
-                children: [
-                  const SizedBox(width: 24),
-                  Expanded(child: sharingButtons(c)),
-                  const SizedBox(width: 24),
-                  Expanded(child: sharingHistoryList(c)),
-                  const SizedBox(width: 24),
-                ],
-              );
-            }
-          }),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          height: 64,
-          decoration: BoxDecoration(
-              color: Colors.deepPurple.shade100,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24), topRight: Radius.circular(24))),
-          child: Row(
-            children: [
-              TransparentButton(
-                  SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Icon(LucideIcons.languages,
-                          color: Colors.deepPurple.shade700, size: 20)),
-                  () => SharikRouter.navigateTo(context, context.widget,
-                      Screens.languagePicker, RouteDirection.left),
-                  TransparentButtonBackground.purpleLight),
-              const SizedBox(width: 2),
-              TransparentButton(
-                SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: Icon(LucideIcons.helpCircle,
-                        color: Colors.deepPurple.shade700, size: 20)),
-                () => SharikRouter.navigateTo(context, context.widget,
-                    Screens.intro, RouteDirection.left),
-                TransparentButtonBackground.purpleLight,
-              ),
-              const SizedBox(width: 2),
-              TransparentButton(
-                  SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Icon(LucideIcons.download,
-                          color: Colors.deepPurple.shade700, size: 20)), () {
-                openDialog(context, ReceiverDialog());
-              }, TransparentButtonBackground.purpleLight),
-              const SizedBox(width: 2),
-              TransparentButton(
-                  SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Icon(context.watch<ThemeManager>().icon,
-                          color: Colors.deepPurple.shade700, size: 20)),
-                  () => context.read<ThemeManager>().change(),
-                  TransparentButtonBackground.purpleLight),
-              const Spacer(),
-              TransparentButton(
-                  Text(
-                    'sharik v$currentVersion →',
-                    style: GoogleFonts.jetBrainsMono(
-                      fontSize: 16,
-                      color: Colors.deepPurple.shade700,
-                    ),
-                  ),
-                  () => SharikRouter.navigateTo(context, context.widget,
-                      Screens.about, RouteDirection.right),
-                  TransparentButtonBackground.purpleLight),
-            ],
-          ),
-        ),
-        Container(
-          color: Colors.deepPurple.shade100,
-          child: SafeArea(
-            top: false,
-            right: false,
+    return RepaintBoundary(
+      key: _globalKey,
+      child: Scaffold(
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SafeArea(
+            bottom: false,
             left: false,
-            child: Container(),
+            right: false,
+            child: SizedBox(
+              height: 22,
+            ),
           ),
-        )
-      ]),
+          Hero(
+            tag: 'icon',
+            child: SharikLogo(),
+          ),
+          const SizedBox(height: 24),
+          Expanded(
+            child: LayoutBuilder(builder: (context, constraints) {
+              // todo review constraints
+              if (constraints.maxWidth < 720) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    children: [
+                      sharingButtons(c),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Expanded(
+                        child: sharingHistoryList(c),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return Row(
+                  children: [
+                    const SizedBox(width: 24),
+                    Expanded(child: sharingButtons(c)),
+                    const SizedBox(width: 24),
+                    Expanded(child: sharingHistoryList(c)),
+                    const SizedBox(width: 24),
+                  ],
+                );
+              }
+            }),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            height: 64,
+            decoration: BoxDecoration(
+                color: Colors.deepPurple.shade100,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24), topRight: Radius.circular(24))),
+            child: Row(
+              children: [
+                TransparentButton(
+                    SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Icon(LucideIcons.languages,
+                            color: Colors.deepPurple.shade700, size: 20)),
+                    () => SharikRouter.navigateTo(context, _globalKey,
+                        Screens.languagePicker, RouteDirection.left),
+                    TransparentButtonBackground.purpleLight),
+                const SizedBox(width: 2),
+                TransparentButton(
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(LucideIcons.helpCircle,
+                          color: Colors.deepPurple.shade700, size: 20)),
+                  () => SharikRouter.navigateTo(context, _globalKey,
+                      Screens.intro, RouteDirection.left),
+                  TransparentButtonBackground.purpleLight,
+                ),
+                const SizedBox(width: 2),
+                TransparentButton(
+                    SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Icon(LucideIcons.download,
+                            color: Colors.deepPurple.shade700, size: 20)), () {
+                  openDialog(context, ReceiverDialog());
+                }, TransparentButtonBackground.purpleLight),
+                const SizedBox(width: 2),
+                TransparentButton(
+                    SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Icon(context.watch<ThemeManager>().icon,
+                            color: Colors.deepPurple.shade700, size: 20)),
+                    () => context.read<ThemeManager>().change(),
+                    TransparentButtonBackground.purpleLight),
+                const Spacer(),
+                TransparentButton(
+                    Text(
+                      'sharik v$currentVersion →',
+                      style: GoogleFonts.jetBrainsMono(
+                        fontSize: 16,
+                        color: Colors.deepPurple.shade700,
+                      ),
+                    ),
+                    () => SharikRouter.navigateTo(context, _globalKey,
+                        Screens.about, RouteDirection.right),
+                    TransparentButtonBackground.purpleLight),
+              ],
+            ),
+          ),
+          Container(
+            color: Colors.deepPurple.shade100,
+            child: SafeArea(
+              top: false,
+              right: false,
+              left: false,
+              child: Container(),
+            ),
+          )
+        ]),
+      ),
     );
   }
 

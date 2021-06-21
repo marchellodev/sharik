@@ -819,6 +819,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  widget_to_image:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "8ba41b4b31651768a6eceacfd0aed90ddc7cd83e"
+      url: "https://github.com/marchellodev/widget_to_image.git"
+    source: git
+    version: "1.0.5"
   win32:
     dependency: transitive
     description:

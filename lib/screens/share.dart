@@ -78,84 +78,90 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
+  final _globalKey = GlobalKey();
+
+  void _exitPage(){
+    SharikRouter.navigateTo(context, _globalKey,
+        Screens.home, RouteDirection.left);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: () {
-          SharikRouter.navigateTo(
-              context, context.widget, Screens.home, RouteDirection.left);
-
-          return Future.value(false);
-        },
-        child: GestureDetector(
-          onHorizontalDragEnd: (DragEndDetails details) {
-            if ((details.primaryVelocity ?? 0) > 0) {
-              SharikRouter.navigateTo(
-                  context, context.widget, Screens.home, RouteDirection.left);
-            }
+    return RepaintBoundary(
+      key: _globalKey,
+      child: Scaffold(
+        body: WillPopScope(
+          onWillPop: () {
+            _exitPage();
+            return Future.value(false);
           },
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            children: [
-              const SafeArea(
-                bottom: false,
-                left: false,
-                right: false,
-                child: SizedBox(
-                  height: 22,
-                ),
-              ),
-              Stack(
-                children: [
-                  Hero(
-                    tag: 'icon',
-                    child: SharikLogo(),
-                  ),
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TransparentButton(
-                          const Icon(LucideIcons.chevronLeft, size: 28),
-                          () => SharikRouter.navigateTo(context, context.widget,
-                              Screens.home, RouteDirection.left),
-                          TransparentButtonBackground.purpleDark),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              LayoutBuilder(builder: (context, constraints) {
-                if (constraints.maxWidth < 720) {
-                  return Column(
-                    children: [
-                      fileConnectivitySection(context),
-                      const SizedBox(height: 38),
-                      const SizedBox(height: 38),
-                      linkSection(context),
-                    ],
-                  );
-                } else {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: fileConnectivitySection(context)),
-                      const SizedBox(width: 24),
-                      Expanded(child: linkSection(context)),
-                    ],
-                  );
-                }
-              }),
-              const SizedBox(height: 38),
-              SizedBox(
-                child: SafeArea(
-                  top: false,
-                  right: false,
+          child: GestureDetector(
+            onHorizontalDragEnd: (DragEndDetails details) {
+              if ((details.primaryVelocity ?? 0) > 0) {
+                _exitPage();
+              }
+            },
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              children: [
+                const SafeArea(
+                  bottom: false,
                   left: false,
-                  child: Container(),
+                  right: false,
+                  child: SizedBox(
+                    height: 22,
+                  ),
                 ),
-              )
-            ],
+                Stack(
+                  children: [
+                    Hero(
+                      tag: 'icon',
+                      child: SharikLogo(),
+                    ),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TransparentButton(
+                            const Icon(LucideIcons.chevronLeft, size: 28),
+                            () => _exitPage(),
+                            TransparentButtonBackground.purpleDark),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                LayoutBuilder(builder: (context, constraints) {
+                  if (constraints.maxWidth < 720) {
+                    return Column(
+                      children: [
+                        fileConnectivitySection(context),
+                        const SizedBox(height: 38),
+                        const SizedBox(height: 38),
+                        linkSection(context),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: fileConnectivitySection(context)),
+                        const SizedBox(width: 24),
+                        Expanded(child: linkSection(context)),
+                      ],
+                    );
+                  }
+                }),
+                const SizedBox(height: 38),
+                SizedBox(
+                  child: SafeArea(
+                    top: false,
+                    right: false,
+                    left: false,
+                    child: Container(),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

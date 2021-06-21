@@ -35,6 +35,8 @@ dependencies:
   # todo linux support
   wakelock: ^0.5.2
 
+  widget_to_image:
+    git: https://github.com/marchellodev/widget_to_image.git
 
 
   # UTILS

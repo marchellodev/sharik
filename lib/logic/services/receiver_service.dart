@@ -101,7 +101,7 @@ class ReceiverService extends ChangeNotifier {
   static Future<bool> _ping(NetworkAddr addr) async {
     try {
       final s = await Socket.connect(addr.ip, addr.port,
-          timeout: const Duration(milliseconds: 800));
+          timeout: const Duration(seconds: 1));
       s.destroy();
       return true;
     } catch (_) {

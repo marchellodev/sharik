@@ -25,6 +25,8 @@ import 'utils/material_ink_well.dart';
 // - get rid of all prints
 // - add an icon to the android notifications bar
 
+// todo review variables' access scope
+
 void main() {
   runApp(MultiProvider(
     providers: [

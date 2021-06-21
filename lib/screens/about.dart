@@ -21,79 +21,84 @@ import '../utils/helper.dart';
 
 // review: done
 class AboutScreen extends StatelessWidget {
-  final updateService = UpdateService();
+  final _updateService = UpdateService();
+  final _globalKey = GlobalKey();
+
+  void _exit(BuildContext context){
+    SharikRouter.navigateTo(
+        context, _globalKey, Screens.home, RouteDirection.left);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // todo implement VisibilityDetector to close the app when back button is pressed on the home screen
-      body: WillPopScope(
-        onWillPop: () {
-          SharikRouter.navigateTo(
-              context, context.widget, Screens.home, RouteDirection.left);
-
-          return Future.value(false);
-        },
-        child: GestureDetector(
-          onHorizontalDragEnd: (DragEndDetails details) {
-            if ((details.primaryVelocity ?? 0) > 0) {
-              SharikRouter.navigateTo(
-                  context, this, Screens.home, RouteDirection.left);
-            }
+    return RepaintBoundary(
+      key: _globalKey,
+      child: Scaffold(
+        // todo implement VisibilityDetector to close the app when back button is pressed on the home screen
+        body: WillPopScope(
+          onWillPop: () {
+           _exit(context);
+            return Future.value(false);
           },
-          child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            children: [
-              const SafeArea(
-                bottom: false,
-                left: false,
-                right: false,
-                child: SizedBox(
-                  height: 22,
-                ),
-              ),
-              Stack(
-                children: [
-                  Hero(
-                    tag: 'icon',
-                    child: SharikLogo(),
+          child: GestureDetector(
+            onHorizontalDragEnd: (DragEndDetails details) {
+              if ((details.primaryVelocity ?? 0) > 0) {
+              _exit(context);
+              }
+            },
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              children: [
+                const SafeArea(
+                  bottom: false,
+                  left: false,
+                  right: false,
+                  child: SizedBox(
+                    height: 22,
                   ),
-                  Positioned.fill(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TransparentButton(
-                        const Icon(LucideIcons.chevronLeft, size: 28),
-                        () => SharikRouter.navigateTo(
-                            context, this, Screens.home, RouteDirection.left),
-                        TransparentButtonBackground.def,
+                ),
+                Stack(
+                  children: [
+                    Hero(
+                      tag: 'icon',
+                      child: SharikLogo(),
+                    ),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TransparentButton(
+                          const Icon(LucideIcons.chevronLeft, size: 28),
+                          () => _exit(context),
+                          TransparentButtonBackground.def,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              LayoutBuilder(builder: (context, constraints) {
-                if (constraints.maxWidth < 720) {
-                  return Column(
-                    children: [
-                      updatingLinksButtonsSection(context),
-                      const SizedBox(height: 24),
-                      contributorsSection(context),
-                    ],
-                  );
-                } else {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: updatingLinksButtonsSection(context)),
-                      const SizedBox(width: 24),
-                      Expanded(child: contributorsSection(context)),
-                    ],
-                  );
-                }
-              }),
-              const SizedBox(height: 22),
-            ],
+                  ],
+                ),
+                const SizedBox(height: 24),
+                LayoutBuilder(builder: (context, constraints) {
+                  if (constraints.maxWidth < 720) {
+                    return Column(
+                      children: [
+                        updatingLinksButtonsSection(context),
+                        const SizedBox(height: 24),
+                        contributorsSection(context),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: updatingLinksButtonsSection(context)),
+                        const SizedBox(width: 24),
+                        Expanded(child: contributorsSection(context)),
+                      ],
+                    );
+                  }
+                }),
+                const SizedBox(height: 22),
+              ],
+            ),
           ),
         ),
       ),
@@ -106,7 +111,7 @@ class AboutScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ChangeNotifierProvider.value(
-          value: updateService,
+          value: _updateService,
           builder: (ctx, _) {
             ctx.watch<UpdateService>();
 
@@ -128,7 +133,7 @@ class AboutScreen extends StatelessWidget {
                     Text(context.l.aboutLatestVersion,
                         style: GoogleFonts.jetBrainsMono(fontSize: 16)),
                     Text(
-                        updateService.latestVersion ??
+                        _updateService.latestVersion ??
                             context.l.aboutLatestVersionUnknown,
                         style: GoogleFonts.jetBrainsMono(fontSize: 16)),
                   ],
@@ -140,24 +145,24 @@ class AboutScreen extends StatelessWidget {
                       child: PrimaryButton(
                         height: 40,
                         loading:
-                            updateService.state == UpdateServiceState.loading,
-                        text: updateService.state == UpdateServiceState.none
+                            _updateService.state == UpdateServiceState.loading,
+                        text: _updateService.state == UpdateServiceState.none
                             ? context.l.aboutCheckForUpdates
-                            : (updateService.state ==
+                            : (_updateService.state ==
                                     UpdateServiceState.upgradable
                                 ? context.l.aboutUpdate
                                 : context.l.aboutNoUpdates),
                         font: 'JetBrains Mono',
                         fontSize: 16,
                         onClick:
-                            updateService.state != UpdateServiceState.loading
+                            _updateService.state != UpdateServiceState.loading
                                 ? () {
-                                    if (updateService.state ==
+                                    if (_updateService.state ==
                                         UpdateServiceState.upgradable) {
                                       launch(source2url(source));
                                       return;
                                     }
-                                    updateService.fetch();
+                                    _updateService.fetch();
                                   }
                                 : null,
                         roundedRadius: 8,
@@ -170,9 +175,9 @@ class AboutScreen extends StatelessWidget {
                       child: SizedBox(
                         height: 40,
                         child: Material(
-                          color: (updateService.state ==
+                          color: (_updateService.state ==
                                       UpdateServiceState.upgradable ||
-                                  updateService.state ==
+                                  _updateService.state ==
                                       UpdateServiceState.latest)
                               ? Colors.deepPurple.shade100
                               : Colors.deepPurple.shade100.withOpacity(0.8),
@@ -189,15 +194,15 @@ class AboutScreen extends StatelessWidget {
                             hoverColor:
                                 Colors.deepPurple.shade300.withOpacity(0.14),
 
-                            onTap: (updateService.state ==
+                            onTap: (_updateService.state ==
                                         UpdateServiceState.upgradable ||
-                                    updateService.state ==
+                                    _updateService.state ==
                                         UpdateServiceState.latest)
                                 ? () {
                                     openDialog(
                                         context,
                                         ChangelogDialog(
-                                            updateService.markdown!));
+                                            _updateService.markdown!));
                                   }
                                 : null,
                             child: Container(
@@ -208,9 +213,9 @@ class AboutScreen extends StatelessWidget {
                                 context.l.aboutChangelog,
                                 style: GoogleFonts.jetBrainsMono(
                                   fontSize: 16,
-                                  color: (updateService.state ==
+                                  color: (_updateService.state ==
                                               UpdateServiceState.upgradable ||
-                                          updateService.state ==
+                                          _updateService.state ==
                                               UpdateServiceState.latest)
                                       ? Colors.deepPurple.shade700
                                       : Colors.deepPurple.shade700

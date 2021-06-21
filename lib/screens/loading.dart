@@ -22,6 +22,8 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  final GlobalKey _globalKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -71,7 +73,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         if (sharedData.length > 1) {
           SharikRouter.navigateTo(
               context,
-              build(context),
+              _globalKey,
               Screens.error,
               RouteDirection.right,
               'Sorry, you can only share 1 file at a time');
@@ -81,7 +83,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
         if (sharedData.length == 1) {
           SharikRouter.navigateTo(
               context,
-              build(context),
+              _globalKey,
               Screens.sharing,
               RouteDirection.right,
               SharingObject(
@@ -97,31 +99,40 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       SharikRouter.navigateTo(
           context,
-          build(context),
+          _globalKey,
           Hive.box<String>('strings').containsKey('language')
               ? Screens.home
               : Screens.languagePicker,
           RouteDirection.right);
     } catch (error, trace) {
-      SharikRouter.navigateTo(context, build(context), Screens.error,
+      SharikRouter.navigateTo(context, _globalKey, Screens.error,
           RouteDirection.right, '$error \n\n $trace');
     }
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      backgroundColor: Colors.deepPurple.shade400,
-      body: Center(
-        child: SvgPicture.asset('assets/logo_inverse.svg',
-            height: 60,
-            semanticsLabel: 'Sharik app icon',
-            color: Colors.grey.shade300),
-      ));
+  Widget build(BuildContext context) {
+
+    return RepaintBoundary(
+      key: _globalKey,
+      child: Scaffold(
+          backgroundColor: Colors.deepPurple.shade400,
+          body: Center(
+            child: SvgPicture.asset('assets/logo_inverse.svg',
+                height: 60,
+                semanticsLabel: 'Sharik app icon',
+                color: Colors.grey.shade300),
+          )),
+    );
+  }
 }
 
 Future<void> _initAnalytics(BuildContext context) async {
+  if (!kReleaseMode) {
+    print('Analytics is disabled since running in the debug mode');
+    return;
+  }
 
-// Hive.box<String>('strings').get('language', defaultValue: null);
   startAckee(
     Uri.parse('https://ackee.mark.vin/api'),
     '0a143aeb-7105-449f-a2be-ed03b5674e96',
@@ -141,16 +152,4 @@ Future<void> _initAnalytics(BuildContext context) async {
       language: Localizations.localeOf(context).languageCode,
     ),
   );
-
-  // Analytics ga;
-  // if (Platform.isAndroid || Platform.isIOS) {
-  //   ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: await getApplicationDocumentsDirectory());
-  // } else {
-  //   File('storage/.sharik').create(recursive: true);
-  //
-  //   ga = AnalyticsIO('UA-175911584-1', 'sharik', 'v2.5', documentDirectory: Directory('storage'));
-  // }
-  //
-  // ga.sendEvent('pages', 'app_open');
-  // ga.sendEvent('app_open', 'v2.5: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}');
 }

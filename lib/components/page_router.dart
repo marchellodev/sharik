@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:widget_to_image/widget_to_image.dart';
 
 import '../conf.dart';
 
 class SharikRouter extends PageRouteBuilder {
   final Widget enterPage;
-  final Widget exitPage;
+  final Widget exitPageImage;
   final RouteDirection direction;
 
   SharikRouter(
-      {required this.exitPage,
+      {required this.exitPageImage,
       required this.enterPage,
       required this.direction})
       : super(
@@ -34,7 +35,32 @@ class SharikRouter extends PageRouteBuilder {
                   parent: animation,
                   curve: Curves.fastOutSlowIn,
                 )),
-                child: exitPage,
+                child: exitPageImage,
+                // child: SizedBox(
+                //   width: double.infinity,
+                //   height: double.infinity,
+                // child: Scaffold(
+                //   // body: Container(
+                //   //   color: Colors.red,
+                //   // ),
+                //     body: SizedBox(
+                //         width: double.infinity,
+                //         height: double.infinity,
+                //         child: Image.memory(
+                //           exitPageImage.buffer.asUint8List(),
+                //           errorBuilder: (a2, a3, a4) {
+                //             print('123');
+                //             return Text('er');
+                //           },
+                //           alignment: Alignment.center,
+                //           // height: double.infinity,
+                //           // width: double.infinity,
+                //           fit: BoxFit.cover,
+                //         ))
+                //
+                //
+                // ),
+                // ),
               ),
               SlideTransition(
                 position: Tween<Offset>(
@@ -54,13 +80,14 @@ class SharikRouter extends PageRouteBuilder {
           ),
         );
 
-  static void navigateTo(BuildContext context, Widget screenFrom,
+  static Future<void> navigateTo(BuildContext context, GlobalKey screenKey,
       Screens screen, RouteDirection direction,
-      [Object? args]) {
+      [Object? args]) async {
+    final byteData = await WidgetToImage.repaintBoundaryToImage(screenKey);
     Navigator.pushReplacement(
         context,
         SharikRouter(
-          exitPage: screenFrom,
+          exitPageImage: Image.memory(byteData.buffer.asUint8List()),
           enterPage: screen2widget(screen, args),
           direction: direction,
         ));
