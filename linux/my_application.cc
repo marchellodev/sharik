@@ -20,6 +20,11 @@ static void my_application_activate(GApplication* application) {
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
 
+
+  gtk_window_set_icon_from_file(window, "res/app_icon.png", NULL);
+  gtk_window_set_default_icon_from_file("res/app_icon.png", NULL);
+
+
   // Use a header bar when running in GNOME as this is the common style used
   // by applications and is the setup most users will be using (e.g. Ubuntu
   // desktop).
@@ -40,13 +45,14 @@ static void my_application_activate(GApplication* application) {
   if (use_header_bar) {
     GtkHeaderBar *header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
-    gtk_header_bar_set_title(header_bar, "sharik");
+    gtk_header_bar_set_title(header_bar, "Sharik");
     gtk_header_bar_set_show_close_button(header_bar, TRUE);
     gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
   }
   else {
-    gtk_window_set_title(window, "sharik");
+    gtk_window_set_title(window, "Sharik");
   }
+//  https://developer.gnome.org/gtk3/stable/GtkWindow.html#gtk-window-set-default-icon-list
 
   gtk_window_set_default_size(window, 1280, 720);
   gtk_widget_show(GTK_WIDGET(window));
