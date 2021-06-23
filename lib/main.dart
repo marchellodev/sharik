@@ -42,8 +42,14 @@ class SharikApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: context.watch<ThemeManager>().brightness == Brightness.dark
-          ? SystemUiOverlayStyle.light
-          : SystemUiOverlayStyle.dark,
+          ? SystemUiOverlayStyle.light.copyWith(
+              systemNavigationBarColor: Colors.deepPurple.shade100,
+              systemNavigationBarDividerColor: Colors.deepPurple.shade100,
+              systemNavigationBarIconBrightness: Brightness.dark)
+          : SystemUiOverlayStyle.dark.copyWith(
+              systemNavigationBarColor: Colors.deepPurple.shade100,
+              systemNavigationBarDividerColor: Colors.deepPurple.shade100,
+              systemNavigationBarIconBrightness: Brightness.dark),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
