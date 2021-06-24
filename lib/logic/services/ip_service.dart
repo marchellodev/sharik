@@ -17,6 +17,7 @@ class LocalIpService extends ChangeNotifier {
 
   Future<void> load() async {
     interfaces = await NetworkInterface.list(type: InternetAddressType.IPv4);
+    interfaces!.sort((a, b) => a.name.length - b.name.length);
     notifyListeners();
   }
 
