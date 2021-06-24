@@ -67,34 +67,55 @@ class _LoadingScreenState extends State<LoadingScreen> {
         }
       });
 
-      if (Platform.isAndroid || Platform.isIOS) {
-        final sharedData = await ReceiveSharingIntent.getInitialMedia();
+      try {
+        if (Platform.isAndroid || Platform.isIOS) {
+          final sharedFile = await ReceiveSharingIntent.getInitialMedia();
+          final sharedText = await ReceiveSharingIntent.getInitialText();
 
-        if (sharedData.length > 1) {
-          SharikRouter.navigateTo(
-              context,
-              _globalKey,
-              Screens.error,
-              RouteDirection.right,
-              'Sorry, you can only share 1 file at a time');
-          return;
-        }
+          if (sharedFile.length > 1) {
+            SharikRouter.navigateTo(
+                context,
+                _globalKey,
+                Screens.error,
+                RouteDirection.right,
+                'Sorry, you can only share 1 file at a time');
+            return;
+          }
 
-        if (sharedData.length == 1) {
-          SharikRouter.navigateTo(
-              context,
-              _globalKey,
-              Screens.sharing,
-              RouteDirection.right,
-              SharingObject(
-                  type: SharingObjectType.file,
-                  data: sharedData[0].path,
-                  name: SharingObject.getSharingName(
-                    SharingObjectType.file,
-                    sharedData[0].path,
-                  )));
-          return;
+          if (sharedFile.isNotEmpty) {
+            SharikRouter.navigateTo(
+                context,
+                _globalKey,
+                Screens.sharing,
+                RouteDirection.right,
+                SharingObject(
+                    type: SharingObjectType.file,
+                    data: sharedFile[0].path,
+                    name: SharingObject.getSharingName(
+                      SharingObjectType.file,
+                      sharedFile[0].path,
+                    )));
+            return;
+          }
+
+          if (sharedText != null) {
+            SharikRouter.navigateTo(
+                context,
+                _globalKey,
+                Screens.sharing,
+                RouteDirection.right,
+                SharingObject(
+                    type: SharingObjectType.text,
+                    data: sharedText,
+                    name: SharingObject.getSharingName(
+                      SharingObjectType.text,
+                      sharedText,
+                    )));
+            return;
+          }
         }
+      } catch (e) {
+        print('Error when trying to receive sharing intent: $e');
       }
 
       SharikRouter.navigateTo(
@@ -112,7 +133,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return RepaintBoundary(
       key: _globalKey,
       child: Scaffold(

@@ -61,7 +61,7 @@ class LocalIpService extends ChangeNotifier {
   }
 
   String? _getIpByName(String name) => interfaces
-      ?.firstWhereOrNull((element) => element.name.toLowerCase().contains(name))
+      ?.firstWhereOrNull((element) => element.name.toLowerCase().contains(name.toLowerCase()))
       ?.addresses
       .first
       .address;
