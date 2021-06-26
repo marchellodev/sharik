@@ -187,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget sharingHistoryList(BuildContext c) {
     return ListView.builder(
-        shrinkWrap: true,
+        // shrinkWrap: true,
         // todo there's probably a more elegant way to do this
         itemCount: _history.length + 1,
         itemBuilder: (context, index) => index == 0

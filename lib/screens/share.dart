@@ -388,21 +388,13 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   ),
                 ),
                 const SizedBox(height: 24),
-                AnimatedContainer(
-                  padding: EdgeInsets.zero,
+                AnimatedSize(
+                  vsync: this,
                   duration: const Duration(milliseconds: 200),
-                  height: _stateShowQr
-                      // todo wrap into LayoutBuilder and use constraints instead
-                      ? (MediaQuery.of(context).size.width < 720
-                          ? MediaQuery.of(context).size.width - 24 * 2
-                          : (MediaQuery.of(context).size.width / 2) - 24 * 2)
-                      : 0,
-                  child: Center(
-                    child: QrImage(
-                      data: displayAddress,
-                      foregroundColor: context.t.textTheme.button!.color,
-                    ),
-                  ),
+                  child: _stateShowQr ? QrImage(
+                    data: displayAddress,
+                    foregroundColor: context.t.textTheme.button!.color,
+                  ) : const SizedBox(),
                 ),
               ],
             );
