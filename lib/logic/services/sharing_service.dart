@@ -43,7 +43,6 @@ class SharingService extends ChangeNotifier {
   }
 
   Future<void> start() async {
-
     _port = await _getPrettyPort();
 
     _server = await HttpServer.bind(InternetAddress.anyIPv4, _port!);
@@ -57,17 +56,18 @@ class SharingService extends ChangeNotifier {
     await _server!.close(force: true);
 
     // todo research this issue on ios & desktop OSes
-    // if (Platform.isAndroid) {
-      getTemporaryDirectory().then((dir) {
-        dir.exists().then((_) {
-          try {
-            dir.delete(recursive: true);
-          } catch (e) {
-            print(e);
-          }
-        });
-      });
-    // }
+
+    final dir = await getTemporaryDirectory();
+
+    if (await dir.exists()) {
+      return;
+    }
+
+    try {
+      await dir.delete(recursive: true);
+    } catch (e) {
+      print('Error cleaning the path');
+    }
   }
 
   Future<void> _serve() async {
