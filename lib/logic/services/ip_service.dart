@@ -126,7 +126,7 @@ class LocalIpService extends ChangeNotifier {
     }
 
     return interfaces!
-        .where((element) => element.name.toLowerCase().contains(name))
+        .where((element) => element.name.toLowerCase().contains(name.toLowerCase()))
         .isNotEmpty;
   }
 }
