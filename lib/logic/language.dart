@@ -27,10 +27,8 @@ class LanguageManager extends ChangeNotifier {
   Language _language =
       languageList.firstWhere((element) => element.name == 'english');
 
-  bool initialized = false;
 
   void init() {
-    initialized = true;
 
     final l = Hive.box<String>('strings').get('language', defaultValue: null);
 

@@ -8,7 +8,6 @@ class ThemeManager extends ChangeNotifier {
   ThemeMode _theme = ThemeMode.system;
 
   ThemeMode get theme => _theme;
-  bool initialized = false;
 
   set theme(ThemeMode val) {
     _theme = val;
@@ -37,7 +36,6 @@ class ThemeManager extends ChangeNotifier {
   }
 
   IconData get icon {
-    // final theme = manager.theme;
 
     if (theme == ThemeMode.light) {
       return LucideIcons.sun;
@@ -49,7 +47,6 @@ class ThemeManager extends ChangeNotifier {
   }
 
   void init() {
-    initialized = true;
 
     if (Hive.box<String>('strings').containsKey('theme')) {
       final theme = Hive.box<String>('strings').get('theme');

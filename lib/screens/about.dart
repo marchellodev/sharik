@@ -333,9 +333,9 @@ class AboutScreen extends StatelessWidget {
 }
 
 class _ContributorCard extends StatelessWidget {
-  final Contributor obj;
+  final Contributor _obj;
 
-  const _ContributorCard(this.obj);
+  const _ContributorCard(this._obj);
 
   @override
   Widget build(BuildContext context) {
@@ -345,12 +345,12 @@ class _ContributorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(obj.name,
+                Text(_obj.name,
                     style: GoogleFonts.jetBrainsMono(
                         fontSize: 16,
                         color: Colors.grey.shade50,
                         letterSpacing: 0.1)),
-                Text(contributorType2string(obj.type),
+                Text(contributorType2string(_obj.type),
                     style: GoogleFonts.poppins(
                         color: Colors.deepPurple.shade50,
                         fontSize: 16,
@@ -358,6 +358,6 @@ class _ContributorCard extends StatelessWidget {
                         letterSpacing: 0.4)),
               ],
             ),
-            () => launch('https://github.com/${obj.githubNickname}')));
+            () => launch('https://github.com/${_obj.githubNickname}')));
   }
 }

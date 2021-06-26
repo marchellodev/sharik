@@ -23,9 +23,9 @@ import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
 class SharingScreen extends StatefulWidget {
-  final SharingObject file;
+  final SharingObject _file;
 
-  const SharingScreen(this.file);
+  const SharingScreen(this._file);
 
   @override
   State<StatefulWidget> createState() {
@@ -60,7 +60,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     // todo init stuff in a separate method
-    _file = widget.file;
+    _file = widget._file;
 
     _ipService.load();
 
@@ -80,9 +80,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   final _globalKey = GlobalKey();
 
-  void _exitPage(){
-    SharikRouter.navigateTo(context, _globalKey,
-        Screens.home, RouteDirection.left);
+  void _exitPage() {
+    SharikRouter.navigateTo(
+        context, _globalKey, Screens.home, RouteDirection.left);
   }
 
   @override
@@ -391,10 +391,12 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                 AnimatedSize(
                   vsync: this,
                   duration: const Duration(milliseconds: 200),
-                  child: _stateShowQr ? QrImage(
-                    data: displayAddress,
-                    foregroundColor: context.t.textTheme.button!.color,
-                  ) : const SizedBox(),
+                  child: _stateShowQr
+                      ? QrImage(
+                          data: displayAddress,
+                          foregroundColor: context.t.textTheme.button!.color,
+                        )
+                      : const SizedBox(),
                 ),
               ],
             );

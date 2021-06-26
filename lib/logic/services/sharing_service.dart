@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import '../../conf.dart';
 import '../sharing_object.dart';
 
-// todo fix sharing dot files
 class SharingService extends ChangeNotifier {
   final SharingObject _file;
   int? _port;

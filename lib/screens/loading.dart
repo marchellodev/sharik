@@ -34,11 +34,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future<void> init() async {
     await Future.delayed(Duration.zero);
 
-    if (context.read<LanguageManager>().initialized ||
-        context.read<ThemeManager>().initialized) {
-      return;
-    }
-
     try {
       Hive.registerAdapter(SharingObjectTypeAdapter());
       Hive.registerAdapter(SharingObjectAdapter());
@@ -147,7 +142,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 }
 
-Future<void> _initAnalytics(BuildContext context) async {
+void _initAnalytics(BuildContext context) {
   if (!kReleaseMode) {
     print('Analytics is disabled since running in the debug mode');
     return;

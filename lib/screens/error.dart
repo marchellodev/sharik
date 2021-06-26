@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ErrorScreen extends StatefulWidget {
-  final String error;
+  final String _error;
 
-  const ErrorScreen(this.error);
+  const ErrorScreen(this._error);
 
   @override
   _ErrorScreenState createState() => _ErrorScreenState();
@@ -14,7 +14,7 @@ class ErrorScreen extends StatefulWidget {
 class _ErrorScreenState extends State<ErrorScreen> {
   @override
   void initState() {
-    Clipboard.setData(ClipboardData(text: widget.error));
+    Clipboard.setData(ClipboardData(text: widget._error));
 
     super.initState();
   }

@@ -14,6 +14,7 @@ import '../logic/language.dart';
 
 class LanguagePickerScreen extends StatelessWidget {
   final  _globalKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
@@ -73,19 +74,19 @@ class LanguagePickerScreen extends StatelessWidget {
 }
 
 class LanguageButton extends StatelessWidget {
-  final Language language;
-  final Function() onClick;
+  final Language _language;
+  final Function() _onClick;
 
-  const LanguageButton(this.language, this.onClick);
+  const LanguageButton(this._language, this._onClick);
 
   @override
   Widget build(BuildContext context) => PrimaryButton(
         height: 80,
-        onClick: onClick,
-        text: language.nameLocal,
+        onClick: _onClick,
+        text: _language.nameLocal,
         secondaryIcon: SvgPicture.asset(
-          'assets/flags/${language.name}.svg',
+          'assets/flags/${_language.name}.svg',
         ),
-        font: language.localizations.fontAndika,
+        font: _language.localizations.fontAndika,
       );
 }
