@@ -27,7 +27,7 @@ import 'screens/languages.dart';
 import 'screens/loading.dart';
 import 'screens/share.dart';
 
-const List<int> ports = [50500, 50050, 56789, 56788];
+const List<int> ports = [50500, 50050];
 
 // only for fetching update
 const String currentVersion = '3.0';

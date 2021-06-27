@@ -39,11 +39,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       Hive.registerAdapter(SharingObjectTypeAdapter());
       Hive.registerAdapter(SharingObjectAdapter());
 
-      if (Platform.isIOS || Platform.isAndroid) {
-        await Hive.initFlutter();
-      } else {
-        Hive.init('sharik_storage');
-      }
+      await Hive.initFlutter('sharik_storage');
 
       await Hive.openBox<String>('strings');
       await Hive.openBox<SharingObject>('history');
@@ -69,7 +65,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
           final sharedText = await ReceiveSharingIntent.getInitialText();
 
           if (sharedFile.length > 1) {
-            SharikRouter.navigateTo(_globalKey,
+            SharikRouter.navigateTo(
+                _globalKey,
                 Screens.error,
                 RouteDirection.right,
                 'Sorry, you can only share 1 file at a time');
@@ -105,7 +102,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     )));
             return;
           }
-
         }
       } catch (e) {
         print('Error when trying to receive sharing intent: $e');
@@ -122,8 +118,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
               : Screens.languagePicker,
           RouteDirection.right);
     } catch (error, trace) {
-      SharikRouter.navigateTo(_globalKey, Screens.error,
-          RouteDirection.right, '$error \n\n $trace');
+      SharikRouter.navigateTo(_globalKey, Screens.error, RouteDirection.right,
+          '$error \n\n $trace');
     }
   }
 
@@ -151,7 +147,6 @@ Future<void> _receivingIntentListener(GlobalKey key) async {
   final texts = ReceiveSharingIntent.getTextStream();
 
   files.listen((sharedFile) {
-
     if (sharedFile.length > 1) {
       SharikRouter.navigateToFromImage(byteData, Screens.error,
           RouteDirection.right, 'Sorry, you can only share 1 file at a time');

@@ -1,0 +1,31 @@
+app-id: dev.marchello.Sharik
+runtime: org.freedesktop.Platform
+runtime-version: '19.08'
+sdk: org.freedesktop.Sdk
+command: sharik
+finish-args:
+  - "--share=ipc"
+  - "--socket=x11"
+  - "--socket=fallback-x11"
+  - "--socket=wayland"
+  - "--share=network"
+  - "--device=all"
+  - "--filesystem=xdg-documents"
+modules:
+  - name: sharik
+    buildsystem: simple
+    build-commands:
+      - ls sharik
+      - cp -r sharik /app/sharik
+      - chmod +x /app/sharik/sharik
+      - install -Dm644 /app/sharik/res/app_icon.png /app/share/icons/hicolor/128x128/apps/dev.marchello.Sharik.png
+      - mkdir /app/bin
+      - ln -s /app/sharik/sharik /app/bin/sharik
+      - install -Dm644 dev.marchello.Sharik.desktop /app/share/applications/dev.marchello.Sharik.desktop
+    sources:
+      - type: archive
+        path: file.zip
+        dest: sharik
+        archive-type: zip
+      - type: file
+        path: dev.marchello.Sharik.desktop
