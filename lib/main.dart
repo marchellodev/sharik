@@ -26,12 +26,14 @@ import 'utils/material_ink_well.dart';
 // - add an icon to the android notifications bar
 
 // todo review variables' access scope
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => LanguageManager()),
       ChangeNotifierProvider(create: (_) => ThemeManager()),
+      // ChangeNotifierProvider(create: (_) => null)
     ],
     child: SharikApp(),
   ));
@@ -53,6 +55,7 @@ class SharikApp extends StatelessWidget {
               // systemNavigationBarDividerColor: Colors.deepPurple.shade100,
               systemNavigationBarIconBrightness: Brightness.dark),
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
           return ResponsiveWrapper.builder(

@@ -61,8 +61,7 @@ class LanguagePickerScreen extends StatelessWidget {
                       LanguageButton(languageList[index], () {
                     context.read<LanguageManager>().language =
                         languageList[index];
-                    SharikRouter.navigateTo(
-                        context, _globalKey, Screens.intro, RouteDirection.right);
+                    SharikRouter.navigateTo(_globalKey, Screens.intro, RouteDirection.right);
                   }),
                 );
               }),

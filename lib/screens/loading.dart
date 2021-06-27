@@ -9,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import 'package:widget_to_image/widget_to_image.dart';
 
 import '../components/page_router.dart';
 import '../conf.dart';
@@ -68,9 +69,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           final sharedText = await ReceiveSharingIntent.getInitialText();
 
           if (sharedFile.length > 1) {
-            SharikRouter.navigateTo(
-                context,
-                _globalKey,
+            SharikRouter.navigateTo(_globalKey,
                 Screens.error,
                 RouteDirection.right,
                 'Sorry, you can only share 1 file at a time');
@@ -79,23 +78,21 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           if (sharedFile.isNotEmpty) {
             SharikRouter.navigateTo(
-                context,
                 _globalKey,
                 Screens.sharing,
                 RouteDirection.right,
                 SharingObject(
                     type: SharingObjectType.file,
-                    data: sharedFile[0].path,
+                    data: sharedFile[0].path.replaceFirst('file://', ''),
                     name: SharingObject.getSharingName(
                       SharingObjectType.file,
-                      sharedFile[0].path,
+                      sharedFile[0].path.replaceFirst('file://', ''),
                     )));
             return;
           }
 
           if (sharedText != null) {
             SharikRouter.navigateTo(
-                context,
                 _globalKey,
                 Screens.sharing,
                 RouteDirection.right,
@@ -108,20 +105,24 @@ class _LoadingScreenState extends State<LoadingScreen> {
                     )));
             return;
           }
+
         }
       } catch (e) {
         print('Error when trying to receive sharing intent: $e');
       }
 
+      if (Platform.isAndroid || Platform.isIOS) {
+        await _receivingIntentListener(_globalKey);
+      }
+
       SharikRouter.navigateTo(
-          context,
           _globalKey,
           Hive.box<String>('strings').containsKey('language')
               ? Screens.home
               : Screens.languagePicker,
           RouteDirection.right);
     } catch (error, trace) {
-      SharikRouter.navigateTo(context, _globalKey, Screens.error,
+      SharikRouter.navigateTo(_globalKey, Screens.error,
           RouteDirection.right, '$error \n\n $trace');
     }
   }
@@ -140,6 +141,52 @@ class _LoadingScreenState extends State<LoadingScreen> {
           )),
     );
   }
+}
+
+Future<void> _receivingIntentListener(GlobalKey key) async {
+  final byteData =
+      (await WidgetToImage.repaintBoundaryToImage(key)).buffer.asUint8List();
+
+  final files = ReceiveSharingIntent.getMediaStream();
+  final texts = ReceiveSharingIntent.getTextStream();
+
+  files.listen((sharedFile) {
+
+    if (sharedFile.length > 1) {
+      SharikRouter.navigateToFromImage(byteData, Screens.error,
+          RouteDirection.right, 'Sorry, you can only share 1 file at a time');
+      return;
+    }
+
+    if (sharedFile.isNotEmpty) {
+      SharikRouter.navigateToFromImage(
+          byteData,
+          Screens.sharing,
+          RouteDirection.right,
+          SharingObject(
+              type: SharingObjectType.file,
+              data: sharedFile[0].path.replaceFirst('file://', ''),
+              name: SharingObject.getSharingName(
+                SharingObjectType.file,
+                sharedFile[0].path.replaceFirst('file://', ''),
+              )));
+    }
+  });
+
+  texts.listen((sharedText) {
+    SharikRouter.navigateToFromImage(
+        byteData,
+        Screens.sharing,
+        RouteDirection.right,
+        SharingObject(
+            type: SharingObjectType.text,
+            data: sharedText,
+            name: SharingObject.getSharingName(
+              SharingObjectType.text,
+              sharedText,
+            )));
+    return;
+  });
 }
 
 void _initAnalytics(BuildContext context) {

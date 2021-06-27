@@ -27,28 +27,40 @@ import 'screens/languages.dart';
 import 'screens/loading.dart';
 import 'screens/share.dart';
 
-// todo think of more ports that are cute :>
 const List<int> ports = [50500, 50050, 56789, 56788];
 
 // only for fetching update
 const String currentVersion = '3.0';
 
-const Sources source = Sources.none;
-enum Sources { playStore, fDroid, gitHub, snap, none }
+const Sources source = Sources.gitHub;
+enum Sources {
+  gitHub,
+  githubRelease,
+  playStore,
+  snap,
+  windowsStore,
+  appStore,
+  none
+}
 
 // todo fix urls & add another distributions methods
 String source2url(Sources source) {
   switch (source) {
-    case Sources.playStore:
-      return 'https://google.com';
-    case Sources.fDroid:
-      return 'https://fdroid.com';
     case Sources.gitHub:
-      return 'https://fdroid.com';
+      return 'https://github.com/marchellodev/sharik';
+    case Sources.githubRelease:
+      return 'https://github.com/marchellodev/sharik/releases';
+    case Sources.playStore:
+      return 'https://play.google.com/store/apps/details?id=dev.marchello.sharik';
     case Sources.snap:
-      return 'https://snap.com';
+      return 'https://snapcraft.io/sharik-app';
+    case Sources.windowsStore:
+      return 'https://www.microsoft.com/store/apps/9NGCLB7JSPR9';
+    case Sources.appStore:
+      return 'https://apps.apple.com/app/id1531473857';
+
     case Sources.none:
-      return 'https://github.com';
+      return 'https://unknown.com';
   }
 }
 
@@ -182,7 +194,7 @@ List<Language> get languageList => [
           locale: const Locale('ru'),
           localizations: AppLocalizationsRu()),
       Language(
-        // rtl
+          // rtl
           // 110 million
           name: 'farsi',
           nameLocal: 'فارسی',
@@ -264,12 +276,3 @@ Widget screen2widget(Screens s, [Object? args]) {
       return ErrorScreen(args! as String);
   }
 }
-
-//
-// class SharikColors {
-//   static final Color buttonTransparentOnDarkSplash = Colors.deepPurple.shade400.withOpacity(0.08);
-//
-//
-//   // final const
-//   // todo define all colors here for consistency
-// }

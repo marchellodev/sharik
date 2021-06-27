@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:widget_to_image/widget_to_image.dart';
 
 import '../conf.dart';
+import '../main.dart';
 
 class SharikRouter extends PageRouteBuilder {
   final Widget enterPage;
@@ -80,17 +83,22 @@ class SharikRouter extends PageRouteBuilder {
           ),
         );
 
-  static Future<void> navigateTo(BuildContext context, GlobalKey screenKey,
-      Screens screen, RouteDirection direction,
+
+  static Future<void> navigateTo(
+      GlobalKey screenKey, Screens screen, RouteDirection direction,
       [Object? args]) async {
     final byteData = await WidgetToImage.repaintBoundaryToImage(screenKey);
-    Navigator.pushReplacement(
-        context,
-        SharikRouter(
-          exitPageImage: Image.memory(byteData.buffer.asUint8List()),
-          enterPage: screen2widget(screen, args),
-          direction: direction,
-        ));
+    navigateToFromImage(byteData.buffer.asUint8List(), screen, direction, args);
+  }
+
+  static Future<void> navigateToFromImage(
+      Uint8List data, Screens screen, RouteDirection direction,
+      [Object? args]) async {
+    navigatorKey.currentState!.pushReplacement(SharikRouter(
+      exitPageImage: Image.memory(data),
+      enterPage: screen2widget(screen, args),
+      direction: direction,
+    ));
   }
 }
 

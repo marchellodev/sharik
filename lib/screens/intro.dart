@@ -38,8 +38,7 @@ class IntroScreen extends StatelessWidget {
                 style: GoogleFonts.getFont(context.l.fontComfortaa,
                     color: Colors.white)),
           ),
-          onDonePress: () => SharikRouter.navigateTo(
-              context, _globalKey, Screens.home, RouteDirection.right),
+          onDonePress: () => SharikRouter.navigateTo(_globalKey, Screens.home, RouteDirection.right),
           slides: [
             Slide(
               styleTitle: GoogleFonts.getFont(

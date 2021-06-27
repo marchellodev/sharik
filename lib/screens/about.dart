@@ -26,7 +26,7 @@ class AboutScreen extends StatelessWidget {
 
   void _exit(BuildContext context){
     SharikRouter.navigateTo(
-        context, _globalKey, Screens.home, RouteDirection.left);
+         _globalKey, Screens.home, RouteDirection.left);
   }
 
   @override
@@ -34,7 +34,6 @@ class AboutScreen extends StatelessWidget {
     return RepaintBoundary(
       key: _globalKey,
       child: Scaffold(
-        // todo implement VisibilityDetector to close the app when back button is pressed on the home screen
         body: WillPopScope(
           onWillPop: () {
            _exit(context);

@@ -53,8 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await saveLatest();
 
-    SharikRouter.navigateTo(
-        context, _globalKey, Screens.sharing, RouteDirection.right, file);
+    SharikRouter.navigateTo(_globalKey, Screens.sharing, RouteDirection.right, file);
   }
 
   @override
@@ -124,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 20,
                         child: Icon(LucideIcons.languages,
                             color: Colors.deepPurple.shade700, size: 20)),
-                    () => SharikRouter.navigateTo(context, _globalKey,
+                    () => SharikRouter.navigateTo(_globalKey,
                         Screens.languagePicker, RouteDirection.left),
                     TransparentButtonBackground.purpleLight),
                 const SizedBox(width: 2),
@@ -135,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Icon(LucideIcons.helpCircle,
                           color: Colors.deepPurple.shade700, size: 20)),
                   () => SharikRouter.navigateTo(
-                      context, _globalKey, Screens.intro, RouteDirection.left),
+_globalKey, Screens.intro, RouteDirection.left),
                   TransparentButtonBackground.purpleLight,
                 ),
                 const SizedBox(width: 2),
@@ -165,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.deepPurple.shade700,
                       ),
                     ),
-                    () => SharikRouter.navigateTo(context, _globalKey,
+                    () => SharikRouter.navigateTo( _globalKey,
                         Screens.about, RouteDirection.right),
                     TransparentButtonBackground.purpleLight),
               ],
@@ -187,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget sharingHistoryList(BuildContext c) {
     return ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 4),
         // shrinkWrap: true,
         // todo there's probably a more elegant way to do this
         itemCount: _history.length + 1,
@@ -275,11 +275,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: PrimaryButton(
                   height: 50,
                   onClick: () async {
-                    // todo ios gallery
 
                     final f = await FilePicker.platform
                         .pickFiles(type: FileType.media);
-
 
                     if (f != null) {
                       shareFile(SharingObject(

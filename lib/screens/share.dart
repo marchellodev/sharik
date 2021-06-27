@@ -81,8 +81,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
   final _globalKey = GlobalKey();
 
   void _exitPage() {
-    SharikRouter.navigateTo(
-        context, _globalKey, Screens.home, RouteDirection.left);
+    SharikRouter.navigateTo(_globalKey, Screens.home, RouteDirection.left);
   }
 
   @override
@@ -320,50 +319,55 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple.shade400,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  // height: 48,
+                      color: Colors.deepPurple.shade400,
+                      borderRadius: BorderRadius.circular(12)),
+                  width: double.infinity,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Scrollbar(
-                          controller: urlScroller,
-                          isAlwaysShown: true,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            controller: urlScroller,
-                            child: Row(
-                              children: [
-                                Text(
-                                  'http://',
-                                  style: GoogleFonts.getFont('Andika',
-                                      color: Colors.grey.shade50, fontSize: 14),
-                                ),
-                                Text(
-                                  displayAddress.replaceFirst('http://', ''),
-                                  style: GoogleFonts.getFont('Andika',
-                                      color: Colors.grey.shade50, fontSize: 20),
-                                ),
-                              ],
-                            ),
+                  child: Scrollbar(
+                    controller: urlScroller,
+                    isAlwaysShown: true,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      controller: urlScroller,
+                      child: Row(
+                        children: [
+                          Text(
+                            'http://',
+                            style: GoogleFonts.getFont('Andika',
+                                color: Colors.grey.shade50, fontSize: 14),
                           ),
-                        ),
+                          Text(
+                            displayAddress.replaceFirst('http://', ''),
+                            style: GoogleFonts.getFont('Andika',
+                                color: Colors.grey.shade50, fontSize: 20),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        width: 2,
-                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurple.shade400,
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12)),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
                       TransparentButton(
                           Icon(LucideIcons.qrCode,
                               size: 17, color: Colors.grey.shade50),
                           () => setState(() => _stateShowQr = !_stateShowQr),
                           TransparentButtonBackground.purpleDark),
+                      const SizedBox(width: 2),
                       TransparentButton(
                           Icon(LucideIcons.copy,
-                              size: 16, color: Colors.grey.shade50), () {
+                              size: 17, color: Colors.grey.shade50), () {
                         Clipboard.setData(ClipboardData(text: displayAddress))
                             .then((result) {
                           final snackBar = SnackBar(
@@ -378,9 +382,10 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
                       }, TransparentButtonBackground.purpleDark),
+                      const SizedBox(width: 2),
                       TransparentButton(
                           Icon(LucideIcons.server,
-                              size: 16, color: Colors.grey.shade50), () {
+                              size: 17, color: Colors.grey.shade50), () {
                         // todo make sure we have loaded the interfaces
                         openDialog(context, PickNetworkDialog(_ipService));
                       }, TransparentButtonBackground.purpleDark),
