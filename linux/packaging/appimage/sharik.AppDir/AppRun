@@ -1,0 +1,5 @@
+#!/bin/sh
+HERE="$(dirname "$(readlink -f "${0}")")"
+EXEC="${HERE}/app/sharik"
+
+exec "${EXEC}"
