@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Sharik
-Icon=dev.marchello.Sharik
+Icon=sharik
 Exec=sharik %U
 Categories=Utility;Network;FileTools;P2P;Office
 Keywords=Files;Sharing
