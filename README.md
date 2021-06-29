@@ -13,16 +13,9 @@
 ![Mac](https://img.shields.io/badge/OS-Mac-informational?logo=apple)
 ![Windows](https://img.shields.io/badge/OS-Windows-informational?logo=windows)
 
-**Share files across devices with Sharik!**
+# Share files across devices with Sharik!
 
 It works with Wi-Fi connection or Tethering (Wi-Fi Hotspot). No internet connection needed.
-
-
-## Sharik in command line
-
-**There is also a cli-only version of Sharik written in Go - [sharic](https://github.com/marchellodev/sharic).**
-
-It's available for Linux, Windows, MacOS, or you can use it as a library!
 
 
 ## Contributing
@@ -33,17 +26,21 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 ### Translators
 
 - Persian by [Behzad NjF](https://github.com/behzad-njf)
-- Polish by [Atrate](https://github.com/Atrate)
+- Polish by [Atrate](https://github.com/Atrate) and [Sebastian Jasiński](https://crowdin.com/profile/princenorris)
 - Gujarati and Hindi by [mrfoxie](https://github.com/mrfoxie)
 - Arabic by [Yazeed AlKhalaf](https://github.com/YazeedAlKhalaf)
 - Brazilian Portuguese by [mezysinc](https://github.com/mezysinc)
-- Slovak (slovenčina) by [Tibor Repček](https://github.com/tiborepcek)
-- Turkish (Türkçe) by [T. E. Kalaycı](https://github.com/tekrei)
+- Slovak by [Tibor Repček](https://github.com/tiborepcek)
+- Turkish by [T. E. Kalaycı](https://github.com/tekrei)
 - Malayalam by [zcraber](https://github.com/zcraber)
 - Simplified Chinese by [归零幻想](https://github.com/zerofancy)
 - Sinhala by [Aikatsui](https://github.com/Aikatsui)
 - Italian by [Davide Bottasso](https://github.com/DavideBottasso)
 - Indonesian by [liimee](https://github.com/liimee)
+- French by [nesquick](https://twitter.com/mamanamgae)
+- German by [mondstern](https://github.com/mondlicht-und-sterne)
+- Portuguese by [azilara](https://crowdin.com/profile/azilara)
+- Thai by [scybernaut](https://github.com/scybernaut)
 
 ## Platforms
 - Android
@@ -95,13 +92,12 @@ You can get sharik for linux from the Snap Store:
 
 
 ### iOS
-<a href="https://apps.apple.com/app/id1531473857" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-10-03&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>
 
 <a href='https://apps.apple.com/app/id1531473857'><img alt='Get it on App Store' src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-10-03&kind=iossoftware&bubble=ios_apps' width="200"/></a>
 
 
 ## Tech
-This app is built using [Flutter](https://flutter.dev) (Android, iOS) and [Hover](https://hover.build) (Desktop). Just clone the repo and build Sharik for yourself!
+This app is built using [Flutter](https://flutter.dev). Just clone the repo and build Sharik for yourself!
 
 ## License
 MIT

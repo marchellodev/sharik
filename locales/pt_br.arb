@@ -21,9 +21,8 @@
   "generalSend": "Enviar",
   "generalOpenInGithub": "Abrir no GitHub",
   "generalLoading": "Carregando",
-
   "@_INTRO_PAGE": {},
-  "intro1ConnectTitle": "CONNECTAR",
+  "intro1ConnectTitle": "CONECTAR",
   "intro1ConnectDescription": "Conecte os dispositivos à mesma rede. Também pode usar um Hotspot",
   "intro2SendTitle": "ENVIAR",
   "intro2SendDescription": "Pode compartilhar imagens, vídeos, arquivos e textos",
@@ -31,7 +30,6 @@
   "intro3ReceiveDescription": "Abra o link no outro dispositivo via qualquer navegador. Se você tiver o Sharik em ambos dispositivos pode usar a função de destinatário",
   "intro4EverywhereTitle": "EM QUALQUER LUGAR",
   "intro4EverywhereDescription": "Sharik está disponível em todas as plataformas principais. Além disso é gratuito, não contém anúncios e seu código é publicado online.\nClique aqui para saber mais",
-
   "@_ABOUT_PAGE": {},
   "aboutInstalledVersion": "Versão instalada",
   "aboutLatestVersion": "A última versão",
@@ -46,8 +44,6 @@
   "aboutChangelog": "Histórico de modificações",
   "aboutLicenses": "Licenças",
   "aboutPrivacyPolicy": "Política de privacidade",
-
-
   "@_SHARING_PAGE": {},
   "sharingReceiver": "Destinatário",
   "sharingNetworkInterfaces": "Interfaces da rede",
@@ -56,8 +52,6 @@
   "sharingRecipientNeedsToBeConnected": "O destinatário precisa estar conectado\nà mesma rede",
   "sharingOpenInBrowser": "Agora abra este link\nem qualquer navegador",
   "sharingConnectToWiFiOrHotspot": "Conecte-se a Wi-Fi ou crie um Hotspot",
-
-
   "fontAndika": "Andika",
   "fontComfortaa": "Comfortaa"
 }

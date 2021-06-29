@@ -3,16 +3,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_de.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_fa.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_gu.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_hi.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_fr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ml.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_pl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_pt.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ru.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_si.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_sk.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_th.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
@@ -64,6 +66,8 @@ String source2url(Sources source) {
   }
 }
 
+// todo order by the date of contribution
+// todo support non-github links
 const contributors = <Contributor>[
   Contributor(
     name: 'Mark Motliuk',
@@ -130,6 +134,36 @@ const contributors = <Contributor>[
     githubNickname: 'liimee',
     type: ContributorTypes.translator,
   ),
+  Contributor(
+    name: 'liimee',
+    githubNickname: 'liimee',
+    type: ContributorTypes.translator,
+  ),
+  // [nesquick](https://twitter.com/mamanamgae)
+  Contributor(
+    name: 'nesquick',
+    githubNickname: '',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+      name: 'mondstern',
+      githubNickname: 'mondlicht-und-sterne',
+      type: ContributorTypes.translator),
+  // - Portuguese by [azilara](https://crowdin.com/profile/azilara)
+  Contributor(
+    name: 'azilara',
+    githubNickname: '',
+    type: ContributorTypes.translator,
+  ),
+  Contributor(
+      name: 'scybernaut',
+      githubNickname: 'scybernaut',
+      type: ContributorTypes.translator),
+  // [Sebastian Jasiński](https://crowdin.com/profile/princenorris)
+  Contributor(
+      name: 'Sebastian Jasiński',
+      githubNickname: '',
+      type: ContributorTypes.translator),
 ];
 
 class Contributor {
@@ -174,12 +208,18 @@ List<Language> get languageList => [
           locale:
               const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
           localizations: AppLocalizationsZh()),
+      // Language(
+      //     // 592 million (322+270)
+      //     name: 'hindi',
+      //     nameLocal: 'हिन्दी',
+      //     locale: const Locale('hi'),
+      //     localizations: AppLocalizationsHi()),
       Language(
-          // 592 million (322+270)
-          name: 'hindi',
-          nameLocal: 'हिन्दी',
-          locale: const Locale('hi'),
-          localizations: AppLocalizationsHi()),
+          // 300+ million
+          name: 'french',
+          nameLocal: 'français',
+          locale: const Locale('fr'),
+          localizations: AppLocalizationsFr()),
       Language(
           // rtl
           // 313 million
@@ -188,11 +228,29 @@ List<Language> get languageList => [
           locale: const Locale('ar'),
           localizations: AppLocalizationsAr()),
       Language(
+          // 313 million
+          name: 'portuguese',
+          nameLocal: 'português',
+          locale: const Locale('pt'),
+          localizations: AppLocalizationsPt()),
+      Language(
           // 260 million (150+110)
           name: 'russian',
           nameLocal: 'Русский',
           locale: const Locale('ru'),
           localizations: AppLocalizationsRu()),
+      Language(
+          // 200+ million
+          name: 'german',
+          nameLocal: 'Deutsch',
+          locale: const Locale('de'),
+          localizations: AppLocalizationsDe()),
+      Language(
+          // 200 million
+          name: 'indonesian',
+          nameLocal: 'bahasa Indonesia',
+          locale: const Locale('id'),
+          localizations: AppLocalizationsId()),
       Language(
           // rtl
           // 110 million
@@ -204,7 +262,7 @@ List<Language> get languageList => [
           // 90 million
           name: 'brazilian_portuguese',
           nameLocal: 'português brasileiro',
-          locale: const Locale('pt_br'),
+          locale: const Locale('br'),
           localizations: AppLocalizationsBr()),
       Language(
           // 85 million
@@ -218,12 +276,20 @@ List<Language> get languageList => [
           nameLocal: 'Türkçe',
           locale: const Locale('tr'),
           localizations: AppLocalizationsTr()),
+
       Language(
-          // 60 million (56+4)
-          name: 'gujarati',
-          nameLocal: 'ગુજરાતી',
-          locale: const Locale('gu'),
-          localizations: AppLocalizationsGu()),
+          // 70+ million
+          name: 'thai',
+          nameLocal: 'ภาษาไทย',
+          locale: const Locale('th'),
+          localizations: AppLocalizationsTh()),
+
+      // Language(
+      //     // 60 million (56+4)
+      //     name: 'gujarati',
+      //     nameLocal: 'ગુજરાતી',
+      //     locale: const Locale('gu'),
+      //     localizations: AppLocalizationsGu()),
       Language(
           // 50 million (45+5)
           name: 'polish',
@@ -242,12 +308,12 @@ List<Language> get languageList => [
           nameLocal: 'Українська',
           locale: const Locale('uk'),
           localizations: AppLocalizationsUk()),
-      Language(
-          // 20 million
-          name: 'sinhala',
-          nameLocal: 'සිංහල',
-          locale: const Locale('sin'),
-          localizations: AppLocalizationsSi()),
+      // Language(
+      //     // 20 million
+      //     name: 'sinhala',
+      //     nameLocal: 'සිංහල',
+      //     locale: const Locale('sin'),
+      //     localizations: AppLocalizationsSi()),
       Language(
           // 5 million
           name: 'slovak',

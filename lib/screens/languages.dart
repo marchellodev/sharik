@@ -13,7 +13,7 @@ import '../logic/language.dart';
 // review: done
 
 class LanguagePickerScreen extends StatelessWidget {
-  final  _globalKey = GlobalKey();
+  final _globalKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,8 @@ class LanguagePickerScreen extends StatelessWidget {
                       LanguageButton(languageList[index], () {
                     context.read<LanguageManager>().language =
                         languageList[index];
-                    SharikRouter.navigateTo(_globalKey, Screens.intro, RouteDirection.right);
+                    SharikRouter.navigateTo(
+                        _globalKey, Screens.intro, RouteDirection.right);
                   }),
                 );
               }),
@@ -83,9 +84,13 @@ class LanguageButton extends StatelessWidget {
         height: 80,
         onClick: _onClick,
         text: _language.nameLocal,
-        secondaryIcon: SvgPicture.asset(
-          'assets/flags/${_language.name}.svg',
+        secondaryIcon: Opacity(
+          opacity: 0.4,
+          child: SvgPicture.asset(
+            'assets/flags/${_language.name}.svg',
+          ),
         ),
+
         font: _language.localizations.fontAndika,
       );
 }
