@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Component Id="file_selector_windows_plugin.dll" Guid="*">
+                <File Id="file_selector_windows_plugin.dll" KeyPath="yes" Source="$(var.HarvestPath)\file_selector_windows_plugin.dll" />
+            </Component>
+            <Component Id="flutter_windows.dll" Guid="*">
+                <File Id="flutter_windows.dll" KeyPath="yes" Source="$(var.HarvestPath)\flutter_windows.dll" />
+            </Component>
+            <Component Id="url_launcher_windows_plugin.dll" Guid="*">
+                <File Id="url_launcher_windows_plugin.dll" KeyPath="yes" Source="$(var.HarvestPath)\url_launcher_windows_plugin.dll" />
+            </Component>
+            <Directory Id="data" Name="data">
+                <Component Id="app.so" Guid="*">
+                    <File Id="app.so" KeyPath="yes" Source="$(var.HarvestPath)\data\app.so" />
+                </Component>
+                <Component Id="icudtl.dat" Guid="*">
+                    <File Id="icudtl.dat" KeyPath="yes" Source="$(var.HarvestPath)\data\icudtl.dat" />
+                </Component>
+                <Directory Id="flutter_assets" Name="flutter_assets">
+                    <Component Id="AssetManifest.json" Guid="*">
+                        <File Id="AssetManifest.json" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\AssetManifest.json" />
+                    </Component>
+                    <Component Id="FontManifest.json" Guid="*">
+                        <File Id="FontManifest.json" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\FontManifest.json" />
+                    </Component>
+                    <Component Id="NOTICES" Guid="*">
+                        <File Id="NOTICES" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\NOTICES" />
+                    </Component>
+                    <Component Id="privacy_policy.md" Guid="*">
+                        <File Id="privacy_policy.md" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\privacy_policy.md" />
+                    </Component>
+                    <Component Id="tracking_policy.md" Guid="*">
+                        <File Id="tracking_policy.md" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\tracking_policy.md" />
+                    </Component>
+                    <Directory Id="assets" Name="assets">
+                        <Component Id="logo.svg" Guid="*">
+                            <File Id="logo.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\logo.svg" />
+                        </Component>
+                        <Component Id="logo_inverse.svg" Guid="*">
+                            <File Id="logo_inverse.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\logo_inverse.svg" />
+                        </Component>
+                        <Directory Id="flags" Name="flags">
+                            <Component Id="arabic.svg" Guid="*">
+                                <File Id="arabic.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\arabic.svg" />
+                            </Component>
+                            <Component Id="brazilian_portuguese.svg" Guid="*">
+                                <File Id="brazilian_portuguese.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\brazilian_portuguese.svg" />
+                            </Component>
+                            <Component Id="chinese.svg" Guid="*">
+                                <File Id="chinese.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\chinese.svg" />
+                            </Component>
+                            <Component Id="english.svg" Guid="*">
+                                <File Id="english.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\english.svg" />
+                            </Component>
+                            <Component Id="farsi.svg" Guid="*">
+                                <File Id="farsi.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\farsi.svg" />
+                            </Component>
+                            <Component Id="gujarati.svg" Guid="*">
+                                <File Id="gujarati.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\gujarati.svg" />
+                            </Component>
+                            <Component Id="hindi.svg" Guid="*">
+                                <File Id="hindi.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\hindi.svg" />
+                            </Component>
+                            <Component Id="italian.svg" Guid="*">
+                                <File Id="italian.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\italian.svg" />
+                            </Component>
+                            <Component Id="malayalam.svg" Guid="*">
+                                <File Id="malayalam.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\malayalam.svg" />
+                            </Component>
+                            <Component Id="polish.svg" Guid="*">
+                                <File Id="polish.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\polish.svg" />
+                            </Component>
+                            <Component Id="russian.svg" Guid="*">
+                                <File Id="russian.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\russian.svg" />
+                            </Component>
+                            <Component Id="sinhala.svg" Guid="*">
+                                <File Id="sinhala.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\sinhala.svg" />
+                            </Component>
+                            <Component Id="slovak.svg" Guid="*">
+                                <File Id="slovak.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\slovak.svg" />
+                            </Component>
+                            <Component Id="turkish.svg" Guid="*">
+                                <File Id="turkish.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\turkish.svg" />
+                            </Component>
+                            <Component Id="ukrainian.svg" Guid="*">
+                                <File Id="ukrainian.svg" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\flags\ukrainian.svg" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="slides" Name="slides">
+                            <Component Id="_1_connect.png" Guid="*">
+                                <File Id="_1_connect.png" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\slides\1_connect.png" />
+                            </Component>
+                            <Component Id="_2_send.png" Guid="*">
+                                <File Id="_2_send.png" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\slides\2_send.png" />
+                            </Component>
+                            <Component Id="_3_receive.png" Guid="*">
+                                <File Id="_3_receive.png" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\slides\3_receive.png" />
+                            </Component>
+                            <Component Id="_4_everywhere.png" Guid="*">
+                                <File Id="_4_everywhere.png" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\assets\slides\4_everywhere.png" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="fonts" Name="fonts">
+                        <Component Id="MaterialIcons_Regular.otf" Guid="*">
+                            <File Id="MaterialIcons_Regular.otf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\fonts\MaterialIcons-Regular.otf" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="google_fonts" Name="google_fonts">
+                        <Directory Id="Andika" Name="Andika">
+                            <Component Id="Andika_Regular.ttf" Guid="*">
+                                <File Id="Andika_Regular.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Andika\Andika-Regular.ttf" />
+                            </Component>
+                            <Component Id="OFL.txt" Guid="*">
+                                <File Id="OFL.txt" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Andika\OFL.txt" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="Comfortaa" Name="Comfortaa">
+                            <Component Id="Comfortaa_Regular.ttf" Guid="*">
+                                <File Id="Comfortaa_Regular.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Comfortaa\Comfortaa-Regular.ttf" />
+                            </Component>
+                            <Component Id="OFL.txt_1" Guid="*">
+                                <File Id="OFL.txt_1" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Comfortaa\OFL.txt" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="JetBrains" Name="JetBrains">
+                            <Component Id="JetBrainsMono_Bold.ttf" Guid="*">
+                                <File Id="JetBrainsMono_Bold.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\JetBrains\JetBrainsMono-Bold.ttf" />
+                            </Component>
+                            <Component Id="JetBrainsMono_Medium.ttf" Guid="*">
+                                <File Id="JetBrainsMono_Medium.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\JetBrains\JetBrainsMono-Medium.ttf" />
+                            </Component>
+                            <Component Id="JetBrainsMono_Regular.ttf" Guid="*">
+                                <File Id="JetBrainsMono_Regular.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\JetBrains\JetBrainsMono-Regular.ttf" />
+                            </Component>
+                            <Component Id="OFL.txt_2" Guid="*">
+                                <File Id="OFL.txt_2" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\JetBrains\OFL.txt" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="Poppins" Name="Poppins">
+                            <Component Id="OFL.txt_3" Guid="*">
+                                <File Id="OFL.txt_3" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Poppins\OFL.txt" />
+                            </Component>
+                            <Component Id="Poppins_Italic.ttf" Guid="*">
+                                <File Id="Poppins_Italic.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Poppins\Poppins-Italic.ttf" />
+                            </Component>
+                            <Component Id="Poppins_Medium.ttf" Guid="*">
+                                <File Id="Poppins_Medium.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\google_fonts\Poppins\Poppins-Medium.ttf" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="packages" Name="packages">
+                        <Directory Id="bootstrap_icons" Name="bootstrap_icons">
+                            <Directory Id="fonts_1" Name="fonts">
+                                <Component Id="bootstrap_icons.ttf" Guid="*">
+                                    <File Id="bootstrap_icons.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\packages\bootstrap_icons\fonts\bootstrap-icons.ttf" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                        <Directory Id="lucide_icons" Name="lucide_icons">
+                            <Directory Id="assets_1" Name="assets">
+                                <Component Id="Lucide.ttf" Guid="*">
+                                    <File Id="Lucide.ttf" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\packages\lucide_icons\assets\Lucide.ttf" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                        <Directory Id="wakelock_web" Name="wakelock_web">
+                            <Directory Id="assets_2" Name="assets">
+                                <Component Id="no_sleep.js" Guid="*">
+                                    <File Id="no_sleep.js" KeyPath="yes" Source="$(var.HarvestPath)\data\flutter_assets\packages\wakelock_web\assets\no_sleep.js" />
+                                </Component>
+                            </Directory>
+                        </Directory>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="HeatGenerated">
+            <ComponentRef Id="file_selector_windows_plugin.dll" />
+            <ComponentRef Id="flutter_windows.dll" />
+            <ComponentRef Id="url_launcher_windows_plugin.dll" />
+            <ComponentRef Id="app.so" />
+            <ComponentRef Id="icudtl.dat" />
+            <ComponentRef Id="AssetManifest.json" />
+            <ComponentRef Id="FontManifest.json" />
+            <ComponentRef Id="NOTICES" />
+            <ComponentRef Id="privacy_policy.md" />
+            <ComponentRef Id="tracking_policy.md" />
+            <ComponentRef Id="logo.svg" />
+            <ComponentRef Id="logo_inverse.svg" />
+            <ComponentRef Id="arabic.svg" />
+            <ComponentRef Id="brazilian_portuguese.svg" />
+            <ComponentRef Id="chinese.svg" />
+            <ComponentRef Id="english.svg" />
+            <ComponentRef Id="farsi.svg" />
+            <ComponentRef Id="gujarati.svg" />
+            <ComponentRef Id="hindi.svg" />
+            <ComponentRef Id="italian.svg" />
+            <ComponentRef Id="malayalam.svg" />
+            <ComponentRef Id="polish.svg" />
+            <ComponentRef Id="russian.svg" />
+            <ComponentRef Id="sinhala.svg" />
+            <ComponentRef Id="slovak.svg" />
+            <ComponentRef Id="turkish.svg" />
+            <ComponentRef Id="ukrainian.svg" />
+            <ComponentRef Id="_1_connect.png" />
+            <ComponentRef Id="_2_send.png" />
+            <ComponentRef Id="_3_receive.png" />
+            <ComponentRef Id="_4_everywhere.png" />
+            <ComponentRef Id="MaterialIcons_Regular.otf" />
+            <ComponentRef Id="Andika_Regular.ttf" />
+            <ComponentRef Id="OFL.txt" />
+            <ComponentRef Id="Comfortaa_Regular.ttf" />
+            <ComponentRef Id="OFL.txt_1" />
+            <ComponentRef Id="JetBrainsMono_Bold.ttf" />
+            <ComponentRef Id="JetBrainsMono_Medium.ttf" />
+            <ComponentRef Id="JetBrainsMono_Regular.ttf" />
+            <ComponentRef Id="OFL.txt_2" />
+            <ComponentRef Id="OFL.txt_3" />
+            <ComponentRef Id="Poppins_Italic.ttf" />
+            <ComponentRef Id="Poppins_Medium.ttf" />
+            <ComponentRef Id="bootstrap_icons.ttf" />
+            <ComponentRef Id="Lucide.ttf" />
+            <ComponentRef Id="no_sleep.js" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

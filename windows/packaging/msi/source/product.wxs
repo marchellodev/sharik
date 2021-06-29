@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+      <Product Id="*"
+               Name="$(var.ProductName)"
+               Language="1033"
+               Version="$(var.ProductVersion)"
+               Manufacturer="$(var.Manufacturer)"
+               UpgradeCode="$(var.UpgradeCode)">
+
+        <Package InstallerVersion="405"
+                 Platform="x86"
+                 Compressed="yes"
+                 ReadOnly="no"
+                 InstallScope="perMachine"
+                 InstallPrivileges="elevated" />
+
+        <!-- Launch Conditions: START -->
+        <MajorUpgrade DowngradeErrorMessage="A newer version of this product is already installed. Setup will now exit." />
+        <Condition Message="You need to be an administrator to install this application."><![CDATA[Privileged]]></Condition>
+        <Condition Message="This application does not support admin installs."><![CDATA[ACTION<>ADMIN]]></Condition>
+        <Condition Message="This application is not supported on your current operating system. The minimum is Windows 7 SP1.">
+            <![CDATA[Installed OR (VersionNT>=601)]]>
+        </Condition>
+        <!-- Launch Conditions: END -->
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
+                    <Component Id="App.exe">
+                        <File Id="Executable.exe" Source="" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+
+            <Directory Id="ProgramMenuFolder">
+                <Component Id="StartMenuShortcut.lnk">
+                    <Condition><![CDATA[SHORTCUT=1]]></Condition>
+
+                    <Shortcut Id="StartMenuShortcut_001"
+                              Name="$(var.ProductName)"
+                              Description="$(var.ProductName)"
+                              Target="[INSTALLDIR]"
+                              Icon="Icons.exe"
+                              IconIndex="0"
+                              WorkingDirectory="INSTALLDIR">
+
+                              <ShortcutProperty Key="System.AppUserModel.PreventPinning" Value="0" />
+                              <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
+                    </Shortcut>
+
+                    <RegistryValue Root="HKCU" Key="Software\$(var.ProductName)" Name="Shortcut" Value="1" Type="integer" KeyPath="yes" />
+                </Component>
+            </Directory>
+        </Directory>
+
+        <Feature Id="Complete"
+                 Title="$(var.ProductName)"
+                 Description="The core files required to install the application."
+                 Level="1"
+                 Absent="disallow"
+                 AllowAdvertise="no"
+                 Display="collapse">
+
+                 <ComponentRef Id="App.exe" />
+                 <ComponentRef Id="StartMenuShortcut.lnk" />
+                 <ComponentGroupRef Id="HeatGenerated" />
+        </Feature>
+
+        <MediaTemplate CabinetTemplate="disk{0}.cab" EmbedCab="yes" MaximumUncompressedMediaSize="450" />
+
+        <Property Id="ARPCONTACT" Value="" />
+        <Property Id="ARPHELPLINK" Value="" />
+        <Property Id="ARPPRODUCTICON" Value="Icons.exe" />
+        <Property Id="ARPURLINFOABOUT" Value="" />
+        <Property Id="ARPURLUPDATEINFO" Value="" />
+        <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
+        <Property Id="LicenseAccepted" Value="1" />
+        <Property Id="LIMITUI" Value="1" />
+        <Property Id="MSIFASTINSTALL" Value="6" />
+        <Property Id="REBOOT" Value="ReallySuppress" />
+        <Property Id="SHORTCUT" Value="1" />
+
+        <Icon Id="Icons.exe" SourceFile=".\Resources\App.ico" />
+
+        <!--
+        <WixVariable Id="WixUILicenseRtf" Value=".\Resources\License_en-US.rtf" />
+        <WixVariable Id="WixUIBannerBmp" Value=".\Resources\Banner.bmp" />
+        <WixVariable Id="WixUIDialogBmp" Value=".\Resources\Dialog.bmp" />
+        -->
+
+        <UI Id="MyUI">
+            <UIRef Id="WixUI_Minimal" />
+            <UIRef Id="WixUI_ErrorProgressText" />
+        </UI>
+
+  </Product>
+</Wix>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <ProgId Id="" Description="" Advertise="yes" Icon="Icons.exe" IconIndex="0">
+    <Extension Id="">
+        <Verb Id="open" Command="Open" Sequence="1" Argument="&quot;%1&quot;" />
+    </Extension>
+  </ProgId>
+</Wix>

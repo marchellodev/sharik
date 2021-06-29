@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.0.0</ProductVersion>
+    <ProjectGuid>2144f162-6c05-472c-8f04-d80e6fc04261</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Sharik (3.0.0)</OutputName>
+    <OutputType>Package</OutputType>
+    <DefineSolutionProperties>False</DefineSolutionProperties>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>Deploy\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>Temp\$(Configuration)\</IntermediateOutputPath>
+    <!-- Light Parameters -->
+    <DefaultCompressionLevel>High</DefaultCompressionLevel>
+    <SuppressSpecificWarnings>1103</SuppressSpecificWarnings>
+    <DefineConstants>Debug;HarvestPath=C:\Users\markm\Downloads\create-msi-installer-from-folder-0.0.1\app;ProductVersion=3.0.0</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>Deploy\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>Temp\$(Configuration)\</IntermediateOutputPath>
+    <!-- Candle Parameters -->
+    <SuppressAllWarnings>True</SuppressAllWarnings>
+    <!-- Light Parameters -->
+    <CabinetCachePath>Cache\$(Platform)</CabinetCachePath>
+    <Cultures>en-US</Cultures>
+    <DefaultCompressionLevel>High</DefaultCompressionLevel>
+    <Pedantic>False</Pedantic>
+    <ReuseCabinetCache>True</ReuseCabinetCache>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+    <SuppressIces>ICE03</SuppressIces>
+    <DefineConstants>HarvestPath=C:\Users\markm\Downloads\create-msi-installer-from-folder-0.0.1\app;ProductVersion=3.0.0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HeatGenerated.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <Target Name="BeforeBuild">
+    <HeatDirectory ToolPath="$(WixToolPath)" Directory="C:\Users\markm\Downloads\create-msi-installer-from-folder-0.0.1\app" PreprocessorVariable="var.HarvestPath" AutoGenerateGuids="True" GenerateGuidsNow="True" SuppressUniqueIds="True" DirectoryRefId="INSTALLDIR" Transforms="$(MSBuildProjectDirectory)\transform.xslt" ComponentGroupName="HeatGenerated" SuppressFragments="True" SuppressRegistry="True" SuppressRootDirectory="True" KeepEmptyDirectories="False" NoLogo="True" OutputFile="$(MSBuildProjectDirectory)\HeatGenerated.wxs" />
+  </Target>
+  <Target Name="AfterBuild">
+    <Message Importance="high" Text="Tidying Up..." />
+    <RemoveDir Directories="Temp" />
+    <RemoveDir Directories="Cache" />
+  </Target>
+</Project>
