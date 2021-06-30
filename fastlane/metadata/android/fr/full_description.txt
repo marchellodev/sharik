@@ -1,0 +1,58 @@
+Sharik est une solution open-source, multi-plateforme pour le partage de fichiers via Wi-Fi ou par un point d'accès mobile.
+
+
+Cette application vous permet d'envoyer facilement des photos, des applications, des fichiers, du texte, littéralement n'importe quoi, sur n'importe quel appareil connecté au même réseau. C'est pratique et très rapide.
+
+
+Après avoir sélectionné une langue et passé l'intro, vous pouvez voir les boutons de partage et l'historique des fichiers que vous avez partagés sur l'écran principal. Vous pouvez partager des images, des fichiers, des applications installées ou simplement du texte. Après avoir sélectionné le fichier, l'écran de partage s'affiche. Ici vous pouvez voir l'état de votre connectivité (Wi-Fi/Point d'accès mobile) et l'URL que vous devez ouvrir sur l'autre appareil. Après avoir ouvert cette URL dans le navigateur de l'autre machine, le fichier commencera à être téléchargé. Veuillez vous assurer que les deux appareils sont connectés au même réseau.
+
+
+Si vous avez Sharik installé sur les deux appareils, vous pouvez simplement cliquer sur le bouton "Recevoir" dans le panneau inférieur de l'application. Après avoir cliqué, l'écran de réception sera affiché. Si Sharik détecte un autre périphérique partageant un fichier dans votre réseau local, il sera affiché. Si vous cliquez dessus, le navigateur apparaîtra et le téléchargement démarrera.
+
+
+Sharik est entièrement gratuit, et ne contient aucune publicité. De plus, son code source est publié sur GitHub afin que tout le monde puisse contribuer au processus de développement. Donc, si vous le souhaitez, laissez une étoile sur notre dépôt GitHub, et envisagez de contribuer : ajoutez une nouvelle langue ou aidez-nous avec du code.
+
+
+Sharik est fait en utilisant Flutter. Il est publié sous la licence (MIT).
+
+
+VOUS POUVEZ ENVOYER :
+1. Photos (jpg, png, gif, etc)
+2. Applications (apk)
+3. Fichiers (zip, rar, 7z, pdf, etc)
+4. Texte
+
+
+SHARIK EST DISPONIBLE DANS CES LANGUES :
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- fa - farsi (فارسی)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
+
+SHARIK EST AUSSI DISPONIBLE SUR :
+- Android
+- iOS
+- Linux
+- MacOS
+- Windows
+
+
+Page GitHub : https://github.com/marchellodev/sharik
+
+
+Téléchargez Sharik maintenant !
+

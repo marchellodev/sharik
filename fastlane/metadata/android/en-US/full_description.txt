@@ -1,39 +1,58 @@
 Sharik is an open-source, cross-platform solution for sharing files via Wi-Fi or Mobile Hotspot.
 
 
-This app allows you to easily send photos, apps, files, text, literally anything, to all kinds of devices connected to the same network. It's convenient and blazing fast.
+This app allows you to easily send photos, apps, files, text, literally anything, to any kind of device connected to the same network. It's convenient and blazing fast.
 
-After selecting a language and going through the intro, you can see the sharing buttons and the latest files you shared on the main screen. At this point, you can share images, files, installed apps, or simply text. After selecting the file, you will be shown the Sharing screen. Here you can see your connectivity status (Wi-Fi/Mobile Hotspot) and the URL you need to open on the other device. After typing this URL in the browser and hitting Enter on the other machine, the file will start downloading. Please make sure that both devices are connected to the same network.
 
-Suppose you have Sharik installed on both machines. In this case, after sharing the file from one computer, you can simply click the button "Receive" on the bottom panel of another Sharik. After clicking, the Receiver screen will be shown. If Sharik sees another device sharing something in your local network, it will be displayed. So you can just click on it, the browser will open, and the download will start.
+After selecting a language and going through the intro, you can see the sharing buttons and the history of files you shared on the main screen. You can share images, files, installed apps, or simply text. After selecting the file, you will be shown the Sharing screen. Here you can see your connectivity status (Wi-Fi/Mobile Hotspot) and the URL you need to open on the other device. After typing this URL in the browser and hitting Enter on the other machine, the file will start downloading. Please make sure that both devices are connected to the same network.
 
-Sharik is entirely free to use, and it contains no ads. Moreover, it's source code is published in GitHub, so everyone can contribute to the development process. If you like it, please leave a star on our GitHub repository, and consider making a contribution: add a new language or help us with code.
 
-Sharik is created using in Dart, Flutter, Hover.build, and Golang. Shaik is published under an open license (MIT).
+If you have Sharik installed on both devices, you can simply click the button "Receive" on the bottom panel of the app. After clicking, the Receiver screen will be shown. If Sharik detects another device sharing a file in your local network, it will be displayed. If you click on it, the browser will appear, and the download will start.
+
+
+Sharik is entirely free to use, and it contains no ads. Moreover, its source code is published on GitHub so that everyone can contribute to the development process. So, if you like it, please leave a star on our GitHub repository, and consider contributing: add a new language or help us with code.
+
+
+Sharik was built using Flutter. It is published under an open license (MIT).
 
 
 YOU CAN SEND:
-      1. Photos (jpg, png, gif, etc)
-      2. Applications (apk)
-      3. Files (zip, rar, 7z, pdf, etc)
-      4. Text
+1. Photos (jpg, png, gif, etc)
+2. Applications (apk)
+3. Files (zip, rar, 7z, pdf, etc)
+4. Text
 
-SHARIK IS AVAILABLE ON THOSE LANGUAGES:
-      - English (English)
-      - Hindi (हिन्दी)
-      - Russian (Русский)
-      - Gujarati (ગુજરાતી)
-      - Polski (Polski)
-      - Ukrainian (Українська)
+
+SHARIK IS AVAILABLE IN THOSE LANGUAGES:
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- fa - farsi (فارسی)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
 
 SHARIK IS ALSO AVAILABLE FOR:
-      - Windows
-      - macOS
-      - Linux
-      - Android
-      - iOS
+- Android
+- iOS
+- Linux
+- MacOS
+- Windows
+
 
 GitHub page: https://github.com/marchellodev/sharik
 
 
 Download Sharik right now!
+

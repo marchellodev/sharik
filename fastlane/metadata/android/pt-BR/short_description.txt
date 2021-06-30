@@ -1,1 +1,1 @@
-Uma solução multiplataforma de compartilhamento de arquivos via rede local
+Uma solução multiplataforma de software livre de compartilhamento de arquivos

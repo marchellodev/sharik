@@ -1,0 +1,58 @@
+Sharik是一个开源跨平台的通过Wi-Fi或手机热点分享文件的解决方案。
+
+
+这个应用帮助你方便地发送照片、应用、文件、文本等几乎任何东西到所有连接到相同网络的设备上，方便快捷。
+
+
+通过引导页面选择一种语言后，你可以在主屏幕看到分享按钮和最近分享的文件。在这里，你可以分享图像、文件、安装过的应用或者一些简单的文本内容。选择文件后，你将进入文件分享页面，在这里你可以查看你的连接状态（Wi-Fi或手机热点）和你需要在其他设备输入的URL。在其他设备的浏览器输入这个URL并回车后，你分享的文件将开始下载。请确保所有设备已被连接至相同网络。
+
+
+基于你可能在多台设备安装了Sharik考虑，在一台设备分享文件后，你只需要简单点击另一台设备的Sharik底部面板上的“接收”按钮。点击后将展示接收界面，如果Sharik发现你的本地网络中的另一台设备正在分享东西，它将会被展示在这里。你可以点击它，浏览器会被打开并自动开始下载。
+
+
+Sharik使用上完全免费，并且没有广告。另外，Sharik的源代码发布在Github，所以任何人都可以参与开发。如果你喜欢Sharik，请到Github仓库点一个star，并考虑参与贡献：添加一门新的语言翻译或者贡献代码。
+
+
+Sharik使用Dart、Flutter、Hover.build和Golang开发并基于MIT开源协议发布。
+
+
+你可以发送：
+1. 图像 (jpg, png, gif, etc)
+2. 应用 (apk)
+3. 文件 (zip, rar, 7z, pdf, etc)
+4. 文本
+
+
+SHARIK在这些语言下可用：
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- fa - farsi (فارسی)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
+
+SHARIK支持下列平台：
+- Android
+- iOS
+- Linux
+- MacOS
+- Windows
+
+
+GitHub page: https://github.com/marchellodev/sharik
+
+
+立即下载Sharik！
+

@@ -1,0 +1,59 @@
+Sharik, Wi-Fi veya mobil erişim noktası aracılığıyla dosya paylaşmak için açık kaynaklı, çok platformlu bir çözümdür.
+
+
+Bu uygulama aynı ağa bağlı her çeşit aygıta resim, uygulama, dosya, metin, yani neredeyse her şeyi göndermeye imkan sağlar. Kullanışlı ve çok hızlıdır.
+
+
+Bir dil seçip tanıtımı geçtikten sonra, paylaşım düğmelerini ve yaptığınız son paylaşımları içeren ana ekranı görebilirsiniz. Bu aşamada resim, dosya, kurulu bir uygulama veya basitçe metin paylaşabilirsiniz. Dosyayı seçtikten sonra Paylaşım ekranı açılacaktır. Bu ekranda bağlantı durumunuzu (Wi-Fi, Mobil Erişim Noktası) ve diğer aygıtta açmanız gereken URL'yi görebilirsiniz. İndirmek istediğiniz diğer aygıtta bu URL'yi tarayıcıda yazıp Gönder'e tıkladığınızda, dosya indirilmeye başlayacaktır. Lütfen unutmayın, bu iki aygıt da aynı ağa bağlı olmalıdır.
+
+
+
+Varsayalım ki her iki makinede Sharik kurulu. Bu durumda, dosyayı bir aygıttan paylaştıktan sonra, diğer Sharik'te aşağıdaki panelde basitçe "Al" düğmesine tıklayabilirsiniz. Tıkladıktan sonra, Alıcı ekranı açılacaktır. Eğer Sharik yerel ağınızda başka bir aygıtın bir şey paylaştığını görüyorsa, burada görüntülenecektir. Böylece paylaşılan öğeye tıklayabilirsiniz, tarayıcı onu açacaktır ve indirme başlayacaktır.
+
+
+Sharik tamamen özgür ve reklam içermiyor. Üstelik kaynak kodu GitHub'ta yayınlanıyor, böylece herkes geliştirme sürecine katkı sağlayabilir. Eğer beğendiyseniz GitHub depomuza bir yıldız verin ve katkı sağlamayı değerlendirin: örneğin yeni bir dil ekleyebilir veya koda yardım edebilirsiniz.
+
+
+Sharik Flutter kullanılarak oluşturuldu. Açık bir lisans (MIT) kapsamında yayınlanıyor.
+
+
+ŞUNLARI GÖNDEREBİLİRSİNİZ:
+1. Fotoğraflar (jpg, png, gif, vb.)
+2. Uygulamalar (apk)
+3. Dosyalar (zip, rar, 7z, pdf, vb.)
+4. Metin
+
+
+SHARIK ŞU DİLLERDE MEVCUT:
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- fa - farsi (فارسی)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
+
+SHARIK ŞU PLATFORMLARDA MEVCUT:
+- Android
+- iOS
+- Linux
+- MacOS
+- Windows
+
+
+GitHub sayfası: https://github.com/marchellodev/sharik
+
+
+Sharik'i hemen indirin!
+

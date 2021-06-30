@@ -1,1 +1,1 @@
-Wieloplatformowe rozwiązanie do udostępniania plików w sieci lokalnej
+Międzyplatformowa aplikacja do przesyłania plików w sieci lokalnej

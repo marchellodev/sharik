@@ -1,0 +1,58 @@
+Sharik je otvorené multiplatformové riešenie pre zdieľanie súborov v lokálnej sieti alebo cez mobilný prístupový bod.
+
+
+Táto aplikácia umožňuje ľahko posielať fotky, aplikácie, súbory, text a všetko iné do všetkých druhov zariadení v rovnakej sieti. Je to praktické a veľmi rýchle.
+
+
+Po vybratí jazyka a prejdení úvodných pokynov sa zobrazia tlačidlá na zdieľanie a posledné súbory, ktoré ste nedávno zdieľali. Aktuálne môžete zdieľať fotky, súbory, nainštalované aplikácie alebo jednoduchý text. Po vybratí súboru sa zobrazí okno zdieľania. Tu môžete vidieť stav pripojenia (Wi-Fi/mobilný prístupový bod) a URL adresu, ktorú musíte otvoriť na druhom zariadení. Po zadaní URL adresy do webového prehliadača a po stlačení klávesu Enter na druhom zariadení sa súbor začne sťahovať. Uistite sa, že sú obe zariadenia pripojenie k rovnakej sieti.
+
+
+Predpokladajme, že máte Sharik nainštalovaný na oboch zariadeniach. V tomto prípade po zdieľaní súboru jednoducho vyberiete tlačidlo "Prijať" dole na druhom Shariku. Následne sa zobrazí okno prijímania. Ak Sharik nájde druhé zariadenie zdieľajúce súbor, bude zobrazené. Potom stačí iba kliknúť, otvorí sa webový prehliadač a začne sťahovanie.
+
+
+Sharik je úplne zdarma a neobsahuje reklamy. Navyše, zdrojový kód je zverejnený na GitHube, takže ktokoľvek môže prispieť k vývoju. Ak sa vám páči, pridajte mu hviezdičku v repozitári na GitHube a zvážte pomoc: pridajte nový jazyk alebo pomôžte s kódom.
+
+
+Sharik je tvorený pomocou Dart, Flutter, Hover.build a pomocou jazyka Go. Sharik je zdieľaný pod otvorenou licenciou (MIT).
+
+
+Môžete posielať:
+1. Fotky (jpg, png, gif, ...)
+2. Aplikácie (apk)
+3. Súbory (zip, rar, 7z, pdf, ...)
+4. Text
+
+
+Sharik je dostupný v týchto jazykoch:
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- fa - farsi (فارسی)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
+
+Sharik je dostupný pre:
+- Android
+- iOS
+- Linux
+- MacOS
+- Windows
+
+
+GitHub stránka: https://github.com/marchellodev/sharik
+
+
+Stiahnite si Sharik hneď teraz!
+

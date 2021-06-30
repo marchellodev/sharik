@@ -1,0 +1,1 @@
+Otvorené multiplatformové riešenie pre zdieľanie súborov v lokálnej sieti

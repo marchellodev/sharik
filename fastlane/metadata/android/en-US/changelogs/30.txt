@@ -1,0 +1,22 @@
+Added
+- Swipe from left to right to exit the sharing or about screen
+- The about screen
+- The dialog for selection network interface
+- Dark theme
+- Button that shows the link QR code
+- Support for different screen sizes & dynamic resizing
+- Now screen won't go to sleep when sharing or receiving files
+- You can now share files from any application via system 'Share via' feature (only Android and iOS)
+- A lot of new languages :)
+
+Changed
+- Updated UI design
+- Performance improvements
+- Improved the size of Sharik
+- Receiver was recreated from scratch
+
+Fixed
+- Completely new method of getting the local ip & network connectivity status
+- A lot of other fixes
+
+

@@ -1,0 +1,57 @@
+Sharik adalah solusi sumber-terbuka, antar-platform untuk membagikan berkas melalui Wi-Fi atau Hotspot Seluler.
+
+
+Aplikasi ini memungkinkan Anda untuk mengirim foto, aplikasi, berkas, teks, apapun, kepada semua jenis perangkat yang terhubung ke jaringan yang sama. Ini nyaman dan sangat cepat.
+
+
+Setelah memilih sebuah bahasa dan melewati intro, Anda dapat melihat tombol-tombol berbagi dan berkas-berkas terakhir yang Anda bagikan di layar utama. Di titik ini, Anda dapat membagikan gambar, berkas, aplikasi yang terpasang, atau hanya teks. Setelah memilih berkas, Anda akan melihat layar Berbagi. Di sini Anda dapat melihat status konektivitas (Wi-Fi/Hotspot Seluler) dan URL yang Anda perlu buka di perangkat lain. Setelah mengetik URL ini di browser dan menekan Enter di mesin lain, berkas akan mulai diunduh. Harap pastikan bahwa kedua perangkat terhubung ke jaringan yang sama.
+
+
+Misal Anda memiliki Sharik di kedua perangkat. Jika begitu, setelah membagikan berkas dari satu komputer, Anda dengan mudah dapat mengklik tombol "Terima" di panel bawah dari Sharik lain. Setelah mengklik, layar Penerimaan akan ditampilkan. Jika Sharik melihat perangkat lain membagikan sesuatu di jaringan lokal Anda, itu akan ditampilkan. Sehingga Anda hanya perlu mengkliknya, browser akan terbuka, dan pengunduhan akan dimulai.
+
+
+Sharik sepenuhnya gratis untuk digunakan, dan tidak memiliki iklan. Bahkan, kode sumbernya dipublikasikan di GitHub, sehingga semua orang dapat berkontribusi ke proses pengembangannya. Jika Anda menyukainya, mohon tinggalkan sebuah bintang di repositori GitHub kami, dan pertimbangkan membuat sebuah kontribusi: menambahkan bahasa baru atau bantu kami dengan kodenya.
+
+
+Sharik dibuat menggunakan Dart, Flutter, Hover.build, dan Golang. Sharik dipublikasikan di bawah lisensi terbuka (MIT).
+
+
+ANDA DAPAT MENGIRIM:
+1. Foto (jpg, png, gif, dll)
+2. Aplikasi (apk)
+3. Berkas (zip, rar, 7z, pdf, dll)
+4. Teks
+
+SHARIK TERSEDIA DALAM BAHASA:
+- Android
+- iOS
+- Linux
+- MacOS
+- Windows
+
+
+SHARIK JUGA TERSEDIA UNTUK:
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- fa - farsi (فارسی)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
+
+Halaman GitHub: https://github.com/marchellodev/sharik
+
+
+Unduh Sharik sekarang!
+
