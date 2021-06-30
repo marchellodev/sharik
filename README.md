@@ -23,7 +23,7 @@ Feel free to leave an issue or create a pull request.
 
 Please submit your translation at [crowdin.com/project/sharik](https://crowdin.com/project/sharik). If your language does not yet exist, create an issue or start a discussion on crowdin.
 
-### Translators
+### Supported languages
 
 - Persian by [Behzad NjF](https://github.com/behzad-njf)
 - Polish by [Atrate](https://github.com/Atrate) and [Sebastian Jasiński](https://crowdin.com/profile/princenorris)
@@ -47,19 +47,20 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 - Windows
 - Linux
 - iOS
-- MacOS (probably)
+- MacOS
 
-[![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v2.5/)
+[![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v3.0/)
 
 
 ### Android
 <a href='https://f-droid.org/en/packages/dev.marchello.sharik'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en-us.png' width="200"/></a>
 <a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
 
-- [For all architectures](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android.apk)
-- [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android_arm64_v8a.apk)
-- [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android_armeabi_v7a.apk)
-- [x86_64](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_android_x86_64.apk)
+OR direct download:
+- [For all architectures](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android.apk)
+- [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android_arm64_v8a.apk)
+- [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android_armeabi_v7a.apk)
+- [x86_64](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android_x86_64.apk)
 
 
 ### Windows
@@ -68,28 +69,36 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 
 The Windows application is not signed, so you may get a 'suspicious application' alert or something like that. Sorry for that.
 
-- [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_windows.msi)
-- [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_windows.zip)
+- [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_windows.msi)
+- [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_windows.zip)
 
 
 ### Linux
 
-You can get sharik for linux from the Snap Store:
-`sudo snap install sharik-app`
+You can get Sharik for linux from the Snap Store:
+
+```sudo snap install sharik-app```
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/sharik-app)
 
-- [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.AppImage)
-- [DEB (debian)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.deb)
-- [RPM (centOS)](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.rpm)
-- [zip](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_linux.zip)
+// soon flatpak
+
+Or from a PPA:
+
+```shell
+curl -sS https://ppa.mark.vin/key.gpg | sudo apt-key add - 
+echo "deb https://ppa.mark.vin/sharik stable main" | sudo tee /etc/apt/sources.list.d/sharik.list
+sudo apt-get update && sudo apt-get install sharik
+```
+
+OR direct download:
+- [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_linux.AppImage)
+- [DEB (for Debian-based systems)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_linux.deb)
+- [zip](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_linux.zip)
 
 
 ### MacOS
-- [DMG](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_darwin.dmg)
-- [PKG](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_darwin.pkg)
-- [zip](https://github.com/marchellodev/sharik/releases/download/v2.5/sharik_v2.5_darwin.zip)
-
+// soon
 
 ### iOS
 
