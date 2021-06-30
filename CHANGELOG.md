@@ -9,14 +9,14 @@
 - The dialog for selection network interface
 - Dark theme
 - Button that shows the link QR code
-- todo new languages
 - Support for different screen sizes & dynamic resizing
 - Now screen won't go to sleep when sharing or receiving files
 - You can now share files from any application via system 'Share via' feature (only Android and iOS)
+- A lot of new languages :)
 
 ### Changed
-- New design of the app
-- Big performance optimizations
+- Updated UI design
+- Performance improvements
 - Improved the size of Sharik
 - Receiver was recreated from scratch
 
