@@ -1,8 +1,8 @@
-This app uses Ackee analytics (https://ackee.electerious.com) for tracking to learn the users and improve the app.
+This app uses Ackee analytics (https://ackee.electerious.com) for tracking to learn more about the users.
 
-Everytime you open the app, it sends information about your device, and the duration of the session to the Ackee software (installed on my personal server).
+Every time you open the app, it sends information about your device and the duration of the session to the Ackee software (installed on my server).
 
-The app does not store any identifying information (cookies) and does not track users specifically.
+The app does not store any identifying information (cookies) and tracks users as anonymously and privacy-conscious as possible.
 
 The data is not shared with 3rd parties.
 
