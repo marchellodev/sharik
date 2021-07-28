@@ -5,7 +5,7 @@ repository: https://github.com/marchellodev/sharik
 issue_tracker: https://github.com/marchellodev/sharik/issues
 publish_to: none
 version: 3.0.0
-versionCode: 8
+versionCode: 11
 author: marchellodev
 
 environment:
