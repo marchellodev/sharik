@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> shareFile(SharingObject file) async {
     setState(() {
-      if (_history.contains(file)) _history.remove(file);
+      _history.removeWhere((element) => element.name == file.name);
 
       _history.insert(0, file);
     });

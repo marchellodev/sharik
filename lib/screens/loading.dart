@@ -74,32 +74,47 @@ class _LoadingScreenState extends State<LoadingScreen> {
           }
 
           if (sharedFile.isNotEmpty) {
+            // todo apply dry
+            final _file = SharingObject(
+                type: SharingObjectType.file,
+                data: sharedFile[0].path.replaceFirst('file://', ''),
+                name: SharingObject.getSharingName(
+                  SharingObjectType.file,
+                  sharedFile[0].path.replaceFirst('file://', ''),
+                ));
+
+            final _history = Hive.box<SharingObject>('history').values.toList();
+            _history.removeWhere((element) => element.name == _file.name);
+            _history.insert(0, _file);
+            await Hive.box<SharingObject>('history').clear();
+            await Hive.box<SharingObject>('history').addAll(_history);
+
             SharikRouter.navigateTo(
-                _globalKey,
-                Screens.sharing,
-                RouteDirection.right,
-                SharingObject(
-                    type: SharingObjectType.file,
-                    data: sharedFile[0].path.replaceFirst('file://', ''),
-                    name: SharingObject.getSharingName(
-                      SharingObjectType.file,
-                      sharedFile[0].path.replaceFirst('file://', ''),
-                    )));
+                _globalKey, Screens.sharing, RouteDirection.right, _file);
             return;
           }
 
           if (sharedText != null) {
+            final _file = SharingObject(
+                type: SharingObjectType.text,
+                data: sharedText,
+                name: SharingObject.getSharingName(
+                  SharingObjectType.text,
+                  sharedText,
+                ));
+
+            final _history = Hive.box<SharingObject>('history').values.toList();
+            _history.removeWhere((element) => element.name == _file.name);
+            _history.insert(0, _file);
+            await Hive.box<SharingObject>('history').clear();
+            await Hive.box<SharingObject>('history').addAll(_history);
+
             SharikRouter.navigateTo(
-                _globalKey,
-                Screens.sharing,
-                RouteDirection.right,
-                SharingObject(
-                    type: SharingObjectType.text,
-                    data: sharedText,
-                    name: SharingObject.getSharingName(
-                      SharingObjectType.text,
-                      sharedText,
-                    )));
+              _globalKey,
+              Screens.sharing,
+              RouteDirection.right,
+              _file,
+            );
             return;
           }
         }
