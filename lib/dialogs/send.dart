@@ -5,6 +5,7 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:sharik/conf.dart';
 
 import '../components/buttons.dart';
 import '../logic/sharing_object.dart';
@@ -57,13 +58,14 @@ class SendDialog extends StatelessWidget {
                               SharingObjectType.file, (f.paths.first)!)));
                     }
                   } else {
-                    final f = await openFile();
-                    if (f != null) {
+                    final f = await openFiles();
+                    if (f.isNotEmpty) {
+                      final data = f.map((e) => e.path).join(multipleFilesDelimiter);
                       Navigator.of(context).pop(SharingObject(
-                        data: f.path,
+                        data: data,
                         type: SharingObjectType.file,
                         name: SharingObject.getSharingName(
-                            SharingObjectType.file, f.path),
+                            SharingObjectType.file, data),
                       ));
                     }
                   }

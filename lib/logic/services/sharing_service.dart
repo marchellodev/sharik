@@ -89,33 +89,108 @@ class SharingService extends ChangeNotifier {
       } else {
         if (_file.type == SharingObjectType.file ||
             _file.type == SharingObjectType.app) {
-          final f = File(_file.data);
-          final size = await f.length();
+          if (!_file.data.contains(multipleFilesDelimiter)) {
+            final f = File(_file.data);
+            // todo what if the file is a folder?
+            final size = await f.length();
 
-          request.response.headers.contentType =
-              ContentType('application', 'octet-stream', charset: 'utf-8');
+            request.response.headers.contentType =
+                ContentType('application', 'octet-stream', charset: 'utf-8');
 
-          request.response.headers.add(
-            'Content-Transfer-Encoding',
-            'Binary',
-          );
+            request.response.headers.add(
+              'Content-Transfer-Encoding',
+              'Binary',
+            );
 
-          request.response.headers.add(
-            'Content-disposition',
-            'attachment; filename="${Uri.encodeComponent(_file.type == SharingObjectType.file ? _file.name : '${_file.name}.apk')}"',
-          );
-          request.response.headers.add(
-            'Content-length',
-            size,
-          );
+            request.response.headers.add(
+              'Content-disposition',
+              'attachment; filename="${Uri.encodeComponent(_file.type == SharingObjectType.file ? _file.name : '${_file.name}.apk')}"',
+            );
+            request.response.headers.add(
+              'Content-length',
+              size,
+            );
 
-          await f
-              .openRead()
-              .pipe(request.response)
-              .catchError((e) {})
-              .then((a) {
-            request.response.close();
-          });
+            await f
+                .openRead()
+                .pipe(request.response)
+                .catchError((e) {})
+                .then((a) {
+              request.response.close();
+            });
+          } else {
+            final fileList = _file.data.split(multipleFilesDelimiter);
+
+            final requestedFilePath =
+                request.requestedUri.queryParameters['q'] ?? '';
+            File? file;
+            int? size;
+            var isDir = false;
+
+            // if the file is requested
+            if (requestedFilePath.isNotEmpty) {
+              isDir = await FileSystemEntity.type(requestedFilePath) ==
+                  FileSystemEntityType.directory;
+
+              // todo support folders too
+              if (!fileList.contains(requestedFilePath)) {
+                print('NO ACCESS!!!');
+                // todo do not return but skip the cycle
+                return;
+              }
+
+              if (!isDir) {
+                file = File(requestedFilePath);
+                size = await file.length();
+              }
+            }
+
+            // We are sharing multiple files
+            // Serving an entry html page or the folder page
+            if (requestedFilePath.isEmpty || isDir) {
+              final displayFiles = isDir
+                  ? Directory(requestedFilePath)
+                      .listSync()
+                      .map((e) => e.path)
+                      .toList()
+                  : fileList;
+
+              request.response.headers.contentType =
+                  ContentType('text', 'html', charset: 'utf-8');
+              request.response.write(_buildHTML(displayFiles));
+              request.response.close();
+              // Serving the files
+            } else {
+              request.response.headers.contentType =
+                  ContentType('application', 'octet-stream', charset: 'utf-8');
+
+              request.response.headers.add(
+                'Content-Transfer-Encoding',
+                'Binary',
+              );
+
+              request.response.headers.add(
+                'Content-disposition',
+                'attachment; filename="${Uri.encodeComponent(_file.type == SharingObjectType.file ? requestedFilePath.split(Platform.pathSeparator).last : '${_file.name}.apk')}"',
+              );
+
+              if (size != null) {
+                request.response.headers.add(
+                  'Content-length',
+                  size,
+                );
+              }
+
+              await file!
+                  .openRead()
+                  .pipe(request.response)
+                  .catchError((e) {})
+                  .then((a) {
+                request.response.close();
+                // serving all the files or an entry html page
+              });
+            }
+          }
         } else {
           request.response.headers.contentType =
               ContentType('text', 'plain', charset: 'utf-8');
@@ -125,4 +200,28 @@ class SharingService extends ChangeNotifier {
       }
     }
   }
+}
+
+// todo fix Download all
+// todo pass type (file vs folder)
+String _buildHTML(List<String> files) {
+  final html = '''
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sharik</title>
+  </head>
+  <body>
+    <button onClick='(function(){ ${files.map((e) => 'window.open("/?q=${Uri.decodeComponent(e)}");').join(' ')} })();'>Download all (Will skip folders, Requires JS enabled)</button>
+    <ul style="line-height:200%">
+      ${files.map((e) => '<li><a href="/?q=${Uri.decodeComponent(e)}"><b>${e.split(Platform.pathSeparator).last}</b> ($e)</li></a>').join('\n')}
+    </ul>
+    
+    
+  </body>
+</html>
+  ''';
+
+  return html;
 }

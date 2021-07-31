@@ -198,7 +198,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     controller: fileNameScroller,
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      _file.data.toString(),
+                      _file.data
+                          .toString()
+                          .replaceAll(multipleFilesDelimiter, ' '),
                       style: GoogleFonts.getFont(
                         'Andika',
                         color: Colors.grey.shade50,
