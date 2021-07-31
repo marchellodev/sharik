@@ -59,5 +59,9 @@
 
 
   "fontAndika": "Andika",
-  "fontComfortaa": "Comfortaa"
+  "fontComfortaa": "Comfortaa",
+
+  "homeSend": "Send",
+  "homeReceive": "Receive",
+  "homeFiles": "Files"
 }

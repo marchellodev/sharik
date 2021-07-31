@@ -121,8 +121,10 @@ class TransparentButton extends StatelessWidget {
   final Widget child;
   final Function() onClick;
   final TransparentButtonBackground background;
+  final bool border;
 
-  const TransparentButton(this.child, this.onClick, this.background);
+  const TransparentButton(this.child, this.onClick, this.background,
+      {this.border = false});
 
   @override
   Widget build(BuildContext context) {
@@ -145,8 +147,13 @@ class TransparentButton extends StatelessWidget {
     }
 
     return Material(
+      shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: border
+                  ? Colors.deepPurple.shade100.withOpacity(0.16)
+                  : Colors.transparent),
+          borderRadius: BorderRadius.circular(8)),
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(8),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         splashColor: splashColor,

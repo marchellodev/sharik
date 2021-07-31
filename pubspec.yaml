@@ -59,7 +59,7 @@ dependencies:
 
 
   # Android and IOS
-  file_picker: ^3.0.3
+  file_picker: ^3.0.4
 
 
   # Desktop
@@ -67,7 +67,6 @@ dependencies:
   file_selector_windows: ^0.0.2+1
   file_selector_linux: ^0.0.2+1
   file_selector_macos: ^0.0.4+1
-
 
 
   # ARCHITECTURE

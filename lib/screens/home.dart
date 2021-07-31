@@ -1,9 +1,5 @@
-import 'dart:io' show Platform;
 import 'dart:ui';
 
-import 'package:bootstrap_icons/bootstrap_icons.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,9 +12,8 @@ import '../components/logo.dart';
 import '../components/page_router.dart';
 import '../conf.dart';
 import '../dialogs/open_dialog.dart';
-import '../dialogs/receiver.dart';
-import '../dialogs/share_app.dart';
-import '../dialogs/share_text.dart';
+import '../dialogs/receive.dart';
+import '../dialogs/send.dart';
 import '../logic/sharing_object.dart';
 import '../logic/theme.dart';
 import '../utils/helper.dart';
@@ -53,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await saveLatest();
 
-    SharikRouter.navigateTo(_globalKey, Screens.sharing, RouteDirection.right, file);
+    SharikRouter.navigateTo(
+        _globalKey, Screens.sharing, RouteDirection.right, file);
   }
 
   @override
@@ -134,18 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Icon(LucideIcons.helpCircle,
                           color: Colors.deepPurple.shade700, size: 20)),
                   () => SharikRouter.navigateTo(
-_globalKey, Screens.intro, RouteDirection.left),
+                      _globalKey, Screens.intro, RouteDirection.left),
                   TransparentButtonBackground.purpleLight,
                 ),
-                const SizedBox(width: 2),
-                TransparentButton(
-                    SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: Icon(LucideIcons.download,
-                            color: Colors.deepPurple.shade700, size: 20)), () {
-                  openDialog(context, ReceiverDialog());
-                }, TransparentButtonBackground.purpleLight),
                 const SizedBox(width: 2),
                 TransparentButton(
                     SizedBox(
@@ -164,8 +151,8 @@ _globalKey, Screens.intro, RouteDirection.left),
                         color: Colors.deepPurple.shade700,
                       ),
                     ),
-                    () => SharikRouter.navigateTo( _globalKey,
-                        Screens.about, RouteDirection.right),
+                    () => SharikRouter.navigateTo(
+                        _globalKey, Screens.about, RouteDirection.right),
                     TransparentButtonBackground.purpleLight),
               ],
             ),
@@ -225,86 +212,26 @@ _globalKey, Screens.intro, RouteDirection.left),
         PrimaryButton(
           height: 110,
           onClick: () async {
-            if (Platform.isAndroid || Platform.isIOS) {
-              final f = await FilePicker.platform.pickFiles();
-
-              if (f != null) {
-                shareFile(SharingObject(
-                    data: (f.paths.first)!,
-                    type: SharingObjectType.file,
-                    name: SharingObject.getSharingName(
-                        SharingObjectType.file, (f.paths.first)!)));
-              }
-            } else {
-              final f = await openFile();
-              if (f != null) {
-                shareFile(SharingObject(
-                  data: f.path,
-                  type: SharingObjectType.file,
-                  name: SharingObject.getSharingName(
-                      SharingObjectType.file, f.path),
-                ));
-              }
+            final obj = await openDialog(context, const SendDialog());
+            if (obj != null) {
+              shareFile(obj);
             }
           },
-          text: c.l.homeSelectFile,
+          text: c.l.homeSend,
           secondaryIcon: Icon(
-            BootstrapIcons.file_earmark,
-            size: 48,
-            color: Colors.deepPurple.shade200.withOpacity(0.9),
+            LucideIcons.upload,
+            size: 42,
+            color: Colors.deepPurple.shade200.withOpacity(0.8),
           ),
         ),
         const SizedBox(height: 12),
-        Row(
-          children: [
-            if (Platform.isAndroid)
-              Expanded(
-                child: PrimaryButton(
-                  height: 50,
-                  onClick: () async {
-                    final f = await openDialog(context, ShareAppDialog());
-                    if (f != null) {
-                      shareFile(f);
-                    }
-                  },
-                  text: c.l.homeSelectApp,
-                ),
-              ),
-            if (Platform.isIOS)
-              Expanded(
-                child: PrimaryButton(
-                  height: 50,
-                  onClick: () async {
-
-                    final f = await FilePicker.platform
-                        .pickFiles(type: FileType.media);
-
-                    if (f != null) {
-                      shareFile(SharingObject(
-                          data: (f.paths.first)!,
-                          type: SharingObjectType.file,
-                          name: SharingObject.getSharingName(
-                              SharingObjectType.file, (f.names.first)!)));
-                    }
-                  },
-                  text: c.l.homeSelectGallery,
-                ),
-              ),
-            if (Platform.isIOS || Platform.isAndroid) const SizedBox(width: 12),
-            Expanded(
-              child: PrimaryButton(
-                height: 50,
-                onClick: () async {
-                  final f = await openDialog(context, ShareTextDialog());
-                  if (f != null) {
-                    shareFile(f);
-                  }
-                },
-                text: c.l.homeSelectText,
-              ),
-            ),
-          ],
-        ),
+        PrimaryButton(
+          height: 60,
+          onClick: () async {
+            openDialog(context, ReceiverDialog());
+          },
+          text: c.l.homeReceive,
+        )
       ],
     );
   }
