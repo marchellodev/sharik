@@ -48,7 +48,7 @@ class SendDialog extends StatelessWidget {
                 ),
                 () async {
                   if (Platform.isAndroid || Platform.isIOS) {
-                    final f = await FilePicker.platform.pickFiles();
+                    final f = await FilePicker.platform.pickFiles(allowMultiple: true);
 
                     if (f != null) {
                       Navigator.of(context).pop(SharingObject(
@@ -145,7 +145,7 @@ class SendDialog extends StatelessWidget {
                   ),
                   () async {
                     final f = await FilePicker.platform
-                        .pickFiles(type: FileType.media);
+                        .pickFiles(type: FileType.media, allowMultiple: true);
 
                     if (f != null) {
                       Navigator.of(context).pop(SharingObject(
