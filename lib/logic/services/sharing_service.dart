@@ -92,6 +92,7 @@ class SharingService extends ChangeNotifier {
           if (!_file.data.contains(multipleFilesDelimiter)) {
             final f = File(_file.data);
             // todo what if the file is a folder?
+            // todo check sharing multiple apps & media files
             final size = await f.length();
 
             request.response.headers.contentType =
@@ -131,12 +132,20 @@ class SharingService extends ChangeNotifier {
             if (requestedFilePath.isNotEmpty) {
               isDir = await FileSystemEntity.type(requestedFilePath) ==
                   FileSystemEntityType.directory;
-
-              // todo support folders too
+              // todo is that secure enough?
               if (!fileList.contains(requestedFilePath)) {
-                print('NO ACCESS!!!');
-                // todo do not return but skip the cycle
-                return;
+                // checking if the path belongs to a shared folder
+                var isInsideAFolder = false;
+                for (final el in fileList) {
+                  if (requestedFilePath.contains(el)) {
+                    isInsideAFolder = true;
+                  }
+                }
+
+                if (!isInsideAFolder) {
+                  print('NO ACCESS!!!');
+                  continue;
+                }
               }
 
               if (!isDir) {
@@ -148,12 +157,18 @@ class SharingService extends ChangeNotifier {
             // We are sharing multiple files
             // Serving an entry html page or the folder page
             if (requestedFilePath.isEmpty || isDir) {
-              final displayFiles = isDir
+              final _fileList = isDir
                   ? Directory(requestedFilePath)
                       .listSync()
                       .map((e) => e.path)
                       .toList()
                   : fileList;
+
+              final displayFiles = Map.fromEntries(_fileList.map((e) =>
+                  MapEntry(
+                      e,
+                      FileSystemEntity.typeSync(e) !=
+                          FileSystemEntityType.directory)));
 
               request.response.headers.contentType =
                   ContentType('text', 'html', charset: 'utf-8');
@@ -204,7 +219,8 @@ class SharingService extends ChangeNotifier {
 
 // todo fix Download all
 // todo pass type (file vs folder)
-String _buildHTML(List<String> files) {
+/// bool - true if the path is a file; false if it's a folder
+String _buildHTML(Map<String, bool> files) {
   final html = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -213,12 +229,26 @@ String _buildHTML(List<String> files) {
     <title>Sharik</title>
   </head>
   <body>
-    <button onClick='(function(){ ${files.map((e) => 'window.open("/?q=${Uri.decodeComponent(e)}");').join(' ')} })();'>Download all (Will skip folders, Requires JS enabled)</button>
+    <button onClick="downloadAll()">Download all (Will skip folders, Requires JS enabled)</button>
     <ul style="line-height:200%">
-      ${files.map((e) => '<li><a href="/?q=${Uri.decodeComponent(e)}"><b>${e.split(Platform.pathSeparator).last}</b> ($e)</li></a>').join('\n')}
+      ${files.entries.map((val) => '<li><a href="/?q=${Uri.decodeComponent(val.key)}" class="${val.value ? 'file' : 'folder'}"><b>${val.key.split(Platform.pathSeparator).last}</b> (${val.key})</li></a>').join('\n')}
     </ul>
     
+    <script>
+    function downloadAll(){
+      var arr = [].slice.call(document.getElementsByClassName('file'));
+      downloadList(arr);
+    }
+
+    function downloadList(list){
+      list[0].click();
+      list.shift();
     
+      setTimeout(function() {
+        if(list.length > 0) downloadList(list);
+      }, 1000);
+    }
+    </script>
   </body>
 </html>
   ''';
