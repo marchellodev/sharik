@@ -174,9 +174,7 @@ class SharingService extends ChangeNotifier {
             request,
             file,
             size,
-            _file.type == SharingObjectType.file
-                ? requestedFilePath.split(Platform.pathSeparator).last
-                : '${_file.name}.apk');
+            requestedFilePath.split(Platform.pathSeparator).last);
       }
     }
   }

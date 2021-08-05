@@ -59,8 +59,8 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
           _apps.add(el);
         }
       }
-      for(final el in selected){
-        if(!_apps.contains(el)){
+      for (final el in selected) {
+        if (!_apps.contains(el)) {
           selected.remove(el);
         }
       }
@@ -147,7 +147,9 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                         child: Text(app.packageName,
                             style: GoogleFonts.getFont('Andika',
                                 color: context.t.textTheme.bodyText1!.color))),
-                    onTap: () => setState(() => selected.add(app)),
+                    onTap: () => setState(() => selected.contains(app)
+                        ? selected.remove(app)
+                        : selected.add(app)),
                     selected: selected.contains(app),
                   ),
                 ),

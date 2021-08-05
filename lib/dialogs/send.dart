@@ -5,9 +5,9 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:sharik/conf.dart';
 
 import '../components/buttons.dart';
+import '../conf.dart';
 import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 import 'open_dialog.dart';
@@ -52,10 +52,10 @@ class SendDialog extends StatelessWidget {
 
                     if (f != null) {
                       Navigator.of(context).pop(SharingObject(
-                          data: (f.paths.first)!,
+                          data: f.paths.join(multipleFilesDelimiter),
                           type: SharingObjectType.file,
                           name: SharingObject.getSharingName(
-                              SharingObjectType.file, (f.paths.first)!)));
+                              SharingObjectType.file, f.paths.join(multipleFilesDelimiter))));
                     }
                   } else {
                     final f = await openFiles();
@@ -148,11 +148,13 @@ class SendDialog extends StatelessWidget {
                         .pickFiles(type: FileType.media, allowMultiple: true);
 
                     if (f != null) {
+
                       Navigator.of(context).pop(SharingObject(
-                          data: (f.paths.first)!,
+                          data: f.paths.join(multipleFilesDelimiter),
                           type: SharingObjectType.file,
                           name: SharingObject.getSharingName(
-                              SharingObjectType.file, (f.names.first)!)));
+                              SharingObjectType.file, f.paths.join(multipleFilesDelimiter))));
+
                     }
                   },
                   TransparentButtonBackground.def,
