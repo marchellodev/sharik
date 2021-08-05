@@ -63,5 +63,7 @@
 
   "homeSend": "Send",
   "homeReceive": "Receive",
-  "homeFiles": "Files"
+  "homeFiles": "Files",
+
+  "shareDownloadAllButton": "Download all (Will skip folders, Requires JavaScript enabled)"
 }

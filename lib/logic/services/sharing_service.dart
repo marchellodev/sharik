@@ -1,22 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../conf.dart';
+import '../../utils/helper.dart';
 import '../sharing_object.dart';
 
 class SharingService extends ChangeNotifier {
   final SharingObject _file;
   int? _port;
   HttpServer? _server;
+  final BuildContext _context;
 
   int? get port => _port;
 
   bool get running => _port != null;
 
-  SharingService(this._file);
+  SharingService(this._file, this._context);
 
   Future<bool> _isPortFree(int port) async {
     try {
@@ -76,13 +79,22 @@ class SharingService extends ChangeNotifier {
 
     await for (final request in _server!) {
       // If we are requesting sharik.json
-      if (request.requestedUri.toString().split('/').length == 4 &&
-          request.requestedUri.toString().split('/').last == 'sharik.json') {
+      if (request.requestedUri
+          .toString()
+          .split('/')
+          .length == 4 &&
+          request.requestedUri
+              .toString()
+              .split('/')
+              .last == 'sharik.json') {
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
           'sharik': currentVersion,
-          'type': _file.type.toString().split('.').last,
+          'type': _file.type
+              .toString()
+              .split('.')
+              .last,
           'name': _file.name,
           'os': Platform.operatingSystem,
         }));
@@ -156,17 +168,19 @@ class SharingService extends ChangeNotifier {
       if (requestedFilePath.isEmpty || isDir) {
         final _fileList = isDir
             ? Directory(requestedFilePath)
-                .listSync()
-                .map((e) => e.path)
-                .toList()
+            .listSync()
+            .map((e) => e.path)
+            .toList()
             : fileList;
 
-        final displayFiles = Map.fromEntries(_fileList.map((e) => MapEntry(e,
-            FileSystemEntity.typeSync(e) != FileSystemEntityType.directory)));
+        final displayFiles = Map.fromEntries(_fileList.map((e) =>
+            MapEntry(e,
+                FileSystemEntity.typeSync(e) !=
+                    FileSystemEntityType.directory)));
 
         request.response.headers.contentType =
             ContentType('text', 'html', charset: 'utf-8');
-        request.response.write(_buildHTML(displayFiles));
+        request.response.write(_buildHTML(displayFiles, _context.l.shareDownloadAllButton));
         request.response.close();
         // Serving the files
       } else {
@@ -174,14 +188,16 @@ class SharingService extends ChangeNotifier {
             request,
             file,
             size,
-            requestedFilePath.split(Platform.pathSeparator).last);
+            requestedFilePath
+                .split(Platform.pathSeparator)
+                .last);
       }
     }
   }
 }
 
-Future<void> _pipeFile(
-    HttpRequest request, File? file, int? size, String fileName) async {
+Future<void> _pipeFile(HttpRequest request, File? file, int? size,
+    String fileName) async {
   request.response.headers.contentType =
       ContentType('application', 'octet-stream', charset: 'utf-8');
 
@@ -208,7 +224,7 @@ Future<void> _pipeFile(
 }
 
 /// bool - true if the path is a file; false if it's a folder
-String _buildHTML(Map<String, bool> files) {
+String _buildHTML(Map<String, bool> files, String downloadButtonText) {
   final html = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -217,9 +233,12 @@ String _buildHTML(Map<String, bool> files) {
     <title>Sharik</title>
   </head>
   <body>
-    <button onClick="downloadAll()">Download all (Will skip folders, Requires JS enabled)</button>
+    <button onClick="downloadAll()">$downloadButtonText</button>
     <ul style="line-height:200%">
-      ${files.entries.map((val) => '<li><a href="/?q=${Uri.decodeComponent(val.key)}" class="${val.value ? 'file' : 'folder'}"><b>${val.key.split(Platform.pathSeparator).last}</b> <small>(${val.key})</small></li></a>').join('\n')}
+      ${files.entries.map((val) => '<li><a href="/?q=${Uri.decodeComponent(
+      val.key)}" class="${val.value ? 'file' : 'folder'}"><b>${val.key
+      .split(Platform.pathSeparator)
+      .last}</b> <small>(${val.key})</small></li></a>').join('\n')}
     </ul>
     
     <script>

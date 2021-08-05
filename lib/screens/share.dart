@@ -59,12 +59,14 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
+
     // todo init stuff in a separate method
     _file = widget._file;
 
     _ipService.load();
 
-    _sharingService = SharingService(_file);
+    _sharingService = SharingService(_file, context);
     _sharingService.start();
 
     _conController = AnimationController(
@@ -74,8 +76,6 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     if (!Platform.isLinux) {
       Wakelock.enable();
     }
-
-    super.initState();
   }
 
   final _globalKey = GlobalKey();
