@@ -19,6 +19,8 @@ class SharingObjectTypeAdapter extends TypeAdapter<SharingObjectType> {
         return SharingObjectType.text;
       case 2:
         return SharingObjectType.app;
+      case 3:
+        return SharingObjectType.unknown;
       default:
         return SharingObjectType.file;
     }
@@ -35,6 +37,10 @@ class SharingObjectTypeAdapter extends TypeAdapter<SharingObjectType> {
         break;
       case SharingObjectType.app:
         writer.writeByte(2);
+        break;
+
+      case SharingObjectType.unknown:
+        writer.writeByte(3);
         break;
     }
   }
