@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/buttons.dart';
+import '../conf.dart';
 import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 
@@ -19,7 +20,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
   bool _hideLaunchLess = true;
   List<ApplicationWithIcon> apps = <ApplicationWithIcon>[];
   String _search = '';
-  ApplicationWithIcon? selected;
+  List<ApplicationWithIcon> selected = [];
 
   @override
   void initState() {
@@ -29,7 +30,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
 
   Future<void> getApps() async {
     setState(() {
-      selected = null;
+      selected = [];
 
       apps.clear();
     });
@@ -58,8 +59,10 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
           _apps.add(el);
         }
       }
-      if (selected != null && !_apps.contains(selected)) {
-        selected = null;
+      for (final el in selected) {
+        if (!_apps.contains(el)) {
+          selected.remove(el);
+        }
       }
     }
 
@@ -81,7 +84,10 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 contentPadding: EdgeInsets.zero,
-                title: Text(context.l.selectAppHideSystem, style: GoogleFonts.getFont('Andika'),),
+                title: Text(
+                  context.l.selectAppHideSystem,
+                  style: GoogleFonts.getFont('Andika'),
+                ),
                 value: _hideSystem,
                 onChanged: (value) => setState(() {
                   _hideSystem = value!;
@@ -95,7 +101,10 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 contentPadding: EdgeInsets.zero,
-                title: Text(context.l.selectAppHideNonLaunch, style: GoogleFonts.getFont('Andika'),),
+                title: Text(
+                  context.l.selectAppHideNonLaunch,
+                  style: GoogleFonts.getFont('Andika'),
+                ),
                 value: _hideLaunchLess,
                 onChanged: (value) => setState(() {
                   _hideLaunchLess = value!;
@@ -129,7 +138,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                         scrollDirection: Axis.horizontal,
                         child: Text(app.appName,
                             style: GoogleFonts.getFont('Andika',
-                                fontWeight: selected == app
+                                fontWeight: selected.contains(app)
                                     ? FontWeight.w500
                                     : FontWeight.normal,
                                 color: context.t.textTheme.bodyText1!.color))),
@@ -138,8 +147,10 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                         child: Text(app.packageName,
                             style: GoogleFonts.getFont('Andika',
                                 color: context.t.textTheme.bodyText1!.color))),
-                    onTap: () => setState(() => selected = app),
-                    selected: selected == app,
+                    onTap: () => setState(() => selected.contains(app)
+                        ? selected.remove(app)
+                        : selected.add(app)),
+                    selected: selected.contains(app),
                   ),
                 ),
               if (_apps.isEmpty && _search.isEmpty)
@@ -159,13 +170,16 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
         }),
         DialogTextButton(
             context.l.generalSend,
-            selected == null
+            selected.isEmpty
                 ? null
                 : () {
                     Navigator.of(context).pop(SharingObject(
                         type: SharingObjectType.app,
-                        data: selected!.apkFilePath,
-                        name: selected!.appName));
+                        data: selected
+                            .map((e) => e.apkFilePath)
+                            .join(multipleFilesDelimiter),
+                        name:
+                            '${selected.length == 1 ? '' : '${selected.length}: '}${selected.map((e) => e.appName).join(' ')}'));
                   }),
       ],
     );

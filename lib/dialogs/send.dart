@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/buttons.dart';
+import '../conf.dart';
 import '../logic/sharing_object.dart';
 import '../utils/helper.dart';
 import 'open_dialog.dart';
@@ -47,23 +48,24 @@ class SendDialog extends StatelessWidget {
                 ),
                 () async {
                   if (Platform.isAndroid || Platform.isIOS) {
-                    final f = await FilePicker.platform.pickFiles();
+                    final f = await FilePicker.platform.pickFiles(allowMultiple: true);
 
                     if (f != null) {
                       Navigator.of(context).pop(SharingObject(
-                          data: (f.paths.first)!,
+                          data: f.paths.join(multipleFilesDelimiter),
                           type: SharingObjectType.file,
                           name: SharingObject.getSharingName(
-                              SharingObjectType.file, (f.paths.first)!)));
+                              SharingObjectType.file, f.paths.join(multipleFilesDelimiter))));
                     }
                   } else {
-                    final f = await openFile();
-                    if (f != null) {
+                    final f = await openFiles();
+                    if (f.isNotEmpty) {
+                      final data = f.map((e) => e.path).join(multipleFilesDelimiter);
                       Navigator.of(context).pop(SharingObject(
-                        data: f.path,
+                        data: data,
                         type: SharingObjectType.file,
                         name: SharingObject.getSharingName(
-                            SharingObjectType.file, f.path),
+                            SharingObjectType.file, data),
                       ));
                     }
                   }
@@ -143,14 +145,16 @@ class SendDialog extends StatelessWidget {
                   ),
                   () async {
                     final f = await FilePicker.platform
-                        .pickFiles(type: FileType.media);
+                        .pickFiles(type: FileType.media, allowMultiple: true);
 
                     if (f != null) {
+
                       Navigator.of(context).pop(SharingObject(
-                          data: (f.paths.first)!,
+                          data: f.paths.join(multipleFilesDelimiter),
                           type: SharingObjectType.file,
                           name: SharingObject.getSharingName(
-                              SharingObjectType.file, (f.names.first)!)));
+                              SharingObjectType.file, f.paths.join(multipleFilesDelimiter))));
+
                     }
                   },
                   TransparentButtonBackground.def,
