@@ -83,22 +83,32 @@ class SharikRouter extends PageRouteBuilder {
           ),
         );
 
-
   static Future<void> navigateTo(
       GlobalKey screenKey, Screens screen, RouteDirection direction,
       [Object? args]) async {
-    final byteData = await WidgetToImage.repaintBoundaryToImage(screenKey);
+    final byteData = performanceMode
+        ? ByteData(0)
+        : await WidgetToImage.repaintBoundaryToImage(screenKey);
     navigateToFromImage(byteData.buffer.asUint8List(), screen, direction, args);
   }
 
   static Future<void> navigateToFromImage(
       Uint8List data, Screens screen, RouteDirection direction,
       [Object? args]) async {
-    navigatorKey.currentState!.pushReplacement(SharikRouter(
-      exitPageImage: Image.memory(data),
-      enterPage: screen2widget(screen, args),
-      direction: direction,
-    ));
+    if (performanceMode) {
+      navigatorKey.currentState!.pushReplacement(
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => screen2widget(screen, args),
+          transitionDuration: Duration.zero,
+        ),
+      );
+    } else {
+      navigatorKey.currentState!.pushReplacement(SharikRouter(
+        exitPageImage: Image.memory(data),
+        enterPage: screen2widget(screen, args),
+        direction: direction,
+      ));
+    }
   }
 }
 

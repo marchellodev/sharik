@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:ackee_dart/ackee_dart.dart';
 import 'package:flutter/foundation.dart';
@@ -156,7 +157,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
 Future<void> _receivingIntentListener(GlobalKey key) async {
   final byteData =
-      (await WidgetToImage.repaintBoundaryToImage(key)).buffer.asUint8List();
+      performanceMode ? Uint8List(0) : (await WidgetToImage.repaintBoundaryToImage(key)).buffer.asUint8List();
 
   final files = ReceiveSharingIntent.getMediaStream();
   final texts = ReceiveSharingIntent.getTextStream();
