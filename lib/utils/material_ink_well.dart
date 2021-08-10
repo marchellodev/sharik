@@ -44,8 +44,8 @@ double _getSplashRadiusForPositionInSize(Size bounds, Offset position) {
   return math.max(math.max(d1, d2), math.max(d3, d4)).ceilToDouble();
 }
 
-class MaterialInkSplashFactory extends InteractiveInkFeatureFactory {
-  const MaterialInkSplashFactory();
+class _MaterialInkSplashFactory extends InteractiveInkFeatureFactory {
+  const _MaterialInkSplashFactory();
 
   @override
   InteractiveInkFeature create({
@@ -190,7 +190,7 @@ class MaterialInkSplash extends InteractiveInkFeature {
   /// Used to specify this type of ink splash for an [InkWell], InkResponse
   /// or material [Theme].
   static const InteractiveInkFeatureFactory splashFactory =
-      MaterialInkSplashFactory();
+      _MaterialInkSplashFactory();
 
   @override
   void confirm() {
@@ -221,7 +221,10 @@ class MaterialInkSplash extends InteractiveInkFeature {
   void dispose() {
     _radiusController.dispose();
     _alphaController.dispose();
-    // _alphaController = null;
+
+    if (_alphaFadeInController.isDismissed) {
+      _alphaFadeInController.dispose();
+    }
     super.dispose();
   }
 
