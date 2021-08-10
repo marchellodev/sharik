@@ -46,6 +46,8 @@ enum Sources {
   none
 }
 
+const performanceMode = true;
+
 // todo fix urls & add another distributions methods
 String source2url(Sources source) {
   switch (source) {

@@ -22,7 +22,7 @@ dependencies:
   # UI
   bootstrap_icons: ^1.5.0
 
-  lucide_icons: ^0.15.22
+  lucide_icons: ^0.15.28
 
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
