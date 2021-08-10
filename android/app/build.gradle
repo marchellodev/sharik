@@ -39,6 +39,12 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+
     defaultConfig {
         applicationId "dev.marchello.sharik"
         minSdkVersion 16
@@ -61,7 +67,6 @@ android {
 
             shrinkResources true
             minifyEnabled true
-            useProguard true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
