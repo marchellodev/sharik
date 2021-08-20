@@ -42,25 +42,29 @@ class SendDialog extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       context.l.homeFiles,
-                      style: GoogleFonts.andika(fontSize: 18),
+                      style: GoogleFonts.getFont(context.l.fontAndika,
+                          fontSize: 18),
                     ),
                   ],
                 ),
                 () async {
                   if (Platform.isAndroid || Platform.isIOS) {
-                    final f = await FilePicker.platform.pickFiles(allowMultiple: true);
+                    final f = await FilePicker.platform
+                        .pickFiles(allowMultiple: true);
 
                     if (f != null) {
                       Navigator.of(context).pop(SharingObject(
                           data: f.paths.join(multipleFilesDelimiter),
                           type: SharingObjectType.file,
                           name: SharingObject.getSharingName(
-                              SharingObjectType.file, f.paths.join(multipleFilesDelimiter))));
+                              SharingObjectType.file,
+                              f.paths.join(multipleFilesDelimiter))));
                     }
                   } else {
                     final f = await openFiles();
                     if (f.isNotEmpty) {
-                      final data = f.map((e) => e.path).join(multipleFilesDelimiter);
+                      final data =
+                          f.map((e) => e.path).join(multipleFilesDelimiter);
                       Navigator.of(context).pop(SharingObject(
                         data: data,
                         type: SharingObjectType.file,
@@ -86,7 +90,8 @@ class SendDialog extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       context.l.homeSelectText,
-                      style: GoogleFonts.andika(fontSize: 18),
+                      style: GoogleFonts.getFont(context.l.fontAndika,
+                          fontSize: 18),
                     ),
                   ],
                 ),
@@ -113,7 +118,8 @@ class SendDialog extends StatelessWidget {
                       const SizedBox(width: 8),
                       Text(
                         context.l.homeSelectApp,
-                        style: GoogleFonts.andika(fontSize: 18),
+                        style: GoogleFonts.getFont(context.l.fontAndika,
+                            fontSize: 18),
                       ),
                     ],
                   ),
@@ -148,13 +154,12 @@ class SendDialog extends StatelessWidget {
                         .pickFiles(type: FileType.media, allowMultiple: true);
 
                     if (f != null) {
-
                       Navigator.of(context).pop(SharingObject(
                           data: f.paths.join(multipleFilesDelimiter),
                           type: SharingObjectType.file,
                           name: SharingObject.getSharingName(
-                              SharingObjectType.file, f.paths.join(multipleFilesDelimiter))));
-
+                              SharingObjectType.file,
+                              f.paths.join(multipleFilesDelimiter))));
                     }
                   },
                   TransparentButtonBackground.def,

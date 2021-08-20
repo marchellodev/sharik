@@ -386,7 +386,7 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       }, TransparentButtonBackground.purpleDark),
                       const SizedBox(width: 2),
                       TransparentButton(
-                          Icon(LucideIcons.server,
+                          Icon(LucideIcons.network,
                               size: 17, color: Colors.grey.shade50), () {
                         // todo make sure we have loaded the interfaces
                         openDialog(context, PickNetworkDialog(_ipService));

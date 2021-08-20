@@ -156,8 +156,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
 }
 
 Future<void> _receivingIntentListener(GlobalKey key) async {
-  final byteData =
-      performanceMode ? Uint8List(0) : (await WidgetToImage.repaintBoundaryToImage(key)).buffer.asUint8List();
+  final byteData = Hive.box<String>('strings')
+              .get('disable_transition_effects', defaultValue: '0') ==
+          '1'
+      ? Uint8List(0)
+      : (await WidgetToImage.repaintBoundaryToImage(key)).buffer.asUint8List();
 
   final files = ReceiveSharingIntent.getMediaStream();
   final texts = ReceiveSharingIntent.getTextStream();

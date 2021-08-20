@@ -91,38 +91,45 @@ class _ReceiverDialogState extends State<ReceiverDialog> {
                       children: [
                         SizedBox(
                           height: receiverService.receivers.length * 60,
-                          child: ListView.builder(
-                              itemCount: receiverService.receivers.length,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (_, e) => ListTile(
-                                    // todo text styling
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    leading: Icon(SharingObject(
-                                      name: receiverService.receivers[e].name,
-                                      data: receiverService.receivers[e].name,
-                                      type: receiverService.receivers[e].type,
-                                    ).icon),
-                                    // todo style colors
-                                    title: SingleChildScrollView(
+                          child: Theme(
+                            data: context.t.copyWith(
+                              splashColor: context.t.dividerColor.withOpacity(0.08),
+                              highlightColor: Colors.transparent,
+                            ),
+                            child: ListView.builder(
+                                itemCount: receiverService.receivers.length,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (_, e) => ListTile(
+                                  hoverColor: context.t.dividerColor.withOpacity(0.04),
+                                      // todo text styling
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      leading: Icon(SharingObject(
+                                        name: receiverService.receivers[e].name,
+                                        data: receiverService.receivers[e].name,
+                                        type: receiverService.receivers[e].type,
+                                      ).icon),
+                                      // todo style colors
+                                      title: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Text(
+                                            receiverService.receivers[e].name,
+                                            style: GoogleFonts.getFont('Andika'),
+                                          )),
+                                      subtitle: SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Text(
-                                          receiverService.receivers[e].name,
+                                          '${receiverService.receivers[e].os}  •  ${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}',
                                           style: GoogleFonts.getFont('Andika'),
-                                        )),
-                                    subtitle: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Text(
-                                        '${receiverService.receivers[e].os}  •  ${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}',
-                                        style: GoogleFonts.getFont('Andika'),
+                                        ),
                                       ),
-                                    ),
-                                    onTap: () {
-                                      launch(
-                                          'http://${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}');
-                                    },
-                                  )),
+                                      onTap: () {
+                                        launch(
+                                            'http://${receiverService.receivers[e].addr.ip}:${receiverService.receivers[e].addr.port}');
+                                      },
+                                    )),
+                          ),
                         ),
                       ],
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hive/hive.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import '../utils/helper.dart';
 
 class ThemeManager extends ChangeNotifier {
   ThemeMode _theme = ThemeMode.system;
@@ -35,19 +35,18 @@ class ThemeManager extends ChangeNotifier {
     }
   }
 
-  IconData get icon {
-
-    if (theme == ThemeMode.light) {
-      return LucideIcons.sun;
-    } else if (theme == ThemeMode.dark) {
-      return LucideIcons.moon;
-    } else {
-      return LucideIcons.monitor;
+  String name(BuildContext context) {
+    switch (theme) {
+      case ThemeMode.system:
+        return context.l.settingsThemeSystem;
+      case ThemeMode.light:
+        return context.l.settingsThemeLight;
+      case ThemeMode.dark:
+        return context.l.settingsThemeDark;
     }
   }
 
   void init() {
-
     if (Hive.box<String>('strings').containsKey('theme')) {
       final theme = Hive.box<String>('strings').get('theme');
       if (theme == 'light') {

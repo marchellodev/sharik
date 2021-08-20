@@ -27,12 +27,13 @@ import 'screens/home.dart';
 import 'screens/intro.dart';
 import 'screens/languages.dart';
 import 'screens/loading.dart';
+import 'screens/settings.dart';
 import 'screens/share.dart';
 
 const List<int> ports = [50500, 50050];
 
 // only for fetching update
-const String currentVersion = '3.0';
+const String currentVersion = '3.1';
 const String multipleFilesDelimiter = '|sharik|';
 
 const Sources source = Sources.gitHub;
@@ -46,7 +47,6 @@ enum Sources {
   none
 }
 
-const performanceMode = true;
 
 // todo fix urls & add another distributions methods
 String source2url(Sources source) {
@@ -325,7 +325,16 @@ List<Language> get languageList => [
           localizations: AppLocalizationsSk())
     ];
 
-enum Screens { loading, languagePicker, intro, home, about, sharing, error }
+enum Screens {
+  loading,
+  languagePicker,
+  intro,
+  home,
+  about,
+  sharing,
+  error,
+  settings,
+}
 
 Widget screen2widget(Screens s, [Object? args]) {
   switch (s) {
@@ -341,6 +350,8 @@ Widget screen2widget(Screens s, [Object? args]) {
       return AboutScreen();
     case Screens.sharing:
       return SharingScreen(args! as SharingObject);
+    case Screens.settings:
+      return SettingsScreen();
     case Screens.error:
       return ErrorScreen(args! as String);
   }

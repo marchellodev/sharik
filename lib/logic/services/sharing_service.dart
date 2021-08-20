@@ -57,18 +57,18 @@ class SharingService extends ChangeNotifier {
   Future<void> end() async {
     await _server!.close(force: true);
 
-    // todo research this issue on ios & desktop OSes
+    if (Platform.isAndroid || Platform.isIOS) {
+      final dir = await getTemporaryDirectory();
 
-    final dir = await getTemporaryDirectory();
+      if (await dir.exists()) {
+        return;
+      }
 
-    if (await dir.exists()) {
-      return;
-    }
-
-    try {
-      await dir.delete(recursive: true);
-    } catch (e) {
-      print('Error cleaning the path');
+      try {
+        await dir.delete(recursive: true);
+      } catch (e) {
+        print('Error cleaning the path');
+      }
     }
   }
 
@@ -79,22 +79,13 @@ class SharingService extends ChangeNotifier {
 
     await for (final request in _server!) {
       // If we are requesting sharik.json
-      if (request.requestedUri
-          .toString()
-          .split('/')
-          .length == 4 &&
-          request.requestedUri
-              .toString()
-              .split('/')
-              .last == 'sharik.json') {
+      if (request.requestedUri.toString().split('/').length == 4 &&
+          request.requestedUri.toString().split('/').last == 'sharik.json') {
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
         request.response.write(jsonEncode({
           'sharik': currentVersion,
-          'type': _file.type
-              .toString()
-              .split('.')
-              .last,
+          'type': _file.type.toString().split('.').last,
           'name': _file.name,
           'os': Platform.operatingSystem,
         }));
@@ -168,36 +159,30 @@ class SharingService extends ChangeNotifier {
       if (requestedFilePath.isEmpty || isDir) {
         final _fileList = isDir
             ? Directory(requestedFilePath)
-            .listSync()
-            .map((e) => e.path)
-            .toList()
+                .listSync()
+                .map((e) => e.path)
+                .toList()
             : fileList;
 
-        final displayFiles = Map.fromEntries(_fileList.map((e) =>
-            MapEntry(e,
-                FileSystemEntity.typeSync(e) !=
-                    FileSystemEntityType.directory)));
+        final displayFiles = Map.fromEntries(_fileList.map((e) => MapEntry(e,
+            FileSystemEntity.typeSync(e) != FileSystemEntityType.directory)));
 
         request.response.headers.contentType =
             ContentType('text', 'html', charset: 'utf-8');
-        request.response.write(_buildHTML(displayFiles, _context.l.shareDownloadAllButton));
+        request.response
+            .write(_buildHTML(displayFiles, _context.l.shareDownloadAllButton));
         request.response.close();
         // Serving the files
       } else {
-        _pipeFile(
-            request,
-            file,
-            size,
-            requestedFilePath
-                .split(Platform.pathSeparator)
-                .last);
+        _pipeFile(request, file, size,
+            requestedFilePath.split(Platform.pathSeparator).last);
       }
     }
   }
 }
 
-Future<void> _pipeFile(HttpRequest request, File? file, int? size,
-    String fileName) async {
+Future<void> _pipeFile(
+    HttpRequest request, File? file, int? size, String fileName) async {
   request.response.headers.contentType =
       ContentType('application', 'octet-stream', charset: 'utf-8');
 
@@ -235,10 +220,7 @@ String _buildHTML(Map<String, bool> files, String downloadButtonText) {
   <body>
     <button onClick="downloadAll()">$downloadButtonText</button>
     <ul style="line-height:200%">
-      ${files.entries.map((val) => '<li><a href="/?q=${Uri.decodeComponent(
-      val.key)}" class="${val.value ? 'file' : 'folder'}"><b>${val.key
-      .split(Platform.pathSeparator)
-      .last}</b> <small>(${val.key})</small></li></a>').join('\n')}
+      ${files.entries.map((val) => '<li><a href="/?q=${Uri.decodeComponent(val.key)}" class="${val.value ? 'file' : 'folder'}"><b>${val.key.split(Platform.pathSeparator).last}</b> <small>(${val.key})</small></li></a>').join('\n')}
     </ul>
     
     <script>

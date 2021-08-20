@@ -65,5 +65,18 @@
   "homeReceive": "Receive",
   "homeFiles": "Files",
 
-  "shareDownloadAllButton": "Download all (Will skip folders, Requires JavaScript enabled)"
+  "shareDownloadAllButton": "Download all (Will skip folders, Requires JavaScript enabled)",
+  "settingsAppearance": "Appearance",
+  "settingsPrivacy": "Privacy",
+  "settingsTracking": "Tracking",
+  "settingsTrackingAllow": "Allow",
+  "settingsTrackingDisable": "Disable",
+  "settingsTheme": "Theme",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsDisableScreenTransitions": "Disable screen transitions",
+  "settingsDisableBlur": "Disable blur",
+  "settingsDisableTracking": "Disable tracking",
+  "settingsTrackingDescription": "Sharik incorporates privacy-respecting tracking to learn more about the audience of the app. We are using the analytics data to plan new features, and prioritize tasks.\n\nThe collected information does not include IP address or any other identifying information."
 }

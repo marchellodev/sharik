@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import 'package:provider/provider.dart';
 
 import '../components/buttons.dart';
 import '../components/logo.dart';
@@ -14,8 +13,8 @@ import '../conf.dart';
 import '../dialogs/open_dialog.dart';
 import '../dialogs/receive.dart';
 import '../dialogs/send.dart';
+import '../dialogs/tracking_consent.dart';
 import '../logic/sharing_object.dart';
-import '../logic/theme.dart';
 import '../utils/helper.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,23 +29,31 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _history = Hive.box<SharingObject>('history').values.toList();
+    _checkTracking();
 
     super.initState();
   }
 
-  Future<void> saveLatest() async {
+  Future<void> _checkTracking() async {
+    await Future.delayed(const Duration(milliseconds: 200));
+    if (!Hive.box<String>('strings').containsKey('tracking')) {
+      openDialog(context, const TrackingConsentDialog());
+    }
+  }
+
+  Future<void> _saveLatest() async {
     await Hive.box<SharingObject>('history').clear();
     await Hive.box<SharingObject>('history').addAll(_history);
   }
 
-  Future<void> shareFile(SharingObject file) async {
+  Future<void> _shareFile(SharingObject file) async {
     setState(() {
       _history.removeWhere((element) => element.name == file.name);
 
       _history.insert(0, file);
     });
 
-    await saveLatest();
+    await _saveLatest();
 
     SharikRouter.navigateTo(
         _globalKey, Screens.sharing, RouteDirection.right, file);
@@ -79,12 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
-                      sharingButtons(c),
+                      _sharingButtons(c),
                       const SizedBox(
                         height: 24,
                       ),
                       Expanded(
-                        child: sharingHistoryList(c),
+                        child: _sharingHistoryList(c),
                       ),
                     ],
                   ),
@@ -94,9 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(width: 24),
-                    Expanded(child: sharingButtons(c)),
+                    Expanded(child: _sharingButtons(c)),
                     const SizedBox(width: 24),
-                    Expanded(child: sharingHistoryList(c)),
+                    Expanded(child: _sharingHistoryList(c)),
                     const SizedBox(width: 24),
                   ],
                 );
@@ -135,13 +142,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(width: 2),
                 TransparentButton(
-                    SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: Icon(context.watch<ThemeManager>().icon,
-                            color: Colors.deepPurple.shade700, size: 20)),
-                    () => context.read<ThemeManager>().change(),
-                    TransparentButtonBackground.purpleLight),
+                  SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(LucideIcons.settings,
+                          color: Colors.deepPurple.shade700, size: 20)),
+                  () => SharikRouter.navigateTo(
+                      _globalKey, Screens.settings, RouteDirection.right),
+                  TransparentButtonBackground.purpleLight,
+                ),
+                // TransparentButton(
+                //     SizedBox(
+                //         height: 20,
+                //         width: 20,
+                //         child: Icon(context.watch<ThemeManager>().icon,
+                //             color: Colors.deepPurple.shade700, size: 20)),
+                //     () => context.read<ThemeManager>().change(),
+                //     TransparentButtonBackground.purpleLight),
                 const Spacer(),
                 TransparentButton(
                     Text(
@@ -171,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget sharingHistoryList(BuildContext c) {
+  Widget _sharingHistoryList(BuildContext c) {
     return ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 4),
         // shrinkWrap: true,
@@ -179,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: _history.length + 1,
         itemBuilder: (context, index) => index == 0
             ? _sharingHistoryHeader(c)
-            : card(context, _history[index - 1]));
+            : _card(context, _history[index - 1]));
   }
 
   Widget _sharingHistoryHeader(BuildContext c) {
@@ -196,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
             TransparentButton(const Icon(LucideIcons.trash), () {
               setState(() => _history.clear());
 
-              saveLatest();
+              _saveLatest();
             }, TransparentButtonBackground.purpleDark)
           ],
         ),
@@ -206,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Widget sharingButtons(BuildContext c) {
+  Widget _sharingButtons(BuildContext c) {
     return Column(
       children: [
         PrimaryButton(
@@ -214,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onClick: () async {
             final obj = await openDialog(context, const SendDialog());
             if (obj != null) {
-              shareFile(obj);
+              _shareFile(obj);
             }
           },
           text: c.l.homeSend,
@@ -236,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget card(BuildContext c, SharingObject f) {
+  Widget _card(BuildContext c, SharingObject f) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: ListButton(
@@ -264,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ))
             ],
           ),
-          () => shareFile(f)),
+          () => _shareFile(f)),
     );
   }
 }

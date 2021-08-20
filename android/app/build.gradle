@@ -40,11 +40,6 @@ android {
     }
 
 
-    lintOptions {
-        disable 'InvalidPackage'
-    }
-
-
     defaultConfig {
         applicationId "dev.marchello.sharik"
         minSdkVersion 16
