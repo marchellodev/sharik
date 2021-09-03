@@ -22,7 +22,7 @@ dependencies:
   # UI
   bootstrap_icons: ^1.5.0
 
-  lucide_icons: ^0.15.28
+  lucide_icons: ^0.15.30
 
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
@@ -30,10 +30,10 @@ dependencies:
   responsive_framework: ^0.1.4
 
   qr_flutter: ^4.0.0
-  flutter_markdown: ^0.6.4
+  flutter_markdown: ^0.6.6
 
   # todo linux support
-  wakelock: ^0.5.2
+  wakelock: ^0.5.3+3
 
   widget_to_image:
     git: https://github.com/marchellodev/widget_to_image.git
@@ -42,8 +42,7 @@ dependencies:
   # UTILS
   http: ^0.13.3
 
-  path_provider: ^2.0.2
-  url_launcher: ^6.0.9
+  url_launcher: ^6.0.10
   device_apps: ^2.1.1
 
 #  hive: ^2.0.4
@@ -59,7 +58,7 @@ dependencies:
 
 
   # Android and IOS
-  file_picker: ^4.0.0
+  file_picker: ^4.0.1
 
 
   # Desktop
@@ -79,7 +78,7 @@ dependencies:
 
 
 dev_dependencies:
-  build_runner: ^2.1.0
+  build_runner: ^2.1.2
   hive_generator: ^1.1.0
 
   lint: ^1.6.0

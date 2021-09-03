@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
@@ -58,17 +59,7 @@ class SharingService extends ChangeNotifier {
     await _server!.close(force: true);
 
     if (Platform.isAndroid || Platform.isIOS) {
-      final dir = await getTemporaryDirectory();
-
-      if (await dir.exists()) {
-        return;
-      }
-
-      try {
-        await dir.delete(recursive: true);
-      } catch (e) {
-        print('Error cleaning the path');
-      }
+      FilePicker.platform.clearTemporaryFiles();
     }
   }
 
