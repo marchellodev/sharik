@@ -2,7 +2,21 @@
 
 
 
-## v3.0 (2021-05-xx)
+## v3.1 (2021-09-xx)
+### Added
+- Tracking consent dialog
+- Ability to share multiple files (#5)
+- Settings screen & ability to tweak appearance settings for better app performance (#97)
+
+### Changed
+- Main screen UI changes (#82)
+
+### Fixed
+- 'Share via' files are now saved in history (#72)
+
+
+
+## v3.0 (2021-06-30)
 ### Added
 - Swipe from left to right to exit the sharing or about screen
 - The about screen
