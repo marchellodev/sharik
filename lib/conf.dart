@@ -18,6 +18,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations_th.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_tr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_uk.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_es.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_te.dart';
 
 import 'logic/language.dart';
 import 'logic/sharing_object.dart';
@@ -46,7 +48,6 @@ enum Sources {
   appStore,
   none
 }
-
 
 // todo fix urls & add another distributions methods
 String source2url(Sources source) {
@@ -217,6 +218,13 @@ List<Language> get languageList => [
       //     nameLocal: 'हिन्दी',
       //     locale: const Locale('hi'),
       //     localizations: AppLocalizationsHi()),
+
+      Language(
+          // 590 million
+          name: 'spanish',
+          nameLocal: 'español',
+          locale: const Locale.fromSubtags(languageCode: 'es'),
+          localizations: AppLocalizationsEs()),
       Language(
           // 300+ million
           name: 'french',
@@ -261,6 +269,12 @@ List<Language> get languageList => [
           nameLocal: 'فارسی',
           locale: const Locale('fa'),
           localizations: AppLocalizationsFa()),
+      Language(
+          // 94 million
+          name: 'telugu',
+          nameLocal: 'తెలుగు',
+          locale: const Locale('te'),
+          localizations: AppLocalizationsTe()),
       Language(
           // 90 million
           name: 'brazilian_portuguese',
