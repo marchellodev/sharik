@@ -209,6 +209,11 @@ void _initAnalytics(BuildContext context) {
     return;
   }
 
+  if (Hive.box('strings').get('tracking', defaultValue: '1') != '1') {
+    print('Analytics is disables by the user');
+    return;
+  }
+
   startAckee(
     Uri.parse('https://ackee.mark.vin/api'),
     '0a143aeb-7105-449f-a2be-ed03b5674e96',
