@@ -48,7 +48,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       context.read<LanguageManager>().init();
       context.read<ThemeManager>().init();
 
-      _initAnalytics(context);
+//      _initAnalytics(context);
 
       LicenseRegistry.addLicense(() async* {
         final fonts = ['Andika', 'Comfortaa', 'JetBrains', 'Poppins'];

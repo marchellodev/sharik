@@ -269,6 +269,12 @@ List<Language> get languageList => [
           locale: const Locale('id'),
           localizations: AppLocalizationsId()),
       Language(
+          // 120+  million
+          name: 'japanese',
+          nameLocal: '日本語',
+          locale: const Locale('ja'),
+          localizations: AppLocalizationsJa()),
+      Language(
           // rtl
           // 110 million
           name: 'farsi',
@@ -292,12 +298,6 @@ List<Language> get languageList => [
           name: 'italian',
           nameLocal: 'italiano',
           locale: const Locale('it'),
-          localizations: AppLocalizationsIt()),
-      Language(
-          // 85 million
-          name: 'japanese',
-          nameLocal: '日本語',
-          locale: const Locale('ja'),
           localizations: AppLocalizationsIt()),
       Language(
           // 80 million
