@@ -41,6 +41,7 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 - German by [mondstern](https://github.com/mondlicht-und-sterne)
 - Portuguese by [azilara](https://crowdin.com/profile/azilara)
 - Thai by [scybernaut](https://github.com/scybernaut)
+- Japanese by [312k](https://github.com/312k)
 
 ## Platforms
 - Android

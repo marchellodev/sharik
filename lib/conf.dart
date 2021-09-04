@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations_fa.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_fr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_id.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations_ja.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ml.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_pl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_pt.dart';
@@ -159,6 +160,11 @@ const contributors = <Contributor>[
     githubNickname: '',
     type: ContributorTypes.translator,
   ),
+   Contributor(
+    name: '312k',
+    githubNickname: '312k',
+    type: ContributorTypes.translator,
+  ),
   Contributor(
       name: 'scybernaut',
       githubNickname: 'scybernaut',
@@ -262,6 +268,12 @@ List<Language> get languageList => [
           nameLocal: 'bahasa Indonesia',
           locale: const Locale('id'),
           localizations: AppLocalizationsId()),
+      Language(
+          // 120+  million
+          name: 'japanese',
+          nameLocal: '日本語',
+          locale: const Locale('ja'),
+          localizations: AppLocalizationsJa()),
       Language(
           // rtl
           // 110 million
