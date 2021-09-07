@@ -8,6 +8,7 @@
 - Ability to share multiple files (#5)
 - Settings screen & ability to tweak appearance settings for better app performance (#97)
 - Spanish localization
+- Japanese localization (#106)
 
 ### Changed
 - Main screen UI changes (#82)
