@@ -209,7 +209,7 @@ void _initAnalytics(BuildContext context) {
     return;
   }
 
-  if (Hive.box('strings').get('tracking', defaultValue: '1') != '1') {
+  if (Hive.box<String>('strings').get('tracking', defaultValue: '1') != '1') {
     print('Analytics is disables by the user');
     return;
   }
