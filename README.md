@@ -50,7 +50,7 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 - iOS
 - MacOS
 
-[![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v3.0/)
+[![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v3.1/)
 
 
 ### Android
@@ -58,10 +58,10 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 <a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
 
 OR direct download:
-- [For all architectures](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android.apk)
-- [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android_arm64_v8a.apk)
-- [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android_armeabi_v7a.apk)
-- [x86_64](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_android_x86_64.apk)
+- [For all architectures](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_android.apk)
+- [arm64-v8a](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_android_arm64_v8a.apk)
+- [armeabi-v7a](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_android_armeabi_v7a.apk)
+- [x86_64](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_android_x86_64.apk)
 
 
 ### Windows
@@ -70,8 +70,8 @@ OR direct download:
 
 The Windows application is not signed, so you may get a 'suspicious application' alert or something like that. Sorry for that.
 
-- [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_windows.msi)
-- [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_windows.zip)
+- [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_windows.msi)
+- [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_windows.zip)
 
 
 ### Linux
@@ -93,9 +93,9 @@ sudo apt-get update && sudo apt-get install sharik
 ```
 
 OR direct download:
-- [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_linux.AppImage)
-- [DEB (for Debian-based systems)](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_linux.deb)
-- [zip](https://github.com/marchellodev/sharik/releases/download/v3.0/sharik_v3.0_linux.zip)
+- [AppImage (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_linux.AppImage)
+- [DEB (for Debian-based systems)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_linux.deb)
+- [zip](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_linux.zip)
 
 
 ### MacOS
@@ -107,7 +107,7 @@ OR direct download:
 
 
 ## Tech
-This app is built using [Flutter](https://flutter.dev). Just clone the repo and build Sharik for yourself!
+This app is built using [Flutter](https://flutter.dev). Just clone the repo and build Sharik yourself!
 
 ## License
 MIT
