@@ -1,0 +1,60 @@
+Sharikは、Wi-Fiまたはモバイルホットスポット経由でファイルを共有するためのオープンソースで作られたクロスプラットフォームアプリです。
+
+
+このアプリは、同じネットワークに接続されているあらゆる種類のデバイスにおいて写真、アプリ、ファイル、テキストファイルまたは文章のようなものでも簡単に送信できます。 このアプリは便利かつ超高速にご利用いただけます。
+
+
+言語を選択し、このアプリの機能についてご紹介した後、共有ボタンと共有ファイルの履歴がメイン画面で確認できます。 そこでは、画像、ファイル、インストール済みのアプリ、またはテキストを共有できます。ファイルを選択すると、共有画面が表示されます。 ここでは、接続状況(Wi-Fi/モバイルホットスポット) と、他のデバイスで開けるURLが確認できます。別のデバイスの ブラウザにこのURLを入力し、Enterキーを押すと、ファイルをダウンロードすることができます。 なお両方のデバイスが同じネットワークに接続されているかどうかをご確認ください。
+
+
+両方のデバイスに Sharik がインストールされている場合、アプリの下部分の 「受信」 ボタンをクリックするだけです。 クリックすると受信者画面が表示されます。 Sharikがローカルネットワークにファイルを共有しようとしているほかのデバイスを検出すると、そのデバイスが表示されます。 クリックするとブラウザが表示され、ダウンロードが開始されます。
+
+
+Sharikは無料で使用でき、広告はありません。また、ソースコードはGitHubに公開されており、誰もが開発に貢献できるようになっています。 ですから、もし気に入ってくださったときは、GitHubリポジトリにスターをつけて、新しい言語の追加やコード修正のお手伝いをしてください。
+
+
+SharikはFlutterを使用して作られて、オープンソースライセンス(MIT) の下で公開されています。
+
+
+あなたが送ることができるのは以下のものです:
+1. 写真 (jpg, png, gif, など)
+2. アプリケーション (apk)
+3. ファイル (zip, rar, 7z, pdf, etc)
+4. テキスト
+
+
+SHARIKはこれらの言語でご利用いただけます:
+- en - english (English)
+- zh_Hans - chinese (汉语)
+- es - spanish (español)
+- fr - french (français)
+- ar - arabic (اتصل)
+- pt - portuguese (português)
+- ru - russian (Русский)
+- de - german (Deutsch)
+- id - indonesian (bahasa Indonesia)
+- ja - japanese (日本語)
+- fa - farsi (فارسی)
+- te - telugu (తెలుగు)
+- br - brazilian_portuguese (português brasileiro)
+- it - italian (italiano)
+- tr - turkish (Türkçe)
+- th - thai (ภาษาไทย)
+- pl - polish (Polski)
+- ml - malayalam (മലയാളം)
+- uk - ukrainian (Українська)
+- sk - slovak (Slovenčina)
+
+
+SHARIKは以下に示すプラットフォームでご利用いただけます:
+- Android
+- iOS
+- Linux
+- macOS
+- Windows
+
+
+GitHub ページ: https://github.com/marchellodev/sharik
+
+
+今すぐSharikをダウンロードお願いします！

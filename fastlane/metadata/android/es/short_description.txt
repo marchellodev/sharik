@@ -1,0 +1,1 @@
+Solución multiplataforma de código abierto para compartir archivos dentro su red

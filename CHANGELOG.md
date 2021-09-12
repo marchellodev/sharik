@@ -2,13 +2,14 @@
 
 
 
-## v3.1 (2021-09-xx)
+## v3.1 (2021-09-12)
 ### Added
 - Tracking consent dialog
 - Ability to share multiple files (#5)
 - Settings screen & ability to tweak appearance settings for better app performance (#97)
 - Spanish localization
 - Japanese localization (#106)
+- Telugu localization
 
 ### Changed
 - Main screen UI changes (#82)
