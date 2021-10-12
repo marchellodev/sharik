@@ -79,31 +79,32 @@ class SendDialog extends StatelessWidget {
               )),
           const SizedBox(height: 12),
           SizedBox(
-              width: double.infinity,
-              child: TransparentButton(
-                Row(
-                  children: [
-                    const Icon(
-                      LucideIcons.fileText,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      context.l.homeSelectText,
-                      style: GoogleFonts.getFont(context.l.fontAndika,
-                          fontSize: 18),
-                    ),
-                  ],
-                ),
-                () async {
-                  final text = await openDialog(context, ShareTextDialog());
-                  if (text != null) {
-                    Navigator.of(context).pop(text);
-                  }
-                },
-                TransparentButtonBackground.def,
-                border: true,
-              )),
+            width: double.infinity,
+            child: TransparentButton(
+              Row(
+                children: [
+                  const Icon(
+                    LucideIcons.fileText,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    context.l.homeSelectText,
+                    style:
+                        GoogleFonts.getFont(context.l.fontAndika, fontSize: 18),
+                  ),
+                ],
+              ),
+              () async {
+                final text = await openDialog(context, ShareTextDialog());
+                if (text != null) {
+                  Navigator.of(context).pop(text);
+                }
+              },
+              TransparentButtonBackground.def,
+              border: true,
+            ),
+          ),
           if (Platform.isAndroid || Platform.isIOS) const SizedBox(height: 12),
           if (Platform.isAndroid)
             SizedBox(
@@ -139,7 +140,7 @@ class SendDialog extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(
-                        LucideIcons.binary,
+                        LucideIcons.image,
                         size: 20,
                       ),
                       const SizedBox(width: 8),
