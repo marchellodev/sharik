@@ -55,7 +55,9 @@ Please submit your translation at [crowdin.com/project/sharik](https://crowdin.c
 
 ### Android
 <a href='https://f-droid.org/en/packages/dev.marchello.sharik'><img alt='Get it on F-Droid' src='https://gitlab.com/fdroid/artwork/-/raw/master/badge/get-it-on-en-us.png' width="200"/></a>
-<a href='https://play.google.com/store/apps/details?id=dev.marchello.sharik&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
+<a href='https://play.google.com/store/apps/details?id=dev.monora.sharik'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200"/></a>
+
+Thanks to [Trebleshot Developers](https://github.com/trebleshot) for hosting the app in the Play Store! (The Play Store version has a different package name since my account got permanently banned)
 
 OR direct download:
 - [For all architectures](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_android.apk)
