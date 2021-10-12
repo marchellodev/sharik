@@ -142,7 +142,10 @@ class SettingsScreen extends StatelessWidget {
             box.put(transition,
                 box.get(transition, defaultValue: '0')! == '0' ? '1' : '0');
           },
-          title: Text(context.l.settingsDisableScreenTransitions),
+          title: Text(
+            context.l.settingsDisableScreenTransitions,
+            style: GoogleFonts.getFont(context.l.fontAndika),
+          ),
           trailing: StreamBuilder<BoxEvent>(
               stream: box.watch(key: transition),
               initialData: BoxEvent(
