@@ -75,6 +75,13 @@ The Windows application is not signed, so you may get a 'suspicious application'
 - [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_windows.msi)
 - [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_windows.zip)
 
+You can also get Sharik via [Scoop](https://scoop.sh/):
+
+```shell
+scoop bucket add extras
+scoop install sharik
+```
+
 
 ### Linux
 
