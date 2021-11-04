@@ -41,6 +41,8 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
       includeAppIcons: true,
     );
 
+    arr.sort((a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()));
+
     setState(() {
       apps = arr.cast<ApplicationWithIcon>();
     });
