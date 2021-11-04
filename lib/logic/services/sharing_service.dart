@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
 import '../../conf.dart';
 import '../../utils/helper.dart';
@@ -68,6 +69,21 @@ class SharingService extends ChangeNotifier {
     }
 
     await for (final request in _server!) {
+
+      // If we are requesting favicon.ico
+      if (request.requestedUri.toString().split('/').length == 4 &&
+          request.requestedUri.toString().split('/').last == 'favicon.ico') {
+        request.response.headers.contentType =
+            ContentType('image', 'x-icon', charset: 'utf-8');
+
+        final favicon = await rootBundle.load('assets/favicon.ico');
+
+        request.response.add(favicon.buffer.asUint8List());
+        request.response.close();
+        continue;
+      }
+
+
       // If we are requesting sharik.json
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
