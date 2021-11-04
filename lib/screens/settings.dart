@@ -151,6 +151,8 @@ class SettingsScreen extends StatelessWidget {
               initialData: BoxEvent(
                   transition, box.get(transition, defaultValue: '0'), false),
               builder: (_, snapshot) => Checkbox(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
                     value: snapshot.data!.value as String == '1',
                     onChanged: (val) {
                       box.put(transition, val! ? '1' : '0');
@@ -177,6 +179,8 @@ class SettingsScreen extends StatelessWidget {
               initialData:
                   BoxEvent(blur, box.get(blur, defaultValue: '0'), false),
               builder: (_, snapshot) => Checkbox(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
                     value: snapshot.data!.value as String == '1',
                     onChanged: (val) {
                       box.put(blur, val! ? '1' : '0');

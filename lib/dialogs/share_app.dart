@@ -98,6 +98,7 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                 controlAffinity: ListTileControlAffinity.leading,
                 activeColor: Colors.deepPurple.shade400,
               ),
+              // todo ditch checkbox list tile :)
               CheckboxListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
