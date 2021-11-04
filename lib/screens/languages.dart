@@ -19,55 +19,76 @@ class LanguagePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepaintBoundary(
       key: _globalKey,
-      child: Scaffold(
-        body: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            children: [
-              const SafeArea(
-                bottom: false,
-                left: false,
-                right: false,
-                child: SizedBox(
-                  height: 22,
-                ),
-              ),
-              Hero(tag: 'icon', child: SharikLogo()),
-              const SizedBox(
-                height: 24,
-              ),
-              Text(
-                'Select the language\nyou are familiar with',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.getFont(
-                  'Comfortaa',
-                  fontSize: 22,
-                ),
-              ),
-              const SizedBox(height: 24),
-              LayoutBuilder(builder: (context, constraints) {
-                return GridView.builder(
-                  gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-                    crossAxisCount: constraints.maxWidth < 720 ? 1 : 2,
-                    crossAxisSpacing: 18,
-                    mainAxisSpacing: 18,
-                    height: 80,
+      child: WillPopScope(
+        onWillPop: () async {
+          final set = context.read<LanguageManager>().isLanguageSet;
+          if (set) {
+            SharikRouter.navigateTo(
+                _globalKey, Screens.home, RouteDirection.right);
+
+            return false;
+          }
+
+          return true;
+        },
+        child: Scaffold(
+          body: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              children: [
+                const SafeArea(
+                  bottom: false,
+                  left: false,
+                  right: false,
+                  child: SizedBox(
+                    height: 22,
                   ),
-                  primary: false,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: languageList.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      LanguageButton(languageList[index], () {
-                    context.read<LanguageManager>().language =
-                        languageList[index];
-                    SharikRouter.navigateTo(
-                        _globalKey, Screens.intro, RouteDirection.right);
-                  }),
-                );
-              }),
-              const SizedBox(height: 24),
-            ]),
+                ),
+                Hero(tag: 'icon', child: SharikLogo()),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'Select the language\nyou are familiar with',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.getFont(
+                    'Comfortaa',
+                    fontSize: 22,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                LayoutBuilder(builder: (context, constraints) {
+                  return GridView.builder(
+                    gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                      crossAxisCount: constraints.maxWidth < 720 ? 1 : 2,
+                      crossAxisSpacing: 18,
+                      mainAxisSpacing: 18,
+                      height: 80,
+                    ),
+                    primary: false,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: languageList.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        LanguageButton(languageList[index], () {
+                      final set = context.read<LanguageManager>().isLanguageSet;
+
+                      context.read<LanguageManager>().language =
+                          languageList[index];
+
+                      if(set){
+                        SharikRouter.navigateTo(
+                            _globalKey, Screens.home, RouteDirection.right);
+                      } else {
+                        SharikRouter.navigateTo(
+                            _globalKey, Screens.intro, RouteDirection.right);
+                      }
+                    }),
+                  );
+                }),
+                const SizedBox(height: 24),
+              ]),
+        ),
       ),
     );
   }
@@ -90,7 +111,6 @@ class LanguageButton extends StatelessWidget {
             'assets/flags/${_language.name}.svg',
           ),
         ),
-
         font: _language.localizations.fontAndika,
       );
 }

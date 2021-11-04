@@ -26,7 +26,18 @@ class Language {
 class LanguageManager extends ChangeNotifier {
   Language _language =
       languageList.firstWhere((element) => element.name == 'english');
+  
+  bool _languageSet = false;
+  bool get isLanguageSet => _languageSet;
 
+
+  Language get language => _language;
+  set language(Language language) {
+    _language = language;
+    Hive.box<String>('strings').put('language', _language.name);
+
+    notifyListeners();
+  }
 
   void init() {
 
@@ -34,6 +45,7 @@ class LanguageManager extends ChangeNotifier {
 
     if (l != null) {
       _language = languageList.firstWhere((element) => element.name == l);
+      _languageSet = true;
       notifyListeners();
       return;
     }
@@ -52,12 +64,5 @@ class LanguageManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  Language get language => _language;
-
-  set language(Language language) {
-    _language = language;
-    Hive.box<String>('strings').put('language', _language.name);
-
-    notifyListeners();
-  }
+  
 }
