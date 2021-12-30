@@ -160,7 +160,7 @@ const contributors = <Contributor>[
     githubNickname: '',
     type: ContributorTypes.translator,
   ),
-   Contributor(
+  Contributor(
     name: '312k',
     githubNickname: '312k',
     type: ContributorTypes.translator,
@@ -241,7 +241,7 @@ List<Language> get languageList => [
           // rtl
           // 313 million
           name: 'arabic',
-          nameLocal: 'اتصل',
+          nameLocal: 'العربية',
           locale: const Locale('ar'),
           localizations: AppLocalizationsAr()),
       Language(
