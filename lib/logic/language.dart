@@ -12,25 +12,27 @@ class Language {
   final String? contributorLink;
   final AppLocalizations localizations;
 
-  const Language(
-      {required this.name,
-      required this.nameLocal,
-      required this.locale,
-      required this.localizations,
-      this.contributorName,
-      this.contributorLink});
+  const Language({
+    required this.name,
+    required this.nameLocal,
+    required this.locale,
+    required this.localizations,
+    this.contributorName,
+    this.contributorLink,
+  });
 }
 
 // todo review ChangeNotifier
 class LanguageManager extends ChangeNotifier {
   Language _language =
       languageList.firstWhere((element) => element.name == 'english');
-  
+
   bool _languageSet = false;
+
   bool get isLanguageSet => _languageSet;
 
-
   Language get language => _language;
+
   set language(Language language) {
     _language = language;
     Hive.box<String>('strings').put('language', _language.name);
@@ -39,7 +41,6 @@ class LanguageManager extends ChangeNotifier {
   }
 
   void init() {
-
     final l = Hive.box<String>('strings').get('language', defaultValue: null);
 
     if (l != null) {
@@ -64,6 +65,4 @@ class LanguageManager extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  
 }

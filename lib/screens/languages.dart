@@ -24,7 +24,10 @@ class LanguagePickerScreen extends StatelessWidget {
           final set = context.read<LanguageManager>().isLanguageSet;
           if (set) {
             SharikRouter.navigateTo(
-                _globalKey, Screens.home, RouteDirection.right);
+              _globalKey,
+              Screens.home,
+              RouteDirection.right,
+            );
 
             return false;
           }
@@ -33,30 +36,31 @@ class LanguagePickerScreen extends StatelessWidget {
         },
         child: Scaffold(
           body: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              children: [
-                const SafeArea(
-                  bottom: false,
-                  left: false,
-                  right: false,
-                  child: SizedBox(
-                    height: 22,
-                  ),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            children: [
+              const SafeArea(
+                bottom: false,
+                left: false,
+                right: false,
+                child: SizedBox(
+                  height: 22,
                 ),
-                Hero(tag: 'icon', child: SharikLogo()),
-                const SizedBox(
-                  height: 24,
+              ),
+              Hero(tag: 'icon', child: SharikLogo()),
+              const SizedBox(
+                height: 24,
+              ),
+              Text(
+                'Select the language\nyou are familiar with',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.getFont(
+                  'Comfortaa',
+                  fontSize: 22,
                 ),
-                Text(
-                  'Select the language\nyou are familiar with',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.getFont(
-                    'Comfortaa',
-                    fontSize: 22,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                LayoutBuilder(builder: (context, constraints) {
+              ),
+              const SizedBox(height: 24),
+              LayoutBuilder(
+                builder: (context, constraints) {
                   return GridView.builder(
                     gridDelegate:
                         SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
@@ -76,18 +80,26 @@ class LanguagePickerScreen extends StatelessWidget {
                       context.read<LanguageManager>().language =
                           languageList[index];
 
-                      if(set){
+                      if (set) {
                         SharikRouter.navigateTo(
-                            _globalKey, Screens.home, RouteDirection.right);
+                          _globalKey,
+                          Screens.home,
+                          RouteDirection.right,
+                        );
                       } else {
                         SharikRouter.navigateTo(
-                            _globalKey, Screens.intro, RouteDirection.right);
+                          _globalKey,
+                          Screens.intro,
+                          RouteDirection.right,
+                        );
                       }
                     }),
                   );
-                }),
-                const SizedBox(height: 24),
-              ]),
+                },
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
       ),
     );

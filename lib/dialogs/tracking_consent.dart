@@ -42,36 +42,38 @@ class _TrackingConsentDialogState extends State<TrackingConsentDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        elevation: 0,
-        insetPadding: const EdgeInsets.all(24),
-        title: Text(
-          context.l.settingsTracking,
-          style: GoogleFonts.getFont(
-            context.l.fontComfortaa,
-            fontWeight: FontWeight.w700,
-          ),
+      elevation: 0,
+      insetPadding: const EdgeInsets.all(24),
+      title: Text(
+        context.l.settingsTracking,
+        style: GoogleFonts.getFont(
+          context.l.fontComfortaa,
+          fontWeight: FontWeight.w700,
         ),
-        actions: [
-          DialogTextButton(
-              '${context.l.settingsTrackingDisable}${_timer > 0 ? ' ($_timer)' : ''}',
-              _timer > 0
-                  ? null
-                  : () {
-                      Hive.box<String>('strings').put('tracking', '0');
-                      Navigator.of(context).pop();
-                    }),
-          DialogTextButton(context.l.settingsTrackingAllow, () {
-            Hive.box<String>('strings').put('tracking', '1');
-            Navigator.of(context).pop();
-          }),
-        ],
-        scrollable: true,
-        content: MarkdownBody(
-          data: context.l.settingsTrackingDescription,
-          styleSheet: MarkdownStyleSheet(
-            p: GoogleFonts.jetBrainsMono(fontSize: 14),
-          ),
-          listItemCrossAxisAlignment: MarkdownListItemCrossAxisAlignment.start,
-        ));
+      ),
+      actions: [
+        DialogTextButton(
+          '${context.l.settingsTrackingDisable}${_timer > 0 ? ' ($_timer)' : ''}',
+          _timer > 0
+              ? null
+              : () {
+                  Hive.box<String>('strings').put('tracking', '0');
+                  Navigator.of(context).pop();
+                },
+        ),
+        DialogTextButton(context.l.settingsTrackingAllow, () {
+          Hive.box<String>('strings').put('tracking', '1');
+          Navigator.of(context).pop();
+        }),
+      ],
+      scrollable: true,
+      content: MarkdownBody(
+        data: context.l.settingsTrackingDescription,
+        styleSheet: MarkdownStyleSheet(
+          p: GoogleFonts.jetBrainsMono(fontSize: 14),
+        ),
+        listItemCrossAxisAlignment: MarkdownListItemCrossAxisAlignment.start,
+      ),
+    );
   }
 }

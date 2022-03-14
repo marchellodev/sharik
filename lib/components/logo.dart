@@ -7,20 +7,25 @@ import '../utils/helper.dart';
 class SharikLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Material(
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SvgPicture.asset(
-            'assets/logo.svg',
-            semanticsLabel: 'Sharik app icon',
-            color: context.t.accentColor,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            'Sharik',
-            style:
-                GoogleFonts.poppins(fontSize: 36, fontWeight: FontWeight.w500),
-          )
-        ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/logo.svg',
+              semanticsLabel: 'Sharik app icon',
+              color: context.t.colorScheme.secondary,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Sharik',
+              style: GoogleFonts.poppins(
+                fontSize: 36,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
+        ),
       );
 }

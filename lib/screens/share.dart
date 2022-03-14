@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,7 +69,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     _sharingService.start();
 
     _conController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
     _conAnimation = Tween(begin: 0.0, end: pi).animate(_conController);
 
     if (!Platform.isLinux) {
@@ -121,35 +122,38 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: TransparentButton(
-                            const Icon(LucideIcons.chevronLeft, size: 28),
-                            () => _exitPage(),
-                            TransparentButtonBackground.purpleDark),
+                          const Icon(LucideIcons.chevronLeft, size: 28),
+                          () => _exitPage(),
+                          TransparentButtonBackground.purpleDark,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                LayoutBuilder(builder: (context, constraints) {
-                  if (constraints.maxWidth < 720) {
-                    return Column(
-                      children: [
-                        fileConnectivitySection(context),
-                        const SizedBox(height: 38),
-                        const SizedBox(height: 38),
-                        linkSection(context),
-                      ],
-                    );
-                  } else {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(child: fileConnectivitySection(context)),
-                        const SizedBox(width: 24),
-                        Expanded(child: linkSection(context)),
-                      ],
-                    );
-                  }
-                }),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth < 720) {
+                      return Column(
+                        children: [
+                          fileConnectivitySection(context),
+                          const SizedBox(height: 38),
+                          const SizedBox(height: 38),
+                          linkSection(context),
+                        ],
+                      );
+                    } else {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: fileConnectivitySection(context)),
+                          const SizedBox(width: 24),
+                          Expanded(child: linkSection(context)),
+                        ],
+                      );
+                    }
+                  },
+                ),
                 const SizedBox(height: 38),
                 SizedBox(
                   child: SafeArea(
@@ -231,31 +235,33 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   builder: (context, _) {
                     context.watch<LocalIpService>();
                     return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.zero,
-                            child: Text(
-                              connectivity2string(
-                                  // todo do language inside too
-                                  _ipService.getConnectivityType()),
-                              style: GoogleFonts.getFont(
-                                context.l.fontAndika,
-                                color: Colors.grey.shade50,
-                                fontSize: 18,
-                              ),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.zero,
+                          child: Text(
+                            connectivity2string(
+                              // todo do language inside too
+                              _ipService.getConnectivityType(),
                             ),
-                          ),
-                          Text(
-                            context.l.sharingConnectToWiFiOrHotspot,
                             style: GoogleFonts.getFont(
                               context.l.fontAndika,
-                              fontSize: 16,
-                              color: Colors.grey.shade100,
+                              color: Colors.grey.shade50,
+                              fontSize: 18,
                             ),
                           ),
-                        ]);
+                        ),
+                        Text(
+                          context.l.sharingConnectToWiFiOrHotspot,
+                          style: GoogleFonts.getFont(
+                            context.l.fontAndika,
+                            fontSize: 16,
+                            color: Colors.grey.shade100,
+                          ),
+                        ),
+                      ],
+                    );
                   },
                 ),
               ),
@@ -266,23 +272,29 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               Padding(
                 padding: const EdgeInsets.all(3),
                 child: TransparentButton(
-                    AnimatedBuilder(
-                        animation: _conAnimation,
-                        builder: (context, child) {
-                          return Transform.rotate(
-                              angle: _conAnimation.value, child: child);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(1),
-                          child: Icon(
-                            LucideIcons.refreshCw,
-                            size: 14,
-                            color: Colors.grey.shade100,
-                          ),
-                        )), () {
-                  _conController.forward(from: 0);
-                  _ipService.load();
-                }, TransparentButtonBackground.purpleDark),
+                  AnimatedBuilder(
+                    animation: _conAnimation,
+                    builder: (context, child) {
+                      return Transform.rotate(
+                        angle: _conAnimation.value,
+                        child: child,
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(1),
+                      child: Icon(
+                        LucideIcons.refreshCw,
+                        size: 14,
+                        color: Colors.grey.shade100,
+                      ),
+                    ),
+                  ),
+                  () {
+                    _conController.forward(from: 0);
+                    _ipService.load();
+                  },
+                  TransparentButtonBackground.purpleDark,
+                ),
               ),
             ],
           ),
@@ -297,14 +309,15 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
     return Column(
       children: [
         Center(
-            child: Text(
-          context.l.sharingOpenInBrowser,
-          style: GoogleFonts.getFont(
-            context.l.fontComfortaa,
-            fontSize: 20,
+          child: Text(
+            context.l.sharingOpenInBrowser,
+            style: GoogleFonts.getFont(
+              context.l.fontComfortaa,
+              fontSize: 20,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        )),
+        ),
         const SizedBox(height: 14),
         MultiProvider(
           providers: [
@@ -321,8 +334,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade400,
-                      borderRadius: BorderRadius.circular(12)),
+                    color: Colors.deepPurple.shade400,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   width: double.infinity,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -336,13 +350,19 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                         children: [
                           Text(
                             'http://',
-                            style: GoogleFonts.getFont('Andika',
-                                color: Colors.grey.shade50, fontSize: 14),
+                            style: GoogleFonts.getFont(
+                              'Andika',
+                              color: Colors.grey.shade50,
+                              fontSize: 14,
+                            ),
                           ),
                           Text(
                             displayAddress.replaceFirst('http://', ''),
-                            style: GoogleFonts.getFont('Andika',
-                                color: Colors.grey.shade50, fontSize: 20),
+                            style: GoogleFonts.getFont(
+                              'Andika',
+                              color: Colors.grey.shade50,
+                              fontSize: 20,
+                            ),
                           ),
                         ],
                       ),
@@ -353,8 +373,9 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                   decoration: BoxDecoration(
                     color: Colors.deepPurple.shade400,
                     borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12)),
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
                   ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -362,35 +383,54 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TransparentButton(
-                          Icon(LucideIcons.qrCode,
-                              size: 17, color: Colors.grey.shade50),
-                          () => setState(() => _stateShowQr = !_stateShowQr),
-                          TransparentButtonBackground.purpleDark),
+                        Icon(
+                          LucideIcons.qrCode,
+                          size: 17,
+                          color: Colors.grey.shade50,
+                        ),
+                        () => setState(() => _stateShowQr = !_stateShowQr),
+                        TransparentButtonBackground.purpleDark,
+                      ),
                       const SizedBox(width: 2),
                       TransparentButton(
-                          Icon(LucideIcons.copy,
-                              size: 17, color: Colors.grey.shade50), () {
-                        Clipboard.setData(ClipboardData(text: displayAddress))
-                            .then((result) {
-                          final snackBar = SnackBar(
-                            backgroundColor: Colors.deepPurple.shade500,
-                            duration: const Duration(seconds: 1),
-                            content: Text(
-                              context.l.sharingCopiedToClipboard,
-                              style: GoogleFonts.getFont(context.l.fontAndika,
-                                  color: Colors.grey.shade50),
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        });
-                      }, TransparentButtonBackground.purpleDark),
+                        Icon(
+                          LucideIcons.copy,
+                          size: 17,
+                          color: Colors.grey.shade50,
+                        ),
+                        () {
+                          Clipboard.setData(ClipboardData(text: displayAddress))
+                              .then((result) {
+                            final snackBar = SnackBar(
+                              backgroundColor: Colors.deepPurple.shade500,
+                              duration: const Duration(seconds: 1),
+                              content: Text(
+                                context.l.sharingCopiedToClipboard,
+                                style: GoogleFonts.getFont(
+                                  context.l.fontAndika,
+                                  color: Colors.grey.shade50,
+                                ),
+                              ),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          });
+                        },
+                        TransparentButtonBackground.purpleDark,
+                      ),
                       const SizedBox(width: 2),
                       TransparentButton(
-                          Icon(LucideIcons.network,
-                              size: 17, color: Colors.grey.shade50), () {
-                        // todo make sure we have loaded the interfaces
-                        openDialog(context, PickNetworkDialog(_ipService));
-                      }, TransparentButtonBackground.purpleDark),
+                        Icon(
+                          LucideIcons.network,
+                          size: 17,
+                          color: Colors.grey.shade50,
+                        ),
+                        () {
+                          // todo make sure we have loaded the interfaces
+                          openDialog(context, PickNetworkDialog(_ipService));
+                        },
+                        TransparentButtonBackground.purpleDark,
+                      ),
                     ],
                   ),
                 ),
@@ -421,8 +461,11 @@ class ShareState extends State<SharingScreen> with TickerProviderStateMixin {
           child: Text(
             context.l.sharingRecipientNeedsToBeConnected,
             textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(context.l.fontAndika,
-                color: Colors.white, fontSize: 18),
+            style: GoogleFonts.getFont(
+              context.l.fontAndika,
+              color: Colors.white,
+              fontSize: 18,
+            ),
           ),
         ),
       ],

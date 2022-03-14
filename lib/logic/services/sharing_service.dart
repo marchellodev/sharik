@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../../conf.dart';
@@ -69,7 +68,6 @@ class SharingService extends ChangeNotifier {
     }
 
     await for (final request in _server!) {
-
       // If we are requesting favicon.ico
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'favicon.ico') {
@@ -83,18 +81,19 @@ class SharingService extends ChangeNotifier {
         continue;
       }
 
-
       // If we are requesting sharik.json
       if (request.requestedUri.toString().split('/').length == 4 &&
           request.requestedUri.toString().split('/').last == 'sharik.json') {
         request.response.headers.contentType =
             ContentType('application', 'json', charset: 'utf-8');
-        request.response.write(jsonEncode({
-          'sharik': currentVersion,
-          'type': _file.type.toString().split('.').last,
-          'name': _file.name,
-          'os': Platform.operatingSystem,
-        }));
+        request.response.write(
+          jsonEncode({
+            'sharik': currentVersion,
+            'type': _file.type.toString().split('.').last,
+            'name': _file.name,
+            'os': Platform.operatingSystem,
+          }),
+        );
         request.response.close();
         continue;
       }
@@ -116,12 +115,13 @@ class SharingService extends ChangeNotifier {
         final size = await f.length();
 
         _pipeFile(
-            request,
-            f,
-            size,
-            _file.type == SharingObjectType.file
-                ? _file.name
-                : '${_file.name}.apk');
+          request,
+          f,
+          size,
+          _file.type == SharingObjectType.file
+              ? _file.name
+              : '${_file.name}.apk',
+        );
         continue;
       }
 
@@ -170,8 +170,14 @@ class SharingService extends ChangeNotifier {
                 .toList()
             : fileList;
 
-        final displayFiles = Map.fromEntries(_fileList.map((e) => MapEntry(e,
-            FileSystemEntity.typeSync(e) != FileSystemEntityType.directory)));
+        final displayFiles = Map.fromEntries(
+          _fileList.map(
+            (e) => MapEntry(
+              e,
+              FileSystemEntity.typeSync(e) != FileSystemEntityType.directory,
+            ),
+          ),
+        );
 
         request.response.headers.contentType =
             ContentType('text', 'html', charset: 'utf-8');
@@ -180,15 +186,23 @@ class SharingService extends ChangeNotifier {
         request.response.close();
         // Serving the files
       } else {
-        _pipeFile(request, file, size,
-            requestedFilePath.split(Platform.pathSeparator).last);
+        _pipeFile(
+          request,
+          file,
+          size,
+          requestedFilePath.split(Platform.pathSeparator).last,
+        );
       }
     }
   }
 }
 
 Future<void> _pipeFile(
-    HttpRequest request, File? file, int? size, String fileName) async {
+  HttpRequest request,
+  File? file,
+  int? size,
+  String fileName,
+) async {
   request.response.headers.contentType =
       ContentType('application', 'octet-stream', charset: 'utf-8');
 

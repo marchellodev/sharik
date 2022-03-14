@@ -23,7 +23,7 @@ class PickNetworkDialog extends StatelessWidget {
       title: Text(
         context.l.sharingSelectNetworkInterface,
         style: GoogleFonts.getFont(context.l.fontComfortaa,
-            fontWeight: FontWeight.w700),
+            fontWeight: FontWeight.w700,),
       ),
       // todo probably redundant
       //   splashColor = context.t.dividerColor.withOpacity(0.08);
@@ -52,14 +52,14 @@ class PickNetworkDialog extends StatelessWidget {
                       child: Text(
                         el.name,
                         style: GoogleFonts.getFont('Andika',
-                            color: context.t.textTheme.bodyText1!.color),
-                      )),
+                            color: context.t.textTheme.bodyText1!.color,),
+                      ),),
                   subtitle: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
                       el.addresses.first.address,
                       style: GoogleFonts.getFont('Andika',
-                          color: context.t.textTheme.caption!.color),
+                          color: context.t.textTheme.caption!.color,),
                     ),
                   ),
                   onTap: () {

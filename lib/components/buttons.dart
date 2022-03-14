@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,53 +30,62 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: height.toDouble(),
-        child: Material(
+      height: height.toDouble(),
+      child: Material(
+        borderRadius: BorderRadius.circular(roundedRadius.toDouble()),
+        color: Colors.deepPurple.shade400,
+        child: InkWell(
+          splashColor: Colors.deepPurple.shade300.withOpacity(0.4),
+          hoverColor: Colors.deepPurple.shade200.withOpacity(0.12),
+          highlightColor: Colors.transparent,
+          focusColor: Colors.white.withOpacity(0.2),
           borderRadius: BorderRadius.circular(roundedRadius.toDouble()),
-          color: Colors.deepPurple.shade400,
-          child: InkWell(
-            splashColor: Colors.deepPurple.shade300.withOpacity(0.4),
-            hoverColor: Colors.deepPurple.shade200.withOpacity(0.12),
-            highlightColor: Colors.transparent,
-            focusColor: Colors.white.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(roundedRadius.toDouble()),
-            onTap: onClick,
-            child: secondaryIcon != null
-                ? Stack(
-                    children: [
-                      Align(
-                        alignment: const Alignment(0.9, 0.0),
-                        child: secondaryIcon,
+          onTap: onClick,
+          child: secondaryIcon != null
+              ? Stack(
+                  children: [
+                    Align(
+                      alignment: const Alignment(0.9, 0.0),
+                      child: secondaryIcon,
+                    ),
+                    Center(
+                      child: Text(
+                        text,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.getFont(
+                          font ?? context.l.fontAndika,
+                          color: Colors.grey.shade100,
+                          fontSize: fontSize.toDouble(),
+                        ),
                       ),
-                      Center(
-                          child: Text(text,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.getFont(
-                                  font ?? context.l.fontAndika,
-                                  color: Colors.grey.shade100,
-                                  fontSize: fontSize.toDouble()))),
-                    ],
-                  )
-                : Center(
-                    child: loading
-                        ? SizedBox(
-                            width: 18,
-                            height: 18,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.4,
-                              valueColor: AlwaysStoppedAnimation<Color?>(
-                                  Colors.grey.shade100),
+                    ),
+                  ],
+                )
+              : Center(
+                  child: loading
+                      ? SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.4,
+                            valueColor: AlwaysStoppedAnimation<Color?>(
+                              Colors.grey.shade100,
                             ),
-                          )
-                        : Text(text,
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.getFont(
-                                font ?? context.l.fontAndika,
-                                color: Colors.grey.shade100,
-                                fontSize: fontSize.toDouble())),
-                  ),
-          ),
-        ));
+                          ),
+                        )
+                      : Text(
+                          text,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.getFont(
+                            font ?? context.l.fontAndika,
+                            color: Colors.grey.shade100,
+                            fontSize: fontSize.toDouble(),
+                          ),
+                        ),
+                ),
+        ),
+      ),
+    );
   }
 }
 
@@ -123,8 +131,12 @@ class TransparentButton extends StatelessWidget {
   final TransparentButtonBackground background;
   final bool border;
 
-  const TransparentButton(this.child, this.onClick, this.background,
-      {this.border = false});
+  const TransparentButton(
+    this.child,
+    this.onClick,
+    this.background, {
+    this.border = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -148,11 +160,13 @@ class TransparentButton extends StatelessWidget {
 
     return Material(
       shape: RoundedRectangleBorder(
-          side: BorderSide(
-              color: border
-                  ? Colors.deepPurple.shade100.withOpacity(0.16)
-                  : Colors.transparent),
-          borderRadius: BorderRadius.circular(8)),
+        side: BorderSide(
+          color: border
+              ? Colors.deepPurple.shade100.withOpacity(0.16)
+              : Colors.transparent,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
@@ -189,8 +203,9 @@ class ListButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: child),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: child,
+        ),
       ),
     );
   }

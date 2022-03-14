@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -56,7 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
     await _saveLatest();
 
     SharikRouter.navigateTo(
-        _globalKey, Screens.sharing, RouteDirection.right, file);
+      _globalKey,
+      Screens.sharing,
+      RouteDirection.right,
+      file,
+    );
   }
 
   @override
@@ -64,103 +66,131 @@ class _HomeScreenState extends State<HomeScreen> {
     return RepaintBoundary(
       key: _globalKey,
       child: Scaffold(
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SafeArea(
-            bottom: false,
-            left: false,
-            right: false,
-            child: SizedBox(
-              height: 22,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SafeArea(
+              bottom: false,
+              left: false,
+              right: false,
+              child: SizedBox(
+                height: 22,
+              ),
             ),
-          ),
-          Hero(
-            tag: 'icon',
-            child: SharikLogo(),
-          ),
-          const SizedBox(height: 24),
-          Expanded(
-            child: LayoutBuilder(builder: (context, constraints) {
-              // todo review constraints
-              if (constraints.maxWidth < 720) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    children: [
-                      _sharingButtons(c),
-                      const SizedBox(
-                        height: 24,
+            Hero(
+              tag: 'icon',
+              child: SharikLogo(),
+            ),
+            const SizedBox(height: 24),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // todo review constraints
+                  if (constraints.maxWidth < 720) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Column(
+                        children: [
+                          _sharingButtons(c),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Expanded(
+                            child: _sharingHistoryList(c),
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: _sharingHistoryList(c),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(width: 24),
-                    Expanded(child: _sharingButtons(c)),
-                    const SizedBox(width: 24),
-                    Expanded(child: _sharingHistoryList(c)),
-                    const SizedBox(width: 24),
-                  ],
-                );
-              }
-            }),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            height: 64,
-            decoration: BoxDecoration(
+                    );
+                  } else {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(width: 24),
+                        Expanded(child: _sharingButtons(c)),
+                        const SizedBox(width: 24),
+                        Expanded(child: _sharingHistoryList(c)),
+                        const SizedBox(width: 24),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              height: 64,
+              decoration: BoxDecoration(
                 color: Colors.deepPurple.shade100,
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24))),
-            child: Row(
-              children: [
-                TransparentButton(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
+              child: Row(
+                children: [
+                  TransparentButton(
                     SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: Icon(LucideIcons.languages,
-                            color: Colors.deepPurple.shade700, size: 20)),
-                    () => SharikRouter.navigateTo(_globalKey,
-                        Screens.languagePicker, RouteDirection.left),
-                    TransparentButtonBackground.purpleLight),
-                const SizedBox(width: 2),
-                TransparentButton(
-                  SizedBox(
                       height: 20,
                       width: 20,
-                      child: Icon(LucideIcons.helpCircle,
-                          color: Colors.deepPurple.shade700, size: 20)),
-                  () => SharikRouter.navigateTo(
-                      _globalKey, Screens.intro, RouteDirection.left),
-                  TransparentButtonBackground.purpleLight,
-                ),
-                const SizedBox(width: 2),
-                TransparentButton(
-                  SizedBox(
+                      child: Icon(
+                        LucideIcons.languages,
+                        color: Colors.deepPurple.shade700,
+                        size: 20,
+                      ),
+                    ),
+                    () => SharikRouter.navigateTo(
+                      _globalKey,
+                      Screens.languagePicker,
+                      RouteDirection.left,
+                    ),
+                    TransparentButtonBackground.purpleLight,
+                  ),
+                  const SizedBox(width: 2),
+                  TransparentButton(
+                    SizedBox(
                       height: 20,
                       width: 20,
-                      child: Icon(LucideIcons.settings,
-                          color: Colors.deepPurple.shade700, size: 20)),
-                  () => SharikRouter.navigateTo(
-                      _globalKey, Screens.settings, RouteDirection.right),
-                  TransparentButtonBackground.purpleLight,
-                ),
-                // TransparentButton(
-                //     SizedBox(
-                //         height: 20,
-                //         width: 20,
-                //         child: Icon(context.watch<ThemeManager>().icon,
-                //             color: Colors.deepPurple.shade700, size: 20)),
-                //     () => context.read<ThemeManager>().change(),
-                //     TransparentButtonBackground.purpleLight),
-                const Spacer(),
-                TransparentButton(
+                      child: Icon(
+                        LucideIcons.helpCircle,
+                        color: Colors.deepPurple.shade700,
+                        size: 20,
+                      ),
+                    ),
+                    () => SharikRouter.navigateTo(
+                      _globalKey,
+                      Screens.intro,
+                      RouteDirection.left,
+                    ),
+                    TransparentButtonBackground.purpleLight,
+                  ),
+                  const SizedBox(width: 2),
+                  TransparentButton(
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: Icon(
+                        LucideIcons.settings,
+                        color: Colors.deepPurple.shade700,
+                        size: 20,
+                      ),
+                    ),
+                    () => SharikRouter.navigateTo(
+                      _globalKey,
+                      Screens.settings,
+                      RouteDirection.right,
+                    ),
+                    TransparentButtonBackground.purpleLight,
+                  ),
+                  // TransparentButton(
+                  //     SizedBox(
+                  //         height: 20,
+                  //         width: 20,
+                  //         child: Icon(context.watch<ThemeManager>().icon,
+                  //             color: Colors.deepPurple.shade700, size: 20)),
+                  //     () => context.read<ThemeManager>().change(),
+                  //     TransparentButtonBackground.purpleLight),
+                  const Spacer(),
+                  TransparentButton(
                     Text(
                       'sharik v$currentVersion →',
                       style: GoogleFonts.jetBrainsMono(
@@ -169,34 +199,40 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     () => SharikRouter.navigateTo(
-                        _globalKey, Screens.about, RouteDirection.right),
-                    TransparentButtonBackground.purpleLight),
-              ],
+                      _globalKey,
+                      Screens.about,
+                      RouteDirection.right,
+                    ),
+                    TransparentButtonBackground.purpleLight,
+                  ),
+                ],
+              ),
             ),
-          ),
-          Container(
-            color: Colors.deepPurple.shade100,
-            child: SafeArea(
-              top: false,
-              right: false,
-              left: false,
-              child: Container(),
-            ),
-          )
-        ]),
+            Container(
+              color: Colors.deepPurple.shade100,
+              child: SafeArea(
+                top: false,
+                right: false,
+                left: false,
+                child: Container(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _sharingHistoryList(BuildContext c) {
     return ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        // shrinkWrap: true,
-        // todo there's probably a more elegant way to do this
-        itemCount: _history.length + 1,
-        itemBuilder: (context, index) => index == 0
-            ? _sharingHistoryHeader(c)
-            : _card(context, _history[index - 1]));
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      // shrinkWrap: true,
+      // todo there's probably a more elegant way to do this
+      itemCount: _history.length + 1,
+      itemBuilder: (context, index) => index == 0
+          ? _sharingHistoryHeader(c)
+          : _card(context, _history[index - 1]),
+    );
   }
 
   Widget _sharingHistoryHeader(BuildContext c) {
@@ -210,11 +246,15 @@ class _HomeScreenState extends State<HomeScreen> {
               style: GoogleFonts.getFont(c.l.fontComfortaa, fontSize: 24),
             ),
             const Spacer(),
-            TransparentButton(const Icon(LucideIcons.trash), () {
-              setState(() => _history.clear());
+            TransparentButton(
+              const Icon(LucideIcons.trash),
+              () {
+                setState(() => _history.clear());
 
-              _saveLatest();
-            }, TransparentButtonBackground.purpleDark)
+                _saveLatest();
+              },
+              TransparentButtonBackground.purpleDark,
+            )
           ],
         ),
       );
@@ -257,31 +297,36 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: ListButton(
-          Row(
-            children: [
-              Icon(
-                f.icon,
-                size: 22,
-                color: Colors.grey.shade100,
-                // semanticsLabel: 'file',
-                // width: 18,
-              ),
-              const SizedBox(
-                width: 12,
-              ),
-              Expanded(
-                  child: SingleChildScrollView(
+        Row(
+          children: [
+            Icon(
+              f.icon,
+              size: 22,
+              color: Colors.grey.shade100,
+              // semanticsLabel: 'file',
+              // width: 18,
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Text(
                   f.name,
-                  style: GoogleFonts.getFont(c.l.fontAndika,
-                      color: Colors.white, fontSize: 18),
+                  style: GoogleFonts.getFont(
+                    c.l.fontAndika,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                   maxLines: 1,
                 ),
-              ))
-            ],
-          ),
-          () => _shareFile(f)),
+              ),
+            )
+          ],
+        ),
+        () => _shareFile(f),
+      ),
     );
   }
 }

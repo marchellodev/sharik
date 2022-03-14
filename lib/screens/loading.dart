@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
@@ -67,22 +66,24 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
           if (sharedFile.length > 1) {
             SharikRouter.navigateTo(
-                _globalKey,
-                Screens.error,
-                RouteDirection.right,
-                'Sorry, you can only share 1 file at a time');
+              _globalKey,
+              Screens.error,
+              RouteDirection.right,
+              'Sorry, you can only share 1 file at a time',
+            );
             return;
           }
 
           if (sharedFile.isNotEmpty) {
             // todo apply dry
             final _file = SharingObject(
-                type: SharingObjectType.file,
-                data: sharedFile[0].path.replaceFirst('file://', ''),
-                name: SharingObject.getSharingName(
-                  SharingObjectType.file,
-                  sharedFile[0].path.replaceFirst('file://', ''),
-                ));
+              type: SharingObjectType.file,
+              data: sharedFile[0].path.replaceFirst('file://', ''),
+              name: SharingObject.getSharingName(
+                SharingObjectType.file,
+                sharedFile[0].path.replaceFirst('file://', ''),
+              ),
+            );
 
             final _history = Hive.box<SharingObject>('history').values.toList();
             _history.removeWhere((element) => element.name == _file.name);
@@ -91,18 +92,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
             await Hive.box<SharingObject>('history').addAll(_history);
 
             SharikRouter.navigateTo(
-                _globalKey, Screens.sharing, RouteDirection.right, _file);
+              _globalKey,
+              Screens.sharing,
+              RouteDirection.right,
+              _file,
+            );
             return;
           }
 
           if (sharedText != null) {
             final _file = SharingObject(
-                type: SharingObjectType.text,
-                data: sharedText,
-                name: SharingObject.getSharingName(
-                  SharingObjectType.text,
-                  sharedText,
-                ));
+              type: SharingObjectType.text,
+              data: sharedText,
+              name: SharingObject.getSharingName(
+                SharingObjectType.text,
+                sharedText,
+              ),
+            );
 
             final _history = Hive.box<SharingObject>('history').values.toList();
             _history.removeWhere((element) => element.name == _file.name);
@@ -128,14 +134,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
       }
 
       SharikRouter.navigateTo(
-          _globalKey,
-          Hive.box<String>('strings').containsKey('language')
-              ? Screens.home
-              : Screens.languagePicker,
-          RouteDirection.right);
+        _globalKey,
+        Hive.box<String>('strings').containsKey('language')
+            ? Screens.home
+            : Screens.languagePicker,
+        RouteDirection.right,
+      );
     } catch (error, trace) {
-      SharikRouter.navigateTo(_globalKey, Screens.error, RouteDirection.right,
-          '$error \n\n $trace');
+      SharikRouter.navigateTo(
+        _globalKey,
+        Screens.error,
+        RouteDirection.right,
+        '$error \n\n $trace',
+      );
     }
   }
 
@@ -144,13 +155,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return RepaintBoundary(
       key: _globalKey,
       child: Scaffold(
-          backgroundColor: Colors.deepPurple.shade400,
-          body: Center(
-            child: SvgPicture.asset('assets/logo_inverse.svg',
-                height: 60,
-                semanticsLabel: 'Sharik app icon',
-                color: Colors.grey.shade300),
-          )),
+        backgroundColor: Colors.deepPurple.shade400,
+        body: Center(
+          child: SvgPicture.asset(
+            'assets/logo_inverse.svg',
+            height: 60,
+            semanticsLabel: 'Sharik app icon',
+            color: Colors.grey.shade300,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -167,38 +181,46 @@ Future<void> _receivingIntentListener(GlobalKey key) async {
 
   files.listen((sharedFile) {
     if (sharedFile.length > 1) {
-      SharikRouter.navigateToFromImage(byteData, Screens.error,
-          RouteDirection.right, 'Sorry, you can only share 1 file at a time');
+      SharikRouter.navigateToFromImage(
+        byteData,
+        Screens.error,
+        RouteDirection.right,
+        'Sorry, you can only share 1 file at a time',
+      );
       return;
     }
 
     if (sharedFile.isNotEmpty) {
       SharikRouter.navigateToFromImage(
-          byteData,
-          Screens.sharing,
-          RouteDirection.right,
-          SharingObject(
-              type: SharingObjectType.file,
-              data: sharedFile[0].path.replaceFirst('file://', ''),
-              name: SharingObject.getSharingName(
-                SharingObjectType.file,
-                sharedFile[0].path.replaceFirst('file://', ''),
-              )));
+        byteData,
+        Screens.sharing,
+        RouteDirection.right,
+        SharingObject(
+          type: SharingObjectType.file,
+          data: sharedFile[0].path.replaceFirst('file://', ''),
+          name: SharingObject.getSharingName(
+            SharingObjectType.file,
+            sharedFile[0].path.replaceFirst('file://', ''),
+          ),
+        ),
+      );
     }
   });
 
   texts.listen((sharedText) {
     SharikRouter.navigateToFromImage(
-        byteData,
-        Screens.sharing,
-        RouteDirection.right,
-        SharingObject(
-            type: SharingObjectType.text,
-            data: sharedText,
-            name: SharingObject.getSharingName(
-              SharingObjectType.text,
-              sharedText,
-            )));
+      byteData,
+      Screens.sharing,
+      RouteDirection.right,
+      SharingObject(
+        type: SharingObjectType.text,
+        data: sharedText,
+        name: SharingObject.getSharingName(
+          SharingObjectType.text,
+          sharedText,
+        ),
+      ),
+    );
     return;
   });
 }

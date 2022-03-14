@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'conf.dart';
 import 'logic/language.dart';
@@ -29,14 +27,16 @@ import 'utils/material_ink_well.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => LanguageManager()),
-      ChangeNotifierProvider(create: (_) => ThemeManager()),
-      // ChangeNotifierProvider(create: (_) => null)
-    ],
-    child: SharikApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LanguageManager()),
+        ChangeNotifierProvider(create: (_) => ThemeManager()),
+        // ChangeNotifierProvider(create: (_) => null)
+      ],
+      child: SharikApp(),
+    ),
+  );
 }
 
 class SharikApp extends StatelessWidget {
@@ -48,36 +48,48 @@ class SharikApp extends StatelessWidget {
               statusBarColor: Colors.grey.shade900.withOpacity(0.4),
               systemNavigationBarColor: Colors.deepPurple.shade100,
               // systemNavigationBarDividerColor: Colors.deepPurple.shade100,
-              systemNavigationBarIconBrightness: Brightness.dark)
+              systemNavigationBarIconBrightness: Brightness.dark,
+            )
           : SystemUiOverlayStyle.dark.copyWith(
               statusBarColor: Colors.grey.shade100.withOpacity(0.6),
               systemNavigationBarColor: Colors.deepPurple.shade100,
               // systemNavigationBarDividerColor: Colors.deepPurple.shade100,
-              systemNavigationBarIconBrightness: Brightness.dark),
+              systemNavigationBarIconBrightness: Brightness.dark,
+            ),
       child: MaterialApp(
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
           return ResponsiveWrapper.builder(
-              ScrollConfiguration(
-                behavior: BouncingScrollBehavior(),
-                child: child!,
+            ScrollConfiguration(
+              behavior: BouncingScrollBehavior(),
+              child: child!,
+            ),
+            minWidth: 400,
+            defaultScale: true,
+            breakpoints: [
+              const ResponsiveBreakpoint.resize(400, name: MOBILE),
+              const ResponsiveBreakpoint.autoScale(680, name: TABLET),
+              const ResponsiveBreakpoint.autoScale(
+                1100,
+                name: DESKTOP,
+                scaleFactor: 1.2,
               ),
-              minWidth: 400,
-              defaultScale: true,
-              breakpoints: [
-                const ResponsiveBreakpoint.resize(400, name: MOBILE),
-                const ResponsiveBreakpoint.autoScale(680, name: TABLET),
-                const ResponsiveBreakpoint.autoScale(1100,
-                    name: DESKTOP, scaleFactor: 1.2),
-              ],
-              breakpointsLandscape: [
-                const ResponsiveBreakpoint.autoScaleDown(400,
-                    name: MOBILE, scaleFactor: 0.7),
-                const ResponsiveBreakpoint.autoScale(680,
-                    name: TABLET, scaleFactor: 0.7),
-                // const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP, scaleFactor: 0.5),
-              ]);
+            ],
+            breakpointsLandscape: [
+              const ResponsiveBreakpoint.autoScaleDown(
+                400,
+                name: MOBILE,
+                scaleFactor: 0.7,
+              ),
+              const ResponsiveBreakpoint.autoScale(
+                680,
+                name: TABLET,
+                scaleFactor: 0.7,
+              ),
+              // const ResponsiveBreakpoint.autoScale(1100, name: DESKTOP, scaleFactor: 0.5),
+            ],
+          );
         },
         // builder: DevicePreview.appBuilder, //
         locale: context.watch<LanguageManager>().language.locale,
@@ -90,47 +102,56 @@ class SharikApp extends StatelessWidget {
         supportedLocales: languageList.map((e) => e.locale),
         title: 'Sharik',
         theme: ThemeData(
-            splashFactory: MaterialInkSplash.splashFactory,
-            brightness: Brightness.light,
-            inputDecorationTheme: InputDecorationTheme(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.grey.shade900.withOpacity(0.8),
-                        width: 2))),
-            textSelectionTheme: TextSelectionThemeData(
-                cursorColor: Colors.grey.shade600,
-                selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
-                selectionColor: Colors.deepPurple.shade100.withOpacity(0.6)),
+          splashFactory: MaterialInkSplash.splashFactory,
+          brightness: Brightness.light,
+          inputDecorationTheme: InputDecorationTheme(
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade900.withOpacity(0.8),
+                width: 2,
+              ),
+            ),
+          ),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: Colors.grey.shade600,
+            selectionHandleColor: Colors.grey.shade200.withOpacity(0.9),
+            selectionColor: Colors.deepPurple.shade100.withOpacity(0.6),
+          ),
 
-            // sharik top icon color
-            accentColor: Colors.deepPurple.shade500,
+          // sharik top icon color
+          accentColor: Colors.deepPurple.shade500,
 
-            // primarySwatch: Colors.deepPurple,
+          // primarySwatch: Colors.deepPurple,
 
-            // right click selection color
-            cardColor: Colors.grey.shade200.withOpacity(0.9),
+          // right click selection color
+          cardColor: Colors.grey.shade200.withOpacity(0.9),
 
-            // color of the button on the default background
-            dividerColor: Colors.deepPurple.shade400,
+          // color of the button on the default background
+          dividerColor: Colors.deepPurple.shade400,
 
-            // about card color
-            buttonColor: Colors.deepPurple.shade50.withOpacity(0.6)),
+          // about card color
+          buttonColor: Colors.deepPurple.shade50.withOpacity(0.6),
+        ),
         darkTheme: ThemeData(
           splashFactory: MaterialInkSplash.splashFactory,
 
           brightness: Brightness.dark,
           inputDecorationTheme: InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                      color: Colors.deepPurple.shade50.withOpacity(0.8),
-                      width: 2))),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.deepPurple.shade50.withOpacity(0.8),
+                width: 2,
+              ),
+            ),
+          ),
 
           // primarySwatch: Colors.grey,
 
           textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.deepPurple.shade50,
-              selectionHandleColor: Colors.deepPurple.shade300.withOpacity(0.9),
-              selectionColor: Colors.deepPurple.shade50.withOpacity(0.4)),
+            cursorColor: Colors.deepPurple.shade50,
+            selectionHandleColor: Colors.deepPurple.shade300.withOpacity(0.9),
+            selectionColor: Colors.deepPurple.shade50.withOpacity(0.4),
+          ),
 
           // sharik top icon color
           accentColor: Colors.deepPurple.shade300,
