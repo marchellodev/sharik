@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
@@ -51,12 +50,14 @@ class LanguageManager extends ChangeNotifier {
     }
 
     final locales = WidgetsBinding.instance!.window.locales;
+    locales.insert(0, WidgetsBinding.instance!.window.locale);
+
     for (final locale in locales) {
       final language =
-          languageList.firstWhereOrNull((element) => element.locale == locale);
+          languageList.where((element) => element.locale == locale);
 
-      if (language != null) {
-        _language = language;
+      if (language.isNotEmpty) {
+        _language = language.first;
         break;
       }
     }

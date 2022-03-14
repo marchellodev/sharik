@@ -31,7 +31,12 @@ class IntroScreen extends StatelessWidget {
             colorDot: Colors.white70,
             colorActiveDot: Colors.white,
             // todo check border radius compared to the bottom bar
-            borderRadiusDoneBtn: 8,
+            doneButtonStyle: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              )),
+            ),
             showSkipBtn: false,
             renderNextBtn: Padding(
               padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 14),
