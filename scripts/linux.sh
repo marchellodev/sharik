@@ -32,7 +32,23 @@ if test "$package" = "raw"; then
   zip -r "sharik_v${version}_linux.zip" sharik | sed -e 's/^/>> /;'
 
 elif test "$package" = "deb"; then
-  echo "deb"
-  # TODO deb packaging
+  # TODO change version in deb's control file
+  raw
+
+  cp "$folder/sharik" "scripts/packaging/deb/debian-x64/sharik/usr/lib/" -r
+
+  cd "scripts/packaging/deb/debian-x64"
+
+  echo "BUILDING DEB:"
+  ./build.sh | sed -e 's/^/>> /;'
+
+  echo "BUILT DEB SUCCESSFULLY"
+
+  cd "../../../../"
+  mkdir -p "$folder/deb"
+  cp "scripts/packaging/deb/debian-x64/sharik.deb" "$folder/deb/sharik_v${version}_linux.deb"
+
+  rm "scripts/packaging/deb/debian-x64/sharik/usr/lib/sharik" -rf
+  rm "scripts/packaging/deb/debian-x64/sharik.deb" -rf
 fi
 

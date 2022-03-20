@@ -1,7 +1,7 @@
 #!/bin/sh
 
 platforms=(linux win android)
-buildfolder="release"
+buildfolder="releasebuild"
 
 # WORKING DIR
 if test -f "../pubspec.yaml"; then
@@ -25,5 +25,5 @@ echo "RUNNING FLUTTER CLEAN:"
 
 
 if test "$platform" = "linux"; then
-  source "scripts/linux.sh"
+  ./scripts/linux.sh
 fi
