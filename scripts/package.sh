@@ -1,7 +1,7 @@
 #!/bin/sh
 
 platforms=(linux win android)
-buildfolder="releasebuild"
+build_folder="release_build"
 
 # WORKING DIR
 if test -f "../pubspec.yaml"; then
@@ -21,9 +21,9 @@ platform="linux"
 
 
 echo "RUNNING FLUTTER CLEAN:"
-# flutter clean | sed -e 's/^/>> /;'
+#flutter clean | sed -e 's/^/>> /;'
 
 
 if test "$platform" = "linux"; then
-  ./scripts/linux.sh
+  source "scripts/linux.sh"
 fi
