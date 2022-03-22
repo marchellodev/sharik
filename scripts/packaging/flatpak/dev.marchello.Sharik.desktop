@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Sharik
-Icon=sharik
+Icon=dev.marchello.Sharik
 Exec=sharik %U
 Categories=Utility;Network;FileTools;P2P;Office
 Keywords=Files;Sharing

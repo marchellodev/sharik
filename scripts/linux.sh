@@ -63,8 +63,19 @@ appimage(){
   rm "scripts/packaging/appimage/Sharik-x86_64.AppImage" -rf
 }
 
+flatpak(){
+  echo "Packaging flatpak"
 
-packaging=(raw deb appimage snap)
+  cp "$linux_folder/sharik" "scripts/packaging/flatpak/" -r
+
+  cd "scripts/packaging/flatpak"
+
+  echo "BUILDING FLATPAK:"
+  ./build.sh | sed -e 's/^/>> /;'
+}
+
+
+packaging=(raw deb appimage flatpak snap)
 echo "Packaging (${packaging[*]}): "
 read package
 
@@ -79,5 +90,7 @@ elif test "$package" = "deb"; then
   deb
 elif test "$package" = "appimage"; then
   appimage
+elif test "$package" = "flatpak"; then
+  flatpak
 fi
 
