@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_ar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations_br.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_de.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_es.dart';
@@ -300,13 +300,13 @@ List<Language> get languageList => [
         locale: const Locale('te'),
         localizations: AppLocalizationsTe(),
       ),
-      Language(
-        // 90 million
-        name: 'brazilian_portuguese',
-        nameLocal: 'português brasileiro',
-        locale: const Locale('br'),
-        localizations: AppLocalizationsBr(),
-      ),
+      // Language(
+      //   // 90 million
+      //   name: 'brazilian_portuguese',
+      //   nameLocal: 'português brasileiro',
+      //   locale: const Locale('br'),
+      //   localizations: AppLocalizationsBr(),
+      // ),
       Language(
         // 85 million
         name: 'italian',

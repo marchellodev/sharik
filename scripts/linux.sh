@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 _build_raw(){
   echo "BUILDING A RAW LINUX APP:"
-#  flutter build linux --split-debug-info="${linux_folder}/debug-symbols" $keys | sed -e 's/^/>> /;'
+  flutter build linux --split-debug-info="${linux_folder}/debug-symbols" $keys | sed -e 's/^/>> /;'
 
   echo "LINUX APP BUILT SUCCESSFULLY"
 

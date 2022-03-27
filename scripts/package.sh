@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 platforms=(linux win android)
 build_folder="release_build"
@@ -21,7 +21,7 @@ platform="linux"
 
 
 echo "RUNNING FLUTTER CLEAN:"
-#flutter clean | sed -e 's/^/>> /;'
+flutter clean | sed -e 's/^/>> /;'
 
 
 if test "$platform" = "linux"; then
