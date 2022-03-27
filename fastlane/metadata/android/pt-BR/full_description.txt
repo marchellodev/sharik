@@ -28,7 +28,7 @@ SHARIK ESTÁ DISPONÍVEL NESSES IDIOMAS:
 - zh_Hans - chinese (汉语)
 - es - spanish (español)
 - fr - french (français)
-- ar - arabic (اتصل)
+- ar - arabic (العربية)
 - pt - portuguese (português)
 - ru - russian (Русский)
 - de - german (Deutsch)

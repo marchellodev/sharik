@@ -236,19 +236,18 @@ List<Language> get languageList => [
         localizations: AppLocalizationsEs(),
       ),
       Language(
+          // rtl
+          // 313 million
+          name: 'arabic',
+          nameLocal: 'العربية',
+          locale: const Locale('ar'),
+          localizations: AppLocalizationsAr()),
+      Language(
         // 300+ million
         name: 'french',
         nameLocal: 'français',
         locale: const Locale('fr'),
         localizations: AppLocalizationsFr(),
-      ),
-      Language(
-        // rtl
-        // 313 million
-        name: 'arabic',
-        nameLocal: 'اتصل',
-        locale: const Locale('ar'),
-        localizations: AppLocalizationsAr(),
       ),
       Language(
         // 313 million
