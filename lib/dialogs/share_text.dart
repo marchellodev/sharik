@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/buttons.dart';
@@ -26,8 +23,10 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
       insetPadding: const EdgeInsets.all(24),
       title: Text(
         context.l.homeSelectTextTypeSomeText,
-        style: GoogleFonts.getFont(context.l.fontComfortaa,
-            fontWeight: FontWeight.w700),
+        style: GoogleFonts.getFont(
+          context.l.fontComfortaa,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       scrollable: true,
       content: TextField(
@@ -45,17 +44,22 @@ class _ShareTextDialogState extends State<ShareTextDialog> {
           Navigator.of(context).pop();
         }),
         DialogTextButton(
-            context.l.generalSend,
-            text.isEmpty
-                ? null
-                : () {
-                    Navigator.of(context).pop(SharingObject(
+          context.l.generalSend,
+          text.isEmpty
+              ? null
+              : () {
+                  Navigator.of(context).pop(
+                    SharingObject(
                       data: text,
                       type: SharingObjectType.text,
                       name: SharingObject.getSharingName(
-                          SharingObjectType.text, text),
-                    ));
-                  }),
+                        SharingObjectType.text,
+                        text,
+                      ),
+                    ),
+                  );
+                },
+        ),
         const SizedBox(width: 4),
       ],
     );

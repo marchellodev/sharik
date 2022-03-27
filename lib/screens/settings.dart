@@ -72,26 +72,28 @@ class SettingsScreen extends StatelessWidget {
                     splashColor: context.t.dividerColor.withOpacity(0.08),
                     highlightColor: Colors.transparent,
                   ),
-                  child: LayoutBuilder(builder: (context, constraints) {
-                    if (constraints.maxWidth < 720) {
-                      return Column(
-                        children: [
-                          _appearanceSection(context),
-                          const SizedBox(height: 24),
-                          _privacySection(context),
-                        ],
-                      );
-                    } else {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: _appearanceSection(context)),
-                          const SizedBox(width: 24),
-                          Expanded(child: _privacySection(context)),
-                        ],
-                      );
-                    }
-                  }),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth < 720) {
+                        return Column(
+                          children: [
+                            _appearanceSection(context),
+                            const SizedBox(height: 24),
+                            _privacySection(context),
+                          ],
+                        );
+                      } else {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(child: _appearanceSection(context)),
+                            const SizedBox(width: 24),
+                            Expanded(child: _privacySection(context)),
+                          ],
+                        );
+                      }
+                    },
+                  ),
                 ),
                 const SizedBox(height: 22),
               ],
@@ -109,28 +111,34 @@ class SettingsScreen extends StatelessWidget {
 
     return Column(
       children: [
-        Text(context.l.settingsAppearance,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(context.l.fontComfortaa,
-                fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          context.l.settingsAppearance,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.getFont(
+            context.l.fontComfortaa,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 14),
         ListTile(
-            hoverColor: context.t.dividerColor.withOpacity(0.04),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            leading: const Icon(LucideIcons.sun),
-            onTap: () {
-              context.read<ThemeManager>().change();
-            },
-            title: Text(
-              context.l.settingsTheme,
-              style: GoogleFonts.getFont(context.l.fontAndika),
-            ),
-            trailing: Text(
-              context.watch<ThemeManager>().name(context),
-              style: GoogleFonts.getFont(context.l.fontComfortaa),
-            )),
+          hoverColor: context.t.dividerColor.withOpacity(0.04),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          leading: const Icon(LucideIcons.sun),
+          onTap: () {
+            context.read<ThemeManager>().change();
+          },
+          title: Text(
+            context.l.settingsTheme,
+            style: GoogleFonts.getFont(context.l.fontAndika),
+          ),
+          trailing: Text(
+            context.watch<ThemeManager>().name(context),
+            style: GoogleFonts.getFont(context.l.fontComfortaa),
+          ),
+        ),
         const SizedBox(height: 8),
         ListTile(
           hoverColor: context.t.dividerColor.withOpacity(0.04),
@@ -139,26 +147,33 @@ class SettingsScreen extends StatelessWidget {
           ),
           leading: const Icon(LucideIcons.move),
           onTap: () {
-            box.put(transition,
-                box.get(transition, defaultValue: '0')! == '0' ? '1' : '0');
+            box.put(
+              transition,
+              box.get(transition, defaultValue: '0')! == '0' ? '1' : '0',
+            );
           },
           title: Text(
             context.l.settingsDisableScreenTransitions,
             style: GoogleFonts.getFont(context.l.fontAndika),
           ),
           trailing: StreamBuilder<BoxEvent>(
-              stream: box.watch(key: transition),
-              initialData: BoxEvent(
-                  transition, box.get(transition, defaultValue: '0'), false),
-              builder: (_, snapshot) => Checkbox(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    value: snapshot.data!.value as String == '1',
-                    onChanged: (val) {
-                      box.put(transition, val! ? '1' : '0');
-                    },
-                    activeColor: Colors.deepPurple.shade300,
-                  )),
+            stream: box.watch(key: transition),
+            initialData: BoxEvent(
+              transition,
+              box.get(transition, defaultValue: '0'),
+              false,
+            ),
+            builder: (_, snapshot) => Checkbox(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              value: snapshot.data!.value as String == '1',
+              onChanged: (val) {
+                box.put(transition, val! ? '1' : '0');
+              },
+              activeColor: Colors.deepPurple.shade300,
+            ),
+          ),
         ),
         const SizedBox(height: 8),
         ListTile(
@@ -175,18 +190,20 @@ class SettingsScreen extends StatelessWidget {
             style: GoogleFonts.getFont(context.l.fontAndika),
           ),
           trailing: StreamBuilder<BoxEvent>(
-              stream: box.watch(key: blur),
-              initialData:
-                  BoxEvent(blur, box.get(blur, defaultValue: '0'), false),
-              builder: (_, snapshot) => Checkbox(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    value: snapshot.data!.value as String == '1',
-                    onChanged: (val) {
-                      box.put(blur, val! ? '1' : '0');
-                    },
-                    activeColor: Colors.deepPurple.shade300,
-                  )),
+            stream: box.watch(key: blur),
+            initialData:
+                BoxEvent(blur, box.get(blur, defaultValue: '0'), false),
+            builder: (_, snapshot) => Checkbox(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              value: snapshot.data!.value as String == '1',
+              onChanged: (val) {
+                box.put(blur, val! ? '1' : '0');
+              },
+              activeColor: Colors.deepPurple.shade300,
+            ),
+          ),
         ),
       ],
     );
@@ -197,35 +214,45 @@ class SettingsScreen extends StatelessWidget {
 
     return Column(
       children: [
-        Text(context.l.settingsPrivacy,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.getFont(context.l.fontComfortaa,
-                fontSize: 18, fontWeight: FontWeight.bold)),
+        Text(
+          context.l.settingsPrivacy,
+          textAlign: TextAlign.center,
+          style: GoogleFonts.getFont(
+            context.l.fontComfortaa,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 14),
         ListTile(
-            hoverColor: context.t.dividerColor.withOpacity(0.04),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+          hoverColor: context.t.dividerColor.withOpacity(0.04),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          leading: const Icon(LucideIcons.pieChart),
+          onTap: () {
+            openDialog(context, const TrackingConsentDialog());
+          },
+          title: Text(
+            context.l.settingsDisableTracking,
+            style: GoogleFonts.getFont(context.l.fontAndika),
+          ),
+          trailing: StreamBuilder<BoxEvent>(
+            stream: box.watch(key: 'tracking'),
+            initialData: BoxEvent(
+              'tracking',
+              box.get('tracking', defaultValue: '1'),
+              false,
             ),
-            leading: const Icon(LucideIcons.pieChart),
-            onTap: () {
-              openDialog(context, const TrackingConsentDialog());
-            },
-            title: Text(
-              context.l.settingsDisableTracking,
-              style: GoogleFonts.getFont(context.l.fontAndika),
+            builder: (context, data) => Switch(
+              value: data.data!.value == '0',
+              activeColor: Colors.deepPurple.shade200,
+              onChanged: (_) {
+                openDialog(context, const TrackingConsentDialog());
+              },
             ),
-            trailing: StreamBuilder<BoxEvent>(
-              stream: box.watch(key: 'tracking'),
-              initialData: BoxEvent(
-                  'tracking', box.get('tracking', defaultValue: '1'), false),
-              builder: (context, data) => Switch(
-                  value: data.data!.value == '0',
-                  activeColor: Colors.deepPurple.shade200,
-                  onChanged: (_) {
-                    openDialog(context, const TrackingConsentDialog());
-                  }),
-            )),
+          ),
+        ),
       ],
     );
   }

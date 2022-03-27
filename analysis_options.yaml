@@ -13,6 +13,8 @@ linter:
     sort_pub_dependencies: false
 
     prefer_relative_imports: true
+    always_use_package_imports: false
+    depend_on_referenced_packages: true
 
     # only for debug
     avoid_print: false

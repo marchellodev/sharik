@@ -21,7 +21,10 @@ class IntroScreen extends StatelessWidget {
       child: WillPopScope(
         onWillPop: () async {
           SharikRouter.navigateTo(
-              _globalKey, Screens.home, RouteDirection.right);
+            _globalKey,
+            Screens.home,
+            RouteDirection.right,
+          );
 
           return false;
         },
@@ -31,22 +34,39 @@ class IntroScreen extends StatelessWidget {
             colorDot: Colors.white70,
             colorActiveDot: Colors.white,
             // todo check border radius compared to the bottom bar
-            borderRadiusDoneBtn: 8,
+            doneButtonStyle: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
             showSkipBtn: false,
             renderNextBtn: Padding(
               padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 14),
-              child: Text(context.l.introGeneralNext,
-                  style: GoogleFonts.getFont(context.l.fontComfortaa,
-                      color: Colors.white)),
+              child: Text(
+                context.l.introGeneralNext,
+                style: GoogleFonts.getFont(
+                  context.l.fontComfortaa,
+                  color: Colors.white,
+                ),
+              ),
             ),
             renderDoneBtn: Padding(
               padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 14),
-              child: Text(context.l.introGeneralDone,
-                  style: GoogleFonts.getFont(context.l.fontComfortaa,
-                      color: Colors.white)),
+              child: Text(
+                context.l.introGeneralDone,
+                style: GoogleFonts.getFont(
+                  context.l.fontComfortaa,
+                  color: Colors.white,
+                ),
+              ),
             ),
             onDonePress: () => SharikRouter.navigateTo(
-                _globalKey, Screens.home, RouteDirection.right),
+              _globalKey,
+              Screens.home,
+              RouteDirection.right,
+            ),
             slides: [
               Slide(
                 styleTitle: GoogleFonts.getFont(
@@ -55,8 +75,11 @@ class IntroScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
                 ),
-                styleDescription: GoogleFonts.getFont(context.l.fontAndika,
-                    color: Colors.white, fontSize: 18.0),
+                styleDescription: GoogleFonts.getFont(
+                  context.l.fontAndika,
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
                 title: context.l.intro1ConnectTitle,
                 description: context.l.intro1ConnectDescription,
                 pathImage: 'assets/slides/1_connect.png',
@@ -69,8 +92,11 @@ class IntroScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
                 ),
-                styleDescription: GoogleFonts.getFont(context.l.fontAndika,
-                    color: Colors.white, fontSize: 18.0),
+                styleDescription: GoogleFonts.getFont(
+                  context.l.fontAndika,
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
                 title: context.l.intro2SendTitle,
                 description: context.l.intro2SendDescription,
                 pathImage: 'assets/slides/2_send.png',
@@ -83,8 +109,11 @@ class IntroScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 30.0,
                 ),
-                styleDescription: GoogleFonts.getFont(context.l.fontAndika,
-                    color: Colors.white, fontSize: 18.0),
+                styleDescription: GoogleFonts.getFont(
+                  context.l.fontAndika,
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
                 title: context.l.intro3ReceiveTitle,
                 description: context.l.intro3ReceiveDescription,
                 pathImage: 'assets/slides/3_receive.png',
@@ -103,14 +132,18 @@ class IntroScreen extends StatelessWidget {
                 widgetDescription: GestureDetector(
                   onTap: () async {
                     if (await canLaunch(
-                        'https://github.com/marchellodev/sharik')) {
+                      'https://github.com/marchellodev/sharik',
+                    )) {
                       await launch('https://github.com/marchellodev/sharik');
                     }
                   },
                   child: Text(
                     context.l.intro4EverywhereDescription,
-                    style: GoogleFonts.getFont(context.l.fontAndika,
-                        color: Colors.white, fontSize: 18.0),
+                    style: GoogleFonts.getFont(
+                      context.l.fontAndika,
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
                     textAlign: TextAlign.center,
                     maxLines: 12,
                     overflow: TextOverflow.ellipsis,

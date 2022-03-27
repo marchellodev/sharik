@@ -11,6 +11,7 @@ import 'ip_service.dart';
 
 class ReceiverService extends ChangeNotifier {
   final ipService = LocalIpService();
+
   // todo SharingObject instead
   final List<Receiver> receivers = [];
 
@@ -72,7 +73,6 @@ class ReceiverService extends ChangeNotifier {
       }
     }
 
-
     final result = <Receiver>[];
 
     for (final sharik in futuresSharik) {
@@ -100,8 +100,11 @@ class ReceiverService extends ChangeNotifier {
   // todo check if this works when sharing extra large files
   static Future<bool> _ping(NetworkAddr addr) async {
     try {
-      final s = await Socket.connect(addr.ip, addr.port,
-          timeout: const Duration(seconds: 1));
+      final s = await Socket.connect(
+        addr.ip,
+        addr.port,
+        timeout: const Duration(seconds: 1),
+      );
       s.destroy();
       return true;
     } catch (_) {

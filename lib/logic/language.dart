@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
@@ -13,25 +12,27 @@ class Language {
   final String? contributorLink;
   final AppLocalizations localizations;
 
-  const Language(
-      {required this.name,
-      required this.nameLocal,
-      required this.locale,
-      required this.localizations,
-      this.contributorName,
-      this.contributorLink});
+  const Language({
+    required this.name,
+    required this.nameLocal,
+    required this.locale,
+    required this.localizations,
+    this.contributorName,
+    this.contributorLink,
+  });
 }
 
 // todo review ChangeNotifier
 class LanguageManager extends ChangeNotifier {
   Language _language =
       languageList.firstWhere((element) => element.name == 'english');
-  
+
   bool _languageSet = false;
+
   bool get isLanguageSet => _languageSet;
 
-
   Language get language => _language;
+
   set language(Language language) {
     _language = language;
     Hive.box<String>('strings').put('language', _language.name);
@@ -40,7 +41,6 @@ class LanguageManager extends ChangeNotifier {
   }
 
   void init() {
-
     final l = Hive.box<String>('strings').get('language', defaultValue: null);
 
     if (l != null) {
@@ -51,18 +51,18 @@ class LanguageManager extends ChangeNotifier {
     }
 
     final locales = WidgetsBinding.instance!.window.locales;
+    locales.insert(0, WidgetsBinding.instance!.window.locale);
+
     for (final locale in locales) {
       final language =
-          languageList.firstWhereOrNull((element) => element.locale == locale);
+          languageList.where((element) => element.locale == locale);
 
-      if (language != null) {
-        _language = language;
+      if (language.isNotEmpty) {
+        _language = language.first;
         break;
       }
     }
 
     notifyListeners();
   }
-
-  
 }

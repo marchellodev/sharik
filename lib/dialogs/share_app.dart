@@ -41,7 +41,9 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
       includeAppIcons: true,
     );
 
-    arr.sort((a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()));
+    arr.sort(
+      (a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()),
+    );
 
     setState(() {
       apps = arr.cast<ApplicationWithIcon>();
@@ -138,31 +140,47 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
                       child: Image.memory(app.icon),
                     ),
                     title: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(app.appName,
-                            style: GoogleFonts.getFont('Andika',
-                                fontWeight: selected.contains(app)
-                                    ? FontWeight.w500
-                                    : FontWeight.normal,
-                                color: context.t.textTheme.bodyText1!.color))),
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        app.appName,
+                        style: GoogleFonts.getFont(
+                          'Andika',
+                          fontWeight: selected.contains(app)
+                              ? FontWeight.w500
+                              : FontWeight.normal,
+                          color: context.t.textTheme.bodyText1!.color,
+                        ),
+                      ),
+                    ),
                     subtitle: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Text(app.packageName,
-                            style: GoogleFonts.getFont('Andika',
-                                color: context.t.textTheme.bodyText1!.color))),
-                    onTap: () => setState(() => selected.contains(app)
-                        ? selected.remove(app)
-                        : selected.add(app)),
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        app.packageName,
+                        style: GoogleFonts.getFont(
+                          'Andika',
+                          color: context.t.textTheme.bodyText1!.color,
+                        ),
+                      ),
+                    ),
+                    onTap: () => setState(
+                      () => selected.contains(app)
+                          ? selected.remove(app)
+                          : selected.add(app),
+                    ),
                     selected: selected.contains(app),
                   ),
                 ),
               if (_apps.isEmpty && _search.isEmpty)
                 Center(
-                    child: Container(
-                        padding: const EdgeInsets.all(24),
-                        child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(
-                                context.t.accentColor.withOpacity(0.8)))))
+                  child: Container(
+                    padding: const EdgeInsets.all(24),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(
+                        context.t.colorScheme.secondary.withOpacity(0.8),
+                      ),
+                    ),
+                  ),
+                )
             ],
           ),
         ),
@@ -172,18 +190,22 @@ class _ShareAppDialogState extends State<ShareAppDialog> {
           Navigator.of(context).pop();
         }),
         DialogTextButton(
-            context.l.generalSend,
-            selected.isEmpty
-                ? null
-                : () {
-                    Navigator.of(context).pop(SharingObject(
-                        type: SharingObjectType.app,
-                        data: selected
-                            .map((e) => e.apkFilePath)
-                            .join(multipleFilesDelimiter),
-                        name:
-                            '${selected.length == 1 ? '' : '${selected.length}: '}${selected.map((e) => e.appName).join(' ')}'));
-                  }),
+          context.l.generalSend,
+          selected.isEmpty
+              ? null
+              : () {
+                  Navigator.of(context).pop(
+                    SharingObject(
+                      type: SharingObjectType.app,
+                      data: selected
+                          .map((e) => e.apkFilePath)
+                          .join(multipleFilesDelimiter),
+                      name:
+                          '${selected.length == 1 ? '' : '${selected.length}: '}${selected.map((e) => e.appName).join(' ')}',
+                    ),
+                  );
+                },
+        ),
       ],
     );
   }
