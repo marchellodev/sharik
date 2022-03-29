@@ -9,6 +9,7 @@
 
 # example usage [tested & built for Linux]:
 # env TOKEN=<token> ./scripts/texts.py
+import json
 import shutil
 import time
 from io import BytesIO
@@ -81,18 +82,63 @@ def populate_arb():
         with open(file, 'w') as f:
             f.write(contents)
 
-        shutil.copy(file, '../locales/app_'+name+'.arb')
+        shutil.copy(file, '../locales/app_' + name + '.arb')
 
         if '_' in name:
             new_name = name.split('_')[0]
-            open('../locales/app_'+new_name+'.arb', 'w').write('{}')
+            open('../locales/app_' + new_name + '.arb', 'w').write('{}')
 
     print('Populating new translations...')
     print(files)
 
 
-DIR = "translations/"
-download_translations(DIR)
-populate_arb()
+# do not run this method many times, due to Github's API rate limits
+def fetch_contributors():
+    # fetch all github contributors
+    contributors = []
+    api = "https://api.github.com/repos/marchellodev/sharik/contributors?per_page=100"
+    response = urlopen(api)
+    data = response.read()
+    data = data.decode('utf-8')
+    data = json.loads(data)
+    contributors.extend(data)
 
-shutil.rmtree(DIR)
+    for c in contributors:
+        login = c['login']
+
+        api = c['url']
+        response = urlopen(api)
+        data = response.read()
+        data = data.decode('utf-8')
+        data = json.loads(data)
+
+        name = data['name']
+        if name is None:
+            name = login
+
+        print(name + " " + login)
+
+        time.sleep(2)
+
+    # print(contributors)
+    # TODO finish
+
+
+def update_locales():
+    print("TODO")
+
+
+def update_fastlane():
+    print("TODO")
+
+
+def save_metadata_for_marketplaces():
+    print("TODO")
+
+
+DIR = "translations/"
+# download_translations(DIR)
+# populate_arb()
+
+# fetch_contributors()
+# shutil.rmtree(DIR)
