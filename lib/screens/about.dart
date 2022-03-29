@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:lucide_icons/lucide_icons.dart';
 
 import '../components/buttons.dart';
 import '../components/logo.dart';
@@ -13,6 +13,7 @@ import '../dialogs/changelog.dart';
 import '../dialogs/licenses.dart';
 import '../dialogs/open_dialog.dart';
 import '../dialogs/policy.dart';
+import '../logic/contributor.dart';
 import '../logic/services/update_service.dart';
 import '../utils/helper.dart';
 
@@ -373,7 +374,19 @@ class AboutScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 14),
-        Column(children: contributors.map((e) => _ContributorCard(e)).toList())
+        FutureBuilder<List<Contributor>>(
+          future: fetchContributors(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              // todo replaced with a styled `CircularProgressIndicator` [+ add it as a component]
+              return const SizedBox();
+            }
+            // todo refactor as ListView.builder
+            return Column(
+              children: snapshot.data!.map((e) => _ContributorCard(e)).toList(),
+            );
+          },
+        )
       ],
     );
   }
@@ -411,7 +424,7 @@ class _ContributorCard extends StatelessWidget {
             ),
           ],
         ),
-        () => launch('https://github.com/${_obj.githubNickname}'),
+        () => launch(_obj.url),
       ),
     );
   }

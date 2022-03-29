@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+# TODO rewrite as a dart package
 # script that fetches all the translations from the crowdin server
 # and updates our local language files [arb], f-droid metadata files [fastlane] and generates string for publishing
 
@@ -8,7 +9,7 @@
 # pip3 install crowdin-api-client
 
 # example usage [tested & built for Linux]:
-# env TOKEN=<token> ./scripts/texts.py
+# env TOKEN=<crowdin token> ./scripts/texts.py
 import json
 import shutil
 import time
@@ -20,17 +21,21 @@ from crowdin_api import CrowdinClient
 import os
 
 
+class FirstCrowdinClient(CrowdinClient):
+    TOKEN = os.environ.get('TOKEN')
+
+
+CROWDIN_PROJECT = 458738
+
+
 # downloads the latest translations from crowdin
 def download_translations(dir):
-    class FirstCrowdinClient(CrowdinClient):
-        TOKEN = os.environ.get('TOKEN')
-
     print('Downloading translations from Crowdin...')
     client = FirstCrowdinClient()
 
-    build = client.translations.build_project_translation(458738, {})
+    build = client.translations.build_project_translation(CROWDIN_PROJECT, {})
     while True:
-        status = client.translations.check_project_build_status(458738, build['data']['id'])
+        status = client.translations.check_project_build_status(CROWDIN_PROJECT, build['data']['id'])
         if status['data']['status'] == 'finished':
             break
         else:
@@ -93,15 +98,19 @@ def populate_arb():
 
 
 # do not run this method many times, due to Github's API rate limits
-def fetch_contributors():
+# returns all github contributors
+def _fetch_github_contributors():
     # fetch all github contributors
     contributors = []
+    # todo pagination
     api = "https://api.github.com/repos/marchellodev/sharik/contributors?per_page=100"
     response = urlopen(api)
     data = response.read()
     data = data.decode('utf-8')
     data = json.loads(data)
     contributors.extend(data)
+
+    list = []
 
     for c in contributors:
         login = c['login']
@@ -116,12 +125,50 @@ def fetch_contributors():
         if name is None:
             name = login
 
+        list.extend([{"link": "https://github.com/" + login, "name": name, "type": "development"}])
         print(name + " " + login)
 
-        time.sleep(2)
+        time.sleep(1)
 
-    # print(contributors)
+    return list
+
     # TODO finish
+
+
+def _fetch_crowdin_contributors():
+    client = FirstCrowdinClient()
+    # todo pagination
+    members = client.users.list_project_members(CROWDIN_PROJECT, limit=500)['data']
+    result = []
+    for m in members:
+        login = m["data"]["username"]
+        name = m["data"]["fullName"]
+        if name is None:
+            name = login
+
+        result.extend([{"link": "https://crowdin.com/profile/" + login, "name": name, "type": "translation"}])
+    return result
+
+
+def write_contributors():
+    github = _fetch_github_contributors()
+    crowdin = _fetch_crowdin_contributors()
+    result = github
+
+    for c in crowdin:
+        found = False
+        for r in result:
+            if r['name'] == c['name'] or r['link'].split("/")[-1] == c['link'].split("/")[-1]:
+                r['type'] = 'both'
+                found = True
+                break
+        if not found:
+            result.extend([c])
+
+    print(result)
+    json_object = json.dumps(result, indent=2)
+    with open('../assets/contributors.json', 'w') as outfile:
+        outfile.write(json_object)
 
 
 def update_locales():
@@ -136,9 +183,9 @@ def save_metadata_for_marketplaces():
     print("TODO")
 
 
+# todo make sure the directory is scripts/
 DIR = "translations/"
 # download_translations(DIR)
 # populate_arb()
-
-# fetch_contributors()
+write_contributors()
 # shutil.rmtree(DIR)
