@@ -5,7 +5,6 @@
 [![f-droid](https://img.shields.io/f-droid/v/dev.marchello.sharik)](https://f-droid.org/en/packages/dev.marchello.sharik)
 [![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
-[![GitHub stars](https://img.shields.io/github/stars/marchellodev/sharik?style=social)](https://github.com/marchellodev/sharik/stargazers)
 
 ![Android](https://img.shields.io/badge/OS-Android-informational?logo=Android)
 ![iOS](https://img.shields.io/badge/OS-IOS-informational?logo=apple)
@@ -15,40 +14,28 @@
 
 # Share files across devices with Sharik!
 
-It works with Wi-Fi connection or Tethering (Wi-Fi Hotspot). No internet connection needed.
+The app works with a Wi-Fi connection or a Wi-Fi Hotspot. No internet connection is needed.
+It is available for Android, iOS, Windows, Mac, and Linux.
+
 
 
 ## Contributing
-Feel free to leave an issue or create a pull request.
+Sharik is so unique, thanks to our outstanding contributors! Everyone is welcome to contribute to the project. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file to learn more about how to contribute.
 
-Please submit your translation at [crowdin.com/project/sharik](https://crowdin.com/project/sharik). If your language does not yet exist, create an issue or start a discussion on crowdin.
-
-### Supported languages
-
-- Persian by [Behzad NjF](https://github.com/behzad-njf)
-- Polish by [Atrate](https://github.com/Atrate) and [Sebastian Jasiński](https://crowdin.com/profile/princenorris)
-- Gujarati and Hindi by [mrfoxie](https://github.com/mrfoxie)
-- Arabic by [Yazeed AlKhalaf](https://github.com/YazeedAlKhalaf)
-- Brazilian Portuguese by [mezysinc](https://github.com/mezysinc)
-- Slovak by [Tibor Repček](https://github.com/tiborepcek)
-- Turkish by [T. E. Kalaycı](https://github.com/tekrei)
-- Malayalam by [zcraber](https://github.com/zcraber)
-- Simplified Chinese by [归零幻想](https://github.com/zerofancy)
-- Sinhala by [Aikatsui](https://github.com/Aikatsui)
-- Italian by [Davide Bottasso](https://github.com/DavideBottasso)
-- Indonesian by [liimee](https://github.com/liimee)
-- French by [nesquick](https://twitter.com/mamanamgae)
-- German by [mondstern](https://github.com/mondlicht-und-sterne)
-- Portuguese by [azilara](https://crowdin.com/profile/azilara)
-- Thai by [scybernaut](https://github.com/scybernaut)
-- Japanese by [312k](https://github.com/312k)
+## Primary features
+- Cross-platform
+- You send any files to any device. The only requirement is the same network (for now, wink wink)
+- Does not require Sharik installed on the recipient device
+- Does not require an internet connection
+- Simple minimalistic UI
+- It is translated into many languages
 
 ## Platforms
 - Android
 - Windows
 - Linux
 - iOS
-- MacOS
+- macOS
 
 [![Download sharik](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/sharik/files/v3.1/)
 
@@ -70,7 +57,7 @@ OR direct download:
 <a href='//www.microsoft.com/store/apps/9NGCLB7JSPR9?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/ru-ru/store/badges/images/English_get-it-from-MS.png' alt='Get it from Microsoft' width='200'/></a>
 
 
-The Windows application is not signed, so you may get a 'suspicious application' alert or something like that. Sorry for that.
+The Windows application is not signed; you may get a 'suspicious application' alert or something like that. Sorry for that.
 
 - [Installation file (recommended)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_windows.msi)
 - [zip (portable)](https://github.com/marchellodev/sharik/releases/download/v3.1/sharik_v3.1_windows.zip)
@@ -85,7 +72,7 @@ scoop install sharik
 
 ### Linux
 
-You can get Sharik for linux from the Snap Store:
+You can get Sharik for Linux from the Snap Store:
 
 ```sudo snap install sharik-app```
 
@@ -114,9 +101,6 @@ OR direct download:
 
 <a href='https://apps.apple.com/app/id1531473857'><img alt='Get it on App Store' src='https://linkmaker.itunes.apple.com/en-us/badge-lrg.svg?releaseDate=2019-10-03&kind=iossoftware&bubble=ios_apps' width="200"/></a>
 
-
-## Tech
-This app is built using [Flutter](https://flutter.dev). Just clone the repo and build Sharik yourself!
 
 ## License
 MIT
