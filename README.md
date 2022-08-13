@@ -5,6 +5,7 @@
 [![f-droid](https://img.shields.io/f-droid/v/dev.marchello.sharik)](https://f-droid.org/en/packages/dev.marchello.sharik)
 [![Downloads badge](https://img.shields.io/github/downloads/marchellodev/sharik/total)](https://github.com/marchellodev/sharik/releases)
 [![Download sharik](https://img.shields.io/sourceforge/dt/sharik.svg)](https://sourceforge.net/projects/sharik/files/latest/download)
+[![Chocolatey package](https://img.shields.io/chocolatey/dt/sharik?color=blue&label=chocolatey)](https://community.chocolatey.org/packages/sharik)
 
 ![Android](https://img.shields.io/badge/OS-Android-informational?logo=Android)
 ![iOS](https://img.shields.io/badge/OS-IOS-informational?logo=apple)
@@ -69,6 +70,11 @@ scoop bucket add extras
 scoop install sharik
 ```
 
+You can also get Sharik via [Chocolatey](https://community.chocolatey.org/packages/sharik):
+
+```shell
+choco install sharik
+```
 
 ### Linux
 
