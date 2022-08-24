@@ -13,7 +13,6 @@ import '../dialogs/changelog.dart';
 import '../dialogs/licenses.dart';
 import '../dialogs/open_dialog.dart';
 import '../dialogs/policy.dart';
-import '../logic/contributor.dart';
 import '../logic/services/update_service.dart';
 import '../utils/helper.dart';
 
@@ -374,58 +373,58 @@ class AboutScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 14),
-        FutureBuilder<List<Contributor>>(
-          future: fetchContributors(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              // todo replaced with a styled `CircularProgressIndicator` [+ add it as a component]
-              return const SizedBox();
-            }
-            // todo refactor as ListView.builder
-            return Column(
-              children: snapshot.data!.map((e) => _ContributorCard(e)).toList(),
-            );
-          },
-        )
+        // FutureBuilder<List<Contributor>>(
+        //   future: fetchContributors(),
+        //   builder: (context, snapshot) {
+        //     if (!snapshot.hasData) {
+        //       // todo replaced with a styled `CircularProgressIndicator` [+ add it as a component]
+        //       return const SizedBox();
+        //     }
+        //     // todo refactor as ListView.builder
+        //     return Column(
+        //       children: snapshot.data!.map((e) => _ContributorCard(e)).toList(),
+        //     );
+        //   },
+        // )
       ],
     );
   }
 }
-
-class _ContributorCard extends StatelessWidget {
-  final Contributor _obj;
-
-  const _ContributorCard(this._obj);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: ListButton(
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              _obj.name,
-              style: GoogleFonts.jetBrainsMono(
-                fontSize: 16,
-                color: Colors.grey.shade50,
-                letterSpacing: 0.1,
-              ),
-            ),
-            Text(
-              contributorType2string(_obj.type),
-              style: GoogleFonts.poppins(
-                color: Colors.deepPurple.shade50,
-                fontSize: 16,
-                fontStyle: FontStyle.italic,
-                letterSpacing: 0.4,
-              ),
-            ),
-          ],
-        ),
-        () => launch(_obj.url),
-      ),
-    );
-  }
-}
+//
+// class _ContributorCard extends StatelessWidget {
+//   final Contributor _obj;
+//
+//   const _ContributorCard(this._obj);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.only(bottom: 12),
+//       child: ListButton(
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             Text(
+//               _obj.name,
+//               style: GoogleFonts.jetBrainsMono(
+//                 fontSize: 16,
+//                 color: Colors.grey.shade50,
+//                 letterSpacing: 0.1,
+//               ),
+//             ),
+//             Text(
+//               contributorType2string(_obj.type),
+//               style: GoogleFonts.poppins(
+//                 color: Colors.deepPurple.shade50,
+//                 fontSize: 16,
+//                 fontStyle: FontStyle.italic,
+//                 letterSpacing: 0.4,
+//               ),
+//             ),
+//           ],
+//         ),
+//         () => launch(_obj.url),
+//       ),
+//     );
+//   }
+// }
