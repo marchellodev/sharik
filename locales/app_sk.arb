@@ -1,5 +1,5 @@
 {
-    "@@locale": "sk",
+    
     "homeSelectFile": "Vybrať súbor",
     "homeSelectApp": "Aplikácia",
     "homeSelectText": "Text",
@@ -58,17 +58,17 @@
     "homeReceive": "Prijať",
     "homeFiles": "Súbory",
     "shareDownloadAllButton": "Stiahnuť všetko (preskočí priečinky, vyžaduje zapnutý JavaScript)",
-    "settingsAppearance": "Appearance",
-    "settingsPrivacy": "Privacy",
-    "settingsTracking": "Tracking",
-    "settingsTrackingAllow": "Allow",
-    "settingsTrackingDisable": "Disable",
-    "settingsTheme": "Theme",
-    "settingsThemeSystem": "System",
-    "settingsThemeLight": "Light",
-    "settingsThemeDark": "Dark",
-    "settingsDisableScreenTransitions": "Disable screen transitions",
-    "settingsDisableBlur": "Disable blur",
-    "settingsDisableTracking": "Disable tracking",
-    "settingsTrackingDescription": "Sharik incorporates privacy-respecting tracking to learn more about the audience of the app. We are using the analytics data to plan new features, and prioritize tasks.\n\nThe collected information does not include IP address or any other identifying information."
+    "settingsAppearance": "Vzhľad",
+    "settingsPrivacy": "Súkromie",
+    "settingsTracking": "Sledovanie",
+    "settingsTrackingAllow": "Povoliť",
+    "settingsTrackingDisable": "Zakázať",
+    "settingsTheme": "Téma",
+    "settingsThemeSystem": "Systém",
+    "settingsThemeLight": "Svetlá",
+    "settingsThemeDark": "Tmavá",
+    "settingsDisableScreenTransitions": "Vypnúť animácie pri zmene obrazovky",
+    "settingsDisableBlur": "Vypnúť rozmazanie",
+    "settingsDisableTracking": "Vypnúť sledovanie",
+    "settingsTrackingDescription": "Aby sme zistili viac o užívateľoch aplikácie, Sharik používa nástroje na sledovanie, ktoré rešpektujú súkromie. Získané dáta používame na plánovanie nových funkcií a prioritizáciu úloh.\n\nZozbierané informácie neobsahujú IP adresy ani iné osobné údaje."
 }

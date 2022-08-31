@@ -1,5 +1,5 @@
 {
-    "@@locale": "tr",
+    
     "homeSelectFile": "Dosya seç",
     "homeSelectApp": "Uygulama",
     "homeSelectText": "Metin",
@@ -23,13 +23,13 @@
     "generalLoading": "Yükleniyor",
     "@_INTRO_PAGE": {},
     "intro1ConnectTitle": "BAĞLAN",
-    "intro1ConnectDescription": "Aygıtları aynı Wi-Fi ağa bağlayınız. Mobil Kablosuz Erişim Noktası da kullanabilirsiniz",
+    "intro1ConnectDescription": "Cihazlarınızı aynı kablosuz ağa bağlayınız. Ayrıca Mobil Kablosuz Erişim Noktası da kullanabilirsiniz",
     "intro2SendTitle": "GÖNDER",
-    "intro2SendDescription": "Resimler, videolar, dosyalar ve metin paylaşabilirsiniz",
+    "intro2SendDescription": "Resimler, videolar, dosyalar ve metin belgeleri paylaşabilirsiniz",
     "intro3ReceiveTitle": "AL",
     "intro3ReceiveDescription": "Bağlantıyı bir başka aygıtta, herhangi bir tarayıcıda açın. Eğer her iki aygıtta da Sharik varsa, alım işlevini de kullanabilirsiniz",
     "intro4EverywhereTitle": "HER YERDE",
-    "intro4EverywhereDescription": "Sharik bütün başlıca mobil ve masaüstü platformlarında mevcut. Üstelik ücretsiz, reklam içermiyor ve kodunu çevrim içi yayınlanıyor.\nDaha fazlasını öğrenmek için tıklayın",
+    "intro4EverywhereDescription": "Sharik bütün başlıca mobil ve masaüstü platformlarında mevcut. Üstelik özgürdür, reklamsızdır ve kodu çevrim içi olarak yayınlanır.\nDaha fazlasını öğrenmek için tıklayın",
     "@_ABOUT_PAGE": {},
     "aboutInstalledVersion": "Yüklü sürüm",
     "aboutLatestVersion": "Son sürüm",

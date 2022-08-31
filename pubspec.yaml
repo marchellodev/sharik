@@ -28,7 +28,7 @@ dependencies:
   responsive_framework: ^0.2.0
 
   qr_flutter: ^4.0.0
-  flutter_markdown: ^0.6.10+4
+  flutter_markdown: ^0.6.10+5
 
   # todo linux support
   wakelock: ^0.6.2
@@ -59,7 +59,7 @@ dependencies:
 
 
   # Desktop
-  file_selector: ^0.9.1
+  file_selector: ^0.9.2
   file_selector_windows: ^0.9.1+2
   file_selector_linux: ^0.9.0
   file_selector_macos: ^0.9.0+1
@@ -79,9 +79,10 @@ dev_dependencies:
 
   lint: ^1.10.0
 
-
   change_app_package_name: ^1.1.0
   flutter_native_splash: ^2.2.8
+
+  archive: ^3.3.1
 
 
 
