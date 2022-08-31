@@ -24,7 +24,7 @@ dependencies:
 
   flutter_svg: ^1.1.4
   google_fonts: ^3.0.1
-  intro_slider: 3.0.3
+  intro_slider: ^3.0.10
   responsive_framework: ^0.2.0
 
   qr_flutter: ^4.0.0
