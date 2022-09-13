@@ -28,7 +28,7 @@ dependencies:
   responsive_framework: ^0.2.0
 
   qr_flutter: ^4.0.0
-  flutter_markdown: ^0.6.10+5
+  flutter_markdown: ^0.6.11
 
   # todo linux support
   wakelock: ^0.6.2
