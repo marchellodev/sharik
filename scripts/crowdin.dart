@@ -15,12 +15,49 @@ String getToken() => Platform.environment['TOKEN']!;
 
 void main() async {
   await clearCurrentTranslations();
-  final id = await buildProjectTranslations();
-  // const id = 40;
-  await applyProjectTranslations(id);
+  // final id = await buildTranslations();
+  const id = 48;
+  await applyTranslationsArb(id);
+
+  // running 'flutter clean' & 'flutter pub get'
+  await Process.run('flutter', ['clean']);
+  await Process.run('flutter', ['pub', 'get']);
+
+  await updateLanguageConfig();
 }
 
-Future<int> buildProjectTranslations() async {
+Future<void> updateLanguageConfig() async {
+  var code =
+      '/// GENERATED USING scripts/crowdin.dart | DO NOT EDIT MANUALLY\n\n';
+
+  // imports
+  // import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
+
+  final files = Directory('.dart_tool/flutter_gen/gen_l10n').listSync();
+  for (final file in files) {
+    final name = file.path.split('/').last;
+    code += "import 'package:flutter_gen/gen_l10n/$name';\n";
+  }
+
+  File('lib/gen/languages.dart').writeAsStringSync(code);
+}
+
+Future<void> clearCurrentTranslations() async {
+  final dir = Directory('locales');
+  final files = await dir.list().toList();
+
+  for (final file in files) {
+    if (file.path.contains('app_en.arb')) {
+      continue;
+    }
+
+    await file.delete();
+  }
+
+  print('current translations cleared');
+}
+
+Future<int> buildTranslations() async {
   final buildReq = await http.post(
     Uri.parse('$apiUrl/translations/builds'),
     body: jsonEncode({}),
@@ -56,7 +93,7 @@ Future<int> buildProjectTranslations() async {
 }
 
 // todo it would be cool to display diff [for changelog] after applying translations
-Future<void> applyProjectTranslations(int buildId) async {
+Future<void> applyTranslationsArb(int buildId) async {
   print('downloading project translations (id $buildId)');
 
   final buildDownload = await http.get(
@@ -108,19 +145,4 @@ Future<void> applyProjectTranslations(int buildId) async {
 
   // not deleting this empty file causes a build error
   File('locales/app_tlh.arb').deleteSync();
-}
-
-Future<void> clearCurrentTranslations() async {
-  final dir = Directory('locales');
-  final files = await dir.list().toList();
-
-  for (final file in files) {
-    if (file.path.contains('app_en.arb')) {
-      continue;
-    }
-
-    await file.delete();
-  }
-
-  print('current translations cleared');
 }

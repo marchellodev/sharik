@@ -79,6 +79,10 @@ def populate_arb():
     for file in files:
         # remove @@locale and write files
         contents = open(file, 'r').read()
+        print('name: ' + file)
+        # translations/pt-BR/pt_BR.arb
+        # translations/fr/fr_FR.arb
+
         name = file.split('/')[-2]
         name = name.replace('-', '_')
         contents = contents.replace('"@@locale": "en",', '')
@@ -185,7 +189,7 @@ def save_metadata_for_marketplaces():
 
 # todo make sure the directory is scripts/
 DIR = "translations/"
-# download_translations(DIR)
-# populate_arb()
-write_contributors()
+download_translations(DIR)
+populate_arb()
+# write_contributors()
 # shutil.rmtree(DIR)

@@ -155,6 +155,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  color:
+    dependency: "direct dev"
+    description:
+      name: color
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   convert:
     dependency: transitive
     description:
@@ -892,7 +899,7 @@ packages:
     source: hosted
     version: "0.2.0+2"
   xml:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: xml
       url: "https://pub.dartlang.org"
