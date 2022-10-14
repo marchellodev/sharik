@@ -7,6 +7,7 @@ import 'package:color/color.dart';
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 
+// this script create the '_tmp_flags' folder. crowdin script is expected to clean it up
 // flags should be 80% translucent
 
 // todo: flags with gradient are not supported:
@@ -39,8 +40,7 @@ Future<void> processAll() async {
     print('processing ${file.path.split('/').last}');
 
     final processed = await processSingle(contents);
-    await File(file.path.replaceAll('.svg', '_new.svg'))
-        .writeAsString(processed);
+    await File(file.path).writeAsString(processed);
     // break;
   }
 }
@@ -74,12 +74,10 @@ Future<String> processSingle(String svg) async {
 
   // find all colors
   for (final el in els) {
-
     // making default blacks explicit
-    if(el.name.toString() == 'svg' && el.getAttribute('fill') == null){
+    if (el.name.toString() == 'svg' && el.getAttribute('fill') == null) {
       el.setAttribute('fill', '000');
     }
-
 
     for (final attr in svgColorAttributes) {
       final attrValue = el.getAttribute(attr);
@@ -98,8 +96,7 @@ Future<String> processSingle(String svg) async {
   var merges = 0;
   // merging colors
   while (colors.map((e) => e.color).toSet().length > 5) {
-    final distanceMap =
-        <MapEntry<Color, Color>, double>{};
+    final distanceMap = <MapEntry<Color, Color>, double>{};
 
     // different formats ==
     final uniqueColors = colors.map((e) => e.color).toSet().toList();
@@ -114,8 +111,7 @@ Future<String> processSingle(String svg) async {
       }
     }
 
-    final sortedDistanceMap =
-        SplayTreeMap<MapEntry<Color, Color>, double>.from(
+    final sortedDistanceMap = SplayTreeMap<MapEntry<Color, Color>, double>.from(
       distanceMap,
       (key1, key2) => distanceMap[key1]!.compareTo(distanceMap[key2]!),
     );
@@ -126,8 +122,8 @@ Future<String> processSingle(String svg) async {
     final b = toMerge.key.value;
     final average = _averageColor(a, b);
 
-    for(final color in colors){
-      if(color.color == a || color.color == b){
+    for (final color in colors) {
+      if (color.color == a || color.color == b) {
         color.color = average;
       }
     }
@@ -153,28 +149,32 @@ Future<String> processSingle(String svg) async {
 
   // ordering them by lightness
   // l: -100: black; 100: white
-  final distinctColorsLightnessMap = distinctColors.map((e) => MapEntry(e, e.toCielabColor().l)).toList()..sort((a, b) => b.value.compareTo(a.value));
-  final distinctColorsByLightness = distinctColorsLightnessMap.map((e) => e.key).toList();
+  final distinctColorsLightnessMap = distinctColors
+      .map((e) => MapEntry(e, e.toCielabColor().l))
+      .toList()
+    ..sort((a, b) => b.value.compareTo(a.value));
+  final distinctColorsByLightness =
+      distinctColorsLightnessMap.map((e) => e.key).toList();
 
-  for(final color in colors){
+  for (final color in colors) {
     var index = distinctColorsByLightness.indexOf(color.color.toHexColor());
 
-    if(distinctColorsByLightness.length == 2){
-      if(index == 1){
+    if (distinctColorsByLightness.length == 2) {
+      if (index == 1) {
         index = 4;
-       }
-    } else if(distinctColorsByLightness.length == 3){
-      if(index == 1){
+      }
+    } else if (distinctColorsByLightness.length == 3) {
+      if (index == 1) {
         index = 2;
       }
-      if(index == 2){
+      if (index == 2) {
         index = 4;
       }
-    } else if(distinctColorsByLightness.length == 4){
-      if(index == 2){
+    } else if (distinctColorsByLightness.length == 4) {
+      if (index == 2) {
         index = 3;
       }
-      if(index == 3){
+      if (index == 3) {
         index = 4;
       }
     }
@@ -184,7 +184,6 @@ Future<String> processSingle(String svg) async {
   }
 
   // print(distinctColorsByLightness);
-
 
   // apply the colors
   for (final el in els) {

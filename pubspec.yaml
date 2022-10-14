@@ -101,6 +101,7 @@ flutter:
     - assets/
     - assets/slides/
     - assets/flags/
+    - assets/flags_gen/
     - google_fonts/Andika/
     - google_fonts/Comfortaa/
     - google_fonts/JetBrains/

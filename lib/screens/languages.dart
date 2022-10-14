@@ -8,6 +8,7 @@ import '../components/grid_view.dart';
 import '../components/logo.dart';
 import '../components/page_router.dart';
 import '../conf.dart';
+import '../gen/languages.dart';
 import '../logic/language.dart';
 
 // review: done
@@ -72,13 +73,13 @@ class LanguagePickerScreen extends StatelessWidget {
                     primary: false,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: languageList.length,
+                    itemCount: languageListGen.length,
                     itemBuilder: (BuildContext context, int index) =>
-                        LanguageButton(languageList[index], () {
+                        LanguageButton(languageListGen[index], () {
                       final set = context.read<LanguageManager>().isLanguageSet;
 
                       context.read<LanguageManager>().language =
-                          languageList[index];
+                          languageListGen[index];
 
                       if (set) {
                         SharikRouter.navigateTo(
@@ -119,8 +120,12 @@ class LanguageButton extends StatelessWidget {
         text: _language.nameLocal,
         secondaryIcon: Opacity(
           opacity: 0.4,
-          child: SvgPicture.asset(
-            'assets/flags/${_language.name}.svg',
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: SvgPicture.asset(
+              'assets/flags_gen/${_language.localizations.s_flag}.svg',
+              height: 50,
+            ),
           ),
         ),
         font: _language.localizations.fontAndika,

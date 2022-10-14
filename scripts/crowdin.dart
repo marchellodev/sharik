@@ -14,30 +14,81 @@ String getToken() => Platform.environment['TOKEN']!;
 // - translations for stores & f-droid
 
 void main() async {
-  await clearCurrentTranslations();
-  // final id = await buildTranslations();
-  const id = 48;
-  await applyTranslationsArb(id);
-
-  // running 'flutter clean' & 'flutter pub get'
-  await Process.run('flutter', ['clean']);
-  await Process.run('flutter', ['pub', 'get']);
+  /* await clearCurrentTranslations(); */
+  /* final id = await buildTranslations(); */
+  /* // const id = 48; */
+  /* await applyTranslationsArb(id); */
+  /**/
+  /* // running 'flutter clean' & 'flutter pub get' */
+  /* await Process.run('flutter', ['clean']); */
+  /* await Process.run('flutter', ['pub', 'get']); */
 
   await updateLanguageConfig();
+  await updateLanguageFlags();
+}
+
+Future<void> updateLanguageFlags() async {
+  final files = Directory('locales').listSync();
+
+  final flags = <String>{};
+
+  for (final file in files) {
+    final contents = File(file.path).readAsStringSync();
+    final json = jsonDecode(contents) as Map;
+    final flag = json['s_flag'] as String?;
+
+    if (flag != null) {
+      flags.add(flag);
+    }
+  }
+
+  final flagFiles = Directory('_tmp_flags').listSync();
+  for (final flag in flagFiles) {
+    final name = flag.path.split('/').last.split('.').first;
+
+    // print('$name');
+    if (flags.contains(name)) {
+      print('adding $name');
+      final contents = File(flag.path).readAsStringSync();
+
+      final file = File('assets/flags_gen/$name.svg');
+
+      file.createSync(recursive: true);
+      file.writeAsStringSync(contents);
+    }
+  }
 }
 
 Future<void> updateLanguageConfig() async {
   var code =
       '/// GENERATED USING scripts/crowdin.dart | DO NOT EDIT MANUALLY\n\n';
 
-  // imports
-  // import 'package:flutter_gen/gen_l10n/app_localizations_zh.dart';
-
   final files = Directory('.dart_tool/flutter_gen/gen_l10n').listSync();
+  final languageObjects = [];
+
   for (final file in files) {
     final name = file.path.split('/').last;
     code += "import 'package:flutter_gen/gen_l10n/$name';\n";
+
+    // composing language objects
+    languageObjects.add("""
+      Language(
+        // 1.3 billion (400+700)
+        name: 'english',
+        nameLocal: 'English',
+        locale: const Locale('en'),
+        localizations: AppLocalizationsEn(),
+      ),\n""");
   }
+
+  code += "import 'package:flutter/material.dart';\n";
+  code += "import '../logic/language.dart';\n";
+
+  code += '\n\n';
+
+  code += 'List<Language> get languageListGen => [\n';
+  code += languageObjects.join();
+  code += '\n];\n';
 
   File('lib/gen/languages.dart').writeAsStringSync(code);
 }

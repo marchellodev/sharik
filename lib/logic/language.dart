@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 
-import '../conf.dart';
+import '../gen/languages.dart';
 
 class Language {
   final String name;
@@ -25,7 +25,7 @@ class Language {
 // todo review ChangeNotifier
 class LanguageManager extends ChangeNotifier {
   Language _language =
-      languageList.firstWhere((element) => element.name == 'english');
+      languageListGen.firstWhere((element) => element.name == 'english');
 
   bool _languageSet = false;
 
@@ -44,7 +44,7 @@ class LanguageManager extends ChangeNotifier {
     final l = Hive.box<String>('strings').get('language', defaultValue: null);
 
     if (l != null) {
-      _language = languageList.firstWhere((element) => element.name == l);
+      _language = languageListGen.firstWhere((element) => element.name == l);
       _languageSet = true;
       notifyListeners();
       return;
@@ -55,7 +55,7 @@ class LanguageManager extends ChangeNotifier {
 
     for (final locale in locales) {
       final language =
-          languageList.where((element) => element.locale == locale);
+          languageListGen.where((element) => element.locale == locale);
 
       if (language.isNotEmpty) {
         _language = language.first;
