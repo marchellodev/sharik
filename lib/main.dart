@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 import 'conf.dart';
+import 'gen/languages.dart';
 import 'logic/language.dart';
 import 'logic/theme.dart';
 import 'screens/loading.dart';
@@ -99,7 +100,7 @@ class SharikApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: languageList.map((e) => e.locale),
+        supportedLocales: languageListGen.map((e) => e.locale),
         title: 'Sharik',
         theme: ThemeData(
           splashFactory: MaterialInkSplash.splashFactory,
