@@ -80,7 +80,7 @@ dev_dependencies:
   lint: ^1.10.0
 
   change_app_package_name: ^1.1.0
-  flutter_native_splash: ^2.2.8
+  flutter_native_splash: ^2.2.16
 
   archive: ^3.3.1
   xml: ^6.1.0
